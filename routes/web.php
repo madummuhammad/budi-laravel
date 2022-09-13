@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BooktypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ReferencebookController;
+use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +33,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WebController::class, 'index']);
 Route::get('/book/{id}', [WebController::class, 'book']);
 
+Route::get('/contact', [WebController::class, 'contact']);
+
 // Book Type
 Route::get('/book_type/{id}', [WebController::class, 'book_type']);
+
+// Reference Book
+Route::get('/reference_book/{id}', [WebController::class, 'reference_book']);
+Route::get('/reference_book_detail/{id}', [WebController::class, 'reference_book_detail']);
 
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -44,6 +55,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/book', [BookController::class, 'index']);
         Route::post('/book', [BookController::class, 'add']);
         Route::delete('/book', [BookController::class, 'destroy']);
+
+        // Author
+        Route::get('/author', [AuthorController::class, 'index']);
+        Route::post('/author', [AuthorController::class, 'add']);
+        Route::delete('/author', [AuthorController::class, 'destroy']);
 
         // Theme
         Route::get('/theme', [ThemeController::class, 'index']);
@@ -60,7 +76,17 @@ Route::middleware('auth')->group(function () {
         Route::patch('/book_type/{id}', [BooktypeController::class, 'update']);
 
         // Reference Book
-        // Route::get('/reference_book/{id}')
+        Route::get('/reference_book/{id}', [ReferencebookController::class, 'index']);
+        Route::post('/reference_book/{id}', [ReferencebookController::class, 'add']);
+        Route::delete('/reference_book/{id}', [ReferencebookController::class, 'destroy']);
+
+        // Reference Book Type
+        Route::patch('/reference_book_type/{id}', [ReferencebooktypeController::class, 'update']);
+
+        // Artikel
+        Route::get('/artikel', [ArticleController::class, 'index']);
+
+        Route::get('/berita', [NewsController::class, 'index']);
 
     });
 

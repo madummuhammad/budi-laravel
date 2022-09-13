@@ -194,12 +194,16 @@
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Buku
                                     Referensi</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="./email-compose.html">Buku Bacaan</a></li>
-                                    <li><a href="./email-inbox.html">Buku Video</a></li>
+                                    <li><a
+                                            href="{{ url('dashboard/reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Buku
+                                            Bacaan</a></li>
+                                    <li><a
+                                            href="{{ url('dashboard/reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">Buku
+                                            Video</a></li>
                                 </ul>
                             </li>
                             <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
-                            <li><a href="./app-profile.html">Author</a></li>
+                            <li><a href="{{ url('dashboard/author') }}">Author</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Website</li>
@@ -219,6 +223,15 @@
                             </li>
                             <li><a href="{{ url('dashboard/book_type/bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') }}">Buku
                                     Video</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-app-store"></i><span class="nav-text">Blog</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('dashboard/artikel') }}">Artikel</a>
+                            </li>
+                            <li><a href="{{ url('dashboard/berita') }}">Berita</a>
                             </li>
                         </ul>
                     </li>

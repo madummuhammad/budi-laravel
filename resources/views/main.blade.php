@@ -53,10 +53,11 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('pustakaku') }}">Pustakaku</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link active" aria-current="page" href="referensi_buku.html">Referensi</a>
+                        <a class="nav-link active" aria-current="page"
+                            href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link active" aria-current="page" href="kontak_kami.html">Kontak Kami</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
                     </li>
                     </li>
                 </ul>

@@ -1,3 +1,15 @@
-.label-upload-custom{
-    /* background-color: red; */
+.img-container-for-icon {
+  position: relative;
+}
+.img-container-for-icon .icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  top: calc(50% - 20px);
+  left: calc(25% - 20px);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
 }

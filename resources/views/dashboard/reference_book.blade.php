@@ -22,22 +22,100 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Daftar Buku</h4>
+                            <h4 class="card-title">Referensi {{ $reference_book_types->name }}</h4>
                         </div>
                         <div class="card-body">
-                            <a href="#tambahbuku" data-toggle="modal" class="btn btn-primary mb-3">Tambah Buku</a>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="text-center">Banner</h4>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn badge badge-success mb-2" data-toggle="modal"
+                                                    data-target="#edit-banner"><i class="bi bi-pencil-square"></i></button>
+                                                <div class="modal fade" id="edit-banner" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Banner
+                                                                </h5>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal"><span>&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form
+                                                                action="{{ url('dashboard/reference_book_type/') . '/' . $reference_book_types->id }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                <div class="modal-body">
+                                                                    @method('patch')
+                                                                    @csrf
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="exampleInputEmail1">Tagline</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="exampleInputEmail1"
+                                                                                    aria-describedby="emailHelp"
+                                                                                    name="tagline">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Gambar
+                                                                                    Banner</label><br>
+                                                                                <input type="file" class="form-control"
+                                                                                    id="cover-buku"
+                                                                                    aria-describedby="emailHelp" hidden
+                                                                                    name="image">
+                                                                                <label for="cover-buku"
+                                                                                    class="label-upload-custom btn btn-secondary">Pilih
+                                                                                    File</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Tutup</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Kirim</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img class="img-fluid" src="{{ $reference_book_types->banner }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Daftar Referensi {{ $reference_book_types->name }} </h4>
+                        </div>
+                        <div class="card-body">
+                            <a href="#tambahbuku" data-toggle="modal" class="btn btn-primary mb-3">Tambah Referensi
+                                {{ $reference_book_types->name }}</a>
                             <!-- Modal -->
                             <div class="modal fade" id="tambahbuku" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Buku</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Referensi
+                                                {{ $reference_book_types->name }}</h5>
                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ url('dashboard/book') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form action="{{ url('dashboard/reference_book') }}/{{ $reference_book_types->id }}"
+                                            method="POST" enctype="multipart/form-data">
                                             <div class="modal-body">
                                                 @method('POST')
                                                 @csrf
@@ -65,7 +143,8 @@
                                                             <select class="single-select" name="theme">
                                                                 <option selected disabled>--Pilih Tema--</option>
                                                                 @foreach ($themes as $theme)
-                                                                    <option value="{{ $theme->id }}">{{ $theme->name }}
+                                                                    <option value="{{ $theme->id }}">
+                                                                        {{ $theme->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -81,26 +160,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Jenis Buku</label><br>
-                                                            {{-- <select class="single-select" id="jenis_buku" name="book_type">
-                                                                <option selected disabled>--Pilih Jenis Buku--</option>
-                                                                @foreach ($book_types as $book_type)
-                                                                    <option value="{{ $book_type->id }}">
-                                                                        {{ $book_type->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select> --}}
-                                                            @foreach ($book_types as $book_type)
-                                                                <div class="form-check form-check-inline ">
-                                                                    <input class="form-check-input book_type" type="radio"
-                                                                        id="book_type{{ $book_type->id }}"
-                                                                        value="{{ $book_type->id }}" name="book_type">
-                                                                    <label class="form-check-label"
-                                                                        for="book_type{{ $book_type->id }}">{{ $book_type->name }}</label>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Jenjang</label>
                                                             <select class="single-select" name="level">
@@ -125,31 +184,38 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Cover Buku</label><br>
-                                                            <input type="file" class="form-control" id="cover-buku"
-                                                                aria-describedby="emailHelp" hidden name="cover">
-                                                            <label for="cover-buku"
+                                                            <input type="file" class="form-control" id="cover"
+                                                                aria-describedby="emailHelp" name="cover" hidden>
+                                                            <label for="cover"
                                                                 class="label-upload-custom btn btn-secondary">Pilih
                                                                 File</label>
                                                         </div>
-                                                        <div id="file">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">File PDF</label><br>
-                                                                <input type="file" class="form-control" id="content-buku"
-                                                                    aria-describedby="emailHelp" hidden name="content">
-                                                                <label for="content-buku"
-                                                                    class="label-upload-custom btn btn-secondary">Pilih
-                                                                    File PDF</label>
+                                                        @if ($reference_book_types->id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264')
+                                                            <div id="file">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">PDF</label><br>
+                                                                    <input type="file" class="form-control"
+                                                                        id="content-buku" aria-describedby="emailHelp"
+                                                                        hidden name="content">
+                                                                    <label for="content-buku"
+                                                                        class="label-upload-custom btn btn-secondary">Pilih
+                                                                        File PDF</label>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="check1" value="1"
-                                                                    name="display_homepage">
-                                                                <label class="form-check-label" for="check1">Tampilkan
-                                                                    di homepage?</label>
+                                                        @endif
+                                                        @if ($reference_book_types->id == '220843b8-4f60-4e47-9aca-cf6ea0d54afe')
+                                                            <div id="file">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Video</label><br>
+                                                                    <input type="file" class="form-control"
+                                                                        id="content-buku" aria-describedby="emailHelp"
+                                                                        hidden name="video">
+                                                                    <label for="content-buku"
+                                                                        class="label-upload-custom btn btn-secondary">Pilih
+                                                                        Video</label>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,17 +230,6 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row d-flex justify-content-end filter">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>Jenis Buku</label>
-                                            <select class="form-control jenis_kelamin" name="">
-                                                <option>-- Pilih --</option>
-                                                @foreach ($book_types as $book_type)
-                                                    <option value="{{ $book_type->id }}">{{ $book_type->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label>Tema</label>
@@ -206,7 +261,6 @@
                                             <th>No</th>
                                             <th>Cover</th>
                                             <th>Judul</th>
-                                            <th>Jenis Buku</th>
                                             <th>Tema</th>
                                             <th>Jenjang</th>
                                             <th>Action</th>
@@ -226,13 +280,7 @@
                                                     <div class="img-container-for-icon">
                                                         <img src="{{ $book->cover }}" class="img-fluid w-50"
                                                             alt="">
-                                                        @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                                            <div class="icon">
-                                                                <img src="{{ asset('web') }}/assets/icon/mic.svg"
-                                                                    alt="">
-                                                            </div>
-                                                        @endif
-                                                        @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                        @if ($book->reference_book_type == '220843b8-4f60-4e47-9aca-cf6ea0d54afe')
                                                             <div class="icon">
                                                                 <img src="{{ asset('web') }}/assets/icon/play.svg"
                                                                     alt="">
@@ -241,9 +289,6 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $book->name }}</td>
-                                                @foreach ($book->book_types as $book_type)
-                                                    <td>{{ $book_type->name }}</td>
-                                                @endforeach
                                                 @foreach ($book->themes as $theme)
                                                     <td>{{ $theme->name }}</td>
                                                 @endforeach
@@ -268,7 +313,8 @@
                                                                     <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
                                                                 </div>
                                                                 <div class="modal-footer pt-0 pb-1 border-0">
-                                                                    <form action="{{ url('dashboard/book') }}"
+                                                                    <form
+                                                                        action="{{ url('dashboard/reference_book/') . '/' . $book->reference_book_type }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('delete')
