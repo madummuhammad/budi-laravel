@@ -555,6 +555,13 @@ body.registrasi {
 .card-news .card-body .card-title {
   font-size: 16px;
 }
+.card-news .card-body .card-text {
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 4;
+-webkit-box-orient: vertical;
+}
 
 #section-10 .dash {
   height: 1px;

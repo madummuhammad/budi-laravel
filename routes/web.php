@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BooktypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\ThemeController;
@@ -42,6 +41,9 @@ Route::get('/book_type/{id}', [WebController::class, 'book_type']);
 Route::get('/reference_book/{id}', [WebController::class, 'reference_book']);
 Route::get('/reference_book_detail/{id}', [WebController::class, 'reference_book_detail']);
 
+// Blog
+Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
+
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
 
@@ -70,6 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/homepage', [HomepageController::class, 'index']);
         Route::post('/homepage/banner', [BannerController::class, 'add']);
         Route::delete('/homepage/banner', [BannerController::class, 'destroy']);
+        Route::patch('/homepage/book_of_the_month', [HomepageController::class, 'book_of_the_month']);
 
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);
@@ -84,9 +87,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/reference_book_type/{id}', [ReferencebooktypeController::class, 'update']);
 
         // Artikel
-        Route::get('/artikel', [ArticleController::class, 'index']);
-
-        Route::get('/berita', [NewsController::class, 'index']);
+        Route::get('/blog/{id}', [BlogController::class, 'index']);
+        Route::delete('/blog/{id}/create', [BlogController::class, 'destroy']);
+        Route::get('/blog/{id}/create', [BlogController::class, 'create']);
+        Route::post('/blog/{id}/create', [BlogController::class, 'store']);
 
     });
 

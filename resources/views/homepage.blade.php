@@ -155,7 +155,7 @@
             <p class="text-center mt-2">Kapan pun & Di mana pun</p>
         </div>
     </div>
-    <section id="section-2" class="mt-5">
+    {{-- <section id="section-2" class="mt-5">
         <div class="header d-flex justify-content-between">
             <h2 class="fw-bold fs-3">Lanjutkan yuk, Febri</h2>
             <a href="pustakaku.html">Lihat Semua</a>
@@ -186,13 +186,13 @@
                 <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/5.png" alt="">
             </div>
         </div>
-    </section>
+    </section> --}}
     </div>
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         <div class="row pt-3 px-5">
             <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
         </div>
-    </div>
+    </div> --}}
     <div class="container">
         <div id="section-3" class="mt-5">
             <div class="row">
@@ -217,62 +217,38 @@
         <div id="section-4" class="mt-5">
             <div class="row">
                 <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <p class="fw-600 fs-6">Ramuan Sehat Ala Rita dan Lasi</p>
-                            <p class="mt-3">Apa saja bahan-bahan dalam membuat jamu dan bagaimana cara mengolahnya?
-                                Yuk,
-                                kita simak penjelasan
-                                tentang jamu oleh Lite dan Rasi di buku ini!</p>
-                            <div class="mt-5">
-                                <p><span class="fw-bold">Pengarang : </span>Febyasti Davela R</p>
-                                <p><span class="fw-bold">Rating : </span><img
-                                        src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
+                @foreach ($book_of_the_months as $botm)
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="fw-600 fs-6">{{ $botm->books->name }}</p>
+                                <p class="mt-3">
+                                    @php
+                                        echo $botm->books->name;
+                                    @endphp
                                 </p>
+                                <div class="mt-5">
+                                    @foreach ($botm->books->authors as $author)
+                                        <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
+                                    @endforeach
+                                    <p><span class="fw-bold">Rating : </span><img
+                                            src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
+                                    </p>
+                                </div>
+                                <a href="{{ url('/book') }}/{{ $botm->books->id }}" class="text-blue">Lihat Buku</a>
                             </div>
-                            <a href="ramuan_sehat_ala_lita_dan_rasi.html" class="text-blue">Lihat Buku</a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card border-0 shadow">
-                                <div class="card-body">
-                                    <a href="ramuan_sehat_ala_lita_dan_rasi.html">
-
-                                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/buku_pilihan/1.jpg"
-                                            alt="">
-                                    </a>
+                            <div class="col-lg-6">
+                                <div class="card border-0 shadow">
+                                    <div class="card-body">
+                                        <a href="{{ url('/book') }}/{{ $botm->books->id }}">
+                                            <img class="img-fluid w-100" src="{{ $botm->books->cover }}" alt="">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <p class="fw-600 fs-6">Alia Juga Berani</p>
-                            <p class="mt-3">Alia takut lupa lagunya. Tubuhnya gemetar ketika ibu guru memanggilnya
-                                untuk bernyanyi. Namun,
-                                ada sesuatu yang membuat Alia jadi berani menyanyi. </p>
-                            <div class="mt-5">
-                                <p><span class="fw-bold">Pengarang : </span>Liza Erfiana</p>
-                                <p><span class="fw-bold">Rating : </span><img
-                                        src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
-                                </p>
-                            </div>
-                            <a href="alia_juga_berani.html" class="text-blue">Lihat Buku</a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card border-0 shadow">
-                                <div class="card-body">
-                                    <a href="alia_juga_berani.html">
-                                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/buku_pilihan/2.jpg"
-                                            alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <div id="section-5" style="margin-top: 100px;">
@@ -297,53 +273,55 @@
     </div>
     <div id="section-6" class="mt-5">
         <div class="container text-white">
-            <div class="row py-5">
-                <div class="col-6 pb-5 me-5">
-                    <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
-                    <div class="d-flex justify-content-center">
-                        <img class="img" src="{{ asset('web') }}/assets/img/buku_audio/aku_sayang_ayah.jpg"
-                            alt="">
-                    </div>
-                    <div class="audio-player" data-audio="{{ asset('web') }}/assets/img/buku_audio/aku_sayang_ayah.mp3"
-                        style="margin-top: 10px">
-                        <div class="controls">
-                            <div class="play-container">
-                                <div class="toggle-play toggle-play-2 play">
+            @foreach ($audio_book_homepages as $abh)
+                <div class="row py-5">
+                    <div class="col-6 pb-5 me-5">
+                        <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
+                        <div class="d-flex justify-content-center">
+                            <img class="img" src="{{ $abh->books->cover }}" alt="">
+                        </div>
+                        <div class="audio-player" data-audio="{{ asset('storage') }}/{{ $abh->books->content }}"
+                            style="margin-top: 10px">
+                            <div class="controls">
+                                <div class="play-container">
+                                    <div class="toggle-play toggle-play-2 play">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="timeline d-flex justify-content-start border-0
+                                <div class="timeline d-flex justify-content-start border-0
 									style=" height: 100px;
-                                width: 90%;">
-                                <div class="progress" style="background-color: #2B388B;"></div>
-                            </div>
-                            <div class="volume-container">
-                                <div class="volume-button">
-                                    <div class="volume icono-volumeMedium"></div>
+                                    width: 90%;">
+                                    <div class="progress" style="background-color: #2B388B;"></div>
                                 </div>
+                                <div class="volume-container">
+                                    <div class="volume-button">
+                                        <div class="volume icono-volumeMedium"></div>
+                                    </div>
 
-                                <div class="volume-slider">
-                                    <div class="volume-percentage"></div>
+                                    <div class="volume-slider">
+                                        <div class="volume-percentage"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="time" style="display: none;">
-                                <div class="current">0:00</div>
-                                <div class="divider">/</div>
-                                <div class="length"></div>
+                                <div class="time" style="display: none;">
+                                    <div class="current">0:00</div>
+                                    <div class="divider">/</div>
+                                    <div class="length"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-5 pb-5">
+                        <a href="buku_audio.html" class="text-white">Lihat semua Buku Audio</a>
+                        <h2 class="ff-kidzone fs-48px">{{ $abh->books->name }}</h2>
+                        @php
+                            echo $abh->books->sinopsis;
+                        @endphp
+                        @foreach ($abh->books->authors as $author)
+                            <p class="fw-bold">Pengarang : {{ $author->name }}</p>
+                        @endforeach
+                        <p><span class="fw-bold">Rating : </span> 4.9</p>
+                    </div>
                 </div>
-                <div class="col-5 pb-5">
-                    <a href="buku_audio.html" class="text-white">Lihat semua Buku Audio</a>
-                    <h2 class="ff-kidzone fs-48px">Aku Sayang Ayah</h2>
-                    <p>Namaku Nara. Aku sangat sayang ayahku. Ayah lucu, baik, dan selalu menolongku. Jika aku
-                        sedih, ayah
-                        menghiburku. Jika aku sendiri, ayah menemaniku. Ah, banyak sekali kebaikan ayah. Aku sayang
-                        ayahku.</p>
-                    <p class="fw-bold">Pengarang : Nurani Widaningsih</p>
-                    <p><span class="fw-bold">Rating : </span> 4.9</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <section id="section-7">
@@ -442,77 +420,24 @@
                 <a href="info_seputar_budi.html" class="text-blue">Lihat Semua</a>
             </div>
             <div class="row row-cols-4 mt-4">
-                <div class="col">
-                    <a href="kenalkan_kemahiran_merujuk.html" class="text-decoration-none text-dark">
-                        <div class="card card-news">
-                            <img src="{{ asset('web') }}/assets/img/news1.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h5 class="card-title fw-bold">Kenalkan Kemahiran Merujuk, Badan Bahasa
-                                    Selenggarakan
-                                    Kegiatan
-                                    Kamus Masuk Sekolah
-                                </h5>
-                                <p class="card-text">Dalam rangka mengenalkan kemahiran merujuk (reference skill)
-                                    kepada
-                                    siswa sekolah dasar dan
-                                    menengah...</p>
+                @foreach ($blogs as $blog)
+                    <div class="col">
+                        <a href="{{ url('blog/detail/') . '/' . $blog->id }}" class="text-decoration-none text-dark">
+                            <div class="card card-news">
+                                <img src="{{ $blog->cover }}" class="card-img-top" alt="...">
+                                <div class="card-body px-0">
+                                    <h5 class="card-title fw-bold">{{ $blog->name }}
+                                    </h5>
+                                    <div class="card-text">
+                                        @php
+                                            echo $blog->content;
+                                        @endphp
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="kerjasama_peningkatan.html" class="text-decoration-none text-dark">
-                        <div class="card card-news">
-                            <img src="{{ asset('web') }}/assets/img/berita/kerjasama_peningkatan_literasi.jpeg"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h5 class="card-title fw-bold">Kerja Sama untuk Peningkatan Literasi dan
-                                    Revitalisasi Bahasa
-                                    Daerah di Sulawesi Selatan
-                                </h5>
-                                <p class="card-text"> Badan Pengembangan dan Pembinaan Bahasa menjalin kerja sama
-                                    dengan
-                                    Pemerintah Kota...</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="penghargaan_humas_indonesia.html" class="text-decoration-none text-dark">
-                        <div class="card card-news">
-                            <img class="img-fluid"
-                                src="{{ asset('web') }}/assets/img/berita/penghargaan_humas_indonesia.jpg"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h5 class="card-title fw-bold">Penghargaan Humas Indonesia untuk Program
-                                    Revitalisasi
-                                    Bahasa
-                                    Daerah
-                                </h5>
-                                <p class="card-text">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi
-                                    menerima
-                                    penghargaan IDEAS 2022
-                                    kategori Kebijakan ...
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="seminat_leksikografi_indonesia.html" class="text-decoration-none text-dark">
-                        <div class="card card-news">
-                            <img src="{{ asset('web') }}/assets/img/berita/seminar_leksikografi_indonesia.png"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h5 class="card-title fw-bold">Seminar Leksikografi Indonesia Tahun 2022
-                                </h5>
-                                <p class="card-text">Dalam rangka memperkaya dan memutakhirkan kamus bahasa
-                                    Indoenesia, Badan Pengembangan dan
-                                    Pembinaan Bahasa melalui Pusat Pengembangan...</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

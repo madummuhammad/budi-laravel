@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Simple Tags Input EXAMPLE</title>
+        <link href="https://www.cssscript.com/demo/sticky.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/minty/bootstrap.min.css" />
+        <!-- Load the stylesheet -->
+        <link rel="stylesheet" href="src/simple-tag-input.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <label for="tagsList">Tags:</label>
+            <!-- Create an empty list to hold the tags -->
+            <ul id="tagsList"></ul>
+            <!-- Create a text field for the tags input -->
+            <input type="text" class="form-control" id="tagsInput" spellcheck="false" />
+            <span>Type Something and Hit ENTER or SPACE</span>
+        </div>
+        <!-- Load the main JavaScript -->
+        <script src="src/simple-tag-input.js"></script>
+        <script>
+            // options
+            let options = {
+                inputEl: "tagsInput",
+                listEl: "tagsList",
+                // enable the autocomplete
+            };
+
+            // initialize the tags input, DONE!
+            var tagsInputWithSearch = new simpleTagsInput(options);
+
+        </script>
+    </body>
+
+</html>

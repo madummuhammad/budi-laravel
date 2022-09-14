@@ -22,16 +22,32 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Artikel</h4>
+                            <h4 class="card-title">
+                                @if ($id == 'article')
+                                    Artikel
+                                @endif
+                                @if ($id == 'news')
+                                    Berita
+                                @endif
+                            </h4>
                         </div>
                         <div class="card-body">
-                            <a href="#tambahbuku" data-toggle="modal" class="btn btn-primary mb-3">Tulis Artikel</a>
+                            <a href="{{ url('dashboard/blog/') . '/' . $id . '/create' }}" class="btn btn-primary mb-3">Tulis
+                                @if ($id == 'article')
+                                    Artikel
+                                @endif
+                                @if ($id == 'news')
+                                    Berita
+                                @endif
+                            </a>
                             <div class="table-responsive">
                                 <table id="example" class="display" style="min-width: 845px">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
+                                            <th>Gambar Cover</th>
+                                            <th>Judul</th>
+                                            <th>Penulis</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -39,22 +55,22 @@
                                         @php
                                             $no = 0;
                                         @endphp
-                                        @foreach ($articles as $article)
+                                        @foreach ($blogs as $blog)
                                             @php
                                                 $no++;
                                             @endphp
                                             <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>
-                                                    <img src="{{ $article->cover }}" class="img-fluid w-50" alt="">
+                                                    <img src="{{ $blog->cover }}" class="img-fluid w-50" alt="">
                                                 </td>
-                                                <td>{{ $article->name }}</td>
-                                                <td>{{ $article->writer }}</td>
+                                                <td>{{ $blog->name }}</td>
+                                                <td>{{ $blog->writer }}</td>
                                                 <td>
                                                     <button class="btn badge badge-danger" data-toggle="modal"
-                                                        data-target="#hapus{{ $article->id }}"><i
+                                                        data-target="#hapus{{ $blog->id }}"><i
                                                             class="bi bi-trash3"></i></button>
-                                                    <div class="modal" tabindex="-1" id="hapus{{ $article->id }}">
+                                                    <div class="modal" tabindex="-1" id="hapus{{ $blog->id }}">
                                                         <div class="modal-dialog modal-dialog-centered modal-sm">
                                                             <div class="modal-content">
                                                                 <div class="modal-header border-0 py-0">
@@ -68,12 +84,13 @@
                                                                     <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
                                                                 </div>
                                                                 <div class="modal-footer pt-0 pb-1 border-0">
-                                                                    <form action="{{ url('dashboard/author') }}"
+                                                                    <form
+                                                                        action="{{ url('dashboard/blog/') . '/' . $id . '/create' }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('delete')
                                                                         <input type="text" name="id"
-                                                                            value="{{ $article->id }}" hidden>
+                                                                            value="{{ $blog->id }}" hidden>
                                                                         <button type="submit" class="btn badge-danger"><i
                                                                                 class="bi bi-trash3"></i></button>
                                                                     </form>
@@ -82,7 +99,7 @@
                                                         </div>
                                                     </div>
                                                     <button class="btn badge badge-primary" data-toggle="modal"
-                                                        data-target="#edit{{ $article->id }}"><i
+                                                        data-target="#edit{{ $blog->id }}"><i
                                                             class="bi bi-pencil-square"></i></button>
                                                 </td>
                                             </tr>

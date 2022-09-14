@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AudioBookHomepage;
 use App\Models\Banner;
+use App\Models\Blog;
 use App\Models\Book;
+use App\Models\BookOfTheMonth;
 use App\Models\Book_type;
 use App\Models\Level;
 use App\Models\ReferenceBook;
@@ -15,9 +18,12 @@ class WebController extends Controller
     public function index()
     {
         $data['levels'] = Level::all();
-        $data['books'] = Book::all();
+        $data['books'] = Book::where('display_homepage', 1)->get();
         $data['themes'] = Theme::all();
+        $data['blogs'] = Blog::where('display_homepage', 1)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
+        $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
+        $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         return view('homepage', $data);
     }
 
@@ -58,5 +64,13 @@ class WebController extends Controller
         $data['reference_book'] = ReferenceBook::with('authors', 'themes')->where('id', $id)->first();
 
         return view('reference_book_detail', $data);
+    }
+
+    public function blog_detail($id)
+    {
+        $data['total_article'] = Blog::where('blog_type', 'article')->count();
+        $data['total_news'] = Blog::where('blog_type', 'news')->count();
+        $data['blog'] = Blog::with('tags')->where('id', $id)->first();
+        return view('blog_detail', $data);
     }
 }

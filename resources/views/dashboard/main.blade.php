@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/vendor/select2/css/select2.min.css">
     <link href="{{ asset('assets') }}/vendor/summernote/summernote.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/vendor/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/css/custom.css" rel="stylesheet">
 
@@ -229,9 +230,9 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Blog</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('dashboard/artikel') }}">Artikel</a>
+                            <li><a href="{{ url('dashboard/blog/article') }}">Artikel</a>
                             </li>
-                            <li><a href="{{ url('dashboard/berita') }}">Berita</a>
+                            <li><a href="{{ url('dashboard/blog/news') }}">Berita</a>
                             </li>
                         </ul>
                     </li>
@@ -294,7 +295,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+                {{-- <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p> --}}
             </div>
         </div>
         <!--**********************************
@@ -357,6 +358,8 @@
     <script src="{{ asset('assets') }}/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->
     <script src="{{ asset('assets') }}/js/plugins-init/summernote-init.js"></script>
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 
     <script src="{{ asset('assets') }}/js/script.js"></script>
 
