@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/book', [BookController::class, 'index']);
         Route::post('/book', [BookController::class, 'add']);
         Route::delete('/book', [BookController::class, 'destroy']);
+        Route::post('/book_filter', [BookController::class, 'book_filter']);
 
         // Author
         Route::get('/author', [AuthorController::class, 'index']);

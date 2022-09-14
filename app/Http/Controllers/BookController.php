@@ -24,9 +24,33 @@ class BookController extends Controller
         $data['book_types'] = Book_type::all();
         $data['levels'] = Level::all();
         $data['languages'] = Language::all();
-
-        // return $data['books'];
         return view('dashboard.book', $data);
+    }
+
+    public function book_filter()
+    {
+        if (request('book_type') == null and request('theme') == null and request('level') == null) {
+            $data['books'] = Book::with('authors', 'book_pdfs', 'book_types')->get();
+        } else {
+            $queryData = $data['books'] = Book::with('authors', 'book_pdfs', 'book_types');
+            if (request('book_type') !== null) {
+                $query = $queryData->where('book_type', request('book_type'));
+            }
+            if (request('theme') !== null) {
+                $query = $queryData->where('theme', request('theme'));
+            }
+
+            if (request('level') !== null) {
+                $query = $queryData->where('level', request('level'));
+            }
+            $data['books'] = $query->get();
+        }
+        $data['authors'] = Author::all();
+        $data['themes'] = Theme::all();
+        $data['book_types'] = Book_type::all();
+        $data['levels'] = Level::all();
+        $data['languages'] = Language::all();
+        return view('dashboard.bookfilter', $data);
     }
 
     public function table()
