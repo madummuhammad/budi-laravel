@@ -25,7 +25,14 @@
                 </div>
             </div>
             <div class="author my-5">
-                <div>Oleh: {{ $blog->writer }}</div>
+                <div>Oleh: @if ($blog->writer !== null)
+                        @foreach ($blog->writers as $writer)
+                            {{ $writer->name }}
+                        @endforeach
+                    @else
+                        {{ $blog->uploader }}
+                    @endif
+                </div>
                 <div>{{ $blog->uploaded_at }}</div>
                 <div><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt=""> 100</div>
                 <div><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100</div>
@@ -62,28 +69,32 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="row mt-5">
-                    <div class="col-7">
-                        <div class="dash mb-3"></div>
-                        <div class="row">
-                            <div class="col-3">
-                                <img src="assets/img/ilham_sailar.png" alt="">
-                            </div>
-                            <div class="col-9">
-                                <div class="d-flex justify-content-between">
-                                    <h4 class="fw-bold">Ilham Sailar</h4>
-                                    <div class="d-flex">
-                                        <img class="w-25 mx-2" src="assets/icon/instagram.svg" alt="">
-                                        <img class="w-25 mx-2" src="assets/icon/twitter.svg" alt="">
-                                    </div>
+                @foreach ($blog->writers as $writer)
+                    <div class="row mt-5">
+                        <div class="col-7">
+                            <div class="dash mb-3"></div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="{{ $writer->image }}" alt="">
                                 </div>
-                                <p class="mt-4 pe-5">Merupakan penulis produktif yang berfokus pada aspek pendidikan
-                                    literasi di
-                                    tingkat sekolah dasar. Penulis sudah menerbitkan 3 buku dan 4 jurnal ilmiah</p>
+                                <div class="col-9">
+                                    <div class="d-flex justify-content-between">
+                                        <h4 class="fw-bold">{{ $writer->name }}</h4>
+                                        <div class="d-flex">
+                                            <img class="w-25 mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg"
+                                                alt="">
+                                            <img class="w-25 mx-2" src="{{ asset('web') }}/assets/icon/twitter.svg"
+                                                alt="">
+                                        </div>
+                                    </div>
+                                    <p class="mt-4 pe-5">
+                                        {{ $writer->description }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                @endforeach
             </div>
         </div>
         <!-- Tab panes -->

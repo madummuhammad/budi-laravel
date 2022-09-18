@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Blog extends Model
+class SendCreationImage extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -23,15 +23,5 @@ class Blog extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
-    }
-
-    public function tags()
-    {
-        return $this->hasMany(Tag::class, 'blog_id', 'id');
-    }
-
-    public function writers()
-    {
-        return $this->hasMany(BlogWriter::class, 'id', 'writer');
     }
 }

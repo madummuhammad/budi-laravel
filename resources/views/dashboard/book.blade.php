@@ -85,8 +85,8 @@
                                                             <label for="exampleInputEmail1">Jenis Buku</label><br>
                                                             @foreach ($book_types as $book_type)
                                                                 <div class="form-check form-check-inline ">
-                                                                    <input class="form-check-input book_type" type="radio"
-                                                                        id="book_type{{ $book_type->id }}"
+                                                                    <input class="form-check-input book_types"
+                                                                        type="radio" id="book_type{{ $book_type->id }}"
                                                                         value="{{ $book_type->id }}" name="book_type">
                                                                     <label class="form-check-label"
                                                                         for="book_type{{ $book_type->id }}">{{ $book_type->name }}</label>
@@ -117,29 +117,25 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Cover Buku</label><br>
-                                                            <input type="file" class="form-control" id="cover-buku"
-                                                                aria-describedby="emailHelp" hidden name="cover">
-                                                            <label for="cover-buku"
-                                                                class="label-upload-custom btn btn-secondary">Pilih
-                                                                File</label>
+                                                            <input type="file" class="form-control file-input-custom"
+                                                                id="cover-buku" aria-describedby="emailHelp" name="cover">
                                                         </div>
                                                         <div id="file">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">File PDF</label><br>
-                                                                <input type="file" class="form-control" id="content-buku"
-                                                                    aria-describedby="emailHelp" hidden name="content">
-                                                                <label for="content-buku"
-                                                                    class="label-upload-custom btn btn-secondary">Pilih
-                                                                    File PDF</label>
+                                                                <input type="file" class="form-control file-input-custom"
+                                                                    id="content-buku" aria-describedby="emailHelp"
+                                                                    name="content">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <div class="form-check mb-2">
+                                                            <div class="form-check mb-2" id="display-count">
                                                                 <input type="checkbox" class="form-check-input"
-                                                                    id="check1" value="1"
-                                                                    name="display_homepage">
+                                                                    id="check1" value="1" name="display_homepage"
+                                                                    @if ($digital_count >= 12) disabled @endif>
                                                                 <label class="form-check-label" for="check1">Tampilkan
-                                                                    di homepage?</label>
+                                                                    di homepage?
+                                                                    <span>{{ $digital_count }}/12</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -233,6 +229,22 @@
                     table.rows().every(function() {
                         this.nodes().to$().removeClass('selected')
                     });
+
+                    jQuery(document).ready(function() {
+                        $(".single-select").select2();
+                        $(".sinopsis").summernote({
+                            height: 190,
+                            minHeight: null,
+                            maxHeight: null,
+                            focus: !1
+                        }), $(".inline-editor").summernote({
+                            airMode: !0
+                        })
+                    }), window.edit = function() {
+                        $(".click2edit").summernote()
+                    }, window.save = function() {
+                        $(".click2edit").summernote("destroy")
+                    };
                 }
             });
 
@@ -276,11 +288,104 @@
                 });
             })
 
-            // for (let i = 0; i < filter_book.length; i++) {
-            //     filter_book[i].onchange = function() {
+            var book_types = $('.book_types');
 
-            //     }
-            // }
+            for (let i = 0; i < book_types.length; i++) {
+                book_types[i].onclick = function() {
+                    if ($(this).val() == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
+                        $("#display-count").html(`
+                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
+                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $audio_count }}/12)</span></label>
+                        `)
+                        $("#file").html(`
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">File Audio</label><br>
+                        <input type="file" class="form-control file-input-custom" id="content-buku" aria-describedby="emailHelp" name="content">
+                        </div>
+                        <div class="form-group " id="versi-pdf">
+                        <div class="form-check mb-2">
+                        <input type="checkbox" class="form-check-input"
+                        id="versi-pdf-check" value="1" name="having_pdf">
+                        <label class="form-check-label" for="versi-pdf-check">Apakah memiliki versi pdf?</label>
+                        </div>
+                        </div>
+                        <div id="versi-pdf-container"></div>
+                        `);
+                        $("#versi-pdf-check").on('click', function() {
+                            if (this.checked) {
+                                $("#versi-pdf-container").html(`
+                                <div class="form-group">
+                                <label for="exampleInputEmail1">Versi PDF</label><br>
+                                <input type="file" class="form-control file-input-custom" id="content-versi-pdf"aria-describedby="emailHelp" name="content-versi-pdf">
+
+                                </div>
+                                `)
+                            } else {
+                                $("#versi-pdf-container").html(``)
+                            }
+                        })
+                    }
+
+                    if ($(this).val() == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
+                        $("#display-count").html(`
+                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
+                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $video_count }}/12)</span></label>
+                        `)
+                        $("#file").html(`
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">File Video</label><br>
+                            <input type="file" class="form-control  file-input-custom" id="content-buku" aria-describedby="emailHelp" name="content">
+                        </div>
+
+                        <div class="form-group " id="versi-pdf">
+                            <div class="form-check mb-2">
+                                <input type="checkbox" class="form-check-input" id="versi-pdf-check" value="1" name="having_pdf">
+                                <label class="form-check-label" for="versi-pdf-check">Apakah memiliki versi pdf?</label>
+                                </div>
+                                </div>
+                        <div id="versi-pdf-container"></div>
+                    `);
+                        $("#versi-pdf-check").on('click', function() {
+                            if (this.checked) {
+                                $("#versi-pdf-container").html(`
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Versi PDF</label><br>
+                                    <input type="file" class="form-control  file-input-custom" id="content-versi-pdf" aria-describedby="emailHelp" name="content-versi-pdf">
+
+                                </div>
+                            `)
+                            } else {
+                                $("#versi-pdf-container").html(`
+                            `)
+                            }
+                        })
+                    }
+                    if ($(this).val() == '31ba455c-c9c7-4a3c-a2b1-62915546eaba') {
+                        $("#display-count").html(`
+                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
+                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $komik_count }}/12)</span></label>
+                        `);
+                        $("#file").html(`
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">File PDF</label><br>
+                        <input type="file" class="form-control file-input-custom" id="content-buku" aria-describedby="emailHelp" name="content">
+                        </div>
+                        `);
+                    }
+                    if ($(this).val() == '2fd97285-08d0-4d81-83f2-582f0e8b0f36') {
+                        $("#display-count").html(`
+                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
+                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $digital_count }}/12)</span></label>
+                        `);
+                        $("#file").html(`
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">File PDF</label><br>
+                        <input type="file" class="form-control file-input-custom" id="content-buku" aria-describedby="emailHelp" name="content">
+                        </div>
+                        `);
+                    }
+                }
+            }
         });
     </script>
 @endsection

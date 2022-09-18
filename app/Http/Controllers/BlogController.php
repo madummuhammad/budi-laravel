@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogWriter;
 use App\Models\Tag;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Storage;
 use Validator;
@@ -12,7 +14,7 @@ class BlogController extends Controller
 {
     public function index($id)
     {
-        $data['blogs'] = Blog::where('blog_type', $id)->get();
+        $data['blogs'] = Blog::with('writers')->where('blog_type', $id)->get();
         $data['id'] = $id;
         return view('dashboard.blog', $data);
     }
@@ -20,7 +22,17 @@ class BlogController extends Controller
     public function create($id)
     {
         $data['id'] = $id;
+        $data['articlewriters'] = BlogWriter::all();
         return view('dashboard.createblog', $data);
+    }
+
+    public function edit($id, $blog_id)
+    {
+        $data['id'] = $id;
+        $data['articlewriters'] = BlogWriter::all();
+        $data['display_number'] = Blog::where('display_homepage', 1)->count();
+        $data['blogs'] = Blog::with('tags')->where('id', $blog_id)->first();
+        return view('dashboard.editblog', $data);
     }
 
     public function store($id)
@@ -30,7 +42,9 @@ class BlogController extends Controller
             'name' => request('name'),
             'cover' => $this->upload_img(request()),
             'content' => request('content'),
-            'writer' => auth()->user()->name,
+            'blog_type' => $id,
+            'uploader' => auth()->user()->name,
+            'writer' => request('writer'),
             'display_homepage' => request('display_homepage'),
             'uploaded_at' => $this->ind_date(date('Y-m-d')),
         ];
@@ -51,8 +65,49 @@ class BlogController extends Controller
             ];
             Tag::create($dataTag);
         }
-        return redirect('dashboard/blog/' . $id);
+        return redirect('dashboard/blog/' . Str::slug($id));
+    }
 
+    public function update($id, $blog_id)
+    {
+        $tags = json_decode(request('tags'));
+        $data = [
+            'name' => request('name'),
+            'content' => request('content'),
+            'blog_type' => $id,
+            'uploader' => auth()->user()->name,
+            'writer' => request('writer'),
+            'display_homepage' => request('display_homepage'),
+            'uploaded_at' => $this->ind_date(date('Y-m-d')),
+        ];
+
+        $validation = Validator::make($data, [
+            'name' => 'required',
+            'content' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return back();
+        }
+        $blog = Blog::where('id', $blog_id)->update($data);
+
+        if ($_FILES['cover']['name'] !== "") {
+            $data = [
+                'cover' => $this->upload_img(request()),
+            ];
+            $blog = Blog::where('id', $blog_id)->update($data);
+        }
+
+        Tag::where('blog_id', $blog_id)->forceDelete();
+
+        for ($i = 0; $i < count($tags); $i++) {
+            $dataTag = [
+                'tag' => $tags[$i]->value,
+                'blog_id' => $blog_id,
+            ];
+            Tag::create($dataTag);
+        }
+        return redirect('dashboard/blog/' . Str::slug($id));
     }
 
     public function ind_date($tanggal)
@@ -86,6 +141,7 @@ class BlogController extends Controller
         $thumbUrl = $disk->url('thumb-' . $path);
         return $thumbUrl;
     }
+
     public function storage_path($path = '')
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);

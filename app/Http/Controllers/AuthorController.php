@@ -31,6 +31,24 @@ class AuthorController extends Controller
         return redirect('dashboard/author');
     }
 
+    public function update()
+    {
+        $data = [
+            'name' => request('name'),
+        ];
+
+        $validation = Validator::make($data, [
+            'name' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return back();
+        }
+
+        Author::where('id', request('id'))->update($data);
+
+        return redirect('dashboard/author');
+    }
+
     public function destroy()
     {
         $id = request('id');

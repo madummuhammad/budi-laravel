@@ -287,9 +287,8 @@
                                     <div class="toggle-play toggle-play-2 play">
                                     </div>
                                 </div>
-                                <div class="timeline d-flex justify-content-start border-0
-									style=" height: 100px;
-                                    width: 90%;">
+                                <div class="timeline d-flex justify-content-start border-0"
+                                    style="height: 100px; width: 90%;">
                                     <div class="progress" style="background-color: #2B388B;"></div>
                                 </div>
                                 <div class="volume-container">
@@ -388,29 +387,28 @@
     </section>
     <section id="section-8">
         <div class="container">
-            <div class="row pb-5">
-                <div class="col-lg-6 py-5">
-                    <div class="img-container">
-                        <img src="{{ asset('web') }}/assets/img/sepasang_mata.jpg" alt=""
-                            class="img-1 img-fluid" style="width:40% ;">
-                        <img src="{{ asset('web') }}/assets/img/ada_apa_sih.jpg" alt="" class="img-2 img-fluid"
-                            style="width:40% ;">
+            @foreach ($send_creations as $send_creation)
+                <div class="row pb-5">
+                    <div class="col-lg-6 py-5">
+                        <div class="img-container">
+                            @foreach ($send_creation->send_creation_images as $send_creation_image)
+                                <img src="{{ $send_creation_image->image }}" alt=""
+                                    class="@if ($loop->first) img-1 @else img-2 @endif img-fluid"
+                                    style="width:40% ;">
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex align-items-center text-white">
+                        <div class="">
+                            <h2 class="ff-kidzone fs-50px text-white">{{ $send_creation->heading }}</h2>
+                            <h4>{{ $send_creation->sub_heading }}</h4>
+                            <p class="mt-5">{{ $send_creation->content }}</p>
+                            <a href="{{ url('send_creation') }}" class="btn bg-oldblue text-white btn-section-8">Lebih
+                                Lanjut</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center text-white">
-                    <div class="">
-                        <h2 class="ff-kidzone fs-50px text-white">Ayo Kirimkan Karyamu !</h2>
-                        <h4>Dan jadi bagian dair komunitas penulis Budi</h4>
-                        <p class="mt-5">Jika kamu suka menulis cerpen atau blog pribadi, kini karyamu bisa
-                            dinikmati
-                            oleh lebih
-                            banyak orang. Segera
-                            kirimkan karyamu dalam format buku bacaan atau buku komik ke tim redaksi Budi.</p>
-                        <a href="kirimkan_karyamu.html" class="btn bg-oldblue text-white btn-section-8">Lebih
-                            Lanjut</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <section id="section-9" class="" style="margin-top: 80px;">

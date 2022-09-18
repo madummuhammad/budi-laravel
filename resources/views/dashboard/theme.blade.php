@@ -36,11 +36,8 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Cover Tema</label><br>
-                                                            <input type="file" class="form-control" id="cover-buku"
-                                                                aria-describedby="emailHelp" hidden name="image">
-                                                            <label for="cover-buku"
-                                                                class="label-upload-custom btn btn-secondary">Pilih
-                                                                File</label>
+                                                            <input type="file" class="form-control file-input-custom"
+                                                                id="cover-buku" aria-describedby="emailHelp" name="image">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,8 +106,75 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button class="btn badge badge-primary"><i
+                                                    <button class="btn badge badge-primary" data-toggle="modal"
+                                                        data-target="#edit{{ $theme->id }}"><i
                                                             class="bi bi-pencil-square"></i></button>
+                                                    <div class="modal" tabindex="-1" id="edit{{ $theme->id }}">
+                                                        <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0 py-0">
+                                                                    <h5 class="modal-title"></h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body py-0">
+                                                                    <p class="p-0 m-0 fs-4">Edit {{ $theme->name }}</p>
+                                                                </div>
+                                                                <div class="modal-footer pt-0 pb-1 border-0">
+                                                                    <form action="{{ url('dashboard/theme') }}"
+                                                                        method="POST" enctype="multipart/form-data">
+                                                                        <div class="modal-body">
+                                                                            @method('patch')
+                                                                            @csrf
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Tema</label>
+                                                                                        <input type="text"
+                                                                                            name="id"
+                                                                                            value="{{ $theme->id }}"
+                                                                                            hidden>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="exampleInputEmail1"
+                                                                                            aria-describedby="emailHelp"
+                                                                                            name="name"
+                                                                                            value="{{ $theme->name }}">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Cover
+                                                                                            Tema</label><br>
+                                                                                        <div
+                                                                                            class="d-flex justify-content-center">
+                                                                                            <img class="img-fluid w-50 mb-2"
+                                                                                                src="{{ $theme->image }}"
+                                                                                                alt="">
+                                                                                        </div>
+                                                                                        <input type="file"
+                                                                                            class="form-control file-input-custom"
+                                                                                            id="cover-buku"
+                                                                                            aria-describedby="emailHelp"
+                                                                                            name="image">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Tutup</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Kirim</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

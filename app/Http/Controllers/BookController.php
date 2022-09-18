@@ -18,7 +18,10 @@ class BookController extends Controller
 {
     public function index()
     {
-        $data['books'] = Book::with('authors', 'book_pdfs', 'book_types')->get();
+        $data['digital_count'] = Book::where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36')->where('display_homepage', 1)->count();
+        $data['komik_count'] = Book::where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba')->where('display_homepage', 1)->count();
+        $data['audio_count'] = Book::where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864')->where('display_homepage', 1)->count();
+        $data['video_count'] = Book::where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')->where('display_homepage', 1)->count();
         $data['authors'] = Author::all();
         $data['themes'] = Theme::all();
         $data['book_types'] = Book_type::all();
@@ -70,6 +73,22 @@ class BookController extends Controller
         return view('dashboard.createbook');
     }
 
+    public function edit($id)
+    {
+        $data['digital_count'] = Book::where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36')->where('display_homepage', 1)->count();
+        $data['komik_count'] = Book::where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba')->where('display_homepage', 1)->count();
+        $data['audio_count'] = Book::where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864')->where('display_homepage', 1)->count();
+        $data['video_count'] = Book::where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')->where('display_homepage', 1)->count();
+        $data['authors'] = Author::all();
+        $data['themes'] = Theme::all();
+        $data['book_types'] = Book_type::all();
+        $data['levels'] = Level::all();
+        $data['languages'] = Language::all();
+        $data['book'] = Book::where('id', $id)->first();
+        $data['count'] = Book::where('book_type', $data['book']->book_type)->where('id', $id)->where('display_homepage', 1)->count();
+        return view('dashboard.editbook', $data);
+    }
+
     public function add(Request $request)
     {
         if ($request->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
@@ -118,6 +137,96 @@ class BookController extends Controller
                 'book_id' => $book_id->id,
             ];
             Book_pdf::create($data);
+        }
+        return redirect('dashboard/book');
+
+    }
+
+    public function update()
+    {
+        $id = request('id');
+        $name = 'book_type_edit' . $id;
+
+        $data = [
+            'name' => request('name'),
+            'author' => request('author'),
+            'theme' => request('theme'),
+            'page' => request('page'),
+            'sinopsis' => request('sinopsis'),
+            'book_type' => request($name),
+            'level' => request('level'),
+            'language' => request('language'),
+            'display_homepage' => request('display_homepage'),
+        ];
+
+        $validation = Validator::make($data, [
+            'name' => 'required',
+            'author' => 'required',
+            'theme' => 'required',
+            'page' => 'numeric',
+            'sinopsis' => 'required',
+            'book_type' => 'required',
+            'level' => 'required',
+            'language' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return redirect('dashboard/book')->with(['message' => $validation->errors()]);
+        }
+
+        Book::where('id', $id)->update($data);
+
+        if ($_FILES['cover']['name'] !== "") {
+            $cover = [
+                'cover' => $this->upload_img(request()),
+            ];
+            Book::where('id', $id)->update($cover);
+        }
+
+        if ($_FILES['content']['name'] !== "") {
+            if (request($name) == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
+                $content = $this->upload_audio(request());
+            } elseif (request($name) == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
+                $content = $this->upload_video(request());
+            } else {
+                $content = $this->upload_pdf(request());
+            }
+
+            $contents = [
+                'content' => $content,
+            ];
+            Book::where('id', $id)->update($contents);
+        }
+
+        $having_pdf = Book_pdf::where('book_id', $id)->first();
+
+        if ($having_pdf !== null) {
+            if (request('having_pdf') !== null) {
+                $book_id = Book::where('id', $id)->first();
+                $name = 'content-versi-pdf';
+                if ($_FILES['content-versi-pdf']['name'] !== "") {
+                    $content2 = [
+                        'content' => $this->upload_pdf(request(), $name),
+                        'book_id' => $book_id->id,
+                    ];
+                    Book_pdf::where('book_id', $id)->update($content2);
+                }
+            } else {
+                Book_pdf::where('book_id', $id)->delete();
+            }
+        } else {
+            if (request('having_pdf') !== null) {
+                $book_id = Book::where('id', $id)->first();
+                $name = 'content-versi-pdf';
+                if ($_FILES['content-versi-pdf'] !== null) {
+                    $content2 = [
+                        'content' => $this->upload_pdf(request(), $name),
+                        'book_id' => $book_id->id,
+                    ];
+                    Book_pdf::create($content2);
+                }
+
+            }
         }
         return redirect('dashboard/book');
 

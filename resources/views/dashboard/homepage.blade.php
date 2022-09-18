@@ -28,7 +28,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 class="text-center">Banner</h4>
-                                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"
+                                        data-interval="false">
                                         <div class="carousel-inner">
                                             @foreach ($banners as $banner)
                                                 <div class="carousel-item @if ($loop->first) active @endif">
@@ -67,11 +68,78 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <button class="btn badge-success"><i
+                                                            <button class="btn badge-success" data-toggle="modal"
+                                                                data-target="#editbanner{{ $banner->id }}"><i
                                                                     class="bi bi-pencil-square"></i></button>
+                                                            <div class="modal fade" id="editbanner{{ $banner->id }}"
+                                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog modal-sm">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                                Edit Banner</h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal"><span>&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form
+                                                                            action="{{ url('dashboard/homepage/banner') }}"
+                                                                            method="POST" enctype="multipart/form-data">
+                                                                            <div class="modal-body">
+                                                                                @method('patch')
+                                                                                @csrf
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Tagline</label>
+                                                                                            <input type="text"
+                                                                                                name="id"
+                                                                                                value="{{ $banner->id }}"
+                                                                                                hidden>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="exampleInputEmail1"
+                                                                                                aria-describedby="emailHelp"
+                                                                                                name="tagline"
+                                                                                                value="{{ $banner->tagline }}">
+                                                                                            <input type="text"
+                                                                                                name="page_id"
+                                                                                                value="b732f255-2544-4966-933c-263fdaa27bd0"
+                                                                                                hidden>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Gambar
+                                                                                                Banner</label><br>
+                                                                                            <img class="img-fluid mb-3"
+                                                                                                src="{{ $banner->image }}"
+                                                                                                alt="">
+                                                                                            <input type="file"
+                                                                                                class="form-control file-input-custom"
+                                                                                                id="cover-buku"
+                                                                                                aria-describedby="emailHelp"
+                                                                                                name="image">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">Tutup</button>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Kirim</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <img src="{{ $banner->image }}" class="d-block w-100" alt="...">
+                                                    <img src="{{ $banner->image }}" class="d-block w-100"
+                                                        alt="...">
                                                     <div class="carousel-caption d-none d-md-block">
                                                         <h5>{{ $banner->tagline }}</h5>
                                                         {{-- <p>Some representative placeholder content for the first slide.</p> --}}
@@ -91,8 +159,8 @@
                                         </button>
                                     </div>
                                     <div class="py-4">
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#tambah-banner"><i
-                                                class="bi bi-plus-lg"></i></button>
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#tambah-banner"><i class="bi bi-plus-lg"></i></button>
                                         <div class="modal fade" id="tambah-banner" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-sm">
@@ -165,7 +233,8 @@
                                                             </div>
                                                             <div class="modal-body py-0">
                                                                 <div class="table-responsive">
-                                                                    <table id="example" class="display"
+                                                                    <table id=""
+                                                                        class="display book_of_the_month"
                                                                         style="min-width: 845px">
                                                                         <thead>
                                                                             <tr>
@@ -360,13 +429,13 @@
                                                                                         @endforeach
                                                                                         <td>
                                                                                             <form
-                                                                                                action="{{ url('dashboard/homepage/book_of_the_month/') }}"
+                                                                                                action="{{ url('dashboard/homepage/audio_book_homepage/') }}"
                                                                                                 method="post">
                                                                                                 @csrf
                                                                                                 @method('patch')
                                                                                                 <input type="text"
                                                                                                     name="id"
-                                                                                                    value="{{ $botm->id }}"
+                                                                                                    value="{{ $abh->id }}"
                                                                                                     hidden>
                                                                                                 <input type="text"
                                                                                                     name="book_id"
@@ -437,6 +506,128 @@
                                                     </div>
                                                 </div>
 
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div id="section-4" class="mt-5">
+                                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Ayo Kirimkan Karyamu</h2>
+                                <div class="row text-dark">
+                                    @foreach ($send_creations as $send_creation)
+                                        <div class="col-lg-12">
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn badge-success" data-toggle="modal"
+                                                    data-target="#sendcreation"><i
+                                                        class="bi bi-pencil-square"></i></button>
+                                                <div class="modal" tabindex="-1" id="sendcreation">
+                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header border-0 py-0">
+                                                                <h5 class="modal-title"></h5>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body py-0">
+                                                                <form
+                                                                    action="{{ url('dashboard/homepage/send_creation') }}"
+                                                                    method="POST" enctype="multipart/form-data">
+                                                                    <div class="modal-body">
+                                                                        @method('patch')
+                                                                        @csrf
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <div class="row">
+                                                                                    @foreach ($send_creation->send_creation_images as $send_creation_image)
+                                                                                        <div class="col-6">
+                                                                                            <img src="{{ $send_creation_image->image }}"
+                                                                                                class="img-fluid w-100"
+                                                                                                alt="">
+                                                                                            <input type="file"
+                                                                                                class="form-control file-input-custom"
+                                                                                                id="cover-buku"
+                                                                                                aria-describedby="emailHelp"
+                                                                                                name="image{{ $loop->index }}">
+                                                                                            <input type="text"
+                                                                                                name="image_id{{ $loop->index }}"
+                                                                                                value="{{ $send_creation_image->id }}"
+                                                                                                hidden>
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6">
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="exampleInputEmail1">Heading</label>
+                                                                                    <input type="text" name="id"
+                                                                                        value="{{ $send_creation->id }}"
+                                                                                        hidden>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="exampleInputEmail1"
+                                                                                        aria-describedby="emailHelp"
+                                                                                        name="heading"
+                                                                                        value="{{ $send_creation->heading }}">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputEmail1">Sub
+                                                                                        Heading</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="exampleInputEmail1"
+                                                                                        aria-describedby="emailHelp"
+                                                                                        name="sub_heading"
+                                                                                        value="{{ $send_creation->sub_heading }}">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputEmail1">Konten
+                                                                                    </label>
+                                                                                    <textarea name="content" class="form-control" id="" cols="30" rows="10">
+                                                                                        {{ $send_creation->content }}
+                                                                                    </textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Tutup</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Kirim</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer pt-0 pb-1 border-0">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="img-container-for-icon">
+                                                        <div class="row">
+                                                            @foreach ($send_creation->send_creation_images as $send_creation_image)
+                                                                <div class="col-6">
+                                                                    <img src="{{ $send_creation_image->image }}"
+                                                                        class="img-fluid w-100" alt="">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <h2 class="fw-600 fs-6">{{ $send_creation->heading }}</h2>
+                                                    <p class="mt-3">
+                                                        {{ $send_creation->sub_heading }}
+                                                    </p>
+                                                    <div class="mt-5">
+                                                        {{ $send_creation->content }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

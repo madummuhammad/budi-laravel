@@ -230,13 +230,21 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Blog</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('dashboard/blog/article') }}">Artikel</a>
-                            </li>
-                            <li><a href="{{ url('dashboard/blog/news') }}">Berita</a>
-                            </li>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Artikel</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('dashboard/blog/article') }}">Isi Artikel</a></li>
+                            <li><a href="{{ url('dashboard/blog/article/writer') }}">Penulis
+                                    Artikel</a></li>
                         </ul>
                     </li>
-                    {{-- <li class="nav-label">Forms</li>
+                    <li><a href="{{ url('dashboard/blog/news') }}">Berita</a>
+                    </li>
+                </ul>
+                </li>
+                <li><a href="{{ url('dashboard/send_creation') }}" aria-expanded="false"><i
+                            class="icon icon-globe-2"></i><span class="nav-text">Kirimkan Karyamu</span></a></li>
+                {{-- <li class="nav-label">Forms</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-form"></i><span class="nav-text">Forms</span></a>
                         <ul aria-expanded="false">

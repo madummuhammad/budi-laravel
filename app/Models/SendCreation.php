@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\SendCreationImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Blog extends Model
+class SendCreation extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -25,13 +26,8 @@ class Blog extends Model
         });
     }
 
-    public function tags()
+    public function send_creation_images()
     {
-        return $this->hasMany(Tag::class, 'blog_id', 'id');
-    }
-
-    public function writers()
-    {
-        return $this->hasMany(BlogWriter::class, 'id', 'writer');
+        return $this->hasMany(SendCreationImage::class, "send_creation_id", 'id');
     }
 }

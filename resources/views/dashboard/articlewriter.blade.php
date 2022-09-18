@@ -29,14 +29,14 @@
                             <!-- Modal -->
                             <div class="modal fade" id="tambahbuku" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
+                                <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Penulis</h5>
                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ url('dashboard/author') }}" method="POST"
+                                        <form action="{{ url('dashboard/blog/article/writer') }}" method="POST"
                                             enctype="multipart/form-data">
                                             <div class="modal-body">
                                                 @method('POST')
@@ -48,6 +48,28 @@
                                                             <input type="text" class="form-control"
                                                                 id="exampleInputEmail1" aria-describedby="emailHelp"
                                                                 name="name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Gambar Penulis</label>
+                                                            <input type="file" class="form-control file-input-custom"
+                                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                                name="cover">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Deskriipsi</label>
+                                                            <textarea name="description" id="" class="form-control" cols="30" rows="5"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Instagram</label>
+                                                            <input type="text" class="form-control"
+                                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                                name="instagram">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Twiter</label>
+                                                            <input type="text" class="form-control"
+                                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                                name="twitter">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -67,6 +89,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                            <th>Instagram</th>
+                                            <th>Twitter</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -74,18 +100,23 @@
                                         @php
                                             $no = 0;
                                         @endphp
-                                        @foreach ($authors as $author)
+                                        @foreach ($articlewriters as $articlewriter)
                                             @php
                                                 $no++;
                                             @endphp
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $author->name }}</td>
+                                                <td>{{ $articlewriter->name }}</td>
+                                                <td><img class="img-fluid" src="{{ $articlewriter->image }}" alt="">
+                                                </td>
+                                                <td>{{ $articlewriter->description }}</td>
+                                                <td>{{ $articlewriter->instagram }}</td>
+                                                <td>{{ $articlewriter->twiter }}</td>
                                                 <td>
                                                     <button class="btn badge badge-danger" data-toggle="modal"
-                                                        data-target="#hapus{{ $author->id }}"><i
+                                                        data-target="#hapus{{ $articlewriter->id }}"><i
                                                             class="bi bi-trash3"></i></button>
-                                                    <div class="modal" tabindex="-1" id="hapus{{ $author->id }}">
+                                                    <div class="modal" tabindex="-1" id="hapus{{ $articlewriter->id }}">
                                                         <div class="modal-dialog modal-dialog-centered modal-sm">
                                                             <div class="modal-content">
                                                                 <div class="modal-header border-0 py-0">
@@ -96,15 +127,16 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body py-0">
-                                                                    <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
+                                                                    <p class="p-0 m-0 fs-4">Hapus penulis ini?</p>
                                                                 </div>
                                                                 <div class="modal-footer pt-0 pb-1 border-0">
-                                                                    <form action="{{ url('dashboard/author') }}"
+                                                                    <form
+                                                                        action="{{ url('dashboard/blog/article/writer') }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('delete')
                                                                         <input type="text" name="id"
-                                                                            value="{{ $author->id }}" hidden>
+                                                                            value="{{ $articlewriter->id }}" hidden>
                                                                         <button type="submit" class="btn badge-danger"><i
                                                                                 class="bi bi-trash3"></i></button>
                                                                     </form>
@@ -113,23 +145,23 @@
                                                         </div>
                                                     </div>
                                                     <button class="btn badge badge-primary" data-toggle="modal"
-                                                        data-target="#edit{{ $author->id }}"><i
+                                                        data-target="#edit{{ $articlewriter->id }}"><i
                                                             class="bi bi-pencil-square"></i></button>
                                                 </td>
                                             </tr>
-                                            <div class="modal fade" id="edit{{ $author->id }}" tabindex="-1"
+                                            <div class="modal fade" id="edit{{ $articlewriter->id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-sm">
+                                                <div class="modal-dialog modal-md">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Edit
-                                                                {{ $author->name }}</h5>
+                                                                {{ $articlewriter->name }}</h5>
                                                             <button type="button" class="close"
                                                                 data-dismiss="modal"><span>&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="{{ url('dashboard/author') }}" method="POST"
-                                                            enctype="multipart/form-data">
+                                                        <form action="{{ url('dashboard/blog/article/writer') }}"
+                                                            method="POST" enctype="multipart/form-data">
                                                             <div class="modal-body">
                                                                 @method('patch')
                                                                 @csrf
@@ -138,13 +170,47 @@
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Nama
                                                                                 Penulis</label>
-                                                                            <input type="text" name="id"
-                                                                                value="{{ $author->id }}" hidden>
                                                                             <input type="text" class="form-control"
                                                                                 id="exampleInputEmail1"
                                                                                 aria-describedby="emailHelp"
                                                                                 name="name"
-                                                                                value="{{ $author->name }}">
+                                                                                value="{{ $articlewriter->name }}">
+                                                                            <input type="text" name="id"
+                                                                                value="{{ $articlewriter->id }}" hidden>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Gambar
+                                                                                Penulis</label><br>
+                                                                            <img class="img-fluid mb-3"
+                                                                                src="{{ $articlewriter->image }}"
+                                                                                alt="">
+                                                                            <input type="file"
+                                                                                class="form-control file-input-custom"
+                                                                                id="exampleInputEmail1"
+                                                                                aria-describedby="emailHelp"
+                                                                                name="cover">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label
+                                                                                for="exampleInputEmail1">Deskripsi</label>
+                                                                            <textarea name="description" id="" class="form-control" cols="30" rows="5">{{ $articlewriter->description }}</textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label
+                                                                                for="exampleInputEmail1">Instagram</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputEmail1"
+                                                                                aria-describedby="emailHelp"
+                                                                                name="instagram"
+                                                                                value="{{ $articlewriter->instagram }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Twiter</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputEmail1"
+                                                                                aria-describedby="emailHelp"
+                                                                                name="twitter"
+                                                                                value="{{ $articlewriter->twitter }}">
                                                                         </div>
                                                                     </div>
                                                                 </div>

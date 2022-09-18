@@ -13,3 +13,36 @@
   height: 40px;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.file-input-custom {
+  color: transparent;
+  /* padding-bottom: 40px !important; */
+  padding: 0 !important;
+}
+.file-input-custom::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.file-input-custom::before {
+  content: 'Pilih File';
+  color: white;
+  display: inline-block;
+  background: #593BDB;
+  border-radius: 3px;
+  padding: 6px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 10pt;
+  margin: 0px !important;
+}
+.file-input-custom:hover::before {
+  border-color: black;
+}
+.file-input-custom:active {
+  outline: 0;
+}
+.file-input-custom:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+

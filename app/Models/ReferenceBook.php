@@ -45,6 +45,11 @@ class ReferenceBook extends Model
         return $this->hasMany(Book_type::class, 'id', 'book_type');
     }
 
+    public function reference_book_types()
+    {
+        return $this->hasMany(ReferenceBookType::class, 'id', 'reference_book_type');
+    }
+
     public function book_pdfs()
     {
         return $this->belongsTo(Book_pdf::class, 'id', 'book_id');
