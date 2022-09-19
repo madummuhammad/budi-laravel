@@ -136,11 +136,11 @@
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
                             id="saved"
-                            @if ($saveds) status="saved"
+                            @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
-                                status="unsaved" @endif><i
-                                class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                status="unsaved" @endif
+                            @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"
@@ -182,11 +182,11 @@
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"
                             id="saved"
-                            @if ($saveds) status="saved"
+                            @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
-                                status="unsaved" @endif><i
-                                class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                status="unsaved" @endif
+                            @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                     </div>
                 @endif
             </div>
