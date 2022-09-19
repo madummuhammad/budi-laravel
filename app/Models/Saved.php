@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BookOfTheMonth extends Model
+class Saved extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -23,10 +23,5 @@ class BookOfTheMonth extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
-    }
-
-    public function books()
-    {
-        return $this->hasMany(Book::class, 'id', 'book_id');
     }
 }

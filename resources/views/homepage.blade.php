@@ -26,62 +26,72 @@
         <div class="d-flex justify-content-center">
             <div class="home-tab">
                 <h2 class="text-center title fw-bold fs-4 mb-4">Temukan Buku sesuai minat dan kebutuhanmu</h2>
-                <div class="home-tab-body">
-                    <div class="dropdown">
+                <div class="home-tab-body" id="home-tab-body">
+                    <div class="dropdown" id="jenjang">
                         <button class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <p>Jenjang</p>
                         </button>
+                        <input type="text" name="jenjang" value="" hidden>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">SD (123)</a></li>
-                            <li><a class="dropdown-item" href="#">SD (456)</a></li>
-                            <li><a class="dropdown-item" href="#">SMP</a></li>
-                            <li><a class="dropdown-item" href="#">SMA</a></li>
+                            <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                            <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD (123)</a></li>
+                            <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD (456)</a></li>
+                            <li><a class="dropdown-item" data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a></li>
+                            <li><a class="dropdown-item" data-value="555c961c-fb2a-4a25-8829-4a12c7d2afc0">SMA</a></li>
+                            <li><a class="dropdown-item" data-value="a26a4afd-7226-434c-83f3-9ca3ce4af523">UMUM</a></li>
                         </ul>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown" id="tema">
                         <button
                             class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false" data-value="">
                             <p>Tema</p>
                         </button>
+                        <input type="text" name="tema" value="" hidden>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Kuliner</a></li>
-                            <li><a class="dropdown-item" href="#">Petualangan</a></li>
-                            <li><a class="dropdown-item" href="#">Seni & Budaya</a></li>
-                            <li><a class="dropdown-item" href="#">Tokoh Indonesia</a></li>
-                            <li><a class="dropdown-item" href="#">Alam & Lingkungan</a></li>
-                            <li><a class="dropdown-item" href="#">Anak Indonesia</a></li>
-                            <li><a class="dropdown-item" href="#">Arsitektur</a></li>
+                            <li><a class="dropdown-item text-danger" data-value="">Tema</a></li>
+                            @foreach ($themes as $theme)
+                                <li><a class="dropdown-item" data-value="{{ $theme->id }}">{{ $theme->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown" id="bahasa">
                         <button
                             class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            type="button" data-bs-toggle="dropdown" aria-expanded="true" data-value="">
                             <p>Bahasa</p>
                         </button>
+                        <input type="text" name="bahasa" value="" hidden>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Indonesia</a></li>
-                            <li><a class="dropdown-item" href="#">Inggris</a></li>
-                            <li><a class="dropdown-item" href="#">Daerah</a></li>
+                            <li><a class="dropdown-item text-danger">Bahasa</a></li>
+                            <li><a class="dropdown-item" data-value="31d76818-3c8a-4f54-aa65-f14dd5c71008">Indonesia</a>
+                            </li>
+                            <li><a class="dropdown-item" data-value="62efa3bd-5db5-4627-aabc-5c180f58cf26">Inggris</a></li>
+                            <li><a class="dropdown-item" data-value="886bcb5a-43a8-4801-8a76-109b173cdb51">Daerah</a></li>
                         </ul>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown" id="format">
                         <button class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle blue"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            type="button" data-bs-toggle="dropdown" aria-expanded="true" data-value="">
                             <p>Format</p>
                         </button>
+                        <input type="text" name="format" value="" hidden>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Buku Bacaan</a></li>
-                            <li><a class="dropdown-item" href="#">Buku Komik</a></li>
-                            <li><a class="dropdown-item" href="#">Buku Audio</a></li>
-                            <li><a class="dropdown-item" href="#">Buku Video</a></li>
+                            <li><a class="dropdown-item text-danger" data-value="">Format</a></li>
+                            <li><a class="dropdown-item" data-value="2fd97285-08d0-4d81-83f2-582f0e8b0f36">Buku Bacaan</a>
+                            </li>
+                            <li><a class="dropdown-item" data-value="31ba455c-c9c7-4a3c-a2b1-62915546eaba">Buku Komik</a>
+                            </li>
+                            <li><a class="dropdown-item" data-value="9e30a937-0d60-49ad-9775-c19b97cfe864">Buku Audio</a>
+                            </li>
+                            <li><a class="dropdown-item" data-value="bfe3060d-5f2e-4a1b-9615-40a9f936c6cc">Buku Video</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="input-search">
-                        <input type="text" class="form-control" placeholder="Cari">
-                        <button class="btn"><i class="bi bi-search"></i></button>
+                        <input type="text" class="form-control" id="search" placeholder="Cari">
+                        <button class="btn" id="search-button"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -93,67 +103,10 @@
                 Buku Video
             </h2>
         </div>
-        <div class="row tab-book mt-3">
-            <div class="d-flex justify-content-center">
-                <ul class="nav nav-pills">
-                    @foreach ($levels as $level)
-                        <li class="nav-item">
-                            @if ($loop->first)
-                                <a class="nav-link active" data-bs-toggle="pill"
-                                    href="#theme{{ Str::slug($level->name) }}"
-                                    aria-selected="true">{{ $level->name }}</a>
-                            @else
-                                <a class="nav-link" data-bs-toggle="pill" href="#theme{{ Str::slug($level->name) }}"
-                                    aria-selected="false">{{ $level->name }}</a>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <!-- Tab panes -->
-            <div class="tab-content mt-5">
-                @foreach ($levels as $level)
-                    @if ($loop->first)
-                        <div class="tab-pane container active" id="theme{{ Str::slug($level->name) }}">
-                        @else
-                            <div class="tab-pane container" id="theme{{ Str::slug($level->name) }}">
-                    @endif
-                    <div class="row row-cols-6">
-                        @foreach ($books as $book)
-                            @if ($book->display_homepage == 1)
-                                @if ($book->level == $level->id)
-                                    <a href="{{ url('/book') }}/{{ $book->id }}">
-                                        <div class="col mb-4">
-                                            <div class="img-container-for-icon">
-                                                <img src="{{ $book->cover }}" alt="" class="img-fluid">
-                                                @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                                    <div class="icon">
-                                                        <img src="{{ asset('web') }}/assets/icon/mic.svg"
-                                                            alt="">
-                                                    </div>
-                                                @endif
-                                                @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                                    <div class="icon">
-                                                        <img src="{{ asset('web') }}/assets/icon/play.svg"
-                                                            alt="">
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endif
-                            @endif
-                        @endforeach
-                    </div>
-            </div>
-            @endforeach
-            <div class="d-flex justify-content-center">
-                <button class="btn bg-blue text-white rounded-5">Akses Gratis ! <span><i
-                            class="fa-solid fa-chevron-right"></i></span></button>
-            </div>
-            <p class="text-center mt-2">Kapan pun & Di mana pun</p>
+        <div id="tab-book">
+            @csrf;
         </div>
+
     </div>
     {{-- <section id="section-2" class="mt-5">
         <div class="header d-flex justify-content-between">
@@ -215,111 +168,115 @@
             </div>
         </div>
         <div id="section-4" class="mt-5">
-            <div class="row">
-                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
-                @foreach ($book_of_the_months as $botm)
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p class="fw-600 fs-6">{{ $botm->books->name }}</p>
-                                <p class="mt-3">
-                                    @php
-                                        echo $botm->books->name;
-                                    @endphp
-                                </p>
-                                <div class="mt-5">
-                                    @foreach ($botm->books->authors as $author)
-                                        <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
-                                    @endforeach
-                                    <p><span class="fw-bold">Rating : </span><img
-                                            src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
-                                    </p>
-                                </div>
-                                <a href="{{ url('/book') }}/{{ $botm->books->id }}" class="text-blue">Lihat Buku</a>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card border-0 shadow">
-                                    <div class="card-body">
-                                        <a href="{{ url('/book') }}/{{ $botm->books->id }}">
-                                            <img class="img-fluid w-100" src="{{ $botm->books->cover }}" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div id="section-5" style="margin-top: 100px;">
-            <h2 class="ff-bubblewump text-center fw-bold">Pilihan Tema Yang Mungkin Kamu Suka </h2>
-            <div class="container mt-4">
+            @foreach ($book_of_the_months as $botm)
                 <div class="row">
-                    <div class="col-12">
-                        <div class="owl-carousel owl-theme px-5" id="owl-carousel-1">
-                            @foreach ($themes as $theme)
-                                <div class="item">
-                                    <img class="img-fluid" src="{{ $theme->image }}" alt="">
-                                    <div class="title fw-bold">
-                                        <p class="p-0 text-white">{{ $theme->name }}</p>
+                    <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
+                    @foreach ($botm->books as $book)
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="fw-600 fs-6">{{ $book->name }}</p>
+                                    <p class="mt-3">
+                                        @php
+                                            echo $book->name;
+                                        @endphp
+                                    </p>
+                                    <div class="mt-5">
+                                        @foreach ($book->authors as $author)
+                                            <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
+                                        @endforeach
+                                        <p><span class="fw-bold">Rating : </span><img
+                                                src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
+                                        </p>
+                                    </div>
+                                    <a href="{{ url('/book') }}/{{ $book->id }}" class="text-blue">Lihat Buku</a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow">
+                                        <div class="card-body">
+                                            <a href="{{ url('/book') }}/{{ $book->id }}">
+                                                <img class="img-fluid w-100" src="{{ $book->cover }}" alt="">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
+                    @endforeach
+            @endforeach
+        </div>
+    </div>
+    <div id="section-5" style="margin-top: 100px;">
+        <h2 class="ff-bubblewump text-center fw-bold">Pilihan Tema Yang Mungkin Kamu Suka </h2>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="owl-carousel owl-theme px-5" id="owl-carousel-1">
+                        @foreach ($themes as $theme)
+                            <div class="item">
+                                <img class="img-fluid" src="{{ $theme->image }}" alt="">
+                                <div class="title fw-bold">
+                                    <p class="p-0 text-white">{{ $theme->name }}</p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     <div id="section-6" class="mt-5">
         <div class="container text-white">
             @foreach ($audio_book_homepages as $abh)
-                <div class="row py-5">
-                    <div class="col-6 pb-5 me-5">
-                        <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
-                        <div class="d-flex justify-content-center">
-                            <img class="img" src="{{ $abh->books->cover }}" alt="">
-                        </div>
-                        <div class="audio-player" data-audio="{{ asset('storage') }}/{{ $abh->books->content }}"
-                            style="margin-top: 10px">
-                            <div class="controls">
-                                <div class="play-container">
-                                    <div class="toggle-play toggle-play-2 play">
+                @foreach ($abh->books as $book)
+                    <div class="row py-5">
+                        <div class="col-6 pb-5 me-5">
+                            <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
+                            <div class="d-flex justify-content-center">
+                                <img class="img" src="{{ $book->cover }}" alt="">
+                            </div>
+                            <div class="audio-player" data-audio="{{ asset('storage') }}/{{ $book->content }}"
+                                style="margin-top: 10px">
+                                <div class="controls">
+                                    <div class="play-container">
+                                        <div class="toggle-play toggle-play-2 play">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="timeline d-flex justify-content-start border-0"
-                                    style="height: 100px; width: 90%;">
-                                    <div class="progress" style="background-color: #2B388B;"></div>
-                                </div>
-                                <div class="volume-container">
-                                    <div class="volume-button">
-                                        <div class="volume icono-volumeMedium"></div>
+                                    <div class="timeline d-flex justify-content-start border-0"
+                                        style="height: 100px; width: 90%;">
+                                        <div class="progress" style="background-color: #2B388B;"></div>
                                     </div>
+                                    <div class="volume-container">
+                                        <div class="volume-button">
+                                            <div class="volume icono-volumeMedium"></div>
+                                        </div>
 
-                                    <div class="volume-slider">
-                                        <div class="volume-percentage"></div>
+                                        <div class="volume-slider">
+                                            <div class="volume-percentage"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="time" style="display: none;">
-                                    <div class="current">0:00</div>
-                                    <div class="divider">/</div>
-                                    <div class="length"></div>
+                                    <div class="time" style="display: none;">
+                                        <div class="current">0:00</div>
+                                        <div class="divider">/</div>
+                                        <div class="length"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-5 pb-5">
+                            <a href="buku_audio.html" class="text-white">Lihat semua Buku Audio</a>
+                            <h2 class="ff-kidzone fs-48px">{{ $book->name }}</h2>
+                            @php
+                                echo $book->sinopsis;
+                            @endphp
+                            @foreach ($book->authors as $author)
+                                <p class="fw-bold">Pengarang : {{ $author->name }}</p>
+                            @endforeach
+                            <p><span class="fw-bold">Rating : </span> 4.9</p>
+                        </div>
                     </div>
-                    <div class="col-5 pb-5">
-                        <a href="buku_audio.html" class="text-white">Lihat semua Buku Audio</a>
-                        <h2 class="ff-kidzone fs-48px">{{ $abh->books->name }}</h2>
-                        @php
-                            echo $abh->books->sinopsis;
-                        @endphp
-                        @foreach ($abh->books->authors as $author)
-                            <p class="fw-bold">Pengarang : {{ $author->name }}</p>
-                        @endforeach
-                        <p><span class="fw-bold">Rating : </span> 4.9</p>
-                    </div>
-                </div>
+                @endforeach
             @endforeach
         </div>
     </div>
@@ -662,5 +619,42 @@
             <div class="dash" style="margin-top: 100px;"></div>
         </div>
     </section>
-
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
+    <script>
+        var token = $("input[name=_token]").val();
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('homebookfilter') }}",
+            data: {
+                _method: "POST",
+                _token: token,
+            },
+            success: function(hasil) {
+                $("#search-button").on('click', function() {
+                    var jenjang = $("[name=jenjang]").val();
+                    var tema = $("[name=tema]").val();
+                    var bahasa = $("[name=bahasa]").val();
+                    var format = $("[name=format]").val();
+                    var search = $("#search").val();
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('homebookfilter') }}",
+                        data: {
+                            _method: "POST",
+                            _token: token,
+                            jenjang: jenjang,
+                            tema: tema,
+                            bahasa: bahasa,
+                            format: format,
+                            search: search
+                        },
+                        success: function(hasil) {
+                            $("#tab-book").html(hasil);
+                        }
+                    });
+                });
+                $("#tab-book").html(hasil);
+            }
+        });
+    </script>
 @endsection

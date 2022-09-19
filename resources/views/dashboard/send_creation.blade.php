@@ -102,7 +102,6 @@
                             {{-- <h4 class="card-title">Edit {{ $send_creations->heading }}</h4> --}}
                         </div>
                         <div class="card-body">
-
                             <div class="modal fade" id="tambahbuku" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-xl">

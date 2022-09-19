@@ -49,4 +49,14 @@ class Book extends Model
     {
         return $this->belongsTo(Book_pdf::class, 'id', 'book_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'book_id', 'id');
+    }
+
+    public function saveds()
+    {
+        return $this->hasMany(Saved::class, 'book_id', 'id');
+    }
 }

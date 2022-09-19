@@ -14,6 +14,7 @@
     <link href="{{ asset('assets') }}/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets') }}/vendor/select2/css/select2.min.css">
     <link href="{{ asset('assets') }}/vendor/summernote/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
@@ -163,7 +164,7 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="./page-login.html" class="dropdown-item">
+                                    <a href="{{ url('dashboard/logout') }}" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -354,7 +355,7 @@
     {{-- <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.min.js"></script>
     <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="{{ asset('assets') }}/vendor/jquery.counterup/jquery.counterup.min.js"></script> --}}
-
+    <script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
     <!-- Datatable -->
     <script src="{{ asset('assets') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins-init/datatables.init.js"></script>

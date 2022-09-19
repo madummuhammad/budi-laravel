@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BookOfTheMonth extends Model
+class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -25,8 +25,13 @@ class BookOfTheMonth extends Model
         });
     }
 
+    public function visitors()
+    {
+        return $this->hasOne(Visitor::class, 'id', 'visitor_id');
+    }
+
     public function books()
     {
-        return $this->hasMany(Book::class, 'id', 'book_id');
+        return $this->hasmany(Book::class, 'id', 'book_id');
     }
 }

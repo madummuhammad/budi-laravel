@@ -3,7 +3,6 @@ const audioPlayer = document.querySelector(".audio-player");
 const audio = new Audio(
     src
 );
-console.dir(audio);
 
 audio.addEventListener(
     "loadeddata",

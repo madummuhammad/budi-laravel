@@ -64,6 +64,7 @@
                 @php
                     echo $book_detail->sinopsis;
                 @endphp
+                @csrf
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     <div class="d-flex align-items-center">
                         <span class="me-5">Dengarkan</span>
@@ -101,10 +102,16 @@
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                         py-2 me-4"><i
                                 class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                        <button
+                        <button type="button"
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                        py-2 me-4"><i
+                        py-2 me-4"
+                            id="saved"
+                            @if ($saveds) status="saved"
+                            style="background-color: grey; color:white"
+                                @else
+                                status="unsaved" @endif><i
                                 class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+
                         @if ($book_detail['book_pdfs'] !== null)
                             <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
                                 class="btn btn-outline-blue d-flex justify-content-center align-items-center
@@ -126,7 +133,12 @@
                                 class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4"><i
+                            py-2 me-4"
+                            id="saved"
+                            @if ($saveds) status="saved"
+                            style="background-color: grey; color:white"
+                                @else
+                                status="unsaved" @endif><i
                                 class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
@@ -167,95 +179,76 @@
                                 class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2"><i
+                            py-2"
+                            id="saved"
+                            @if ($saveds) status="saved"
+                            style="background-color: grey; color:white"
+                                @else
+                                status="unsaved" @endif><i
                                 class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                     </div>
                 @endif
             </div>
         </div>
-        <div class="row mt-5 row-comment">
-            <h3 class="fw-bold">Berikan Komentarmu: </h3>
-            <div class="comment-profile mb-3 mt-4">
-                <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
-                <span class="fw-bold fs-4 ms-3">Febri</span>
+        @if (auth()->guard('visitor')->check() == true)
+            <div class="row mt-5 row-comment">
+                <form action="{{ url('comment') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type="text" name="id" value="{{ $book_detail->id }}" hidden>
+                    <h3 class="fw-bold">Berikan Komentarmu: </h3>
+                    <div class="comment-profile mb-3 mt-4">
+                        <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
+                        <span class="fw-bold fs-4 ms-3">{{ auth()->guard('visitor')->user()->name }}</span>
+                    </div>
+                    <div class="ratting">
+                        <div class="star d-inline nonactive" data-star='1'>
+                            <i class="fa-regular fa-star fs-3"></i>
+                        </div>
+                        <div class="star d-inline nonactive" data-star='2'>
+                            <i class="fa-regular fa-star fs-3"></i>
+                        </div>
+                        <div class="star d-inline nonactive" data-star='3'>
+                            <i class="fa-regular fa-star fs-3"></i>
+                        </div>
+                        <div class="star d-inline nonactive" data-star='4'>
+                            <i class="fa-regular fa-star fs-3"></i>
+                        </div>
+                        <div class="star d-inline nonactive" data-star='5'>
+                            <i class="fa-regular fa-star fs-3"></i>
+                        </div>
+                        <input type="text" name="star" value="0" hidden>
+                        <span class="ms-3"> Nilai</span>
+                    </div>
+                    <textarea class="form-control mt-3" name="comment" id="" cols="30" rows="6"></textarea>
+                    <div>
+                        <button class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
+                    </div>
+                </form>
             </div>
-            <div class="ratting">
-                <i class="fa-regular fa-star fs-3"></i>
-                <i class="fa-regular fa-star fs-3"></i>
-                <i class="fa-regular fa-star fs-3"></i>
-                <i class="fa-regular fa-star fs-3"></i>
-                <i class="fa-regular fa-star fs-3"></i>
-                <span class="ms-3"> Nilai</span>
-            </div>
-            <textarea class="form-control mt-3" name="" id="" cols="30" rows="6"></textarea>
-            <div>
-                <button class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
-            </div>
-        </div>
+        @endif
 
         <div class="row row-review mt-5">
             <h3 class="fw-bold">Komentar Terbaru</h3>
-            <div class="card-comment mb-4">
-                <div class="card-comment-header">
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('web') }}/assets/img/andi.png" alt="">
-                        <span class="fs-5 fw-bold ms-3">Andi</span>
+            @foreach ($comments as $comment)
+                <div class="card-comment mb-4">
+                    <div class="card-comment-header">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ asset('web') }}/assets/img/andi.png" alt="">
+                            <span class="fs-5 fw-bold ms-3">{{ $comment->visitors->name }}</span>
+                        </div>
+                        <div class="ratting">
+                            @for ($i = 0; $i < $comment->star; $i++)
+                                <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
+                            @endfor
+                            <span>{{ $comment->star }}</span>
+                        </div>
                     </div>
-                    <div class="ratting">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <span>5</span>
-                    </div>
-                </div>
-                <div class="card-comment-body mt-3">
-                    <p>Buku ini enak dibaca. Ga berasa udah 1 jam membaca dan masih seru. Semoga diperbanyak karya
-                        seperti ini.</p>
-                </div>
-            </div>
-            <div class="card-comment mb-4">
-                <div class="card-comment-header">
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('web') }}/assets/img/sinta.png" alt="">
-                        <span class="fs-5 fw-bold ms-3">Sinta</span>
-                    </div>
-                    <div class="ratting">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <span>5</span>
+                    <div class="card-comment-body mt-3">
+                        <p>{{ $comment->comment }}</p>
                     </div>
                 </div>
-                <div class="card-comment-body mt-3">
-                    <p>Buku hebat yang secara luar biasa menggambarkan problem, mengartikulasi nilai, memaparkan
-                        risiko, dan menawarkan cara yang bisa dipahami dan dipraktikkan untuk menanggapi kesulitan
-                        yang dialami jurnalisme saat ini.</p>
-                </div>
-            </div>
-            <div class="card-comment mb-4">
-                <div class="card-comment-header">
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('web') }}/assets/img/miftah.png" alt="">
-                        <span class="fs-5 fw-bold ms-3">Miftah</span>
-                    </div>
-                    <div class="ratting">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        <span>5</span>
-                    </div>
-                </div>
-                <div class="card-comment-body mt-3">
-                    <p>Buku ini sangat bagus dan pastinya berisi ajaran positif yang bisa bermanfaat bagi para
-                        pembaca. Khususnya bagi anak-anak yang masih dalam tahap belajar.</p>
-                </div>
-            </div>
+            @endforeach
             <div class="row mt-5 mb-5" id>
                 <div class="header d-flex justify-content-between" style="padding-right: 35px;">
                     <h2 class="fw-bold">Referensi Buku Sejenis</h2>
@@ -293,4 +286,38 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            var token = $("input[name=_token]").val();
+            var book_id = "{{ $book_detail->id }}";
+            var visitor_id = "{{ auth()->guard('visitor')->user()->id }}";
+            $("#saved").on('click', function() {
+                var saved = $(this).attr("status");
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('saved') }}",
+                    data: {
+                        _method: "POST",
+                        status: saved,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        if (saved == "unsaved") {
+                            $("#saved").removeAttr("status");
+                            $("#saved").attr("status", "saved");
+                            $("#saved").css("background-color", "grey");
+                            $("#saved").css("color", "white");
+                        } else {
+                            $("#saved").removeAttr("status");
+                            $("#saved").removeAttr("style");
+                            $("#saved").attr("status", "unsaved");
+                        }
+                    }
+                });
+            })
+        })
+    </script>
 @endsection

@@ -109,52 +109,29 @@
                 </div>
                 <!-- asdfasdf -->
                 <h3 class="mt-5 mb-3">Hasil Pencarian <span class="fw-bold fs-4">Referensi Buku</span> </h3>
-                <div class="row row-cols-5 card-pagination">
-                    @foreach ($reference_books as $book)
-                        <div class="col mb-4">
-                            <div class="card p-2">
-                                <a href="{{ url('reference_book_detail') }}/{{ $book->id }}"
-                                    class="text-decoration-none text-dark">
-                                    <img src="{{ $book->cover }}" alt="" class="img-fluid">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <span><img src="{{ asset('web') }}/assets/icon/love.svg" alt="">
-                                                100</span>
-                                            <span><img src="{{ asset('web') }}/assets/icon/little-book.svg"
-                                                    alt=""> 100</span>
-                                        </div>
-                                        <a href=""><i class="bi bi-three-dots-vertical"></i></a>
-                                    </div>
-                                </a>
-                                <div class="card-body p-1">
-                                    <div class="card-title fw-bold">
-                                        {{ $book->name }}
-                                    </div>
-                                    @foreach ($book->authors as $author)
-                                        <p class="card-text">Author: {{ $author->name }}</p>
-                                    @endforeach
-                                    @foreach ($book->themes as $theme)
-                                        <p class="card-text">Tema: {{ $theme->name }}</p>
-                                    @endforeach
+                <div class="row row-cols-5" id="reference_book">
 
-                                </div>
-                            </div>
-                            <div class="card-body p-1">
-
-                            </div>
-                        </div>
-                    @endforeach
                 </div>
                 <div class="d-flex justify-content-center">
                     <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                        <span class="page-item prev"><button class="page-link" href=""><img
-                                    src="assets/icon/prev-2.svg" alt=""></button></span>
+                        <span class="page-item prev">
+                            <button class="page-link" href="">
+                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                            </button>
+                        </span>
                         <ul class="pagination">
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            @for ($i = 0; $i < ceil($reference_books->total() / 10); $i++)
+                                <li class="page-item pagination-link active"><a class="page-link"
+                                        href="#">{{ $i + 1 }}</a>
+                                </li>
+                            @endfor
+                            <input type="number" name="page-link" value="0" hidden>
                         </ul>
-                        <span class="page-item next"><button class="page-link" href=""><img
-                                    src="assets/icon/next-2.svg" alt=""></button></button></span>
+                        <span class="page-item next">
+                            <button class="page-link" href="">
+                                <img src="{{ asset('web') }}/assets/icon/next-2.svg" alt="">
+                            </button>
+                        </span>
                     </nav>
                 </div>
             </div>
@@ -270,6 +247,76 @@
     <div class="container-fluid pb-5">
         <div class="row pt-3 px-5">
             <img class="img-fluid" src="assets/icon/board.svg" alt="">
+            @csrf
         </div>
     </div>
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
+    <script>
+        var pagination_link = $(".pagination-link").length;
+        var token = $("input[name=_token]").val();
+        $(document).ready(function() {
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=1",
+                data: {
+                    _method: "POST",
+                    _token: token,
+                },
+                success: function(hasil) {
+                    $("#reference_book").html(hasil);
+                    $(".next").on('click', function() {
+                        var page_link_number = parseInt($("[name=page-link]").val());
+                        if (page_link_number >= {{ ceil($reference_books->total() / 10) }}) {
+                            page_link = page_link_number;
+                        } else {
+                            page_link = page_link_number + 1
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                page_link,
+                            data: {
+                                _method: "POST",
+                                _token: token,
+                            },
+                            success: function(hasil) {
+                                $("#reference_book").html(hasil);
+                            }
+                        });
+                    })
+                    $(".prev").on('click', function() {
+                        var page_link = parseInt($("[name=page-link]").val()) + 1;
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                page_link,
+                            data: {
+                                _method: "POST",
+                                _token: token,
+                            },
+                            success: function(hasil) {
+                                $("#reference_book").html(hasil);
+                            }
+                        });
+                    })
+                    $("#pagin ul a").click(function(e) {
+                        e.preventDefault();
+                        var page_link = parseInt($(this).parent().index()) + 1;
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                page_link,
+                            data: {
+                                _method: "POST",
+                                _token: token,
+                            },
+                            success: function(hasil) {
+                                $("#reference_book").html(hasil);
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

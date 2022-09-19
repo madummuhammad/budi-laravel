@@ -7,12 +7,15 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BooktypeController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\MylibraryController;
 use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\SendcreationController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,38 +30,65 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::middleware('visitor')->group(function () {
+    Route::prefix('/')->group(function () {
+        Route::get('/login', [VisitorController::class, 'login']);
+        Route::post('/login', [VisitorController::class, 'auth_login']);
+        Route::post('/logout', [VisitorController::class, 'logout']);
+        Route::get('/register', [VisitorController::class, 'register']);
+        Route::post('/register', [VisitorController::class, 'auth_register']);
 
-Route::get('/', [WebController::class, 'index']);
-Route::get('/book/{id}', [WebController::class, 'book']);
+        // Profile
+        Route::get('/profile', [VisitorController::class, 'index']);
+        Route::patch('/profile', [VisitorController::class, 'update']);
+        Route::patch('/profile_image', [VisitorController::class, 'profile_image']);
 
-Route::get('/contact', [WebController::class, 'contact']);
+        // My Library
+        Route::get('/mylibrary', [WebController::class, 'my_library']);
+        Route::post('/saved', [MylibraryController::class, 'saved']);
 
-// Book Type
-Route::get('/book_type/{id}', [WebController::class, 'book_type']);
+        Route::get('/', [WebController::class, 'index']);
+        Route::get('/book/{id}', [WebController::class, 'book']);
 
-// Reference Book
-Route::get('/reference_book/{id}', [WebController::class, 'reference_book']);
-Route::get('/reference_book_detail/{id}', [WebController::class, 'reference_book_detail']);
+        // Comment
+        Route::post('/comment', [CommentController::class, 'add']);
 
-// Blog
-Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
+        Route::get('/contact', [WebController::class, 'contact']);
 
-Route::get('/send_creation', [WebController::class, 'send_creation']);
+        // Book Type
+        Route::get('/book_type/{id}', [WebController::class, 'book_type']);
+        Route::post('/book_type/{id}', [WebController::class, 'book_type_filter']);
+
+        // Reference Book
+        Route::get('/reference_book/{id}', [WebController::class, 'reference_book']);
+        Route::post('/reference_book/{id}', [WebController::class, 'reference_book_filter']);
+        Route::get('/reference_book_detail/{id}', [WebController::class, 'reference_book_detail']);
+
+        // Blog
+        Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
+
+        Route::get('/send_creation', [WebController::class, 'send_creation']);
+
+        // Homebook
+        Route::post('/homebookfilter', [WebController::class, 'homebookfilter']);
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
 
         Route::get('/login', [AuthController::class, 'login'])->name('login')->withoutMiddleware('auth');
         Route::post('/login', [AuthController::class, 'auth'])->withoutMiddleware('auth');
+        Route::get('/logout', [AuthController::class, 'logout']);
 
         // Dashboard
         Route::get('/', [DashboardController::class, 'index']);
 
         // Book
         Route::get('/book', [BookController::class, 'index']);
+        Route::get('/book/comment/{id}', [CommentController::class, 'dashboard']);
+        Route::delete('/book/comment/{id}', [CommentController::class, 'destroy']);
+        Route::patch('/book/comment/{id}', [CommentController::class, 'update']);
         Route::post('/book', [BookController::class, 'add']);
         Route::get('/book/edit/{id}', [BookController::class, 'edit']);
         Route::patch('/book', [BookController::class, 'update']);
@@ -83,7 +113,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/homepage/banner', [BannerController::class, 'update']);
         Route::delete('/homepage/banner', [BannerController::class, 'destroy']);
         Route::patch('/homepage/book_of_the_month', [HomepageController::class, 'book_of_the_month']);
+        Route::post('/homepage/book_of_the_month', [HomepageController::class, 'add_book_of_the_month']);
         Route::patch('/homepage/audio_book_homepage', [HomepageController::class, 'audio_book_homepage']);
+        Route::post('/homepage/audio_book_homepage', [HomepageController::class, 'add_audio_book_homepage']);
         Route::patch('/homepage/send_creation', [HomepageController::class, 'send_creation']);
 
         // Book Type

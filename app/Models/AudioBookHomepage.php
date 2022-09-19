@@ -27,6 +27,6 @@ class AudioBookHomepage extends Model
 
     public function books()
     {
-        return $this->hasOne(Book::class, 'id', 'book_id');
+        return $this->hasMany(Book::class, 'id', 'book_id');
     }
 }

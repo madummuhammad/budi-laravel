@@ -213,7 +213,98 @@
                                 </div>
                             </div>
                             <div id="section-4" class="mt-5">
-                                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
+                                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini
+                                    @if (count($book_of_the_months) < 2)
+                                        <button class="btn badge-primary text-white" data-toggle="modal"
+                                            data-target="#tambahbukupilihan"><i class="bi bi-plus-lg"></i></button>
+                                    @endif
+                                </h2>
+                                <div class="modal" tabindex="-1" id="tambahbukupilihan">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header border-0 py-0">
+                                                <h5 class="modal-title"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body py-0">
+                                                <div class="table-responsive">
+                                                    <table id="" class="display book_of_the_month"
+                                                        style="min-width: 845px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Cover</th>
+                                                                <th>Judul</th>
+                                                                <th>Jenis Buku</th>
+                                                                <th>Tema</th>
+                                                                <th>Jenjang</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $no = 0;
+                                                            @endphp
+                                                            @foreach ($books as $book)
+                                                                @php
+                                                                    $no++;
+                                                                @endphp
+                                                                <tr>
+                                                                    <td>{{ $no }}</td>
+                                                                    <td>
+                                                                        <div class="img-container-for-icon">
+                                                                            <img src="{{ $book->cover }}"
+                                                                                class="img-fluid w-50" alt="">
+                                                                            @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                                                                <div class="icon">
+                                                                                    <img src="{{ asset('web') }}/assets/icon/mic.svg"
+                                                                                        alt="">
+                                                                                </div>
+                                                                            @endif
+                                                                            @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                                                <div class="icon">
+                                                                                    <img src="{{ asset('web') }}/assets/icon/play.svg"
+                                                                                        alt="">
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{ $book->name }}</td>
+                                                                    @foreach ($book->book_types as $book_type)
+                                                                        <td>{{ $book_type->name }}</td>
+                                                                    @endforeach
+                                                                    @foreach ($book->themes as $theme)
+                                                                        <td>{{ $theme->name }}</td>
+                                                                    @endforeach
+                                                                    @foreach ($book->levels as $level)
+                                                                        <td>{{ $level->name }}</td>
+                                                                    @endforeach
+                                                                    <td>
+                                                                        <form
+                                                                            action="{{ url('dashboard/homepage/book_of_the_month/') }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('post')
+                                                                            <input type="text" name="book_id"
+                                                                                value="{{ $book->id }}" hidden>
+                                                                            <button type="submit"
+                                                                                class="btn badge-primary">Pilih</button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer pt-0 pb-1 border-0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row text-dark">
                                     @foreach ($book_of_the_months as $botm)
                                         <div class="col-lg-6">
@@ -319,17 +410,23 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <p class="fw-600 fs-6">{{ $botm->books->name }}</p>
+                                                    @foreach ($botm->books as $book)
+                                                        <p class="fw-600 fs-6">{{ $book->name }}</p>
+                                                    @endforeach
                                                     <p class="mt-3">
-                                                        @php
-                                                            echo $botm->books->sinopsis;
-                                                        @endphp
+                                                        @foreach ($botm->books as $book)
+                                                            @php
+                                                                echo $book->sinopsis;
+                                                            @endphp
+                                                        @endforeach
                                                     </p>
                                                     <div class="mt-5">
-                                                        @foreach ($botm->books->authors as $author)
-                                                            <p><span class="fw-bold">Pengarang :
-                                                                    {{ $author->name }}</span>
-                                                            </p>
+                                                        @foreach ($botm->books as $book)
+                                                            @foreach ($book->authors as $author)
+                                                                <p><span class="fw-bold">Pengarang :
+                                                                        {{ $author->name }}</span>
+                                                                </p>
+                                                            @endforeach
                                                         @endforeach
                                                         <p><span class="fw-bold">Rating : </span><img
                                                                 src="{{ asset('web') }}/assets/icon/star.svg"
@@ -341,8 +438,10 @@
                                                 <div class="col-lg-6">
                                                     <div class="card border-0 shadow">
                                                         <div class="card-body">
-                                                            <img class="img-fluid" src="{{ $botm->books->cover }}"
-                                                                alt="">
+                                                            @foreach ($botm->books as $book)
+                                                                <img class="img-fluid" src="{{ $book->cover }}"
+                                                                    alt="">
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
@@ -353,7 +452,97 @@
                             </div>
                             <div id="section-4" class="mt-5">
                                 <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Dengarkan Cerita Menarik Setiap
-                                    Hari</h2>
+                                    Hari @if (count($audio_book_homepages) < 1)
+                                        <button class="btn badge-primary text-white" data-toggle="modal"
+                                            data-target="#tambahaudiobook"><i class="bi bi-plus-lg"></i></button>
+                                    @endif
+                                </h2>
+                                <div class="modal" tabindex="-1" id="tambahaudiobook">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header border-0 py-0">
+                                                <h5 class="modal-title"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body py-0">
+                                                <div class="table-responsive">
+                                                    <table id="" class="display book_of_the_month"
+                                                        style="min-width: 845px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Cover</th>
+                                                                <th>Judul</th>
+                                                                <th>Jenis Buku</th>
+                                                                <th>Tema</th>
+                                                                <th>Jenjang</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $no = 0;
+                                                            @endphp
+                                                            @foreach ($books as $book)
+                                                                @php
+                                                                    $no++;
+                                                                @endphp
+                                                                <tr>
+                                                                    <td>{{ $no }}</td>
+                                                                    <td>
+                                                                        <div class="img-container-for-icon">
+                                                                            <img src="{{ $book->cover }}"
+                                                                                class="img-fluid w-50" alt="">
+                                                                            @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                                                                <div class="icon">
+                                                                                    <img src="{{ asset('web') }}/assets/icon/mic.svg"
+                                                                                        alt="">
+                                                                                </div>
+                                                                            @endif
+                                                                            @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                                                <div class="icon">
+                                                                                    <img src="{{ asset('web') }}/assets/icon/play.svg"
+                                                                                        alt="">
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{ $book->name }}</td>
+                                                                    @foreach ($book->book_types as $book_type)
+                                                                        <td>{{ $book_type->name }}</td>
+                                                                    @endforeach
+                                                                    @foreach ($book->themes as $theme)
+                                                                        <td>{{ $theme->name }}</td>
+                                                                    @endforeach
+                                                                    @foreach ($book->levels as $level)
+                                                                        <td>{{ $level->name }}</td>
+                                                                    @endforeach
+                                                                    <td>
+                                                                        <form
+                                                                            action="{{ url('dashboard/homepage/audio_book_homepage/') }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('post')
+                                                                            <input type="text" name="book_id"
+                                                                                value="{{ $book->id }}" hidden>
+                                                                            <button type="submit"
+                                                                                class="btn badge-primary">Pilih</button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer pt-0 pb-1 border-0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row text-dark">
                                     @foreach ($audio_book_homepages as $abh)
                                         <div class="col-lg-8">
@@ -461,51 +650,54 @@
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <div class="img-container-for-icon bg-danger">
-                                                        <img src="{{ $abh->books->cover }}" class="img-fluid w-100"
-                                                            alt="">
-                                                        @if ($abh->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                                            <div class="icon" style="left: 40%">
-                                                                <img src="{{ asset('web') }}/assets/icon/mic.svg"
-                                                                    alt="">
-                                                            </div>
-                                                        @endif
-                                                        @if ($abh->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                                            <div class="icon">
-                                                                <img src="{{ asset('web') }}/assets/icon/play.svg"
-                                                                    alt="">
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <p class="fw-600 fs-6">{{ $abh->books->name }}</p>
-                                                    <p class="mt-3">
-                                                        @php
-                                                            echo $abh->books->sinopsis;
-                                                        @endphp
-                                                    </p>
-                                                    <div class="mt-5">
-                                                        @foreach ($abh->books->authors as $author)
-                                                            <p><span class="fw-bold">Pengarang :
-                                                                    {{ $author->name }}</span>
-                                                            </p>
-                                                        @endforeach
-                                                        <p><span class="fw-bold">Rating : </span><img
-                                                                src="{{ asset('web') }}/assets/icon/star.svg"
+                                                        @foreach ($abh->books as $book)
+                                                            <img src="{{ $book->cover }}" class="img-fluid w-100"
                                                                 alt="">
-                                                            4.9
-                                                        </p>
-                                                    </div>
-                                                    <div class="mt-5">
-                                                        <audio controls>
-                                                            <source
-                                                                src="{{ asset('storage/') }}/{{ $abh->books->content }}"
-                                                                type="audio/mpeg">
-                                                            Your browser does not support the audio element.
-                                                        </audio>
+                                                            @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                                                <div class="icon" style="left: 40%">
+                                                                    <img src="{{ asset('web') }}/assets/icon/mic.svg"
+                                                                        alt="">
+                                                                </div>
+                                                            @endif
+                                                            @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                                <div class="icon">
+                                                                    <img src="{{ asset('web') }}/assets/icon/play.svg"
+                                                                        alt="">
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
                                                     </div>
                                                 </div>
-
+                                                @foreach ($abh->books as $book)
+                                                    <div class="col-lg-6">
+                                                        <p class="fw-600 fs-6">{{ $book->name }}</p>
+                                                        <p class="mt-3">
+                                                            @php
+                                                                echo $book->sinopsis;
+                                                            @endphp
+                                                        </p>
+                                                        <div class="mt-5">
+                                                            @foreach ($book->authors as $author)
+                                                                <p><span class="fw-bold">Pengarang :
+                                                                        {{ $author->name }}</span>
+                                                                </p>
+                                                            @endforeach
+                                                            <p><span class="fw-bold">Rating : </span><img
+                                                                    src="{{ asset('web') }}/assets/icon/star.svg"
+                                                                    alt="">
+                                                                4.9
+                                                            </p>
+                                                        </div>
+                                                        <div class="mt-5">
+                                                            <audio controls>
+                                                                <source
+                                                                    src="{{ asset('storage/') }}/{{ $book->content }}"
+                                                                    type="audio/mpeg">
+                                                                Your browser does not support the audio element.
+                                                            </audio>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     @endforeach
@@ -515,121 +707,130 @@
                                 <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Ayo Kirimkan Karyamu</h2>
                                 <div class="row text-dark">
                                     @foreach ($send_creations as $send_creation)
-                                        <div class="col-lg-12">
-                                            <div class="d-flex justify-content-end">
-                                                <button class="btn badge-success" data-toggle="modal"
-                                                    data-target="#sendcreation"><i
-                                                        class="bi bi-pencil-square"></i></button>
-                                                <div class="modal" tabindex="-1" id="sendcreation">
-                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header border-0 py-0">
-                                                                <h5 class="modal-title"></h5>
-                                                                <button type="button" class="close"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body py-0">
-                                                                <form
-                                                                    action="{{ url('dashboard/homepage/send_creation') }}"
-                                                                    method="POST" enctype="multipart/form-data">
-                                                                    <div class="modal-body">
-                                                                        @method('patch')
-                                                                        @csrf
-                                                                        <div class="row">
-                                                                            <div class="col-6">
-                                                                                <div class="row">
-                                                                                    @foreach ($send_creation->send_creation_images as $send_creation_image)
-                                                                                        <div class="col-6">
-                                                                                            <img src="{{ $send_creation_image->image }}"
-                                                                                                class="img-fluid w-100"
-                                                                                                alt="">
-                                                                                            <input type="file"
-                                                                                                class="form-control file-input-custom"
-                                                                                                id="cover-buku"
-                                                                                                aria-describedby="emailHelp"
-                                                                                                name="image{{ $loop->index }}">
-                                                                                            <input type="text"
-                                                                                                name="image_id{{ $loop->index }}"
-                                                                                                value="{{ $send_creation_image->id }}"
-                                                                                                hidden>
-                                                                                        </div>
-                                                                                    @endforeach
+                                        @if ($loop->first)
+                                            <div class="col-lg-12">
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn badge-success" data-toggle="modal"
+                                                        data-target="#sendcreation"><i
+                                                            class="bi bi-pencil-square"></i></button>
+                                                    <div class="modal" tabindex="-1" id="sendcreation">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0 py-0">
+                                                                    <h5 class="modal-title"></h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body py-0">
+                                                                    <form
+                                                                        action="{{ url('dashboard/homepage/send_creation') }}"
+                                                                        method="POST" enctype="multipart/form-data">
+                                                                        <div class="modal-body">
+                                                                            @method('patch')
+                                                                            @csrf
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <div class="row">
+                                                                                        @foreach ($send_creation->send_creation_images as $send_creation_image)
+                                                                                            <div class="col-6">
+                                                                                                <img src="{{ $send_creation_image->image }}"
+                                                                                                    class="img-fluid w-100"
+                                                                                                    alt="">
+                                                                                                <input type="file"
+                                                                                                    class="form-control file-input-custom"
+                                                                                                    id="cover-buku"
+                                                                                                    aria-describedby="emailHelp"
+                                                                                                    name="image{{ $loop->index }}">
+                                                                                                <input type="text"
+                                                                                                    name="image_id{{ $loop->index }}"
+                                                                                                    value="{{ $send_creation_image->id }}"
+                                                                                                    hidden>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-lg-6">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        for="exampleInputEmail1">Heading</label>
-                                                                                    <input type="text" name="id"
-                                                                                        value="{{ $send_creation->id }}"
-                                                                                        hidden>
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="exampleInputEmail1"
-                                                                                        aria-describedby="emailHelp"
-                                                                                        name="heading"
-                                                                                        value="{{ $send_creation->heading }}">
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="exampleInputEmail1">Sub
-                                                                                        Heading</label>
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="exampleInputEmail1"
-                                                                                        aria-describedby="emailHelp"
-                                                                                        name="sub_heading"
-                                                                                        value="{{ $send_creation->sub_heading }}">
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="exampleInputEmail1">Konten
-                                                                                    </label>
-                                                                                    <textarea name="content" class="form-control" id="" cols="30" rows="10">
-                                                                                        {{ $send_creation->content }}
-                                                                                    </textarea>
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Heading</label>
+                                                                                        <input type="text"
+                                                                                            name="id"
+                                                                                            value="{{ $send_creation->id }}"
+                                                                                            hidden>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="exampleInputEmail1"
+                                                                                            aria-describedby="emailHelp"
+                                                                                            name="heading"
+                                                                                            value="{{ $send_creation->heading }}">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label for="exampleInputEmail1">Sub
+                                                                                            Heading</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="exampleInputEmail1"
+                                                                                            aria-describedby="emailHelp"
+                                                                                            name="sub_heading"
+                                                                                            value="{{ $send_creation->sub_heading }}">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            for="exampleInputEmail1">Konten
+                                                                                        </label>
+                                                                                        <textarea name="content" class="form-control" id="" cols="30" rows="10">
+                                                                                    {{ $send_creation->content }}
+                                                                                </textarea>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Tutup</button>
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Kirim</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer pt-0 pb-1 border-0">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="img-container-for-icon">
-                                                        <div class="row">
-                                                            @foreach ($send_creation->send_creation_images as $send_creation_image)
-                                                                <div class="col-6">
-                                                                    <img src="{{ $send_creation_image->image }}"
-                                                                        class="img-fluid w-100" alt="">
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Tutup</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Kirim</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
-                                                            @endforeach
+                                                                <div class="modal-footer pt-0 pb-1 border-0">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <h2 class="fw-600 fs-6">{{ $send_creation->heading }}</h2>
-                                                    <p class="mt-3">
-                                                        {{ $send_creation->sub_heading }}
-                                                    </p>
-                                                    <div class="mt-5">
-                                                        {{ $send_creation->content }}
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="img-container-for-icon">
+                                                            <div class="row">
+                                                                @foreach ($send_creation->send_creation_images as $send_creation_image)
+                                                                    <div class="col-6">
+                                                                        <img src="{{ $send_creation_image->image }}"
+                                                                            class="img-fluid w-100" alt=""><br>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h2 class="fw-600 fs-6">{{ $send_creation->heading }}</h2>
+                                                        <p class="mt-3">
+                                                            @php
+                                                                echo $send_creation->sub_heading;
+                                                            @endphp
+                                                        </p>
+                                                        <div class="mt-5">
+                                                            @php
+                                                                echo $send_creation->content;
+                                                            @endphp
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

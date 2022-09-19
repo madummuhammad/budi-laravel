@@ -8,13 +8,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
-    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/css/owl.carousel.css">
-    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.css" type="text/css" />
-    <title>Homepage</title>
+    <title>Registrasi</title>
 </head>
 
-<body>
+<body class="registrasi">
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
         <div class="container px-5">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -50,7 +47,7 @@
                             </li>
                         </ul>
                     <li class="nav-item px-3">
-                        <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('pustakaku') }}">Pustakaku</a>
                     </li>
                     <li class="nav-item px-3">
                         <a class="nav-link active" aria-current="page"
@@ -70,14 +67,14 @@
             @endif
             @if (auth()->guard('visitor')->check() == 1)
                 <div class="d-flex navbar-profile align-items-center">
-                    <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
+                    <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
                     <div class="nav-item px-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ auth()->guard('visitor')->user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url('profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
                             <form method="POST" action="{{ url('logout') }}">
                                 @csrf
                                 @method('POST')
@@ -89,96 +86,76 @@
             @endif
         </div>
     </nav>
-
-    @yield('content')
-
-    <footer>
-        <div class="container-fluid footer">
-            <div class="row">
-                <div class="col-4">
+    <div class="container mt-5 pt-5" style="padding-bottom: 200px;">
+        <div class="d-flex justify-content-center">
+            <img src="{{ asset('web') }}/assets/img/logo.png" alt="" style="width:120px">
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-6 bg-white">
+                <h5 class="fw-bold">Selamat Datang</h5>
+                <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
+                <form action="{{ url('register') }}" class="mb-5" method="POST">
+                    @csrf
+                    @method('POST')
                     <div class="row">
-                        <div class="col-2">
-                            <img src="{{ asset('web') }}/assets/img/logo.png" alt="" class="img-fluid">
+                        <div class="col-12">
+                            <input type="text" class="form-control mb-3 py-3" placeholder="Nama"
+                                aria-label="Full Name" name="name">
                         </div>
-                        <div class="col-10">
-                            <p class="text-dark fw-bold">Kementerian Pendidikan, Kebudayaan, Riset, dan
-                                Teknologi
-                                Badan Pengembangan dan Pembinaan Bahasa
-                                Pusat Pembinaan Bahasa dan Sastra</p>
-                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui bahasa dan sastra
-                                Indonesia</p>
+                        <div class="col-12">
+                            <input type="text" class="form-control mb-3 py-3"
+                                placeholder=" Pos-el atau No. Ponsel" aria-label="Last name" name="phone">
                         </div>
                     </div>
-                </div>
-                <div class="col-2">
-                    <p class="fw-bold fs-5 text-dark">Produk</p>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Digital</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Komik</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Audio</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Video</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Referensi</a>
-                </div>
-                <div class="col-2">
-                    <p class="fw-bold fs-5 text-dark">Panduan</p>
-                    <a href="" class="d-block text-decoration-none mb-3">Tentang Budi</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Kebijakan</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Kontak Kami</a>
-                </div>
-                <div class="col-4">
-                    <p class="fw-bold fs-5 text-dark">Kontak Kami</p>
-                    <p class="p-0"><img src="{{ asset('web') }}/assets/icon/evelope.svg" alt="">
-                        badan.bahasa@kemdikbud.go.id
-                    </p>
-                    <p><img src="{{ asset('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
-                    <p><img src="{{ asset('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat
-                        IV, Rawamangun, Jakarta
-                        13220</p>
-                </div>
-            </div>
-            <div class="row sosmed-icon">
-                <div class="col-4">
                     <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-10">
-                            <img src="{{ asset('web') }}/assets/icon/instagram.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/facebook.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/twitter.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/youtube.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/tiktok.svg" alt="">
+                        <div class="col">
+                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
+                                placeholder="adfadf" name="city">
+                                <option selected>Kota/Kabupaten</option>
+                                <option value="1">Kota A</option>
+                                <option value="2">Kota B</option>
+                                <option value="3">Kota C</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
+                                placeholder="adfadf" name="sub">
+                                <option selected>Kecamatan</option>
+                                <option value="1">Kecamatan A</option>
+                                <option value="2">Kecamatan B</option>
+                                <option value="3">Kecamatan C</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
+                                placeholder="adfadf" name="area">
+                                <option selected>Kelurahan</option>
+                                <option value="1">Kelurahan A</option>
+                                <option value="2">Kelurahan B</option>
+                                <option value="3">Kelurahan C</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-8">
-                    <p class="text-end">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat : 09.00 - 16.00
-                        WIB)</p>
-                </div>
-            </div>
-            <div class="dash"></div>
-            <div class="copyright py-4 px-5 text-dark">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        Copyright &copy 2022
-                    </div>
-                    <div>
-                        All right reserved
-                    </div>
-                </div>
+                    <select class="form-select mb-3 py-3" aria-label="size 3 select example" placeholder="adfadf"
+                        name="status">
+                        <option selected disabled>Status</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <input type="email" class="form-control mb-3 py-3" id="exampleFormControlInput1"
+                        placeholder="Pengguna  (Contoh : @Budiberbudi)" name="email">
+                    <input type="password" class="form-control mb-3 py-3" id="exampleFormControlInput1"
+                        placeholder="Kata sandi" name="password">
+                    <button class="btn bg-blue text-white w-100 py-2 ">Buat Akun</button>
+                </form>
+                <p class="text-center mt-5">Sudah memiliki akun? <a href="{{ url('login') }}"
+                        class="text-decoration-none text-blue fw-bold">Masuk</a></p>
             </div>
         </div>
-    </footer>
-    <div class='book_container'>
-        <div id="book"></div>
     </div>
 </body>
-<script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>
-<script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
-<script src="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/js/owl.carousel.js"></script>
-<script type="text/javascript" src="{{ asset('web') }}/assets/vendor/pdf/wow_book/pdf.combined.min.js"></script>
-<script src="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.min.js"></script>
-{{-- <script src="js/main.js"></script> --}}
-<script src="{{ asset('web') }}/assets/js/script.js"></script>
-<script src="{{ asset('web') }}/assets/js/player.js"></script>
 
 </html>

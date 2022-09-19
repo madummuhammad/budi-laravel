@@ -36,6 +36,16 @@ class HomepageController extends Controller
         return back();
     }
 
+    public function add_book_of_the_month()
+    {
+        $book_id = request('book_id');
+        $data = [
+            'book_id' => request('book_id'),
+        ];
+        BookOfTheMonth::create($data);
+        return back();
+    }
+
     public function audio_book_homepage()
     {
         $id = request('id');
@@ -44,6 +54,16 @@ class HomepageController extends Controller
             'book_id' => request('book_id'),
         ];
         AudioBookHomepage::where('id', $id)->update($data);
+        return redirect('dashboard/homepage');
+    }
+
+    public function add_audio_book_homepage()
+    {
+        $book_id = request('book_id');
+        $data = [
+            'book_id' => request('book_id'),
+        ];
+        AudioBookHomepage::create($data);
         return redirect('dashboard/homepage');
     }
 
