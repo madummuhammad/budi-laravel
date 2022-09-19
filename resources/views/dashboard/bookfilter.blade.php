@@ -53,6 +53,34 @@
                                                     <button class="btn badge badge-danger mx-1" data-toggle="modal"
                                                         data-target="#hapus{{ $book->id }}"><i
                                                             class="bi bi-trash3"></i></button>
+                                                    <div class="modal" tabindex="-1" id="hapus{{ $book->id }}">
+                                                        <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0 py-0">
+                                                                    <h5 class="modal-title"></h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body py-0">
+                                                                    <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
+                                                                </div>
+                                                                <div class="modal-footer pt-0 pb-1 border-0">
+                                                                    <form action="{{ url('dashboard/book') }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <input type="text" name="id"
+                                                                            value="{{ $book->id }}" hidden>
+                                                                        <button type="submit"
+                                                                            class="btn badge-danger"><i
+                                                                                class="bi bi-trash3"></i></button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <a href="{{ url('dashboard/book/edit/') }}/{{ $book->id }}"
                                                         class="btn badge badge-primary mx-1"><i
                                                             class="bi bi-pencil-square"></i></a>

@@ -79,7 +79,10 @@ class WebController extends Controller
     {
         $data['comments'] = Comment::with('visitors')->where('book_id', $id)->limit(3)->orderBy('created_at', 'DESC')->get();
         $data['book_detail'] = Book::where('id', $id)->with('authors', 'themes', 'book_types', 'book_pdfs', 'saveds')->first();
-        $data['saveds'] = Saved::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->first();
+        if (auth()->guard('visitor')->check() == true) {
+
+            $data['saveds'] = Saved::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->first();
+        }
         return view('book', $data);
     }
 
