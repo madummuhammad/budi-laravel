@@ -190,12 +190,10 @@
                                                                     <div class="form-group">
                                                                         <label for="exampleInputEmail1">Gambar
                                                                             Banner</label><br>
-                                                                        <input type="file" class="form-control"
+                                                                        <input type="file"
+                                                                            class="form-control file-input-custom"
                                                                             id="cover-buku" aria-describedby="emailHelp"
-                                                                            hidden name="image">
-                                                                        <label for="cover-buku"
-                                                                            class="label-upload-custom btn btn-secondary">Pilih
-                                                                            File</label>
+                                                                            name="image">
                                                                     </div>
                                                                 </div>
                                                             </div>
