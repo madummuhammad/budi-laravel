@@ -9,7 +9,6 @@ use App\Models\BookOfTheMonth;
 use App\Models\SendCreation;
 use App\Models\SendCreationImage;
 use Intervention\Image\ImageManagerStatic as Image;
-use Storage;
 use Validator;
 
 class HomepageController extends Controller
@@ -89,14 +88,15 @@ class HomepageController extends Controller
 
         if ($_FILES['image0']['name'] !== "") {
             $data = [
-                'image' => $this->upload_img(request(), 192, 272, "image0"),
+                'image' => $this->storage() . $this->upload_img(request(), 192, 272, "image0"),
             ];
             SendCreationImage::where('id', request('image_id0'))->update($data);
         }
 
         if ($_FILES['image1']['name'] !== "") {
             $data = [
-                'image' => $this->upload_img(request(), 192, 272, "image1"),
+                'image' => $this->storage() . $this->upload_img(request(), 192, 272, "image1"),
+
             ];
             SendCreationImage::where('id', request('image_id1'))->update($data);
         }
@@ -108,12 +108,16 @@ class HomepageController extends Controller
     {
         $path = $request->file($name)->store('image');
         $resize = Image::make($request->file($name))->fit($fit_width, $fit_height);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
     }
+
+    public function storage()
+    {
+        return url('storage') . '/';
+    }
+
     public function storage_path($path = '')
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);

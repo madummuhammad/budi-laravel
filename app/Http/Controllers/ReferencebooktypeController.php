@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReferenceBookType;
-use Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class ReferencebooktypeController extends Controller
 {
@@ -11,7 +12,7 @@ class ReferencebooktypeController extends Controller
     {
         $data = [
             'tagline' => request('tagline'),
-            'banner' => $this->upload(request()),
+            'banner' => $this->storage() . $this->upload(request()),
         ];
         ReferenceBookType::where('id', $id)->update($data);
 
@@ -22,10 +23,15 @@ class ReferencebooktypeController extends Controller
     public function upload($request)
     {
         $path = $request->file('image')->store('image');
-        $disk = Storage::disk('gcs')->put('image', $request->file('image'));
-        $disk = Storage::disk('gcs');
-        $url = $disk->url($path);
-        return $url;
+        $resize = Image::make($request->file('image'))->fit(615, 86);
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 
     public function storage_path($path = '')

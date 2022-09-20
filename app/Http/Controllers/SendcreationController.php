@@ -6,7 +6,6 @@ use App\Models\Banner;
 use App\Models\SendCreation;
 use App\Models\SendCreationImage;
 use Intervention\Image\ImageManagerStatic as Image;
-use Storage;
 use Validator;
 
 class SendcreationController extends Controller
@@ -37,7 +36,7 @@ class SendcreationController extends Controller
 
         if ($_FILES['image']['name'] !== "") {
             $data = [
-                'image' => $this->upload_img(request(), 1440, 247, 'image'),
+                'image' => $this->storage() . $this->upload_img(request(), 1440, 247, "image"),
             ];
             Banner::where('page_id', $page_id)->update($data);
         }
@@ -69,14 +68,15 @@ class SendcreationController extends Controller
 
         if ($_FILES['image']['name'] !== "") {
             $image = [
-                'image' => $this->upload_img(request(), 1162, 475, 'image'),
+                'image' => $this->storage() . $this->upload_img(request(), 1162, 475, "image"),
             ];
             SendCreationImage::where('id', 'ba5db980-4caa-4de1-be49-c9c86ba091ad')->update($image);
         }
 
         if ($_FILES['content-image']['name'] !== "") {
             $image = [
-                'image' => $this->upload_img(request(), 400, 451, 'content-image'),
+                'image' => $this->storage() . $this->upload_img(request(), 400, 451, "content-image"),
+
             ];
             SendCreationImage::where('id', '05685906-5ae1-4f01-b290-09be406aa91d')->update($image);
         }
@@ -89,11 +89,14 @@ class SendcreationController extends Controller
     {
         $path = $request->file($name)->store('image');
         $resize = Image::make($request->file($name))->fit($fit_width, $fit_height);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
     public function storage_path($path = '')
     {

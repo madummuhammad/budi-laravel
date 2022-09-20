@@ -58,7 +58,8 @@
                                                                                 <input type="text" class="form-control"
                                                                                     id="exampleInputEmail1"
                                                                                     aria-describedby="emailHelp"
-                                                                                    name="tagline">
+                                                                                    name="tagline"
+                                                                                    value="{{ $reference_book_types->name }}">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="exampleInputEmail1">Gambar
@@ -83,7 +84,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img class="img-fluid" src="{{ $reference_book_types->banner }}" alt="">
+                                            <img class="img-fluid w-100" src="{{ $reference_book_types->banner }}"
+                                                alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -131,7 +133,8 @@
                                                                 placeholder="asdfasdf">
                                                                 <option selected disabled>--Pilih Penulis--</option>
                                                                 @foreach ($authors as $author)
-                                                                    <option value="{{ $author->id }}">{{ $author->name }}
+                                                                    <option value="{{ $author->id }}">
+                                                                        {{ $author->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>

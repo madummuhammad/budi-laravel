@@ -74,7 +74,7 @@ class ReferencebookController extends Controller
             'reference_book_type' => $id,
             'level' => request()->level,
             'language' => request()->language,
-            'cover' => $this->upload_img(request()),
+            'cover' => $this->storage() . $this->upload_img(request()),
         ];
 
         $validation = Validator::make($data, [
@@ -138,7 +138,7 @@ class ReferencebookController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return redirect('dashboard/reference_book/' . $id)->with(['message' => $validation->errors()]);
+            return redirect('dashboard/reference_book/' . request('reference_book_type'))->with(['message' => $validation->errors()]);
         }
 
         ReferenceBook::where('id', $id)->update($data);
@@ -161,7 +161,7 @@ class ReferencebookController extends Controller
 
         if ($_FILES['cover']['name'] !== "") {
             $data = [
-                'cover' => $this->upload_img(request()),
+                'cover' => $this->storage() . $this->upload_img(request()),
             ];
 
             ReferenceBook::where('id', $id)->update($data);
@@ -175,11 +175,14 @@ class ReferencebookController extends Controller
     {
         $path = $request->file('cover')->store('image');
         $resize = Image::make($request->file('cover'))->fit(192, 272);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 
     public function upload_pdf($request)

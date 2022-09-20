@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
-use Storage;
 use Validator;
 
 class VisitorController extends Controller
@@ -156,9 +155,10 @@ class VisitorController extends Controller
         if (auth()->guard('visitor')->check() == 'false') {
             redirect('login');
         }
+
         if ($_FILES['image']['name'] !== "") {
             $data = [
-                'image' => $this->upload_img(request(), 416, 416, "image"),
+                'image' => $this->storage() . $this->upload_img(request(), 416, 416, "image"),
             ];
 
             Visitor::where('id', auth()->guard('visitor')->user()->id)->update($data);
@@ -178,12 +178,16 @@ class VisitorController extends Controller
     {
         $path = $request->file($name)->store('image');
         $resize = Image::make($request->file($name))->fit($fit_width, $fit_height);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
     }
+
+    public function storage()
+    {
+        return url('storage') . '/';
+    }
+
     public function storage_path($path = '')
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);

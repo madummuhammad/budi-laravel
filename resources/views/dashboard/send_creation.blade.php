@@ -133,7 +133,7 @@
                                                                         alt=""><br>
                                                                 @endif
                                                             @endforeach
-                                                            <label for="exampleInputEmail1">Cover Buku</label><br>
+                                                            <label for="exampleInputEmail1">Cover</label><br>
                                                             <input type="file" class="form-control file-input-custom"
                                                                 id="cover" aria-describedby="emailHelp"
                                                                 name="image">

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BlogWriter;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
-use Storage;
 use Validator;
 
 class ArticlewriterController extends Controller
@@ -35,7 +34,7 @@ class ArticlewriterController extends Controller
         $blog = BlogWriter::create($data);
         $id = $blog->id;
         $data = [
-            'image' => $this->upload_img(request()),
+            'image' => $this->storage() . $this->upload_img(request()),
         ];
 
         $blog = BlogWriter::where('id', $id)->update($data);
@@ -63,7 +62,7 @@ class ArticlewriterController extends Controller
         $blog = BlogWriter::where('id', $writer_id)->update($data);
         if ($_FILES['cover']['name'] !== "") {
             $data = [
-                'image' => $this->upload_img(request()),
+                'image' => $this->storage() . $this->upload_img(request()),
             ];
             $blog = BlogWriter::where('id', $writer_id)->update($data);
         }
@@ -82,11 +81,13 @@ class ArticlewriterController extends Controller
     {
         $path = $request->file($name)->store('image');
         $resize = Image::make($request->file($name))->fit($fit_width, $fit_height);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+    }
+    public function storage()
+    {
+        return url('storage') . '/';
     }
     public function storage_path($path = '')
     {

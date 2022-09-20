@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class BannerController extends Controller
 {
@@ -14,7 +14,7 @@ class BannerController extends Controller
         $data = [
             'page_id' => request('page_id'),
             'tagline' => request('tagline'),
-            'image' => $this->upload(request()),
+            'image' => $this->storage() . $this->upload(request()),
         ];
 
         $validation = Validator::make($data, [
@@ -41,7 +41,7 @@ class BannerController extends Controller
 
         if ($_FILES['image']['name'] !== "") {
             $data = [
-                'image' => $this->upload(request()),
+                'image' => $this->storage() . $this->upload(request()),
             ];
 
             Banner::where('id', request('id'))->update($data);
@@ -53,15 +53,21 @@ class BannerController extends Controller
     public function upload($request)
     {
         $path = $request->file('image')->store('image');
-        $disk = Storage::disk('gcs')->put('image', $request->file('image'));
-        $disk = Storage::disk('gcs');
-        $url = $disk->url($path);
-        return $url;
+        $resize = Image::make($request->file('image'))->fit(615, 214);
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+
     }
 
     public function storage_path($path = '')
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 
     public function destroy()

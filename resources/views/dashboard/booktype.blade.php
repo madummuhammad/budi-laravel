@@ -58,7 +58,8 @@
                                                                                 <input type="text" class="form-control"
                                                                                     id="exampleInputEmail1"
                                                                                     aria-describedby="emailHelp"
-                                                                                    name="tagline">
+                                                                                    name="tagline"
+                                                                                    value="{{ $book_types->tagline }}">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="exampleInputEmail1">Gambar
@@ -85,7 +86,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img class="img-fluid" src="{{ $book_types->banner }}" alt="">
+                                            <img class="img-fluid w-100" src="{{ $book_types->banner }}" alt="">
                                         </div>
                                     </div>
                                 </div>

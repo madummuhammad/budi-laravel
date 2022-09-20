@@ -109,7 +109,7 @@ class BookController extends Controller
             'level' => $request->level,
             'language' => $request->language,
             'display_homepage' => $request->display_homepage,
-            'cover' => $this->upload_img($request),
+            'cover' => $this->storage() . $this->upload_img(request()),
             'content' => $content,
         ];
 
@@ -178,7 +178,7 @@ class BookController extends Controller
 
         if ($_FILES['cover']['name'] !== "") {
             $cover = [
-                'cover' => $this->upload_img(request()),
+                'cover' => $this->storage() . $this->upload_img(request()),
             ];
             Book::where('id', $id)->update($cover);
         }
@@ -236,11 +236,15 @@ class BookController extends Controller
     {
         $path = $request->file('cover')->store('image');
         $resize = Image::make($request->file('cover'))->fit(192, 272);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 
     public function upload_pdf($request, $name = 'content')

@@ -40,7 +40,7 @@ class BlogController extends Controller
         $tags = json_decode(request('tags'));
         $data = [
             'name' => request('name'),
-            'cover' => $this->upload_img(request()),
+            'cover' => $this->storage() . $this->upload_img(request()),
             'content' => request('content'),
             'blog_type' => $id,
             'uploader' => auth()->user()->name,
@@ -93,7 +93,7 @@ class BlogController extends Controller
 
         if ($_FILES['cover']['name'] !== "") {
             $data = [
-                'cover' => $this->upload_img(request()),
+                'cover' => $this->storage() . $this->upload_img(request()),
             ];
             $blog = Blog::where('id', $blog_id)->update($data);
         }
@@ -135,16 +135,20 @@ class BlogController extends Controller
     {
         $path = $request->file('cover')->store('image');
         $resize = Image::make($request->file('cover'))->fit(396, 222);
-        $resize->save($this->storage_path($path));
-        $disk = Storage::disk('gcs')->put('thumb-' . $path, $resize);
-        $disk = Storage::disk('gcs');
-        $thumbUrl = $disk->url('thumb-' . $path);
-        return $thumbUrl;
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+
     }
 
     public function storage_path($path = '')
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 
     public function destroy()
