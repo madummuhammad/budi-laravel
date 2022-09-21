@@ -8,7 +8,7 @@ use App\Models\Language;
 use App\Models\Level;
 use App\Models\ReferenceBook;
 use App\Models\ReferenceBookType;
-use App\Models\Theme;
+use App\Models\ReferenceTheme;
 use Intervention\Image\ImageManagerStatic as Image;
 use Storage;
 use Validator;
@@ -18,9 +18,9 @@ class ReferencebookController extends Controller
     public function index($id)
     {
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
-        $data['books'] = ReferenceBook::with('authors', 'book_pdfs', 'book_types')->where('reference_book_type', $id)->get();
+        $data['books'] = ReferenceBook::with('authors', 'book_pdfs', 'reference_book_types')->where('reference_book_type', $id)->get();
         $data['authors'] = Author::all();
-        $data['themes'] = Theme::all();
+        $data['themes'] = ReferenceTheme::all();
         $data['book_types'] = Book_type::all();
         $data['levels'] = Level::all();
         $data['languages'] = Language::all();
@@ -30,7 +30,7 @@ class ReferencebookController extends Controller
 
     public function book_filter($id)
     {
-        if (request('theme') == null and request('level') == null) {
+        if (request('theme') == null and request('level') == null and request('language') == null) {
             $data['books'] = ReferenceBook::with('authors', 'book_pdfs', 'reference_book_types')->where('reference_book_type', $id)->get();
         } else {
             $queryData = ReferenceBook::with('authors', 'book_pdfs', 'reference_book_types')->where('reference_book_type', $id);
@@ -40,11 +40,14 @@ class ReferencebookController extends Controller
             if (request('level') !== null) {
                 $query = $queryData->where('level', request('level'));
             }
+            if (request('language') !== null) {
+                $query = $queryData->where('language', request('language'));
+            }
             $data['books'] = $query->get();
         }
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
         $data['authors'] = Author::all();
-        $data['themes'] = Theme::all();
+        $data['themes'] = ReferenceTheme::all();
         $data['levels'] = Level::all();
         $data['languages'] = Language::all();
 
@@ -55,7 +58,7 @@ class ReferencebookController extends Controller
     {
         $data['book'] = ReferenceBook::with('authors', 'reference_book_types')->where('id', $id)->first();
         $data['authors'] = Author::all();
-        $data['themes'] = Theme::all();
+        $data['themes'] = ReferenceTheme::all();
         $data['levels'] = Level::all();
         $data['languages'] = Language::all();
 

@@ -31,7 +31,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Visitor</th>
+                                            <th>Nama Pengguna</th>
                                             <th>Komentar</th>
                                             <th>Rating</th>
                                             <th>Action</th>
@@ -49,7 +49,11 @@
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $comment->visitors->name }}</td>
                                                 <td>{{ $comment->comment }}</td>
-                                                <td>{{ $comment->star }}</td>
+                                                <td>
+                                                    @for ($i = 0; $i < $comment->star; $i++)
+                                                        <i class="fa-regular fa-star"></i>
+                                                    @endfor
+                                                </td>
                                                 {{-- <td>{{ $books->name }}</td> --}}
                                                 <td>
                                                     <button class="btn badge badge-danger" data-toggle="modal"

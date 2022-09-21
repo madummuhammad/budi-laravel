@@ -169,6 +169,59 @@
     <div class='book_container'>
         <div id="book"></div>
     </div>
+    @php
+        use App\Models\Mylibrary;
+        if (
+            auth()
+                ->guard('visitor')
+                ->check() == true
+        ) {
+            $reads = Mylibrary::with('books')
+                ->where(
+                    'visitor_id',
+                    auth()
+                        ->guard('visitor')
+                        ->user()->id,
+                )
+                ->where('read', 1)
+                ->first();
+        }
+    @endphp
+    @if (auth()->guard('visitor')->check() == true)
+        @if ($reads !== null)
+            <div class="modal fade model-centered" id="being_read" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                            <h5>Kamu belum selesai membaca !</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-lg-12">
+                                    <h4 class="text-center">{{ $reads->books->name }}</h4>
+                                    <div class="d-flex justify-content-center">
+                                        <img class="w-50" src="{{ $reads->books->cover }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="selesai"
+                                data-bs-dismiss="modal">Tandai
+                                Selesai</button>
+                            <button type="button" data-bs-dismiss="modal" id="next"
+                                class="btn btn-primary">Lanjutkan baca
+                                nanti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @csrf
+        @endif
+    @endif
 </body>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script>
@@ -180,5 +233,43 @@
 {{-- <script src="js/main.js"></script> --}}
 <script src="{{ asset('web') }}/assets/js/script.js"></script>
 <script src="{{ asset('web') }}/assets/js/player.js"></script>
+
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById('being_read'), {
+        keyboard: false
+    });
+    @if (auth()->guard('visitor')->check() == true)
+        @if ($reads !== null)
+            myModal.show()
+            $("#selesai").on('click', function() {
+                var token = $("input[name=_token]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('done') }}",
+                    data: {
+                        _method: "POST",
+                        book_id: "{{ $reads->books->id }}",
+                        _token: token
+                    },
+                    success: function(hasil) {}
+                });
+            });
+
+            $("#next").on('click', function() {
+                var token = $("input[name=_token]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('next') }}",
+                    data: {
+                        _method: "POST",
+                        book_id: "{{ $reads->books->id }}",
+                        _token: token
+                    },
+                    success: function(hasil) {}
+                });
+            });
+        @endif
+    @endif
+</script>
 
 </html>

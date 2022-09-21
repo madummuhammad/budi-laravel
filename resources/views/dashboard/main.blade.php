@@ -188,29 +188,30 @@
                     <li class="nav-label first">Main Menu</li>
                     <li><a href="{{ url('dashboard') }}" aria-expanded="false"><i
                                 class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a></li>
-                    <li class="nav-label">Buku</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Master Buku</span></a>
+                                class="icon icon-app-store"></i><span class="nav-text">Katalog Buku</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/book') }}">Buku</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Buku
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                     Referensi</a>
                                 <ul aria-expanded="false">
                                     <li><a
-                                            href="{{ url('dashboard/reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Buku
+                                            href="{{ url('dashboard/reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">
                                             Bacaan</a></li>
                                     <li><a
-                                            href="{{ url('dashboard/reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">Buku
+                                            href="{{ url('dashboard/reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">
                                             Video</a></li>
+                                    <li><a href="{{ url('dashboard/reference_theme') }}">
+                                            Tema</a></li>
                                 </ul>
                             </li>
                             <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
-                            <li><a href="{{ url('dashboard/author') }}">Author</a></li>
+                            <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
                         </ul>
                     </li>
-                    <li class="nav-label">Website</li>
+                    <li class="nav-label">PENGATURAN KONTEN</li>
                     <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false"><i
-                                class="icon icon-globe-2"></i><span class="nav-text">Homepage</span></a></li>
+                                class="icon icon-globe-2"></i><span class="nav-text">Laman</span></a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Jenis Buku</span></a>
                         <ul aria-expanded="false">
@@ -229,7 +230,7 @@
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Blog</span></a>
+                                class="icon icon-app-store"></i><span class="nav-text">Info Seputar Budi</span></a>
                         <ul aria-expanded="false">
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Artikel</a>
@@ -245,48 +246,15 @@
                 </li>
                 <li><a href="{{ url('dashboard/send_creation') }}" aria-expanded="false"><i
                             class="icon icon-globe-2"></i><span class="nav-text">Kirimkan Karyamu</span></a></li>
-                {{-- <li class="nav-label">Forms</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-form"></i><span class="nav-text">Forms</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./form-element.html">Form Elements</a></li>
-                            <li><a href="./form-wizard.html">Wizard</a></li>
-                            <li><a href="./form-editor-summernote.html">Summernote</a></li>
-                            <li><a href="form-pickers.html">Pickers</a></li>
-                            <li><a href="form-validation-jquery.html">Jquery Validate</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Table</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-layout-25"></i><span class="nav-text">Table</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                            <li><a href="table-datatable-basic.html">Datatable</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Extra</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-copy-06"></i><span class="nav-text">Pages</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./page-register.html">Register</a></li>
-                            <li><a href="./page-login.html">Login</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./page-error-400.html">Error 400</a></li>
-                                    <li><a href="./page-error-403.html">Error 403</a></li>
-                                    <li><a href="./page-error-404.html">Error 404</a></li>
-                                    <li><a href="./page-error-500.html">Error 500</a></li>
-                                    <li><a href="./page-error-503.html">Error 503</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./page-lock-screen.html">Lock Screen</a></li>
-                        </ul>
-                    </li> --}}
+                <li class="nav-label">Pengguna</li>
+                <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false"><i
+                            class="icon icon-globe-2"></i><span class="nav-text">Pengguna</span></a></li>
+                @if (auth()->user()->role == 1)
+                    <li><a href="{{ url('dashboard/admin') }}" aria-expanded="false"><i
+                                class="icon icon-globe-2"></i><span class="nav-text">Admin</span></a></li>
+                @endif
                 </ul>
             </div>
-
-
         </div>
         <!--**********************************
             Sidebar end

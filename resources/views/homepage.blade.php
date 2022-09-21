@@ -106,46 +106,44 @@
         <div id="tab-book">
             @csrf;
         </div>
-
+        @if (auth()->guard('visitor')->check() == true)
+            @if (count($nexts) > 0)
+                <section id="section-2" class="mt-5">
+                    <div class="header d-flex justify-content-between">
+                        <h2 class="fw-bold fs-3">Lanjutkan yuk, {{ auth()->guard('visitor')->user()->name }}</h2>
+                        <a href="{{ url('mylibrary') }}">Lihat Semua</a>
+                    </div>
+                    <div class="row row-cols-5 mt-4">
+                        @foreach ($nexts as $next)
+                            <div class="col">
+                                <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
+                                @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                    <div class="icon">
+                                        <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
+                                    </div>
+                                @endif
+                                @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                    <div class="icon">
+                                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+        @endif
     </div>
-    {{-- <section id="section-2" class="mt-5">
-        <div class="header d-flex justify-content-between">
-            <h2 class="fw-bold fs-3">Lanjutkan yuk, Febri</h2>
-            <a href="pustakaku.html">Lihat Semua</a>
-        </div>
-        <div class="row row-cols-5 mt-4">
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/1.png" alt="">
-                <div class="icon">
-                    <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                </div>
-            </div>
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/2.png" alt="">
-                <div class="icon">
-                    <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                </div>
-            </div>
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/3.png" alt="">
-                <div class="icon">
-                    <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                </div>
-            </div>
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/4.png" alt="">
-            </div>
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/5.png" alt="">
-            </div>
-        </div>
-    </section> --}}
     </div>
-    {{-- <div class="container-fluid">
-        <div class="row pt-3 px-5">
-            <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
-        </div>
-    </div> --}}
+    @if (auth()->guard('visitor')->check() == true)
+        @if (count($nexts) > 0)
+            <div class="container-fluid">
+                <div class="row pt-3 px-5">
+                    <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
+                </div>
+            </div>
+        @endif
+    @endif
     <div class="container">
         <div id="section-3" class="mt-5">
             <div class="row">
@@ -372,7 +370,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="fw-bold fs-25px">Info Seputar Budi</h2>
-                <a href="info_seputar_budi.html" class="text-blue">Lihat Semua</a>
+                <a href="{{ url('info_seputar_budi') }}" class="text-blue">Lihat Semua</a>
             </div>
             <div class="row row-cols-4 mt-4">
                 @foreach ($blogs as $blog)

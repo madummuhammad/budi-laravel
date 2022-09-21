@@ -35,9 +35,9 @@ class ReferenceBook extends Model
         return $this->hasMany(Level::class, 'id', 'level');
     }
 
-    public function themes()
+    public function reference_themes()
     {
-        return $this->hasMany(Theme::class, 'id', 'theme');
+        return $this->hasMany(ReferenceTheme::class, 'id', 'theme');
     }
 
     public function book_types()

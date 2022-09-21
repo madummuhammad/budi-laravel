@@ -41,75 +41,80 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <div class="d-flex justify-content-center">
                     <div class="home-tab" style="background-color: {{ $reference_book_types->color }}">
-                        <div class="home-tab-body">
-                            <div class="dropdown">
+                        <div class="home-tab-body" id="home-tab-body">
+                            <div class="dropdown" id="jenjang">
                                 <button class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <p>Jenjang</p>
                                 </button>
+                                <input type="text" name="jenjang" value="" hidden>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">SD (123)</a></li>
-                                    <li><a class="dropdown-item" href="#">SD (456)</a></li>
-                                    <li><a class="dropdown-item" href="#">SMP</a></li>
-                                    <li><a class="dropdown-item" href="#">SMA</a></li>
+                                    <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                                    <li><a class="dropdown-item" data-value="014453da-54e6-41b5-be05-952bc233f144">PAUD</a>
+                                    </li>
+                                    <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                            (123)</a></li>
+                                    <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                            (456)</a></li>
+                                    <li><a class="dropdown-item" data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a>
+                                    </li>
+                                    <li><a class="dropdown-item" data-value="555c961c-fb2a-4a25-8829-4a12c7d2afc0">SMA</a>
+                                    </li>
+                                    <li><a class="dropdown-item" data-value="a26a4afd-7226-434c-83f3-9ca3ce4af523">UMUM</a>
+                                    </li>
                                 </ul>
                             </div>
-                            <div class="dropdown">
+                            <div class="dropdown" id="tema">
                                 <button
                                     class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <p>Tema</p>
                                 </button>
+                                <input type="text" name="tema" value="" hidden>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Kuliner</a></li>
-                                    <li><a class="dropdown-item" href="#">Petualangan</a></li>
-                                    <li><a class="dropdown-item" href="#">Seni & Budaya</a></li>
-                                    <li><a class="dropdown-item" href="#">Tokoh Indonesia</a></li>
-                                    <li><a class="dropdown-item" href="#">Alam & Lingkungan</a></li>
-                                    <li><a class="dropdown-item" href="#">Anak Indonesia</a></li>
-                                    <li><a class="dropdown-item" href="#">Arsitektur</a></li>
+                                    <li><a class="dropdown-item text-danger" data-value="">Tema</a></li>
+                                    @foreach ($themes as $theme)
+                                        <li><a class="dropdown-item"
+                                                data-value="{{ $theme->id }}">{{ $theme->name }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <div class="dropdown">
+                            <div class="dropdown" id="bahasa">
                                 <button
                                     class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="true">
                                     <p>Bahasa</p>
                                 </button>
+                                <input type="text" name="bahasa" value="" hidden>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Indonesia</a></li>
-                                    <li><a class="dropdown-item" href="#">Inggris</a></li>
-                                    <li><a class="dropdown-item" href="#">Daerah</a></li>
+                                    <li><a class="dropdown-item text-danger">Bahasa</a></li>
+                                    <li><a class="dropdown-item"
+                                            data-value="31d76818-3c8a-4f54-aa65-f14dd5c71008">Indonesia</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            data-value="62efa3bd-5db5-4627-aabc-5c180f58cf26">Inggris</a></li>
+                                    <li><a class="dropdown-item"
+                                            data-value="886bcb5a-43a8-4801-8a76-109b173cdb51">Daerah</a></li>
                                 </ul>
                             </div>
                             <div class="input-search">
-                                <input type="text" class="form-control" placeholder="Cari">
-                                <button class="btn"><i class="bi bi-search"></i></button>
+                                <input type="text" class="form-control" id="search" placeholder="Cari">
+                                <button class="btn" id="search-button"><i class="bi bi-search"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-5 filter-theme">
-                    <div class="col"><a class="active" href="">Semua Tema</a></div>
-                    <div class="col"><a href="">Kuliner</a></div>
-                    <div class="col"><a href="">Petualangan</a></div>
-                    <div class="col"><a href="">Seni dan Budaya</a></div>
-                    <div class="col"><a href="">Tokoh Indonesia</a></div>
-                    <div class="col"><a href="">Alam dan Lingkungan</a></div>
-                    <div class="col"><a href="">Anak Indonesia</a></div>
-                    <div class="col"><a href="">Arsitektur</a></div>
-                    <div class="col"><a href="">Bahasa</a></div>
-                    <div class="col"><a href="">Cerita Rakyat</a></div>
-                    <div class="col"><a href="">Ekonomi Kreatif</a></div>
-                    <div class="col"><a href="">Hewan dan Tumbuhan</a></div>
-                    <div class="col"><a href="">Kebencanaan</a></div>
-                    <div class="col"><a href="">Keberagaman</a></div>
-                    <div class="col"><a href="">Kesehatan</a></div>
-                    <div class="col"><a href="">Transportasi</a></div>
+                <div class="row row-cols-5 filter-theme nav nav-pills">
+                    <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
+                            Tema</a></div>
+                    @foreach ($themes as $theme)
+                        <div class="col nav-item"><a class="nav-link" data-bs-toggle="pill"
+                                href="#theme{{ $theme->id }}">{{ $theme->name }}</a></div>
+                    @endforeach
                 </div>
                 <!-- asdfasdf -->
                 <h3 class="mt-5 mb-3">Hasil Pencarian <span class="fw-bold fs-4">Referensi Buku</span> </h3>
-                <div class="row row-cols-5" id="reference_book">
+                <div class="row" id="reference_book">
 
                 </div>
                 <div class="d-flex justify-content-center">
@@ -133,78 +138,6 @@
                             </button>
                         </span>
                     </nav>
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="sd">
-                <div class="tab-pane container active" id="paud">
-                    <div class="row row-cols-6">
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="smp">
-                <div class="tab-pane container active" id="paud">
-                    <div class="row row-cols-6">
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="sma">
-                <div class="tab-pane container active" id="paud">
-                    <div class="row row-cols-6">
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="umum">
-                <div class="tab-pane container active" id="paud">
-                    <div class="row row-cols-6">
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/1.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/2.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/3.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/4.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/5.jpg" alt="" class="img-fluid"></div>
-                        <div class="col mb-4"><img src="assets/img/6.jpg" alt="" class="img-fluid"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -315,6 +248,98 @@
                             }
                         });
                     });
+                    $("#search-button").on('click', function() {
+                        var jenjang = $("[name=jenjang]").val();
+                        var tema = $("[name=tema]").val();
+                        var bahasa = $("[name=bahasa]").val();
+                        var search = $("#search").val();
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=1",
+                            data: {
+                                _method: "POST",
+                                _token: token,
+                                jenjang: jenjang,
+                                tema: tema,
+                                bahasa: bahasa,
+                                search: search
+                            },
+                            success: function(hasil) {
+                                $(".next").on('click', function() {
+                                    var page_link_number = parseInt($(
+                                        "[name=page-link]").val());
+                                    if (page_link_number >=
+                                        {{ ceil($reference_books->total() / 10) }}
+                                    ) {
+                                        page_link = page_link_number;
+                                    } else {
+                                        page_link = page_link_number + 1
+                                    }
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                            page_link,
+                                        data: {
+                                            _method: "POST",
+                                            _token: token,
+                                            jenjang: jenjang,
+                                            tema: tema,
+                                            bahasa: bahasa,
+                                            search: search
+                                        },
+                                        success: function(hasil) {
+                                            $("#reference_book")
+                                                .html(hasil);
+                                        }
+                                    });
+                                })
+                                $(".prev").on('click', function() {
+                                    var page_link = parseInt($(
+                                        "[name=page-link]").val()) + 1;
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                            page_link,
+                                        data: {
+                                            _method: "POST",
+                                            _token: token,
+                                            jenjang: jenjang,
+                                            tema: tema,
+                                            bahasa: bahasa,
+                                            search: search
+                                        },
+                                        success: function(hasil) {
+                                            $("#reference_book")
+                                                .html(hasil);
+                                        }
+                                    });
+                                })
+                                $("#pagin ul a").click(function(e) {
+                                    e.preventDefault();
+                                    var page_link = parseInt($(this)
+                                        .parent().index()) + 1;
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}?page=" +
+                                            page_link,
+                                        data: {
+                                            _method: "POST",
+                                            _token: token,
+                                            jenjang: jenjang,
+                                            tema: tema,
+                                            bahasa: bahasa,
+                                            search: search
+                                        },
+                                        success: function(hasil) {
+                                            $("#reference_book")
+                                                .html(hasil);
+                                        }
+                                    });
+                                });
+                                $("#reference_book").html(hasil);
+                            }
+                        });
+                    })
                 }
             });
         });

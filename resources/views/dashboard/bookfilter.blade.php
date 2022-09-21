@@ -51,6 +51,7 @@
                                                 @endforeach
                                                 <td class="d-flex">
                                                     <button class="btn badge badge-danger mx-1" data-toggle="modal"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Hapus"
                                                         data-target="#hapus{{ $book->id }}"><i
                                                             class="bi bi-trash3"></i></button>
                                                     <div class="modal" tabindex="-1" id="hapus{{ $book->id }}">
@@ -82,11 +83,13 @@
                                                         </div>
                                                     </div>
                                                     <a href="{{ url('dashboard/book/edit/') }}/{{ $book->id }}"
-                                                        class="btn badge badge-primary mx-1"><i
+                                                        class="btn badge badge-primary mx-1" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Edit"><i
                                                             class="bi bi-pencil-square"></i></a>
                                                     <a href="{{ url('dashboard/book/comment') }}/{{ $book->id }}"
-                                                        class="btn badge badge-outline-primary mx-1" href=""><i
-                                                            class="fa-regular fa-comments"></i></a>
+                                                        class="btn badge badge-outline-primary mx-1" href=""
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        title="Komentar"><i class="fa-regular fa-comments"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

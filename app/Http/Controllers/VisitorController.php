@@ -167,6 +167,12 @@ class VisitorController extends Controller
         return back();
     }
 
+    public function visitor_get()
+    {
+        $data['visitors'] = Visitor::get();
+        return view('dashboard.visitor', $data);
+    }
+
     public function logout()
     {
         auth()->guard('visitor')->logout();

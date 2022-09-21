@@ -45,7 +45,7 @@
                         <span>Tema</span>
                     </div>
                     <div class="col-8 mb-2">
-                        @foreach ($reference_book->themes as $theme)
+                        @foreach ($reference_book->reference_themes as $theme)
                             <span>: {{ $theme->name }}</span>
                         @endforeach
                     </div>

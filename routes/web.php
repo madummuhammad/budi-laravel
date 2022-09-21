@@ -13,8 +13,10 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\MylibraryController;
 use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
+use App\Http\Controllers\ReferencethemeController;
 use App\Http\Controllers\SendcreationController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +47,17 @@ Route::middleware('visitor')->group(function () {
 
         // My Library
         Route::get('/mylibrary', [WebController::class, 'my_library']);
+        Route::post('/mylibrary', [WebController::class, 'my_library_filter']);
         Route::post('/saved', [MylibraryController::class, 'saved']);
+        Route::post('/liked', [MylibraryController::class, 'liked']);
+        Route::post('/being_read', [MylibraryController::class, 'being_read']);
+        Route::post('/done', [MylibraryController::class, 'done']);
+        Route::post('/next', [MylibraryController::class, 'next']);
+
+        // Route::post('/mylibrarydigital', [MylibraryController::class, 'digital']);
+        // Route::post('/mylibrarykomik', [MylibraryController::class, 'komik']);
+        // Route::post('/mylibraryaudio', [MylibraryController::class, 'audio']);
+        // Route::post('/mylibraryvideo', [MylibraryController::class, 'video']);
 
         Route::get('/', [WebController::class, 'index']);
         Route::get('/book/{id}', [WebController::class, 'book']);
@@ -71,6 +83,9 @@ Route::middleware('visitor')->group(function () {
 
         // Homebook
         Route::post('/homebookfilter', [WebController::class, 'homebookfilter']);
+
+        // Info seputar budi
+        Route::get('/info_seputar_budi', [WebController::class, 'info_seputar_budi']);
     });
 });
 
@@ -106,6 +121,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/theme', [ThemeController::class, 'add']);
         Route::patch('/theme', [ThemeController::class, 'update']);
         Route::delete('/theme', [ThemeController::class, 'destroy']);
+
+        // Theme
+        Route::get('/reference_theme', [ReferencethemeController::class, 'index']);
+        Route::post('/reference_theme', [ReferencethemeController::class, 'add']);
+        Route::patch('/reference_theme', [ReferencethemeController::class, 'update']);
+        Route::delete('/reference_theme', [ReferencethemeController::class, 'destroy']);
 
         // Website
         Route::get('/homepage', [HomepageController::class, 'index']);
@@ -151,6 +172,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/send_creation', [SendcreationController::class, 'index']);
         Route::patch('/send_creation', [SendcreationController::class, 'update']);
         Route::patch('/send_creation/banner', [SendcreationController::class, 'banner']);
+
+        // Visitor
+        Route::get('/visitor', [VisitorController::class, 'visitor_get']);
+
+        // User
+        Route::get('/admin', [UserController::class, 'index']);
+        Route::post('/admin', [UserController::class, 'store']);
+        Route::delete('/admin', [UserController::class, 'destroy']);
+        Route::patch('/admin', [UserController::class, 'update']);
 
     });
 

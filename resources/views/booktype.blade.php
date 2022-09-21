@@ -72,6 +72,8 @@
                                 <input type="text" name="jenjang" value="" hidden>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                                    <li><a class="dropdown-item" data-value="014453da-54e6-41b5-be05-952bc233f144">PAUD</a>
+                                    </li>
                                     <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
                                             (123)</a></li>
                                     <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
@@ -229,46 +231,41 @@
             </div>
         </div>
     </div>
-    <section id="section-2" class="" style="margin-top:80px">
-        <div class="container">
-            <div class="header d-flex justify-content-between" style="padding-right: 35px;">
-                <h2 class="fw-bold fs-3">Lanjutkan yuk, Febri</h2>
-                <a href="pustakaku.html">Lihat Semua</a>
+    @if (auth()->guard('visitor')->check() == true)
+        @if (count($nexts) > 0)
+            <section id="section-2" class="" style="margin-top:80px">
+                <div class="container">
+                    <div class="header d-flex justify-content-between" style="padding-right: 35px;">
+                        <h2 class="fw-bold fs-3">Lanjutkan yuk, {{ auth()->guard('visitor')->user()->name }}</h2>
+                        <a href="{{ url('mylibrary') }}">Lihat Semua</a>
+                    </div>
+                    <div class="row row-cols-5 mt-4">
+                        @foreach ($nexts as $next)
+                            <div class="col">
+                                <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
+                                @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                    <div class="icon">
+                                        <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
+                                    </div>
+                                @endif
+                                @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                    <div class="icon">
+                                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+            <div class="container-fluid pb-5">
+                <div class="row pt-3 px-5">
+                    <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
+                </div>
             </div>
-            <div class="row row-cols-5 mt-4">
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/1.png" alt="">
-                    <div class="icon">
-                        <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                    </div>
-                </div>
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/2.png" alt="">
-                    <div class="icon">
-                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                    </div>
-                </div>
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/3.png" alt="">
-                    <div class="icon">
-                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                    </div>
-                </div>
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/4.png" alt="">
-                </div>
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/5.png" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="container-fluid pb-5">
-        <div class="row pt-3 px-5">
-            <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
-            @csrf
-        </div>
-    </div>
+        @endif
+    @endif
+    @csrf
     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
     <script>
         var pagination_link = $(".pagination-link").length;

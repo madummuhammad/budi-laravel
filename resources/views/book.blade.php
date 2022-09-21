@@ -19,19 +19,25 @@
                 <img class="img-fluid" src="{{ $book_detail->cover }}" alt="">
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-flex ">
-                        <span class="d-flex align-items-center me-3"><img src="{{ asset('web') }}/assets/icon/love.svg"
-                                class="me-1" alt="">
-                            100</span>
+                        <span class="d-flex align-items-center me-3 @if ($likeds) active @endif"
+                            id="liked" style="cursor: pointer"><span id="liked-icon">
+                                @if ($likeds)
+                                    <i class="fa-solid fa-heart text-danger"></i>
+                                @else
+                                    <i class="fa-regular fa-heart"></i>
+                                @endif
+                            </span>
+                            {{ $liked_number }}</span>
                         <span class="d-flex align-items-center me-3"><img
                                 src="{{ asset('web') }}/assets/icon/little-book.svg" class="me-1" alt="">
                             100</span>
                         <span class="d-flex align-items-center me-3"><img src="{{ asset('web') }}/assets/icon/comment.svg"
                                 class="me-1" alt="">
-                            100</span>
+                            {{ $comment_number }}</span>
                     </div>
                     <span class="d-flex">
                         <img class="img-fluid" src="{{ asset('web') }}/assets/icon/star.svg" alt="">
-                        4.9
+                        {{ number_format($ratting_number, 1) }}
                     </span>
                 </div>
                 <div class="row">
@@ -170,7 +176,10 @@
                 @else
                     <div class="baca-button-group d-flex mt-5 pt-5">
                         <button class="btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
-                            id="show_book" data-book="../storage/{{ $book_detail->content }}"><i
+                            id="show_book" data-book="../storage/{{ $book_detail->content }}"
+                            data-status="@if ($reads) {{ $reads->read }}
+                                @else
+                                0 @endif"><i
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
@@ -199,7 +208,7 @@
                     <input type="text" name="id" value="{{ $book_detail->id }}" hidden>
                     <h3 class="fw-bold">Berikan Komentarmu: </h3>
                     <div class="comment-profile mb-3 mt-4">
-                        <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
+                        <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                         <span class="fw-bold fs-4 ms-3">{{ auth()->guard('visitor')->user()->name }}</span>
                     </div>
                     <div class="ratting">
@@ -253,36 +262,14 @@
             <div class="row mt-5 mb-5" id>
                 <div class="header d-flex justify-content-between" style="padding-right: 35px;">
                     <h2 class="fw-bold">Referensi Buku Sejenis</h2>
-                    <a href="">Lihat Semua</a>
+                    <a href="{{ url('book_type/') }}/{{ $book_type->id }}">Lihat Semua</a>
                 </div>
                 <div class="row row-cols-6">
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/1.jpg"
-                            alt="">
-
-                    </div>
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/2.jpg"
-                            alt="">
-
-                    </div>
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/3.jpg"
-                            alt="">
-
-                    </div>
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/4.jpg"
-                            alt="">
-                    </div>
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/5.jpg"
-                            alt="">
-                    </div>
-                    <div class="col">
-                        <img class="img-fluid" src="{{ asset('web') }}/assets/img/referensi_sejenis/6.jpg"
-                            alt="">
-                    </div>
+                    @foreach ($related_books as $related_book)
+                        <div class="col">
+                            <img class="img-fluid" src="{{ $related_book->cover }}" alt="">
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -317,6 +304,60 @@
                             $("#saved").removeAttr("status");
                             $("#saved").removeAttr("style");
                             $("#saved").attr("status", "unsaved");
+                        }
+                    }
+                });
+            })
+
+            $("#liked").on('click', function() {
+                var liked = $("#liked").hasClass("active");
+                if (liked == false) {
+                    var status = "unliked";
+                } else {
+                    var status = "liked";
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('liked') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        if (liked == false) {
+                            $("#liked").addClass('active');
+                            $("#liked #liked-icon").html(
+                                `<i class="fa-solid fa-heart text-danger"></i>`)
+                        } else {
+                            $("#liked").removeClass('active');
+                            $("#liked #liked-icon").html(`<i class="fa-regular fa-heart"></i>`)
+                        }
+                    }
+                });
+
+            });
+            $("#show_book").on('click', function() {
+                var status = $(this).data('status');
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('being_read') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        if (status == 0) {
+                            $("#show_book").attr("data-status", '1');
+                        } else if (status == 3) {
+                            $("#show_book").attr("data-status", '1');
+                        } else {
+                            $("#show_book").attr("data-status", status);
                         }
                     }
                 });

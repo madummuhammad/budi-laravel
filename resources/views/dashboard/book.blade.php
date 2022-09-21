@@ -185,6 +185,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Bahasa</label>
+                                            <select class="form-control filter-book" name="language">
+                                                <option value="">-- Pilih --</option>
+                                                @foreach ($languages as $language)
+                                                    <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="datatable">
@@ -252,6 +263,7 @@
                 var book_type = $(".filter-book[name=book_type]").val();
                 var theme = $(".filter-book[name=theme]").val();
                 var level = $(".filter-book[name=level]").val();
+                var language = $(".filter-book[name=language]").val();
                 $.ajax({
                     type: 'POST',
                     url: "{{ url('dashboard/book_filter') }}",
@@ -261,6 +273,7 @@
                         book_type: book_type,
                         theme: theme,
                         level: level,
+                        language: language,
                         status: true
                     },
                     success: function(hasil) {

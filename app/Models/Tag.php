@@ -24,4 +24,9 @@ class Tag extends Model
             $model->id = (string) Str::uuid();
         });
     }
+
+    public function blogs()
+    {
+        return $this->belongsTo(Blog::class, 'blog_id', 'id');
+    }
 }

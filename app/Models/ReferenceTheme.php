@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Saved extends Model
+class ReferenceTheme extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -23,10 +23,5 @@ class Saved extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
-    }
-
-    public function books()
-    {
-        return $this->hasOne(Book::class, 'id', 'book_id');
     }
 }

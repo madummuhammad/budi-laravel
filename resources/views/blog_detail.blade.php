@@ -106,78 +106,29 @@
                     <a href="info_seputar_budi.html">Lihat Semua</a>
                 </div>
                 <div class="row row-cols-4 mt-4">
-                    <div class="col">
-                        <a href="kenalkan_kemahiran_merujuk.html" class="text-decoration-none text-dark">
-                            <div class="card card-news">
-                                <img src="assets/img/news1.jpeg" class="card-img-top" alt="...">
-                                <div class="card-body px-0">
-                                    <h5 class="card-title fw-bold">Kenalkan Kemahiran Merujuk, Badan Bahasa
-                                        Selenggarakan
-                                        Kegiatan
-                                        Kamus Masuk Sekolah
-                                    </h5>
-                                    <p class="card-text">Dalam rangka mengenalkan kemahiran merujuk (reference
-                                        skill)
-                                        kepada
-                                        siswa sekolah dasar dan
-                                        menengah...</p>
+                    @foreach ($related_news->unique('blog_id') as $data)
+                        @if ($data->blogs !== null)
+                            @if ($loop->index <= 4 and $blog->id !== $data->blogs->id)
+                                <div class="col">
+                                    <a href="{{ url('blog/detail/') . '/' . $data->blogs->id }}"
+                                        class="text-decoration-none text-dark">
+                                        <div class="card card-news">
+                                            <img src="{{ $data->blogs->cover }}" class="card-img-top" alt="...">
+                                            <div class="card-body px-0">
+                                                <h5 class="card-title fw-bold">{{ $data->blogs->name }}
+                                                </h5>
+                                                <div class="card-text">
+                                                    @php
+                                                        echo $data->blogs->content;
+                                                    @endphp
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="kerjasama_peningkatan.html" class="text-decoration-none text-dark">
-                            <div class="card card-news">
-                                <img src="assets/img/berita/kerjasama_peningkatan_literasi.jpeg" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body px-0">
-                                    <h5 class="card-title fw-bold">Kerja Sama untuk Peningkatan Literasi dan
-                                        Revitalisasi Bahasa
-                                        Daerah di Sulawesi Selatan
-                                    </h5>
-                                    <p class="card-text"> Badan Pengembangan dan Pembinaan Bahasa
-                                        menjalin kerja sama
-                                        dengan
-                                        Pemerintah Kota...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="kerjasama_peningkatan.html" class="text-decoration-none text-dark">
-                            <div class="card card-news">
-                                <img class="img-fluid" src="assets/img/berita/penghargaan_humas_indonesia.jpg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body px-0">
-                                    <h5 class="card-title fw-bold">Penghargaan Humas Indonesia untuk Program
-                                        Revitalisasi
-                                        Bahasa
-                                        Daerah
-                                    </h5>
-                                    <p class="card-text">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi
-                                        menerima
-                                        penghargaan IDEAS 2022
-                                        kategori Kebijakan ...
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="seminat_leksikografi_indonesia.html" class="text-decoration-none text-dark">
-                            <div class="card card-news">
-                                <img src="assets/img/berita/seminar_leksikografi_indonesia.png" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body px-0">
-                                    <h5 class="card-title fw-bold">Seminar Leksikografi Indonesia Tahun 2022
-                                    </h5>
-                                    <p class="card-text">Dalam rangka memperkaya dan memutakhirkan kamus bahasa
-                                        Indoenesia, Badan Pengembangan dan
-                                        Pembinaan Bahasa melalui Pusat Pengembangan...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            @endif
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
