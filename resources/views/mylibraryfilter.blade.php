@@ -37,21 +37,14 @@
                 <div class="tab-content mt-3">
                     <div class="tab-pane container active" id="next">
                         <div class="d-flex align-items-center justify-content-between mt-4">
+                            <style>
+                                a.page-item.active {
+                                    color: white;
+                                    background-color: #3C6EFD !important;
+                                }
+                            </style>
                             <h3 class="mb-3">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                {{-- <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
-                                </nav> --}}
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-0 d-block"
                                     data-parent="0">
                                     <ul class="d-flex">
@@ -60,10 +53,11 @@
                                                 <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
                                             </a>
                                         </li>
-                                        <li><a href="#paginate-1" data-page="1"
-                                                class="page page-1 page-item active">1</a>
-                                        </li>
-                                        <li><a href="#paginate-2" data-page="2" class="page page-2">2</a></li>
+                                        @for ($i = 0; $i < $next_digital; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
                                         <li class="page-item next"><a href="#" data-page="next"
                                                 class="page page-next-link"><img
                                                     src="{{ asset('web') }}/assets/icon/next-2.svg" alt=""></a>
@@ -77,7 +71,7 @@
                                 display: none
                             }
                         </style>
-                        <div class="row row-cols-5 card-paginaton" id="next-paginate">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
@@ -90,7 +84,8 @@
                                                         <span><img src="{{ asset('web') }}/assets/icon/love.svg"
                                                                 alt="">
                                                             100</span>
-                                                        <span><img src="{{ asset('web') }}/assets/icon/little-book.svg"
+                                                        <span><img
+                                                                src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             100</span>
                                                     </div>
@@ -120,22 +115,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-1 d-block"
+                                    data-parent="1">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $next_komik; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
@@ -180,22 +183,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-2 d-block"
+                                    data-parent="2">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $next_audio; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -246,22 +257,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-3 d-block"
+                                    data-parent="3">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $next_video; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-pagintion">
+                        <div class="row row-cols-5 card-pagintion next-paginate next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
                                     <div class="col mb-4">
@@ -314,22 +333,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-4 d-block"
+                                    data-parent="4">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $liked_digital; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
@@ -374,22 +401,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-5 d-block"
+                                    data-parent="5">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $liked_komik; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
@@ -434,22 +469,30 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-6 d-block"
+                                    data-parent="6">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $liked_audio; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -500,22 +543,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-7 d-block"
+                                    data-parent="7">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $liked_video; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-pagintion">
+                        <div class="row row-cols-5 card-pagintion next-paginate next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
                                     <div class="col mb-4">
@@ -568,22 +620,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-8 d-block"
+                                    data-parent="8">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $saved_digital; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
@@ -628,22 +689,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-9 d-block"
+                                    data-parent="9">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $saved_komik; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
@@ -688,22 +758,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-10 d-block"
+                                    data-parent="10">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $saved_audio; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -754,22 +833,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-11 d-block"
+                                    data-parent="11">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $saved_video; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-pagintion">
+                        <div class="row row-cols-5 card-pagintion next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
                                     <div class="col mb-4">
@@ -822,22 +910,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-12 d-block"
+                                    data-parent="12">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $done_digital; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
@@ -882,22 +979,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-13 d-block"
+                                    data-parent="13">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $done_komik; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
@@ -942,22 +1048,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-14 d-block"
+                                    data-parent="14">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $done_audio; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton">
+                        <div class="row row-cols-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -1008,22 +1123,31 @@
                         <div class="d-flex align-items-center justify-content-between mt-4">
                             <h3 class="mb-3">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
-                                <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                                    <span class="page-item prev"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/prev-2.svg"
-                                                alt=""></button></span>
-                                    <ul class="pagination">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                <nav id="pagin" class="paginate-pagination paginate-pagination-15 d-block"
+                                    data-parent="15">
+                                    <ul class="d-flex">
+                                        <li class="page-item prev"><a href="#" data-page="prev"
+                                                class="page page-prev deactive prev page-link">
+                                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg"
+                                                    alt="">
+                                            </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        @for ($i = 0; $i < $done_video; $i++)
+                                            <li><a href="#paginate-{{ $i + 1 }}"
+                                                    data-page="{{ $i + 1 }}"
+                                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                            </li>
+                                        @endfor
+                                        <li class="page-item next"><a href="#" data-page="next"
+                                                class="page page-next-link"><img
+                                                    src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                                    alt=""></a>
+                                        </li>
                                     </ul>
-                                    <span class="page-item next"><button class="page-link" href=""><img
-                                                src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                                alt=""></button></button></span>
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-pagintion">
+                        <div class="row row-cols-5 card-pagintion next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
                                     <div class="col mb-4">
@@ -1077,7 +1201,7 @@
                 <script src="{{ asset('web') }}/assets/js/jquery.paginate.js"></script>
                 <script>
                     var token = $("input[name=_token]").val();
-                    $("#next-paginate").paginate({
+                    $(".next-paginate").paginate({
                         perPage: 10,
                         paginatePosition: ['bottom'],
                         useHashLocation: false,

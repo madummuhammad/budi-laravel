@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Penulis</h4>
+                            <h4 class="card-title">Pengguna</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -60,10 +60,10 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body py-0">
-                                                                    <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
+                                                                    <p class="p-0 m-0 fs-4">Hapus data ini?</p>
                                                                 </div>
                                                                 <div class="modal-footer pt-0 pb-1 border-0">
-                                                                    <form action="{{ url('dashboard/author') }}"
+                                                                    <form action="{{ url('dashboard/visitor') }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('delete')

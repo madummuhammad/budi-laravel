@@ -229,7 +229,6 @@ class WebController extends Controller
         }
 
         $book = Book::get();
-
         if (request('keyword') !== null) {
             $data['saveds'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
                 $query->where('name', 'LIKE', '%' . request('keyword') . '%');
@@ -246,11 +245,175 @@ class WebController extends Controller
             $data['done'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
                 $query->where('name', 'LIKE', '%' . request('keyword') . '%');
             })->where('read', 2)->get();
+
+            // Number next
+
+            $data['next_digital'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36');
+            })->where('read', 3)->count();
+
+            $data['next_komik'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba');
+            })->where('read', 3)->count();
+
+            $data['next_audio'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864');
+            })->where('read', 3)->count();
+
+            $data['next_video'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc');
+            })->where('read', 3)->count();
+
+            // Number like
+
+            $data['liked_digital'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36');
+            })->where('liked', 1)->count();
+
+            $data['liked_komik'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba');
+            })->where('liked', 1)->count();
+
+            $data['liked_audio'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864');
+            })->where('liked', 1)->count();
+
+            $data['liked_video'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc');
+            })->where('liked', 1)->count();
+
+            // Number saved
+            $data['saved_digital'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36');
+            })->where('saved', 1)->count();
+
+            $data['saved_komik'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba');
+            })->where('saved', 1)->count();
+
+            $data['saved_audio'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864');
+            })->where('saved', 1)->count();
+
+            $data['saved_video'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc');
+            })->where('saved', 1)->count();
+
+            // Done
+            $data['done_digital'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36');
+            })->where('read', 2)->count();
+
+            $data['done_komik'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba');
+            })->where('read', 2)->count();
+
+            $data['done_audio'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864');
+            })->where('read', 2)->count();
+
+            $data['done_video'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
+                $query->where('name', 'LIKE', '%' . request('keyword') . '%')->where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc');
+            })->where('read', 2)->count();
+
         } else {
             $data['saveds'] = Mylibrary::with('books', 'books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('saved', 1)->get();
             $data['likeds'] = Mylibrary::with('books', 'books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('liked', 1)->get();
             $data['nexts'] = Mylibrary::with('books', 'books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
             $data['done'] = Mylibrary::with('books', 'books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 2)->get();
+
+            $numberQueryD = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryK = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryA = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryV = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+
+            $numberQueryDigital = $numberQueryD->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "2fd97285-08d0-4d81-83f2-582f0e8b0f36");
+            });
+            $numberQueryKomik = $numberQueryK->whereHas('books', function ($querys) use ($book) {
+                $querys->where('book_type', "31ba455c-c9c7-4a3c-a2b1-62915546eaba");
+            });
+            $numberQueryAudio = $numberQueryA->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "9e30a937-0d60-49ad-9775-c19b97cfe864");
+            });
+            $numberQueryVideo = $numberQueryV->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
+            });
+
+            $data['next_digital'] = $numberQueryDigital->where('read', 3)->count();
+            $data['next_komik'] = $numberQueryKomik->where('read', 3)->count();
+            $data['next_audio'] = $numberQueryAudio->where('read', 3)->count();
+            $data['next_video'] = $numberQueryVideo->where('read', 3)->count();
+
+            $numberQueryD2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryK2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryA2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryV2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+
+            $numberQueryDigital2 = $numberQueryD2->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "2fd97285-08d0-4d81-83f2-582f0e8b0f36");
+            });
+            $numberQueryKomik2 = $numberQueryK2->whereHas('books', function ($querys) use ($book) {
+                $querys->where('book_type', "31ba455c-c9c7-4a3c-a2b1-62915546eaba");
+            });
+            $numberQueryAudio2 = $numberQueryA2->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "9e30a937-0d60-49ad-9775-c19b97cfe864");
+            });
+            $numberQueryVideo2 = $numberQueryV2->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
+            });
+
+            $data['liked_digital'] = $numberQueryDigital2->where('liked', 1)->count();
+            $data['liked_komik'] = $numberQueryKomik2->where('liked', 1)->count();
+            $data['liked_audio'] = $numberQueryAudio2->where('liked', 1)->count();
+            $data['liked_video'] = $numberQueryVideo2->where('liked', 1)->count();
+
+            $numberQueryD3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryK3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryA3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryV3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+
+            $numberQueryDigital3 = $numberQueryD3->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "2fd97285-08d0-4d81-83f2-582f0e8b0f36");
+            });
+            $numberQueryKomik3 = $numberQueryK3->whereHas('books', function ($querys) use ($book) {
+                $querys->where('book_type', "31ba455c-c9c7-4a3c-a2b1-62915546eaba");
+            });
+            $numberQueryAudio3 = $numberQueryA3->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "9e30a937-0d60-49ad-9775-c19b97cfe864");
+            });
+            $numberQueryVideo3 = $numberQueryV3->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
+            });
+
+            $data['saved_digital'] = $numberQueryDigital3->where('saved', 1)->count();
+            $data['saved_komik'] = $numberQueryKomik3->where('saved', 1)->count();
+            $data['saved_audio'] = $numberQueryAudio3->where('saved', 1)->count();
+            $data['saved_video'] = $numberQueryVideo3->where('saved', 1)->count();
+
+            $numberQueryD4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryK4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryA4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+            $numberQueryV4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
+
+            $numberQueryDigital4 = $numberQueryD4->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "2fd97285-08d0-4d81-83f2-582f0e8b0f36");
+            });
+            $numberQueryKomik4 = $numberQueryK4->whereHas('books', function ($querys) use ($book) {
+                $querys->where('book_type', "31ba455c-c9c7-4a3c-a2b1-62915546eaba");
+            });
+            $numberQueryAudio4 = $numberQueryA4->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "9e30a937-0d60-49ad-9775-c19b97cfe864");
+            });
+            $numberQueryVideo4 = $numberQueryV4->whereHas('books', function ($query) use ($book) {
+                $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
+            });
+
+            $data['done_digital'] = $numberQueryDigital4->where('read', 2)->count();
+            $data['done_komik'] = $numberQueryKomik4->where('read', 2)->count();
+            $data['done_audio'] = $numberQueryAudio4->where('read', 2)->count();
+            $data['done_video'] = $numberQueryVideo4->where('read', 2)->count();
+
         }
         return view('mylibraryfilter', $data);
 

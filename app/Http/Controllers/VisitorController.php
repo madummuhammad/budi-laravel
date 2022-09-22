@@ -198,4 +198,16 @@ class VisitorController extends Controller
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
     }
+
+    public function destroy()
+    {
+        $id = request('id');
+        $validation = Validator::make(['id' => $id], [
+            'id' => 'required',
+        ]);
+
+        Visitor::where('id', $id)->delete();
+        return back();
+
+    }
 }

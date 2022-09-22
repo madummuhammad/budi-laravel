@@ -175,6 +175,7 @@ Route::middleware('auth')->group(function () {
 
         // Visitor
         Route::get('/visitor', [VisitorController::class, 'visitor_get']);
+        Route::delete('/visitor', [VisitorController::class, 'destroy']);
 
         // User
         Route::get('/admin', [UserController::class, 'index']);
