@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AudioBookHomepage;
+use App\Models\Author;
+use App\Models\AuthorOfTheMonth;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Book;
@@ -18,6 +20,10 @@ use App\Models\ReferenceTheme;
 use App\Models\SendCreation;
 use App\Models\Tag;
 use App\Models\Theme;
+use Intervention\Image\ImageManagerStatic as Image;
+use setasign\Fpdi\Fpdi;
+use Storage;
+use Validator;
 
 class WebController extends Controller
 {
@@ -30,6 +36,7 @@ class WebController extends Controller
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
+        $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
@@ -425,5 +432,96 @@ class WebController extends Controller
         $data['banners'] = Banner::where('page_id', "5db1210c-d350-4abd-b09b-eb33058b93e1")->first();
         return view('web_blog', $data);
 
+    }
+
+    public function pdf()
+    {
+        // download sample file.
+        // Storage::disk('local')->put('test.pdf', file_get_contents('http://www.africau.edu/images/default/sample.pdf'));
+
+        $outputFile = Storage::disk('local')->path('output.pdf');
+        // fill data
+        $this->fillPDF(Storage::disk('local')->path('alia_juga_berani.pdf'), $outputFile);
+        //output to browser
+        return response()->file($outputFile);
+    }
+
+    public function fillPDF($file, $outputFile)
+    {
+        $fpdi = new FPDI;
+        // merger operations
+        $count = $fpdi->setSourceFile($file);
+        for ($i = 1; $i <= $count; $i++) {
+            $template = $fpdi->importPage($i);
+            $size = $fpdi->getTemplateSize($template);
+            $fpdi->AddPage($size['orientation'], array($size['width'], $size['height']));
+            $fpdi->useTemplate($template);
+            $left = 10;
+            $top = 10;
+            $text = "asdfasdfsadfasfd.com";
+            $fpdi->SetFont("helvetica", "", 15);
+            $fpdi->SetTextColor(153, 0, 153);
+            $fpdi->Text($left, $top, $text);
+        }
+        return $fpdi->Output($outputFile, 'F');
+    }
+
+    public function author_profile()
+    {
+        $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->first();
+        return view('author', $data);
+    }
+
+    public function author_of_the_month()
+    {
+        $data['authors'] = Author::get();
+        $data['aotm'] = AuthorOfTheMonth::where('id', "595c5999-b984-4400-b03d-0bf62574477e")->first();
+        return view('dashboard.authorofthemonth', $data);
+    }
+
+    public function author_of_the_month_edit()
+    {
+        $author_id = request('author');
+        $content = request('content');
+        $content_homepage = request('content_homepage');
+        $data = [
+            'author_id' => $author_id,
+            'content' => $content,
+            'content_homepage' => $content_homepage,
+        ];
+        $validation = Validator::make($data, [
+            'author_id' => 'required',
+            'content' => 'required',
+            'content_homepage' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return back();
+        }
+
+        AuthorOfTheMonth::where('id', "595c5999-b984-4400-b03d-0bf62574477e")->update($data);
+        if ($_FILES['cover']['name'] !== "") {
+            $img = $this->storage() . $this->upload_img(request(), 'cover');
+            AuthorOfTheMonth::where('id', "595c5999-b984-4400-b03d-0bf62574477e")->update(['cover' => $img]);
+        }
+        return back();
+    }
+
+    public function upload_img($request, $name)
+    {
+        $path = $request->file($name)->store('image');
+        $resize = Image::make($request->file($name))->fit(300, 380);
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+    }
+
+    public function storage_path($path = '')
+    {
+        return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
     }
 }

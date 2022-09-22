@@ -281,4 +281,14 @@ class BookController extends Controller
         Book::where('id', $id)->delete();
         return back();
     }
+
+    public function download()
+    {
+        $file = public_path() . '/storage' . '/' . request('file');
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+        return response()->download($file, request('name') . '.pdf', $headers);
+
+    }
 }

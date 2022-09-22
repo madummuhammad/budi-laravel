@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Author extends Model
+class AuthorOfTheMonth extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -25,8 +25,8 @@ class Author extends Model
         });
     }
 
-    public function books()
+    public function authors()
     {
-        return $this->hasMany(Book::class, 'author', 'id');
+        return $this->hasOne(Author::class, 'id', 'author_id');
     }
 }

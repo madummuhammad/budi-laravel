@@ -104,10 +104,16 @@
                 @endif
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     <div class="baca-button-group d-flex mt-5 pt-5">
-                        <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                        py-2 me-4"><i
-                                class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        <form class=" me-4" action="{{ url('download') }}" method="post">
+                            @csrf
+                            <input type="text" name="file" value="{{ $book_detail->content }}" style="display: none">
+                            <input type="text" name="name" value="{{ $book_detail->name }}" style="display: none">
+                            @method('POST')
+                            <button
+                                class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100"><i
+                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        </form>
                         <button type="button"
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
@@ -183,10 +189,18 @@
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
-                        <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4"><i
-                                class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        <form class=" me-4" action="{{ url('download') }}" method="post">
+                            @csrf
+                            <input type="text" name="file" value="{{ $book_detail->content }}"
+                                style="display: none">
+                            <input type="text" name="name" value="{{ $book_detail->name }}"
+                                style="display: none">
+                            @method('POST')
+                            <button
+                                class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100"><i
+                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        </form>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"

@@ -212,6 +212,8 @@
                     <li class="nav-label">PENGATURAN KONTEN</li>
                     <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false"><i
                                 class="icon icon-globe-2"></i><span class="nav-text">Laman</span></a></li>
+                    <li><a href="{{ url('dashboard/author_of_the_month') }}" aria-expanded="false"><i
+                                class="icon icon-globe-2"></i><span class="nav-text">Penulis Bulan Ini</span></a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Jenis Buku</span></a>
                         <ul aria-expanded="false">

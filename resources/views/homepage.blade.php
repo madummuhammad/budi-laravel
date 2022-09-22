@@ -585,34 +585,25 @@
     <section id="section-11">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="ff-bubblewump mb-4 fw-bold">Profil Penulis Bulan Ini</h2>
-                    <h3 class="text-blue">Asma Nadia</h3>
-                    <p>Asmarani Rosalba adalah nama asli Asma Nadia. Ia adalah adik kandung Helvy Tiana Rosa,
-                        seorang
-                        penulis muda. Ia
-                        mulai berkecimpung di dunia tulis-menulis ketika mulai mencipta lagu di sekolah dasar.
-                        Setelah lulus
-                        dari SMA 1
-                        Budi Utomo, Jakarta, Asma Nadia melanjutkan kuliah di Fakultas Teknologi Pertanian, Institut
-                        Pertanian Bogor.
-                        Namun, kuliah yang dijalaninya tidak tamat. Dia harus beristirahat karena penyakit yang
-                        dideritanya.
-                    </p>
-                    <p>Asma mempunyai obsesi untuk terus menulis. Itulah sebabnya, ketika kesehatannya menurun, ia
-                        tetap
-                        bersemangat
-                        menulis</p>
-                    <a href="profile_penulis.html" class="text-blue">Yuk, berkenalan lebih lanjut</a>
-                </div>
-                <div class="col-lg-6 d-flex justify-content-center">
-                    <div class="img-section-11">
-                        <img class="thumbnail-section-11" src="{{ asset('web') }}/assets/img/asma_nadia.jpg"
-                            alt="">
-                        <img class="border-section-11" src="{{ asset('web') }}/assets/icon/footer-border.svg"
-                            alt="">
+                @foreach ($aotm as $aotm)
+                    <div class="col-lg-6">
+                        <h2 class="ff-bubblewump mb-4 fw-bold">Profil Penulis Bulan Ini</h2>
+                        <h3 class="text-blue">{{ $aotm->authors->name }}</h3>
+                        <div>
+                            @php
+                                echo $aotm->content_homepage;
+                            @endphp
+                        </div>
+                        <a href="{{ url('author_profile') }}" class="text-blue">Yuk, berkenalan lebih lanjut</a>
                     </div>
-                </div>
+                    <div class="col-lg-6 d-flex justify-content-center">
+                        <div class="img-section-11">
+                            <img class="thumbnail-section-11" src="{{ $aotm->cover }}" alt="">
+                            <img class="border-section-11" src="{{ asset('web') }}/assets/icon/footer-border.svg"
+                                alt="">
+                        </div>
+                    </div>
+                @endforeach
             </div>
             <div class="dash" style="margin-top: 100px;"></div>
         </div>

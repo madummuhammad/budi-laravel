@@ -40,6 +40,8 @@ Route::middleware('visitor')->group(function () {
         Route::get('/register', [VisitorController::class, 'register']);
         Route::post('/register', [VisitorController::class, 'auth_register']);
 
+        // Route::get('/pdf', [WebController::class, 'pdf']);
+
         // Profile
         Route::get('/profile', [VisitorController::class, 'index']);
         Route::patch('/profile', [VisitorController::class, 'update']);
@@ -61,6 +63,7 @@ Route::middleware('visitor')->group(function () {
 
         Route::get('/', [WebController::class, 'index']);
         Route::get('/book/{id}', [WebController::class, 'book']);
+        Route::post('/download', [BookController::class, 'download']);
 
         // Comment
         Route::post('/comment', [CommentController::class, 'add']);
@@ -83,6 +86,9 @@ Route::middleware('visitor')->group(function () {
 
         // Homebook
         Route::post('/homebookfilter', [WebController::class, 'homebookfilter']);
+
+        // Author
+        Route::get('/author_profile', [WebController::class, 'author_profile']);
 
         // Info seputar budi
         Route::get('/info_seputar_budi', [WebController::class, 'info_seputar_budi']);
@@ -182,6 +188,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin', [UserController::class, 'store']);
         Route::delete('/admin', [UserController::class, 'destroy']);
         Route::patch('/admin', [UserController::class, 'update']);
+
+        Route::get('/author_of_the_month', [WebController::class, 'author_of_the_month']);
+        Route::patch('/author_of_the_month', [WebController::class, 'author_of_the_month_edit']);
 
     });
 

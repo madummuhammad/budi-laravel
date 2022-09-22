@@ -235,11 +235,11 @@
 <script src="{{ asset('web') }}/assets/js/player.js"></script>
 
 <script>
-    var myModal = new bootstrap.Modal(document.getElementById('being_read'), {
-        keyboard: false
-    });
     @if (auth()->guard('visitor')->check() == true)
         @if ($reads !== null)
+            var myModal = new bootstrap.Modal(document.getElementById('being_read'), {
+                keyboard: false
+            });
             myModal.show()
             $("#selesai").on('click', function() {
                 var token = $("input[name=_token]").val();
