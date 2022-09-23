@@ -588,7 +588,9 @@
                 @foreach ($aotm as $aotm)
                     <div class="col-lg-6">
                         <h2 class="ff-bubblewump mb-4 fw-bold">Profil Penulis Bulan Ini</h2>
-                        <h3 class="text-blue">{{ $aotm->authors->name }}</h3>
+                        @if ($aotm->authors !== null)
+                            <h3 class="text-blue">{{ $aotm->authors->name }}</h3>
+                        @endif
                         <div>
                             @php
                                 echo $aotm->content_homepage;

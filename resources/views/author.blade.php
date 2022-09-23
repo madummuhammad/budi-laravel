@@ -11,7 +11,9 @@
         </div>
         <div class="news-detail">
             <div class="title">
-                <h1 class="fw-bold w-100">{{ $aotm->authors->name }}</h1>
+                @if ($aotm->authors !== null)
+                    <h1 class="fw-bold w-100">{{ $aotm->authors->name }}</h1>
+                @endif
                 <div class="share">
                     <a class=""><i class="bi bi-heart"></i></a>
                     <a class=""><i class="bi bi-share"></i></a>
@@ -66,11 +68,13 @@
                                 <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
                             </a>
                         </li>
-                        @for ($i = 0; $i < ceil(count($aotm->authors->books) / 5); $i++)
-                            <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
-                                    class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
-                            </li>
-                        @endfor
+                        @if ($aotm->authors !== null)
+                            @for ($i = 0; $i < ceil(count($aotm->authors->books) / 5); $i++)
+                                <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
+                                        class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
+                                </li>
+                            @endfor
+                        @endif
                         <li class="page-item next"><a href="#" data-page="next" class="page page-next-link"><img
                                     src="{{ asset('web') }}/assets/icon/next-2.svg" alt=""></a>
                         </li>
@@ -79,45 +83,48 @@
             </div>
         </div>
         <div class="row row-cols-5 next-pagination">
-            @foreach ($aotm->authors->books as $book)
-                <div class="col mb-4">
-                    <div class="card p-2">
-                        <a href="audio.html" class="text-decoration-none text-dark">
-                            <div class="img-container-for-icon">
-                                <img src="{{ $book->cover }}" alt="" class="img-fluid">
-                                @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                    <div class="icon icon-center">
-                                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                                    </div>
-                                @endif
-                                @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                    <div class="icon icon-center">
-                                        <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex">
-                                    <span><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100</span>
-                                    <span><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt="">
-                                        100</span>
+            @if ($aotm->authors !== null)
+                @foreach ($aotm->authors->books as $book)
+                    <div class="col mb-4">
+                        <div class="card p-2">
+                            <a href="audio.html" class="text-decoration-none text-dark">
+                                <div class="img-container-for-icon">
+                                    <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                    @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                        <div class="icon icon-center">
+                                            <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
+                                        </div>
+                                    @endif
+                                    @if ($book->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                        <div class="icon icon-center">
+                                            <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
+                                        </div>
+                                    @endif
                                 </div>
-                                <a href=""><i class="bi bi-three-dots-vertical"></i></a>
-                            </div>
-                            <div class="card-body p-1">
-                                <div class="card-title fw-bold">
-                                    Alia Juga Berani
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex">
+                                        <span><img src="{{ asset('web') }}/assets/icon/love.svg" alt="">
+                                            100</span>
+                                        <span><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt="">
+                                            100</span>
+                                    </div>
+                                    <a href=""><i class="bi bi-three-dots-vertical"></i></a>
                                 </div>
-                                <p class="card-text">Author: Raline</p>
-                                <p class="card-text">Tema: Pelajaran</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-body p-1">
+                                <div class="card-body p-1">
+                                    <div class="card-title fw-bold">
+                                        Alia Juga Berani
+                                    </div>
+                                    <p class="card-text">Author: Raline</p>
+                                    <p class="card-text">Tema: Pelajaran</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body p-1">
 
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
         <div class="dash" style="margin: 80px 0px;"></div>
     </div>
