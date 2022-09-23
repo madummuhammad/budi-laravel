@@ -53,4 +53,16 @@ class Visitor extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function book_read_statistics()
+    {
+        return $this->hasMany(BookReadStatistic::class, 'visitor_id', 'id');
+    }
+
+    public function mylibraries()
+    {
+        return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
+
+    }
+
 }

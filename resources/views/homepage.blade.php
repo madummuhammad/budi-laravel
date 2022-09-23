@@ -166,9 +166,9 @@
             </div>
         </div>
         <div id="section-4" class="mt-5">
-            @foreach ($book_of_the_months as $botm)
-                <div class="row">
-                    <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
+            <div class="row">
+                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
+                @foreach ($book_of_the_months as $botm)
                     @foreach ($botm->books as $book)
                         <div class="col-lg-6">
                             <div class="row">
@@ -201,28 +201,28 @@
                             </div>
                         </div>
                     @endforeach
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
-    <div id="section-5" style="margin-top: 100px;">
-        <h2 class="ff-bubblewump text-center fw-bold">Pilihan Tema Yang Mungkin Kamu Suka </h2>
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-12">
-                    <div class="owl-carousel owl-theme px-5" id="owl-carousel-1">
-                        @foreach ($themes as $theme)
-                            <div class="item">
-                                <img class="img-fluid" src="{{ $theme->image }}" alt="">
-                                <div class="title fw-bold">
-                                    <p class="p-0 text-white">{{ $theme->name }}</p>
+        <div id="section-5" style="margin-top: 100px;">
+            <h2 class="ff-bubblewump text-center fw-bold">Pilihan Tema Yang Mungkin Kamu Suka </h2>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="owl-carousel owl-theme px-5" id="owl-carousel-1">
+                            @foreach ($themes as $theme)
+                                <div class="item">
+                                    <img class="img-fluid" src="{{ $theme->image }}" alt="">
+                                    <div class="title fw-bold">
+                                        <p class="p-0 text-white">{{ $theme->name }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <div id="section-6" class="mt-5">
         <div class="container text-white">

@@ -125,7 +125,46 @@
         </div>
     </div>
 </body>
+<script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>
+<script>
+    $(document).ready(function() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var token = $("[name=_token]").val();
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('set_cookie') }}",
+                data: {
+                    _method: "POST",
+                    _token: token,
+                    latitude: latitude,
+                    longitude: longitude,
+                    width: screen.width,
+                    height: screen.height
+
+                },
+                success: function(hasil) {}
+            });
+        }, function(e) {
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('set_cookie') }}",
+                data: {
+                    _method: "POST",
+                    _token: token,
+                    latitude: latitude,
+                    longitude: longitude
+                },
+                success: function(hasil) {}
+            });
+            alert('Geolocation Tidak Mendukung Pada Browser Anda');
+        }, {
+            enableHighAccuracy: true
+        });
+    });
+</script>
 
 </html>

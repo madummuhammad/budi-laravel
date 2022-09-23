@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visitor;
+use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -95,6 +96,9 @@ class VisitorController extends Controller
             return redirect('login')->withErrors($validation)->withInput($credentials);
         }
         if (Auth::guard('visitor')->attempt($credentials)) {
+            $data = json_decode($request->cookie('visitor_session'));
+            $id = auth()->guard('visitor')->user()->id;
+            VisitorVisit::where('id', $data->id)->update(['visitor_id' => $id]);
             request()->session()->regenerate();
             return redirect()->intended();
 
@@ -106,7 +110,6 @@ class VisitorController extends Controller
                 ->withErrors(["Incorrect user login details!"]);
 
         }
-
         return back()->withInput($credentials)->with(['loginError' => 'Email atau password yang anda masukan salah']);
 
     }

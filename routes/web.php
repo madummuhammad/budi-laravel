@@ -199,6 +199,8 @@ Route::middleware('auth')->group(function () {
 
         // Statistic Visitor
         Route::get('/statistic/visitor', [StatisticController::class, 'visitor']);
+        Route::get('/statistic/visitor/{id}', [StatisticController::class, 'profiling']);
+        Route::get('/statistic/book', [StatisticController::class, 'book']);
 
     });
 

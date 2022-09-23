@@ -213,6 +213,7 @@
                                 class="icon icon-app-store"></i><span class="nav-text">Analitik</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/statistic/visitor') }}">Pengunjung</a></li>
+                            <li><a href="{{ url('dashboard/statistic/book') }}">Buku</a></li>
                             {{-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                     Referensi</a>
                                 <ul aria-expanded="false">
@@ -226,8 +227,8 @@
                                             Tema</a></li>
                                 </ul>
                             </li> --}}
-                            <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
-                            <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
+                            {{-- <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
+                            <li><a href="{{ url('dashboard/author') }}">Penulis</a></li> --}}
                         </ul>
                     </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>

@@ -272,7 +272,6 @@
     @endif
     $(document).ready(function() {
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position)
             var token = $("[name=_token]").val();
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
@@ -283,7 +282,10 @@
                     _method: "POST",
                     _token: token,
                     latitude: latitude,
-                    longitude: longitude
+                    longitude: longitude,
+                    width: screen.width,
+                    height: screen.height
+
                 },
                 success: function(hasil) {}
             });

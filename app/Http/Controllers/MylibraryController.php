@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\BookDownloadStatistic;
 use App\Models\BookReadStatistic;
 use App\Models\Liked;
 use App\Models\Mylibrary;
 use App\Models\Saved;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 
 class MylibraryController extends Controller
@@ -87,7 +90,7 @@ class MylibraryController extends Controller
         }
     }
 
-    public function being_read()
+    public function being_read(Request $request)
     {
 
         $data = [
@@ -101,7 +104,23 @@ class MylibraryController extends Controller
             'visitor_id' => 'required',
         ]);
 
-        BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id')]);
+        if ($request->cookie($request->book_id) == null) {
+            $dataVisitor = json_decode($request->cookie('visitor_session'));
+            $book_read_statistic = BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
+            $minutes = 1;
+            $response = new Response("");
+            $response->withCookie(cookie(request('book_id'), $book_read_statistic, $minutes));
+            return $response;
+        }
+
+        if (auth()->guard('visitor')->check() == true) {
+            if ($request->cookie($request->book_id) !== null) {
+                $data = json_decode($request->cookie(request('book_id')));
+                $id = auth()->guard('visitor')->user()->id;
+                BookReadStatistic::where('id', $data->id)->update(['visitor_id' => $id]);
+            }
+        }
+
         if ($validation->fails()) {
             return back();
         }
@@ -119,7 +138,7 @@ class MylibraryController extends Controller
         Book::where('id', request('book_id'))->update(['number_read' => $count]);
     }
 
-    public function download()
+    public function download(Request $request)
     {
 
         $data = [
@@ -132,19 +151,18 @@ class MylibraryController extends Controller
             'book_id' => 'required',
             'visitor_id' => 'required',
         ]);
-
-        // BookReadStatistic::create(['book_id' => request('book_id')]);
+        $dataVisitor = json_decode($request->cookie('visitor_session'));
+        BookDownloadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
         if ($validation->fails()) {
             return back();
         }
+
         $mylibrary = Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->first();
         if ($mylibrary) {
             Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['downloaded' => 1]);
         } else {
             Mylibrary::create($data);
         }
-        $count = BookReadStatistic::where(['book_id' => request('book_id')])->count();
-        Book::where('id', request('book_id'))->update(['number_read' => $count + 1]);
     }
 
     public function done()

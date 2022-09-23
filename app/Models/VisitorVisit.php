@@ -29,4 +29,14 @@ class VisitorVisit extends Model
     {
         return $this->hasOne(Visitor::class, 'id', 'visitor_id');
     }
+
+    public function book_read_statistics()
+    {
+        return $this->hasMany(BookReadStatistic::class, 'visitor_visit_id', 'id');
+    }
+
+    public function book_download_statistics()
+    {
+        return $this->hasMany(BookDownloadStatistic::class, 'visitor_visit_id', 'id');
+    }
 }

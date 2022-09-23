@@ -55,13 +55,19 @@ class Book extends Model
         return $this->hasMany(Comment::class, 'book_id', 'id');
     }
 
-    public function saveds()
-    {
-        return $this->hasMany(Saved::class, 'book_id', 'id');
-    }
-
     public function book_read_statistics()
     {
         return $this->hasMany(BookReadStatistic::class, 'book_id', 'id');
     }
+
+    public function book_download_statistics()
+    {
+        return $this->hasMany(BookDownloadStatistic::class, 'book_id', 'id');
+    }
+
+    public function mylibraries()
+    {
+        return $this->hasMany(Mylibrary::class, 'book_id', 'id');
+    }
+
 }

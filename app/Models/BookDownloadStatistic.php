@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BookReadStatistic extends Model
+class BookDownloadStatistic extends Model
 {
     use HasFactory;
     use SoftDeletes;
