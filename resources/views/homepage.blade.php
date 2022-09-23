@@ -184,7 +184,12 @@
                                             <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
                                         @endforeach
                                         <p><span class="fw-bold">Rating : </span><img
-                                                src="{{ asset('web') }}/assets/icon/star.svg" alt=""> 4.9
+                                                src="{{ asset('web') }}/assets/icon/star.svg" alt="">
+                                            @if ($book->comments->where('book_id', $book->id)->count() == 0)
+                                                0.0
+                                            @else
+                                                {{ number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1) }}
+                                            @endif
                                         </p>
                                     </div>
                                     <a href="{{ url('/book') }}/{{ $book->id }}" class="text-blue">Lihat Buku</a>

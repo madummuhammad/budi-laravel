@@ -31,6 +31,10 @@ class StatisticController extends Controller
 
         $data['downloaded'] = VisitorVisit::with('visitors', 'book_download_statistics', 'book_download_statistics.books', 'book_download_statistics.books.themes', 'book_download_statistics.books.levels', 'book_download_statistics.books.book_types')->where('id', $id)->get();
 
+        $data['comments'] = VisitorVisit::with('visitors', 'visitors.comments', 'visitors.comments.books', 'visitors.comments.books.levels', 'visitors.comments.books.themes', 'visitors.comments.books.book_types')->where('id', $id)->get();
+
+        $data['shared'] = VisitorVisit::with('visitors', 'visitors.shares', 'visitors.shares.books', 'visitors.shares.books.levels', 'visitors.shares.books.themes', 'visitors.shares.books.book_types')->where('id', $id)->get();
+
         return view('dashboard.profiling', $data);
     }
 }

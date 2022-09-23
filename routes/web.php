@@ -53,6 +53,7 @@ Route::middleware('visitor')->group(function () {
         Route::post('/mylibrary', [WebController::class, 'my_library_filter']);
         Route::post('/saved', [MylibraryController::class, 'saved']);
         Route::post('/liked', [MylibraryController::class, 'liked']);
+        Route::post('/share', [MylibraryController::class, 'share']);
         Route::post('/being_read', [MylibraryController::class, 'being_read']);
         Route::post('/done', [MylibraryController::class, 'done']);
         Route::post('/next', [MylibraryController::class, 'next']);

@@ -306,6 +306,9 @@
                 var visitor_id = null;
             @endif
             $("#saved").on('click', function() {
+                window.location = "{{ url('login') }}";
+                @if (auth()->guard('visitor')->check() == false)
+                @endif
                 var saved = $(this).attr("status");
                 $.ajax({
                     type: 'POST',
@@ -396,17 +399,9 @@
                         visitor_id: visitor_id,
                         _token: token
                     },
-                    success: function(hasil) {
-                        // if (status == 0) {
-                        //     $("#show_book").attr("data-status", '1');
-                        // } else if (status == 3) {
-                        //     $("#show_book").attr("data-status", '1');
-                        // } else {
-                        //     $("#show_book").attr("data-status", status);
-                        // }
-                    }
+                    success: function(hasil) {}
                 });
-            })
+            });
         })
     </script>
 @endsection

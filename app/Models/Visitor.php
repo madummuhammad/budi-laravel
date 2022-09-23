@@ -62,7 +62,16 @@ class Visitor extends Authenticatable
     public function mylibraries()
     {
         return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
+    }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'visitor_id', 'id');
+    }
+
+    public function shares()
+    {
+        return $this->hasMany(BookShare::class, 'visitor_id', 'id');
     }
 
 }

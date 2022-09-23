@@ -50,7 +50,7 @@
                             </li>
                         </ul>
                     <li class="nav-item px-3">
-                        <a class="nav-link active" aria-current="page" href="{{ url('pustakaku') }}">Pustakaku</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
                     </li>
                     <li class="nav-item px-3">
                         <a class="nav-link active" aria-current="page"

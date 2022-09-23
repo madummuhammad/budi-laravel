@@ -38,10 +38,11 @@ class WebController extends Controller
         $data['themes'] = Theme::all();
         $data['blogs'] = Blog::where('display_homepage', 1)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
-        $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
+        $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
+
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }
@@ -122,15 +123,19 @@ class WebController extends Controller
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }
+        $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
+
         return view('booktype', $data);
     }
 
     public function book_type_filter($id)
     {
+        $data['liked_number'] = Mylibrary::where('liked', 1)->get();
+        $data['read_number'] = BookReadStatistic::get();
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
-            $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->paginate(10);
+            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
         } else {
-            $queryData = $data['books'] = Book::with('authors', 'themes')->where('book_type', $id);
+            $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id);
             if (request('jenjang') !== null) {
                 $query = $queryData->where('level', request('jenjang'));
             }

@@ -315,6 +315,136 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Komentar</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display table-table" style="min-width: 845px">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Cover</th>
+                                            <th>Judul</th>
+                                            <th>Jenjang</th>
+                                            <th>Tema</th>
+                                            <th>Format</th>
+                                            <th>Komentar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($comments as $visitor_visit)
+                                            @php
+                                                $no = 0;
+                                            @endphp
+                                            @if (date('Y-m-d', $visitor_visit->time) == date('Y-m-d'))
+                                                @if ($visitor_visit->visitors !== null)
+                                                    @foreach ($visitor_visit->visitors->comments as $comment)
+                                                        @php
+                                                            $no++;
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $no }}</td>
+                                                            @foreach ($comment->books as $book)
+                                                                <td><img src="{{ $book->cover }}" alt=""
+                                                                        class="img-fluid"></td>
+                                                            @endforeach
+                                                            @foreach ($comment->books as $book)
+                                                                <td>{{ $book->judul }}</td>
+                                                            @endforeach
+                                                            @foreach ($comment->books as $book)
+                                                                @foreach ($book->levels as $level)
+                                                                    <td>{{ $level->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach ($comment->books as $book)
+                                                                @foreach ($book->themes as $theme)
+                                                                    <td>{{ $theme->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach ($comment->books as $book)
+                                                                @foreach ($book->book_types as $book_type)
+                                                                    <td>{{ $book_type->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                            <td>{{ $comment->comment }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Buku Dishare</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="display table-table" style="min-width: 845px">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Cover</th>
+                                            <th>Judul</th>
+                                            <th>Jenjang</th>
+                                            <th>Tema</th>
+                                            <th>Format</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($shared as $visitor_visit)
+                                            @php
+                                                $no = 0;
+                                            @endphp
+                                            @if (date('Y-m-d', $visitor_visit->time) == date('Y-m-d'))
+                                                @if ($visitor_visit->visitors !== null)
+                                                    @foreach ($visitor_visit->visitors->shares as $share)
+                                                        @php
+                                                            $no++;
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $no }}</td>
+                                                            @foreach ($share->books as $book)
+                                                                <td><img class="img-fluid" src="{{ $book->cover }}"
+                                                                        alt=""></td>
+                                                            @endforeach
+                                                            @foreach ($share->books as $book)
+                                                                <td>{{ $book->name }}</td>
+                                                            @endforeach
+                                                            @foreach ($share->books as $book)
+                                                                @foreach ($book->levels as $level)
+                                                                    <td>{{ $level->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach ($share->books as $book)
+                                                                @foreach ($book->themes as $theme)
+                                                                    <td>{{ $theme->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach ($share->books as $book)
+                                                                @foreach ($book->book_types as $book_type)
+                                                                    <td>{{ $book_type->name }}</td>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

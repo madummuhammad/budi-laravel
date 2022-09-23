@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\BookDownloadStatistic;
 use App\Models\BookReadStatistic;
+use App\Models\BookShare;
 use App\Models\Liked;
 use App\Models\Mylibrary;
 use App\Models\Saved;
@@ -92,7 +93,6 @@ class MylibraryController extends Controller
 
     public function being_read(Request $request)
     {
-
         $data = [
             'book_id' => request('book_id'),
             'visitor_id' => request('visitor_id'),
@@ -162,6 +162,27 @@ class MylibraryController extends Controller
             Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['downloaded' => 1]);
         } else {
             Mylibrary::create($data);
+        }
+    }
+
+    public function share(Request $request)
+    {
+
+        $data = [
+            'book_id' => request('book_id'),
+            'visitor_id' => request('visitor_id'),
+            'shared' => 1,
+        ];
+
+        $validation = Validator::make($data, [
+            'book_id' => 'required',
+            'visitor_id' => 'required',
+        ]);
+
+        $dataVisitor = json_decode($request->cookie('visitor_session'));
+        BookShare::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
+        if ($validation->fails()) {
+            return back();
         }
     }
 
