@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\BookReadStatistic;
 use App\Models\Liked;
 use App\Models\Mylibrary;
 use App\Models\Saved;
@@ -87,6 +89,7 @@ class MylibraryController extends Controller
 
     public function being_read()
     {
+
         $data = [
             'book_id' => request('book_id'),
             'visitor_id' => request('visitor_id'),
@@ -98,6 +101,7 @@ class MylibraryController extends Controller
             'visitor_id' => 'required',
         ]);
 
+        BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id')]);
         if ($validation->fails()) {
             return back();
         }
@@ -111,6 +115,36 @@ class MylibraryController extends Controller
         } else {
             Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['read' => request('status')]);
         }
+        $count = BookReadStatistic::where(['book_id' => request('book_id')])->count();
+        Book::where('id', request('book_id'))->update(['number_read' => $count]);
+    }
+
+    public function download()
+    {
+
+        $data = [
+            'book_id' => request('book_id'),
+            'visitor_id' => request('visitor_id'),
+            'downloaded' => 1,
+        ];
+
+        $validation = Validator::make($data, [
+            'book_id' => 'required',
+            'visitor_id' => 'required',
+        ]);
+
+        // BookReadStatistic::create(['book_id' => request('book_id')]);
+        if ($validation->fails()) {
+            return back();
+        }
+        $mylibrary = Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->first();
+        if ($mylibrary) {
+            Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['downloaded' => 1]);
+        } else {
+            Mylibrary::create($data);
+        }
+        $count = BookReadStatistic::where(['book_id' => request('book_id')])->count();
+        Book::where('id', request('book_id'))->update(['number_read' => $count + 1]);
     }
 
     public function done()

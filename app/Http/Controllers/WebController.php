@@ -9,6 +9,7 @@ use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
+use App\Models\BookReadStatistic;
 use App\Models\Book_type;
 use App\Models\Comment;
 use App\Models\Language;
@@ -20,6 +21,9 @@ use App\Models\ReferenceTheme;
 use App\Models\SendCreation;
 use App\Models\Tag;
 use App\Models\Theme;
+use App\Models\VisitorVisit;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Intervention\Image\ImageManagerStatic as Image;
 use setasign\Fpdi\Fpdi;
 use Storage;
@@ -91,18 +95,19 @@ class WebController extends Controller
     {
         $data['comments'] = Comment::with('visitors')->where('book_id', $id)->limit(3)->orderBy('created_at', 'DESC')->get();
         $data['book_detail'] = Book::where('id', $id)->with('authors', 'themes', 'book_types', 'book_pdfs')->first();
+        $data['saved_number'] = Mylibrary::where('saved', 1)->where('book_id', $id)->count();
+        $data['liked_number'] = Mylibrary::where('liked', 1)->where('book_id', $id)->count();
+        $data['comment_number'] = Comment::where('book_id', $id)->count();
+        $data['read_number'] = BookReadStatistic::where('book_id', $id)->count();
+        if ($data['comment_number'] == 0) {
+            $data['ratting_number'] = 0;
+        } else {
+            $data['ratting_number'] = Comment::where('book_id', $id)->sum('star') / $data['comment_number'];
+        }
         if (auth()->guard('visitor')->check() == true) {
             $data['saveds'] = Mylibrary::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->where('saved', 1)->first();
             $data['likeds'] = Mylibrary::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->where('liked', 1)->first();
             $data['reads'] = Mylibrary::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->first();
-            $data['saved_number'] = Mylibrary::where('saved', 1)->where('book_id', $id)->count();
-            $data['liked_number'] = Mylibrary::where('liked', 1)->where('book_id', $id)->count();
-            $data['comment_number'] = Comment::where('book_id', $id)->count();
-            if ($data['comment_number'] == 0) {
-                $data['ratting_number'] = 0;
-            } else {
-                $data['ratting_number'] = Comment::where('book_id', $id)->sum('star') / $data['comment_number'];
-            }
         }
         $data['related_books'] = Book::where('theme', $data['book_detail']->theme)->orWhere('level', $data['book_detail']->level)->limit(6)->get();
         return view('book', $data);
@@ -113,6 +118,7 @@ class WebController extends Controller
         $data['themes'] = Theme::all();
         $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->paginate(10);
         $data['book_types'] = Book_type::where('id', $id)->first();
+        $data['most_reads'] = Book::orderBy('number_read', 'DESC')->limit(8)->get();
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }
@@ -504,6 +510,55 @@ class WebController extends Controller
             AuthorOfTheMonth::where('id', "595c5999-b984-4400-b03d-0bf62574477e")->update(['cover' => $img]);
         }
         return back();
+    }
+
+    public function set_cookies(Request $request)
+    {
+        $longitude = request('longitude');
+        $latitude = request('latitude');
+        if (!empty($latitude) && !empty($longitude)) {
+            $gmap = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . trim($latitude) . ',' . $longitude . '&sensor=false';
+            // curl
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $gmap);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            // end curl
+            return $data = json_decode($response);
+
+            if ($response) {
+                return json_encode($data->results[0]->formatted_address);
+            } else {
+                return json_encode(false);
+            }
+        }
+        if (auth()->guard('visitor')->check() == false) {
+            if ($request->cookie('visitor_session') == null) {
+                $visitorvisit = VisitorVisit::create();
+                $minutes = 1;
+                $response = new Response("");
+                $response->withCookie(cookie('visitor_session', $visitorvisit, $minutes));
+                return $response;
+            }
+        } else {
+            if ($request->cookie('visitor_session') == null) {
+                $data = [
+                    'visitor_id' => auth()->guard('visitor')->user()->id,
+                ];
+                $visitorvisit = VisitorVisit::create($data);
+                $minutes = 1;
+                $response = new Response("");
+                $response->withCookie(cookie('visitor_session', $visitorvisit, $minutes));
+                return $response;
+            }
+        }
+        // $value = $request->cookie('visitor_session');
+        // return $value;
     }
 
     public function upload_img($request, $name)

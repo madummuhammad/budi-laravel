@@ -219,9 +219,9 @@
                     </div>
                 </div>
             </div>
-            @csrf
         @endif
     @endif
+    @csrf
 </body>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script>
@@ -270,6 +270,40 @@
             });
         @endif
     @endif
+    $(document).ready(function() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position)
+            var token = $("[name=_token]").val();
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('set_cookie') }}",
+                data: {
+                    _method: "POST",
+                    _token: token,
+                    latitude: latitude,
+                    longitude: longitude
+                },
+                success: function(hasil) {}
+            });
+        }, function(e) {
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('set_cookie') }}",
+                data: {
+                    _method: "POST",
+                    _token: token,
+                    latitude: latitude,
+                    longitude: longitude
+                },
+                success: function(hasil) {}
+            });
+            alert('Geolocation Tidak Mendukung Pada Browser Anda');
+        }, {
+            enableHighAccuracy: true
+        });
+    });
 </script>
 
 </html>

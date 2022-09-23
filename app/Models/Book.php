@@ -59,4 +59,9 @@ class Book extends Model
     {
         return $this->hasMany(Saved::class, 'book_id', 'id');
     }
+
+    public function book_read_statistics()
+    {
+        return $this->hasMany(BookReadStatistic::class, 'book_id', 'id');
+    }
 }

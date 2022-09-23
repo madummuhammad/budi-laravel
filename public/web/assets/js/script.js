@@ -156,5 +156,3 @@ $("#format button").on('click', function () {
         });
     }
 })
-
-

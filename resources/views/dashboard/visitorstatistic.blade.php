@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Pengguna</h4>
+                            <h4 class="card-title">Pengunjung Hari Ini</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -30,7 +30,9 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
+                                            <th>Nama</th>
+                                            <th>Lokasi</th>
+                                            <th>Device</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -38,19 +40,25 @@
                                         @php
                                             $no = 0;
                                         @endphp
-                                        @foreach ($visitors as $visitor)
+                                        @foreach ($visitors as $visitor_visit)
                                             @php
                                                 $no++;
                                             @endphp
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $visitor->name }}</td>
+                                                @if ($visitor_visit->visitors !== null)
+                                                    <td>{{ $visitor_visit->visitors->name }}</td>
+                                                @else
+                                                    <td>Unknown</td>
+                                                @endif
+                                                <td>Unknown</td>
+                                                <td>Unknown</td>
                                                 <td>
                                                     <button class="btn badge badge-danger" data-toggle="modal"
-                                                        data-target="#hapus{{ $visitor->id }}"><i
+                                                        data-target="#hapus{{ $visitor_visit->id }}"><i
                                                             class="bi bi-trash3"></i></button>
 
-                                                    <div class="modal" tabindex="-1" id="hapus{{ $visitor->id }}">
+                                                    <div class="modal" tabindex="-1" id="hapus{{ $visitor_visit->id }}">
                                                         <div class="modal-dialog modal-dialog-centered modal-sm">
                                                             <div class="modal-content">
                                                                 <div class="modal-header border-0 py-0">
@@ -69,7 +77,7 @@
                                                                         @csrf
                                                                         @method('delete')
                                                                         <input type="text" name="id"
-                                                                            value="{{ $visitor->id }}" hidden>
+                                                                            value="{{ $visitor_visit->id }}" hidden>
                                                                         <button type="submit" class="btn badge-danger"><i
                                                                                 class="bi bi-trash3"></i></button>
                                                                     </form>
@@ -79,7 +87,7 @@
                                                     </div>
                                                     <a href="{{ url('dashboard/visitor/pro') }}"
                                                         class="btn badge badge-dark" data-toggle="modal"
-                                                        data-target="#hapus{{ $visitor->id }}"><i
+                                                        data-target="#hapus{{ $visitor_visit->id }}"><i
                                                             class="fa-solid fa-chart-column"></i></a>
                                                 </td>
                                             </tr>

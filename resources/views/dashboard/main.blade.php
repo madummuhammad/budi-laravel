@@ -209,6 +209,27 @@
                             <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
                         </ul>
                     </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-app-store"></i><span class="nav-text">Analitik</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('dashboard/statistic/visitor') }}">Pengunjung</a></li>
+                            {{-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    Referensi</a>
+                                <ul aria-expanded="false">
+                                    <li><a
+                                            href="{{ url('dashboard/reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">
+                                            Bacaan</a></li>
+                                    <li><a
+                                            href="{{ url('dashboard/reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">
+                                            Video</a></li>
+                                    <li><a href="{{ url('dashboard/reference_theme') }}">
+                                            Tema</a></li>
+                                </ul>
+                            </li> --}}
+                            <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
+                            <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>
                     <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false"><i
                                 class="icon icon-globe-2"></i><span class="nav-text">Laman</span></a></li>

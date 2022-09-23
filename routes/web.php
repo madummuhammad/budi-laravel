@@ -15,6 +15,7 @@ use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\ReferencethemeController;
 use App\Http\Controllers\SendcreationController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
@@ -55,6 +56,7 @@ Route::middleware('visitor')->group(function () {
         Route::post('/being_read', [MylibraryController::class, 'being_read']);
         Route::post('/done', [MylibraryController::class, 'done']);
         Route::post('/next', [MylibraryController::class, 'next']);
+        Route::post('/downloaded', [MylibraryController::class, 'download']);
 
         // Route::post('/mylibrarydigital', [MylibraryController::class, 'digital']);
         // Route::post('/mylibrarykomik', [MylibraryController::class, 'komik']);
@@ -92,6 +94,9 @@ Route::middleware('visitor')->group(function () {
 
         // Info seputar budi
         Route::get('/info_seputar_budi', [WebController::class, 'info_seputar_budi']);
+
+        // Set Cookies
+        Route::post('/set_cookie', [WebController::class, 'set_cookies']);
     });
 });
 
@@ -191,6 +196,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/author_of_the_month', [WebController::class, 'author_of_the_month']);
         Route::patch('/author_of_the_month', [WebController::class, 'author_of_the_month_edit']);
+
+        // Statistic Visitor
+        Route::get('/statistic/visitor', [StatisticController::class, 'visitor']);
 
     });
 

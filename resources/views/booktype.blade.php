@@ -198,34 +198,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel owl-theme px-5" id="owl-carousel-2">
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/smp/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/3.png"
-                                alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/paling_dibaca/3.png"
-                                alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/sma/1.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/smp/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/lanjutkan_yuk/3.png"
-                                alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/paling_dibaca/3.png"
-                                alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="{{ asset('web') }}/assets/img/sma/1.png" alt="">
-                        </div>
+                        @foreach ($most_reads as $book_read)
+                            <div class="item">
+                                <img class="img-fluid" src="{{ $book_read->cover }}" alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

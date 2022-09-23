@@ -19,10 +19,16 @@
                 <img class="img-fluid" src="{{ $book_detail->cover }}" alt="">
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-flex ">
-                        <span class="d-flex align-items-center me-3 @if ($likeds) active @endif"
+                        <span
+                            class="d-flex align-items-center me-3 @if (auth()->guard('visitor')->check() == true) @if ($likeds) active @endif
+                        @endif "
                             id="liked" style="cursor: pointer"><span id="liked-icon">
-                                @if ($likeds)
-                                    <i class="fa-solid fa-heart text-danger"></i>
+                                @if (auth()->guard('visitor')->check() == true)
+                                    @if ($likeds)
+                                        <i class="fa-solid fa-heart text-danger"></i>
+                                    @else
+                                        <i class="fa-regular fa-heart"></i>
+                                    @endif
                                 @else
                                     <i class="fa-regular fa-heart"></i>
                                 @endif
@@ -30,7 +36,7 @@
                             {{ $liked_number }}</span>
                         <span class="d-flex align-items-center me-3"><img
                                 src="{{ asset('web') }}/assets/icon/little-book.svg" class="me-1" alt="">
-                            100</span>
+                            {{ $read_number }}</span>
                         <span class="d-flex align-items-center me-3"><img src="{{ asset('web') }}/assets/icon/comment.svg"
                                 class="me-1" alt="">
                             {{ $comment_number }}</span>
@@ -111,7 +117,7 @@
                             @method('POST')
                             <button
                                 class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100"><i
+                            py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button type="button"
@@ -142,7 +148,7 @@
                             Sekarang</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4"><i
+                            py-2 me-4 download"><i
                                 class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         <button
                             class="btn btn-outline-blue d-flex justify-content-center align-items-center
@@ -183,9 +189,10 @@
                     <div class="baca-button-group d-flex mt-5 pt-5">
                         <button class="btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_book" data-book="../storage/{{ $book_detail->content }}"
-                            data-status="@if ($reads) {{ $reads->read }}
+                            data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
-                                0 @endif"><i
+                                0 @endif
+                            @endif "><i
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
@@ -198,7 +205,7 @@
                             @method('POST')
                             <button
                                 class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100"><i
+                            py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
@@ -295,6 +302,8 @@
             var book_id = "{{ $book_detail->id }}";
             @if (auth()->guard('visitor')->check() == true)
                 var visitor_id = "{{ auth()->guard('visitor')->user()->id }}";
+            @else
+                var visitor_id = null;
             @endif
             $("#saved").on('click', function() {
                 var saved = $(this).attr("status");
@@ -373,6 +382,28 @@
                         } else {
                             $("#show_book").attr("data-status", status);
                         }
+                    }
+                });
+            })
+
+            $(".download").on('click', function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('downloaded') }}",
+                    data: {
+                        _method: "POST",
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        // if (status == 0) {
+                        //     $("#show_book").attr("data-status", '1');
+                        // } else if (status == 3) {
+                        //     $("#show_book").attr("data-status", '1');
+                        // } else {
+                        //     $("#show_book").attr("data-status", status);
+                        // }
                     }
                 });
             })
