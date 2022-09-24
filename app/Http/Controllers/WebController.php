@@ -39,7 +39,7 @@ class WebController extends Controller
         $data['blogs'] = Blog::where('display_homepage', 1)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
-        $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
+        $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
 

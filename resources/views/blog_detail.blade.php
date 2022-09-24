@@ -24,28 +24,36 @@
                     <a class=""><i class="bi bi-share"></i></a>
                 </div>
             </div>
-            <div class="author my-5">
-                <div>Oleh: @if ($blog->writer !== null)
-                        @foreach ($blog->writers as $writer)
-                            {{ $writer->name }}
-                        @endforeach
-                    @else
-                        {{ $blog->uploader }}
-                    @endif
+            <div class="row">
+                <div class="col-md-7 my-5">
+                    <div class="row">
+                        <div class="col-6 col-md-4">
+                            Oleh: @if ($blog->writer !== null)
+                                @foreach ($blog->writers as $writer)
+                                    {{ $writer->name }}
+                                @endforeach
+                            @else
+                                {{ $blog->uploader }}
+                            @endif
+                        </div>
+                        <div class="col-md-4 col-6">{{ $blog->uploaded_at }}</div>
+                        <div class="col-md-2 col-3"><img src="{{ asset('web') }}/assets/icon/little-book.svg"
+                                alt=""> 100
+                        </div>
+                        <div class="col-md-2 col-3"><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100
+                        </div>
+                    </div>
                 </div>
-                <div>{{ $blog->uploaded_at }}</div>
-                <div><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt=""> 100</div>
-                <div><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100</div>
             </div>
             <div class="news-body">
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-12 col-md-7">
                         <img class="img-fluid w-100" src="{{ $blog->cover }}" alt="">
                         @php
                             echo $blog->content;
                         @endphp
                     </div>
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         {{-- <p>Kegiatan Diseminasi Pengembangan Kosakata: Kamus Masuk Sekolah ini juga akan
                             diselenggarakan secara bertahap pada bulan Agustus dan September di beberapa sekolah
                             lainnya di DKI Jakarta dengan perincian, yakni 2 sekolah dasar, 2 sekolah menengah
@@ -71,13 +79,13 @@
                 </div>
                 @foreach ($blog->writers as $writer)
                     <div class="row mt-5">
-                        <div class="col-7">
+                        <div class="col-12 col-md-7">
                             <div class="dash mb-3"></div>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-12 col-md-3">
                                     <img src="{{ $writer->image }}" alt="">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-12 col-md-9">
                                     <div class="d-flex justify-content-between">
                                         <h4 class="fw-bold">{{ $writer->name }}</h4>
                                         <div class="d-flex">
@@ -102,10 +110,17 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <!-- asdfasdf -->
                 <div class="d-flex align-items-center justify-content-between mt-4">
-                    <h3 class="mb-3">Berita Terkait</h3>
+                    <h3 class="mb-3">
+                        @if ($blog->blog_type == 'News')
+                            Berita
+                        @endif
+                        @if ($blog->blog_type == 'Article')
+                            Artikel
+                        @endif Terkait
+                    </h3>
                     <a href="info_seputar_budi.html">Lihat Semua</a>
                 </div>
-                <div class="row row-cols-4 mt-4">
+                <div class="row row-cols-1 row-cols-md-4 mt-4">
                     @foreach ($related_news->unique('blog_id') as $data)
                         @if ($data->blogs !== null)
                             @if ($loop->index <= 4 and $blog->id !== $data->blogs->id)

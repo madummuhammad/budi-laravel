@@ -91,59 +91,42 @@
             <img src="{{ asset('web') }}/assets/img/logo.png" alt="" style="width:120px">
         </div>
         <div class="row d-flex justify-content-center">
-            <div class="col-6 bg-white">
+            <div class="col-12 col-md-6 bg-white">
                 <h5 class="fw-bold">Selamat Datang</h5>
                 <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
                 <form action="{{ url('register') }}" class="mb-5" method="POST">
                     @csrf
                     @method('POST')
                     <div class="row">
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3 py-3" placeholder="Nama"
+                        <div class="col-12 col-md-6">
+                            <input type="text" class="form-control mb-3 py-3" placeholder="Nama Lengkap"
                                 aria-label="Full Name" name="name">
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
                             <input type="text" class="form-control mb-3 py-3"
                                 placeholder=" Pos-el atau No. Ponsel" aria-label="Last name" name="phone">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
-                                placeholder="adfadf" name="city">
-                                <option selected>Kota/Kabupaten</option>
-                                <option value="1">Kota A</option>
-                                <option value="2">Kota B</option>
-                                <option value="3">Kota C</option>
-                            </select>
+                        <div class="col-12 col-md-4">
+                            <input type="text" class="form-control mb-3 py-3" placeholder="Kota/Kabupaten">
                         </div>
-                        <div class="col">
-                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
-                                placeholder="adfadf" name="sub">
-                                <option selected>Kecamatan</option>
-                                <option value="1">Kecamatan A</option>
-                                <option value="2">Kecamatan B</option>
-                                <option value="3">Kecamatan C</option>
-                            </select>
+                        <div class="col-12 col-md-4">
+                            <input type="text" class="form-control mb-3 py-3" placeholder="Kecamatan">
                         </div>
-                        <div class="col">
-                            <select class="form-select mb-3 py-3" aria-label="size 3 select example"
-                                placeholder="adfadf" name="area">
-                                <option selected>Kelurahan</option>
-                                <option value="1">Kelurahan A</option>
-                                <option value="2">Kelurahan B</option>
-                                <option value="3">Kelurahan C</option>
-                            </select>
+                        <div class="col-12 col-md-4">
+                            <input type="text" class="form-control mb-3 py-3" placeholder="Kelurahan">
                         </div>
                     </div>
-                    <select class="form-select mb-3 py-3" aria-label="size 3 select example" placeholder="adfadf"
+                    <select class="form-select mb-3 py-3" aria-label="size 3 select example" placeholder=""
                         name="status">
                         <option selected disabled>Status</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="Siswa">Siswa</option>
+                        <option value="Guru / Tenaga Pendidik">Guru/ Tenaga Pendidik</option>
+                        <option value="Orang Tua Siswa">Orang Tua Siswa</option>
+                        <option value="Umum">Umum</option>
                     </select>
-                    <input type="email" class="form-control mb-3 py-3" id="exampleFormControlInput1"
+                    <input type="text" class="form-control mb-3 py-3" id="exampleFormControlInput1"
                         placeholder="Pengguna  (Contoh : @Budiberbudi)" name="email">
                     <input type="password" class="form-control mb-3 py-3" id="exampleFormControlInput1"
                         placeholder="Kata sandi" name="password">

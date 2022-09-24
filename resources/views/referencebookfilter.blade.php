@@ -1,12 +1,12 @@
                     <div class="tab-content mt-5">
                         <div class="tab-pane container active" id="semua">
-                            <div class="row row-cols-5">
+                            <div class="row row-cols-1 row-cols-md-5">
                                 @foreach ($reference_books as $book)
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('reference_book_detail') }}/{{ $book->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                                <img src="{{ $book->cover }}" alt="" class="img-fluid w-100">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
                                                         <span><img src="{{ asset('web') }}/assets/icon/love.svg"

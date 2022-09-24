@@ -4,13 +4,13 @@
     <div class="dash"></div>
     <div class="container mt-5" id="kontak_kami">
         <div class="row">
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <img class="img-fluid" src="{{ asset('web') }}/assets/img/kontak_kami.png" alt="">
             </div>
-            <div class="col-7 ps-5">
+            <div class="col-12 col-md-7 ps-5">
                 <h1 class="ff-kidzone fs-70px">Kontak Kami</h1>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <p class="p-0"><img src="{{ asset('web') }}/assets/icon/evelope.svg" alt="">
                             badan.bahasa@kemdikbud.go.id</p>
                         <p><img src="{{ asset('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat IV,
@@ -18,7 +18,7 @@
                             Jakarta
                             13220</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <p><img src="{{ asset('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
                         <p class="m-0"> <img src="{{ asset('web') }}/assets/icon/clock.svg" alt=""> Jam
                             Operasional:</p>
@@ -44,7 +44,7 @@
     <div id="kontak-section-1">
         <div class="container p-5">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <h2 class="fs-40px fw-bold">Kirim Pesan</h2>
                     <form action="">
                         <div class="mb-3">
@@ -63,7 +63,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6 order-first order-md-last">
                     <img src="{{ asset('web') }}/assets/img/kirim_pesan.png" alt="" class="img-fluid">
                 </div>
             </div>

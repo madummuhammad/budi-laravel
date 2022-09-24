@@ -41,70 +41,94 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <div class="d-flex justify-content-center">
                     <div class="home-tab" style="background-color: {{ $reference_book_types->color }}">
-                        <div class="home-tab-body" id="home-tab-body">
-                            <div class="dropdown" id="jenjang">
-                                <button class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <p>Jenjang</p>
-                                </button>
-                                <input type="text" name="jenjang" value="" hidden>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-danger">Jenjang</a></li>
-                                    <li><a class="dropdown-item" data-value="014453da-54e6-41b5-be05-952bc233f144">PAUD</a>
-                                    </li>
-                                    <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                            (123)</a></li>
-                                    <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                            (456)</a></li>
-                                    <li><a class="dropdown-item" data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a>
-                                    </li>
-                                    <li><a class="dropdown-item" data-value="555c961c-fb2a-4a25-8829-4a12c7d2afc0">SMA</a>
-                                    </li>
-                                    <li><a class="dropdown-item" data-value="a26a4afd-7226-434c-83f3-9ca3ce4af523">UMUM</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown" id="tema">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <p>Tema</p>
-                                </button>
-                                <input type="text" name="tema" value="" hidden>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-danger" data-value="">Tema</a></li>
-                                    @foreach ($themes as $theme)
-                                        <li><a class="dropdown-item"
-                                                data-value="{{ $theme->id }}">{{ $theme->name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="dropdown" id="bahasa">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="true">
-                                    <p>Bahasa</p>
-                                </button>
-                                <input type="text" name="bahasa" value="" hidden>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-danger">Bahasa</a></li>
-                                    <li><a class="dropdown-item"
-                                            data-value="31d76818-3c8a-4f54-aa65-f14dd5c71008">Indonesia</a>
-                                    </li>
-                                    <li><a class="dropdown-item"
-                                            data-value="62efa3bd-5db5-4627-aabc-5c180f58cf26">Inggris</a></li>
-                                    <li><a class="dropdown-item"
-                                            data-value="886bcb5a-43a8-4801-8a76-109b173cdb51">Daerah</a></li>
-                                </ul>
-                            </div>
-                            <div class="input-search">
-                                <input type="text" class="form-control" id="search" placeholder="Cari">
-                                <button class="btn" id="search-button"><i class="bi bi-search"></i></button>
+                        <div class="home-tab-body w-100" id="home-tab-body">
+                            <div class="container">
+                                <div class="row">
+                                    <button
+                                        class="text-white d-block d-sm-none text-center mx-auto btn text-decoration-underline mb-2"
+                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
+                                        Jenjang, Tema, dan Bahasa</button>
+                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                        <div class="dropdown w-100" id="jenjang">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <p>Jenjang</p>
+                                            </button>
+                                            <input type="text" name="jenjang" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="014453da-54e6-41b5-be05-952bc233f144">PAUD</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                                        (123)</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                                        (456)</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="555c961c-fb2a-4a25-8829-4a12c7d2afc0">SMA</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="a26a4afd-7226-434c-83f3-9ca3ce4af523">UMUM</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                        <div class="dropdown w-100" id="tema">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <p>Tema</p>
+                                            </button>
+                                            <input type="text" name="tema" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger" data-value="">Tema</a></li>
+                                                @foreach ($themes as $theme)
+                                                    <li><a class="dropdown-item"
+                                                            data-value="{{ $theme->id }}">{{ $theme->name }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                        <div class="dropdown w-100" id="bahasa">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                                <p>Bahasa</p>
+                                            </button>
+                                            <input type="text" name="bahasa" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger">Bahasa</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="31d76818-3c8a-4f54-aa65-f14dd5c71008">Indonesia</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="62efa3bd-5db5-4627-aabc-5c180f58cf26">Inggris</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="886bcb5a-43a8-4801-8a76-109b173cdb51">Daerah</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3 my-1">
+                                        <div class="input-search w-100">
+                                            <input type="text" class="form-control" id="search" placeholder="Cari">
+                                            <button class="btn" id="search-button"><i
+                                                    class="bi bi-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-5 filter-theme nav nav-pills">
+                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills">
                     <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)

@@ -10,23 +10,23 @@
                             background-color: transparent;
                         }
                     </style>
-                    <div class="col-3 nav-item text-center">
+                    <div class="col-6 col-md-3 nav-item text-center">
                         <a href="#next" class="text-blue text-decoration-none fs-5 nav-link active mylibrary"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Lanjutkan
                             Membaca</a>
                     </div>
-                    <div class="col-2 nav-item text-center">
+                    <div class="col-6 col-md-2 nav-item text-center">
                         <a href="#liked" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
                             data-bs-toggle="pill"><i class="bi bi-heart"></i></i>
                             Disukai</a>
                     </div>
-                    <div class="col-2 nav-item text-center">
+                    <div class="col-6 col-md-2 nav-item text-center">
                         <a href="#saved" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Disimpan</a>
                     </div>
-                    <div class="col-2 nav-item text-center">
+                    <div class="col-6 col-md-2 nav-item text-center">
                         <a href="#done" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Selesai</a>
@@ -36,14 +36,14 @@
                 </div>
                 <div class="tab-content mt-3">
                     <div class="tab-pane container active" id="next">
-                        <div class="d-flex align-items-center justify-content-between mt-4">
+                        <div class="d-md-md-flex d-block align-items-center justify-content-between mt-4 d-block">
                             <style>
                                 a.page-item.active {
                                     color: white;
                                     background-color: #3C6EFD !important;
                                 }
                             </style>
-                            <h3 class="mb-3">Buku Bacaan (10/50)</h3>
+                            <h3 class="mb-3 text-center text-md-start">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-0 d-block"
                                     data-parent="0">
@@ -71,14 +71,15 @@
                                 display: none
                             }
                         </style>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt="" class="img-fluid">
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
+                                                    class="img-fluid w-100">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
                                                         <span><img src="{{ asset('web') }}/assets/icon/love.svg"
@@ -112,8 +113,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Komik (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-1 d-block"
                                     data-parent="1">
@@ -138,14 +139,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -180,8 +181,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Audio (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-2 d-block"
                                     data-parent="2">
@@ -206,7 +207,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($nexts as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -214,8 +215,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
                                                             alt="">
@@ -254,8 +255,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Video (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-3 d-block"
                                     data-parent="3">
@@ -288,8 +289,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/play.svg"
                                                             alt="">
@@ -330,8 +331,8 @@
                         </div>
                     </div>
                     <div class="tab-pane container" id="liked">
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Bacaan (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-4 d-block"
                                     data-parent="4">
@@ -356,14 +357,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -398,8 +399,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Komik (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-5 d-block"
                                     data-parent="5">
@@ -424,14 +425,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -466,8 +467,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Audio (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-6 d-block"
                                     data-parent="6">
@@ -492,7 +493,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($likeds as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -500,8 +501,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
                                                             alt="">
@@ -540,8 +541,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Video (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-7 d-block"
                                     data-parent="7">
@@ -575,8 +576,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/play.svg"
                                                             alt="">
@@ -617,8 +618,8 @@
                         </div>
                     </div>
                     <div class="tab-pane container" id="saved">
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Bacaan (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-8 d-block"
                                     data-parent="8">
@@ -644,14 +645,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -686,8 +687,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Komik (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-9 d-block"
                                     data-parent="9">
@@ -713,14 +714,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -755,8 +756,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Audio (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-10 d-block"
                                     data-parent="10">
@@ -782,7 +783,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($saveds as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -790,8 +791,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
                                                             alt="">
@@ -830,8 +831,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Video (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-11 d-block"
                                     data-parent="11">
@@ -865,8 +866,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/play.svg"
                                                             alt="">
@@ -907,8 +908,8 @@
                         </div>
                     </div>
                     <div class="tab-pane container" id="done">
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Bacaan (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Bacaan (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-12 d-block"
                                     data-parent="12">
@@ -934,14 +935,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -976,8 +977,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Komik (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Komik (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-13 d-block"
                                     data-parent="13">
@@ -1003,14 +1004,14 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
                                     <div class="col mb-4">
                                         <div class="card p-2">
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
-                                                <img src="{{ $saved->books->cover }}" alt=""
+                                                <img src="{{ $saved->books->cover }}" class="w-100" alt=""
                                                     class="img-fluid">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex">
@@ -1045,8 +1046,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Audio (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Audio (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-14 d-block"
                                     data-parent="14">
@@ -1072,7 +1073,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="row row-cols-5 card-paginaton next-paginate">
+                        <div class="row row-cols-1 row-cols-md-5 card-paginaton next-paginate">
                             @foreach ($done as $saved)
                                 @if ($saved->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     <div class="col mb-4">
@@ -1080,8 +1081,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
                                                             alt="">
@@ -1120,8 +1121,8 @@
                                 @endif
                             @endforeach
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mt-4">
-                            <h3 class="mb-3">Buku Video (10/50)</h3>
+                        <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
+                            <h3 class="mb-3 text-center text-md-start">Buku Video (10/50)</h3>
                             <div class="d-flex justify-content-center">
                                 <nav id="pagin" class="paginate-pagination paginate-pagination-15 d-block"
                                     data-parent="15">
@@ -1155,8 +1156,8 @@
                                             <a href="{{ url('book') }}/{{ $saved->books->id }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="img-container-for-icon">
-                                                    <img src="{{ $saved->books->cover }}" alt=""
-                                                        class="img-fluid">
+                                                    <img src="{{ $saved->books->cover }}" class="w-100"
+                                                        alt="" class="img-fluid">
                                                     <div class="icon icon-center">
                                                         <img src="{{ asset('web') }}/assets/icon/play.svg"
                                                             alt="">

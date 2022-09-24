@@ -32,6 +32,23 @@ $('#owl-carousel-2').owlCarousel({
     }
 });
 
+$('#owl-carousel-3').owlCarousel({
+    loop: true,
+    margin: 40,
+    nav: true,
+    responsive: {
+        0: {
+            items: 2
+        },
+        600: {
+            items: 3
+        },
+        1000: {
+            items: 5
+        }
+    }
+});
+
 var numberPage = $(".pagination .pagination-link").length;
 
 showPage = function (pagination) {

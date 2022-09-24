@@ -390,58 +390,6 @@
   border: 1px solid black;
 }
 
-
-#section-2 .owl-carousel .item {
-  position: relative;
-}
-#section-2 .owl-carousel .item .title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
-  background-color: rgba(0, 0, 0, 0.5);
-  left: 0;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20%;
-  text-align: center;
-  color: white;
-}
-#section-2 .owl-carousel .item img {
-  border-radius: 10px;
-}
-#section-2 .owl-carousel .owl-nav {
-  position: absolute;
-  background-color: yellow;
-  position: relative;
-}
-#section-2 .owl-carousel .owl-nav .owl-prev {
-  position: absolute;
-  width: 40px;
-  left: -50px;
-  top: -150px;
-}
-#section-2 .owl-carousel .owl-nav .owl-prev img {
-  border-radius: 100%;
-}
-#section-2 .owl-carousel .owl-nav .owl-next {
-  position: absolute;
-  right: -50px;
-  top: -150px;
-  width: 40px;
-}
-#section-2 .owl-carousel .owl-nav .owl-next img {
-  border-radius: 100%;
-}
-#section-2 .owl-item.active.center {
-  transform: scale(1.2);
-}
-
-
 #section-2 .col {
   position: relative;
 }
@@ -607,6 +555,13 @@ body.registrasi {
 .card-news .card-body .card-title {
   font-size: 16px;
 }
+.card-news .card-body .card-text {
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 4;
+-webkit-box-orient: vertical;
+}
 
 #section-10 .dash {
   height: 1px;
@@ -658,7 +613,7 @@ body.registrasi {
 }
 #section-11 .img-section-11 {
   position: relative;
-  /*width: 50%;*/
+  width: 50%;
 }
 #section-11 .img-section-11 .thumbnail-section-11 {
   height: 328px;
@@ -772,7 +727,7 @@ footer .dash {
   border-radius: 10px;
 }
 .row-review .card-comment .card-comment-header {
-  width: 35%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -792,13 +747,7 @@ footer .dash {
   position: absolute;
   top: 25%;
   left: 15%;
-  font-size: 40px;
-}
-
-@media only screen and (min-width: 768px) {
-  #hero .tagline {
-    font-size: 70px;
-  }
+  font-size: 70px;
 }
 
 #kontak-section-1 {
@@ -1046,11 +995,3 @@ footer .dash {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-.card-news .card-body .card-text {
-overflow: hidden;
-text-overflow: ellipsis;
-display: -webkit-box;
--webkit-line-clamp: 4;
--webkit-box-orient: vertical;
-}

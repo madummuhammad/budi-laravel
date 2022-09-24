@@ -9,20 +9,40 @@
         <!-- Tab panes -->
         <div class="tab-content mt-3">
             <div class="tab-pane container active" id="buku_bacaan">
-                <div class="d-flex ">
-                    <div class="home-tab bg-white w-100 px-5">
-                        <div class="row">
-                            <div class="col-5">
-                                <p class="fs-5 m-0 fw-light">Koleksi Pribadi</p>
-                                <h3 class="fw-bold mt-3 mb-5">{{ auth()->guard('visitor')->user()->name }}</h3>
-                            </div>
-                            <div class="col-4">
-                                <p class="fs-5 m-0 fw-light">Medali</p>
-                                <h3 class="fw-bold mt-3 mb-5">Perunggu</h3>
-                            </div>
-                            <div class="col-3">
-                                <p class="fs-5 m-0 fw-light">Jumlah</p>
-                                <h3 class="fw-bold mt-3 mb-5">{{ $number_of_done }} Buku</h3>
+                <div class="d-flex">
+                    <div class="home-tab bg-white w-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-5">
+                                    <div class="row">
+                                        <div class="col-5 col-md-12">
+                                            <p class="fs-6 fw-light">Koleksi Pribadi</p>
+                                        </div>
+                                        <div class="col-7 col-md-12">
+                                            <h3 class="fw-bold fs-5">{{ auth()->guard('visitor')->user()->name }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="row">
+                                        <div class="col-5 col-md-12">
+                                            <p class="fs-6 fw-light">Medali</p>
+                                        </div>
+                                        <div class="col-5 col-md-12">
+                                            <h3 class="fw-bold fs-5">Perunggu</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <div class="row">
+                                        <div class="col-5 col-md-12">
+                                            <p class="fs-6 fw-light">Jumlah</p>
+                                        </div>
+                                        <div class="col-5 col-md-12">
+                                            <h3 class="fw-bold fs-5">{{ $number_of_done }} Buku</h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="home-tab-body p-0">

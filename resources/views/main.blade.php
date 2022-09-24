@@ -95,22 +95,23 @@
     <footer>
         <div class="container-fluid footer">
             <div class="row">
-                <div class="col-4">
+                <div class="col-12 col-md-4">
                     <div class="row">
                         <div class="col-2">
-                            <img src="{{ asset('web') }}/assets/img/logo.png" alt="" class="img-fluid">
+                            <img src="{{ url('web') }}/assets/img/logo.png" alt="" class="img-fluid">
                         </div>
                         <div class="col-10">
                             <p class="text-dark fw-bold">Kementerian Pendidikan, Kebudayaan, Riset, dan
                                 Teknologi
                                 Badan Pengembangan dan Pembinaan Bahasa
                                 Pusat Pembinaan Bahasa dan Sastra</p>
-                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui bahasa dan sastra
+                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui bahasa
+                                dan sastra
                                 Indonesia</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Produk</p>
                     <a href="" class="d-block text-decoration-none mb-3">Buku Digital</a>
                     <a href="" class="d-block text-decoration-none mb-3">Buku Komik</a>
@@ -118,49 +119,54 @@
                     <a href="" class="d-block text-decoration-none mb-3">Buku Video</a>
                     <a href="" class="d-block text-decoration-none mb-3">Referensi</a>
                 </div>
-                <div class="col-2">
+                <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Panduan</p>
                     <a href="" class="d-block text-decoration-none mb-3">Tentang Budi</a>
                     <a href="" class="d-block text-decoration-none mb-3">Kebijakan</a>
                     <a href="" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4">
                     <p class="fw-bold fs-5 text-dark">Kontak Kami</p>
-                    <p class="p-0"><img src="{{ asset('web') }}/assets/icon/evelope.svg" alt="">
-                        badan.bahasa@kemdikbud.go.id
-                    </p>
-                    <p><img src="{{ asset('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
-                    <p><img src="{{ asset('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat
-                        IV, Rawamangun, Jakarta
+                    <p class="p-0"><img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                        badan.bahasa@kemdikbud.go.id</p>
+                    <p><img src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
+                    <p><img src="{{ url('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat IV,
+                        Rawamangun,
+                        Jakarta
                         13220</p>
                 </div>
             </div>
             <div class="row sosmed-icon">
-                <div class="col-4">
+                <div class="col-12 col-md-4">
                     <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-10">
-                            <img src="{{ asset('web') }}/assets/icon/instagram.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/facebook.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/twitter.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/youtube.svg" alt="">
-                            <img src="{{ asset('web') }}/assets/icon/tiktok.svg" alt="">
+                        <div class="col-12 col-md-2"></div>
+                        <div class="col-12 col-md-10">
+                            <img src="{{ url('web') }}/assets/icon/instagram.svg" alt="">
+                            <img src="{{ url('web') }}/assets/icon/facebook.svg" alt="">
+                            <img src="{{ url('web') }}/assets/icon/twitter.svg" alt="">
+                            <img src="{{ url('web') }}/assets/icon/youtube.svg" alt="">
+                            <img src="{{ url('web') }}/assets/icon/tiktok.svg" alt="">
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
-                    <p class="text-end">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat : 09.00 - 16.00
+                <div class="col-12 col-md-8">
+                    <p class="text-md-end">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat :
+                        09.00 - 16.00
                         WIB)</p>
                 </div>
             </div>
             <div class="dash"></div>
             <div class="copyright py-4 px-5 text-dark">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        Copyright &copy 2022
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="text-center text-md-start">
+                            Copyright &copy 2022
+                        </div>
                     </div>
-                    <div>
-                        All right reserved
+                    <div class="col-12 col-md-6">
+                        <div class="text-center text-md-end">
+                            All right reserved
+                        </div>
                     </div>
                 </div>
             </div>

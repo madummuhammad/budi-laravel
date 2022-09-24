@@ -1,4 +1,4 @@
-                <div class="row row-cols-5 filter-theme nav nav-pills">
+                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills">
                     <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)
@@ -9,14 +9,14 @@
                 <h3 class="mt-5 mb-3 fw-bold">Hasil Pencarian Buku Bacaan</h3>
                 <div class="tab-content mt-5">
                     <div class="tab-pane container active" id="semua">
-                        <div class="row row-cols-5">
+                        <div class="row row-cols-1 row-cols-md-5">
                             @foreach ($books as $book)
                                 <div class="col mb-4">
                                     <div class="card p-2">
                                         <a href="{{ url('/book') }}/{{ $book->id }}"
                                             class="text-decoration-none text-dark">
                                             <div class="img-container-for-icon">
-                                                <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                                <img src="{{ $book->cover }}" alt="" class="img-fluid w-100">
                                                 @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                                     <div class="icon">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
