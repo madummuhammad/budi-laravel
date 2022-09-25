@@ -53,3 +53,12 @@ display: -webkit-box;
 -webkit-line-clamp: 5;
 -webkit-box-orient: vertical;
 }
+
+.d-icon{
+    display: inline-block;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 30px;
+    font-size: 18px;
+}

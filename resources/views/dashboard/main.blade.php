@@ -186,10 +186,19 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a href="{{ url('dashboard') }}" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Katalog Buku</span></a>
+                    <li><a href="{{ url('dashboard') }}" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="icon fa-solid fa-chart-line"></i>
+                            </div>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-solid fa-book"></i>
+                            </div>
+                            <span class="nav-text">Katalog Buku</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                     Buku</a>
@@ -216,8 +225,12 @@
                             <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Analitik</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-regular fa-chart-bar"></i>
+                            </div>
+                            <span class="nav-text">Analitik</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/statistic/visitor') }}">Pengunjung</a></li>
                             <li><a href="{{ url('dashboard/statistic/book') }}">Buku</a></li>
@@ -225,12 +238,24 @@
                         </ul>
                     </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>
-                    <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false"><i
-                                class="icon icon-globe-2"></i><span class="nav-text">Laman</span></a></li>
-                    <li><a href="{{ url('dashboard/author_of_the_month') }}" aria-expanded="false"><i
-                                class="icon icon-globe-2"></i><span class="nav-text">Penulis Bulan Ini</span></a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Jenis Buku</span></a>
+                    <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-solid fa-pager"></i>
+                            </div>
+                            <span class="nav-text">Laman</span>
+                        </a></li>
+                    <li><a href="{{ url('dashboard/author_of_the_month') }}" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-solid fa-marker"></i>
+                            </div>
+                            <span class="nav-text">Penulis Bulan Ini</span>
+                        </a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <span class="nav-text">Jenis Buku</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}">Buku
                                     Digital</a>
@@ -246,10 +271,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('dashboard/pustakaku') }}" aria-expanded="false"><i
-                                class="icon icon-globe-2"></i><span class="nav-text">Pustakaku</span></a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-app-store"></i><span class="nav-text">Info Seputar Budi</span></a>
+                    <li><a href="{{ url('dashboard/pustakaku') }}" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-solid fa-warehouse"></i>
+                            </div>
+                            <span class="nav-text">Pustakaku</span>
+                        </a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-regular fa-circle-question"></i>
+                            </div>
+                            <span class="nav-text">Info Seputar Budi</span>
+                        </a>
                         <ul aria-expanded="false">
                     </li>
                     <li><a href="{{ url('dashboard/blog/banner') }}">Banner</a>
@@ -265,14 +298,26 @@
                     </li>
                 </ul>
                 </li>
-                <li><a href="{{ url('dashboard/send_creation') }}" aria-expanded="false"><i
-                            class="icon icon-globe-2"></i><span class="nav-text">Kirimkan Karyamu</span></a></li>
+                <li><a href="{{ url('dashboard/send_creation') }}" aria-expanded="false">
+                        <div class="d-icon">
+                            <i class="fa-regular fa-paper-plane"></i>
+                        </div>
+                        <span class="nav-text">Kirimkan Karyamu</span>
+                    </a></li>
                 <li class="nav-label">Pengguna</li>
-                <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false"><i
-                            class="icon icon-globe-2"></i><span class="nav-text">Pengguna</span></a></li>
+                <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false">
+                        <div class="d-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="nav-text">Pengguna</span>
+                    </a></li>
                 @if (auth()->user()->role == 1)
-                    <li><a href="{{ url('dashboard/admin') }}" aria-expanded="false"><i
-                                class="icon icon-globe-2"></i><span class="nav-text">Admin</span></a></li>
+                    <li><a href="{{ url('dashboard/admin') }}" aria-expanded="false">
+                            <div class="d-icon">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <span class="nav-text">Admin</span>
+                        </a></li>
                 @endif
                 </ul>
             </div>

@@ -104,6 +104,9 @@ Route::middleware('visitor')->group(function () {
         // Tentang Budi
         Route::get('/about', [WebController::class, 'about']);
 
+        // Policy
+        Route::get('/policy', [WebController::class, 'policy']);
+
         // Set Cookies
         Route::post('/set_cookie', [WebController::class, 'set_cookies']);
     });

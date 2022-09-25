@@ -147,8 +147,8 @@
                 <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Panduan</p>
                     <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Kebijakan</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Kontak Kami</a>
+                    <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Kebijakan</a>
+                    <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
                 <div class="col-12 col-md-4">
                     <p class="fw-bold fs-5 text-dark">Kontak Kami</p>

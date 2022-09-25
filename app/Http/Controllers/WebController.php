@@ -596,6 +596,11 @@ class WebController extends Controller
         return view('about');
     }
 
+    public function policy()
+    {
+        return view('policy');
+    }
+
     public function upload_img($request, $name)
     {
         $path = $request->file($name)->store('image');
