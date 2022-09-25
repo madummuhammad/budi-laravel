@@ -16,7 +16,10 @@ use App\Models\Language;
 use App\Models\Level;
 use App\Models\Mylibrary;
 use App\Models\ReferenceBook;
+use App\Models\ReferenceBookDownload;
+use App\Models\ReferenceBookLiked;
 use App\Models\ReferenceBookType;
+use App\Models\ReferenceComment;
 use App\Models\ReferenceTheme;
 use App\Models\SendCreation;
 use App\Models\Tag;
@@ -36,7 +39,7 @@ class WebController extends Controller
         $data['levels'] = Level::all();
         $data['books'] = Book::where('display_homepage', 1)->get();
         $data['themes'] = Theme::all();
-        $data['blogs'] = Blog::where('display_homepage', 1)->get();
+        $data['blogs'] = Blog::where('display_homepage', 1)->limit(4)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
@@ -161,14 +164,17 @@ class WebController extends Controller
     {
         $data['themes'] = ReferenceTheme::get();
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
-        $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes')->where('reference_book_type', $id)->paginate(10);
+        $data['most_downloaded'] = ReferenceBook::orderBy('number_downloaded', 'DESC')->limit(8)->get();
+        $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes', 'mylibraries')->where('reference_book_type', $id)->paginate(10);
         return view('reference_book', $data);
     }
 
     public function reference_book_filter($id)
     {
+        $data['liked_number'] = ReferenceBookLiked::get();
+        $data['download_number'] = ReferenceBookDownload::get();
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
-            $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes')->where('reference_book_type', $id)->paginate(10);
+            $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes')->where('reference_book_type', $id)->get();
         } else {
             $queryData = $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes')->where('reference_book_type', $id);
             if (request('jenjang') !== null) {
@@ -185,7 +191,7 @@ class WebController extends Controller
             if (request('search') !== null) {
                 $query = $queryData->where('name', 'LIKE', '%' . request('search') . '%');
             }
-            $data['reference_books'] = $query->paginate(10);
+            $data['reference_books'] = $query->get();
         }
         $data['themes'] = ReferenceTheme::get();
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
@@ -195,8 +201,18 @@ class WebController extends Controller
 
     public function reference_book_detail($id)
     {
+        $data['liked_number'] = ReferenceBookLiked::where('book_id', $id)->get();
+        $data['download_number'] = ReferenceBookDownload::where('book_id', $id)->get();
+        $data['comments'] = ReferenceComment::with('visitors')->where('book_id', $id)->limit(3)->orderBy('created_at', 'DESC')->get();
         // $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
-        $data['reference_book'] = ReferenceBook::with('authors', 'reference_themes')->where('id', $id)->first();
+        $data['comment_number'] = ReferenceComment::where('book_id', $id)->count();
+        if ($data['comment_number'] == 0) {
+            $data['ratting_number'] = 0;
+        } else {
+            $data['ratting_number'] = ReferenceComment::where('book_id', $id)->sum('star') / $data['comment_number'];
+        }
+
+        $data['reference_book'] = ReferenceBook::with('authors', 'reference_themes', 'reference_book_types')->where('id', $id)->first();
         return view('reference_book_detail', $data);
     }
 
@@ -231,6 +247,7 @@ class WebController extends Controller
         if (auth()->guard('visitor')->check() == false) {
             return redirect('login');
         }
+        $data['pustakaku'] = Banner::where('page_id', '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6')->first();
         $data['number_of_done'] = Mylibrary::where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 2)->count();
 
         // $book = Book::get();
@@ -247,6 +264,8 @@ class WebController extends Controller
         }
 
         $book = Book::get();
+        $data['liked_number'] = Mylibrary::where('liked', 1)->get();
+        $data['read_number'] = BookReadStatistic::get();
         if (request('keyword') !== null) {
             $data['saveds'] = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id)->whereHas('books', function ($query) use ($book) {
                 $query->where('name', 'LIKE', '%' . request('keyword') . '%');
@@ -358,10 +377,10 @@ class WebController extends Controller
                 $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
             });
 
-            $data['next_digital'] = $numberQueryDigital->where('read', 3)->count();
-            $data['next_komik'] = $numberQueryKomik->where('read', 3)->count();
-            $data['next_audio'] = $numberQueryAudio->where('read', 3)->count();
-            $data['next_video'] = $numberQueryVideo->where('read', 3)->count();
+            $data['next_digital'] = ceil($numberQueryDigital->where('read', 3)->count() / 10);
+            $data['next_komik'] = ceil($numberQueryKomik->where('read', 3)->count() / 10);
+            $data['next_audio'] = ceil($numberQueryAudio->where('read', 3)->count() / 10);
+            $data['next_video'] = ceil($numberQueryVideo->where('read', 3)->count() / 10);
 
             $numberQueryD2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
             $numberQueryK2 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
@@ -381,10 +400,10 @@ class WebController extends Controller
                 $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
             });
 
-            $data['liked_digital'] = $numberQueryDigital2->where('liked', 1)->count();
-            $data['liked_komik'] = $numberQueryKomik2->where('liked', 1)->count();
-            $data['liked_audio'] = $numberQueryAudio2->where('liked', 1)->count();
-            $data['liked_video'] = $numberQueryVideo2->where('liked', 1)->count();
+            $data['liked_digital'] = ($numberQueryDigital2->where('liked', 1)->count() / 10);
+            $data['liked_komik'] = ($numberQueryKomik2->where('liked', 1)->count() / 10);
+            $data['liked_audio'] = ($numberQueryAudio2->where('liked', 1)->count() / 10);
+            $data['liked_video'] = ($numberQueryVideo2->where('liked', 1)->count() / 10);
 
             $numberQueryD3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
             $numberQueryK3 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
@@ -404,10 +423,10 @@ class WebController extends Controller
                 $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
             });
 
-            $data['saved_digital'] = $numberQueryDigital3->where('saved', 1)->count();
-            $data['saved_komik'] = $numberQueryKomik3->where('saved', 1)->count();
-            $data['saved_audio'] = $numberQueryAudio3->where('saved', 1)->count();
-            $data['saved_video'] = $numberQueryVideo3->where('saved', 1)->count();
+            $data['saved_digital'] = ($numberQueryDigital3->where('saved', 1)->count() / 10);
+            $data['saved_komik'] = ($numberQueryKomik3->where('saved', 1)->count() / 10);
+            $data['saved_audio'] = ($numberQueryAudio3->where('saved', 1)->count() / 10);
+            $data['saved_video'] = ($numberQueryVideo3->where('saved', 1)->count() / 10);
 
             $numberQueryD4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
             $numberQueryK4 = Mylibrary::with('books.authors', 'books.themes')->where('visitor_id', auth()->guard('visitor')->user()->id);
@@ -427,10 +446,10 @@ class WebController extends Controller
                 $query->where('book_type', "bfe3060d-5f2e-4a1b-9615-40a9f936c6cc");
             });
 
-            $data['done_digital'] = $numberQueryDigital4->where('read', 2)->count();
-            $data['done_komik'] = $numberQueryKomik4->where('read', 2)->count();
-            $data['done_audio'] = $numberQueryAudio4->where('read', 2)->count();
-            $data['done_video'] = $numberQueryVideo4->where('read', 2)->count();
+            $data['done_digital'] = ceil($numberQueryDigital4->where('read', 2)->count() / 10);
+            $data['done_komik'] = ceil($numberQueryKomik4->where('read', 2)->count() / 10);
+            $data['done_audio'] = ceil($numberQueryAudio4->where('read', 2)->count() / 10);
+            $data['done_video'] = ceil($numberQueryVideo4->where('read', 2)->count() / 10);
 
         }
         return view('mylibraryfilter', $data);
@@ -550,7 +569,7 @@ class WebController extends Controller
                     'time' => time(),
                 ];
                 $visitorvisit = VisitorVisit::create($data);
-                $minutes = 5;
+                $minutes = 1440;
                 $response = new Response("");
                 $response->withCookie(cookie('visitor_session', $visitorvisit, $minutes));
                 return $response;
@@ -564,12 +583,17 @@ class WebController extends Controller
                     'time' => time(),
                 ];
                 $visitorvisit = VisitorVisit::create($data);
-                $minutes = 5;
+                $minutes = 1440;
                 $response = new Response("");
                 $response->withCookie(cookie('visitor_session', $visitorvisit, $minutes));
                 return $response;
             }
         }
+    }
+
+    public function about()
+    {
+        return view('about');
     }
 
     public function upload_img($request, $name)

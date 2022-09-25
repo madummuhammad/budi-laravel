@@ -9,7 +9,7 @@
             </div>
             <div class="col-12 col-md-7 ps-5">
                 <h1 class="ff-kidzone fs-70px">Kontak Kami</h1>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-12 col-md-6">
                         <p class="p-0"><img src="{{ asset('web') }}/assets/icon/evelope.svg" alt="">
                             badan.bahasa@kemdikbud.go.id</p>

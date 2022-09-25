@@ -60,20 +60,45 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
                     </li>
                     </li>
+                    @if (auth()->guard('visitor')->check() == false)
+                        <div class="d-flex d-md-none">
+                            <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
+                            <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
+                        </div>
+                    @endif
+                    @if (auth()->guard('visitor')->check() == 1)
+                        <div class="d-flex d-md-none navbar-profile align-items-center">
+                            <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
+                            <div class="nav-item px-3 dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ auth()->guard('visitor')->user()->name }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ url('profile') }}">Profile</a></li>
+                                    <form method="POST" action="{{ url('logout') }}">
+                                        @csrf
+                                        @method('POST')
+                                        <li><button type="submit" class="dropdown-item text-blue">Keluar</button></li>
+                                    </form>
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </ul>
             </div>
             @if (auth()->guard('visitor')->check() == false)
-                <div class="d-flex">
+                <div class="d-md-flex d-none">
                     <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
                     <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
                 </div>
             @endif
             @if (auth()->guard('visitor')->check() == 1)
-                <div class="d-flex navbar-profile align-items-center">
+                <div class="d-md-flex d-none navbar-profile align-items-center">
                     <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                     <div class="nav-item px-3 dropdown">
-                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ auth()->guard('visitor')->user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -121,7 +146,7 @@
                 </div>
                 <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Panduan</p>
-                    <a href="" class="d-block text-decoration-none mb-3">Tentang Budi</a>
+                    <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
                     <a href="" class="d-block text-decoration-none mb-3">Kebijakan</a>
                     <a href="" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>

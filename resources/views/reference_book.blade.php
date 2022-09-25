@@ -128,7 +128,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills">
+                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills"
+                    style="padding-left: 10%; padding-right:10%;">
                     <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)
@@ -141,7 +142,7 @@
                 <div class="row" id="reference_book">
 
                 </div>
-                <div class="d-flex justify-content-center">
+                {{-- <div class="d-flex justify-content-center">
                     <nav aria-label="Page navigation" id="pagin" class="d-flex">
                         <span class="page-item prev">
                             <button class="page-link" href="">
@@ -162,7 +163,7 @@
                             </button>
                         </span>
                     </nav>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -172,30 +173,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel owl-theme px-5" id="owl-carousel-2">
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/smp/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/lanjutkan_yuk/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/paling_dibaca/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/sma/1.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/smp/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/lanjutkan_yuk/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/paling_dibaca/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="assets/img/sma/1.png" alt="">
-                        </div>
+                        @foreach ($most_downloaded as $most_download)
+                            <div class="item">
+                                <img class="img-fluid" src="{{ $most_download->cover }}" alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

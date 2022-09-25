@@ -70,4 +70,9 @@ class Book extends Model
         return $this->hasMany(Mylibrary::class, 'book_id', 'id');
     }
 
+    public function shares()
+    {
+        return $this->hasMany(BookShare::class, 'book_id', 'id');
+    }
+
 }

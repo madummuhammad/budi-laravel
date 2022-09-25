@@ -2963,8 +2963,8 @@
     Navigation.Defaults = {
         nav: false,
         navText: [
-            '<span aria-label="' + 'Previous' + '"><img src="web/assets/icon/prev.svg" alt=""></span>',
-            '<span aria-label="' + 'Next' + '"><img src="web/assets/icon/next.svg" alt=""></span>'
+            '<span aria-label="' + 'Previous' + '"><img src="../web/assets/icon/prev.svg" alt=""></span>',
+            '<span aria-label="' + 'Next' + '"><img src="../web/assets/icon/next.svg" alt=""></span>'
         ],
         navSpeed: false,
         navElement: 'button type="button" role="presentation"',

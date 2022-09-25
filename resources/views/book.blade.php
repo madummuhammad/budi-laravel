@@ -15,14 +15,14 @@
             </ol>
         </nav>
         <div class="row mt-3">
-            <div class="col-3">
-                <img class="img-fluid" src="{{ $book_detail->cover }}" alt="">
+            <div class="col-12 col-md-3">
+                <img class="img-fluid w-100" src="{{ $book_detail->cover }}" alt="">
                 <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div class="d-flex ">
+                    <div class="d-flex align-items-center">
                         <span
                             class="d-flex align-items-center me-3 @if (auth()->guard('visitor')->check() == true) @if ($likeds) active @endif
                         @endif "
-                            id="liked" style="cursor: pointer"><span id="liked-icon">
+                            id="liked" style="cursor: pointer"><span class="pe-1" id="liked-icon">
                                 @if (auth()->guard('visitor')->check() == true)
                                     @if ($likeds)
                                         <i class="fa-solid fa-heart text-danger"></i>
@@ -71,8 +71,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9 ps-3">
-                <h1 class="fw-bold mb-5">{{ $book_detail->name }}</h1>
+            <div class="col-md-9 col-12 book-detail-content">
+                <div class="row d-md-flex justify-content-between align-items-start">
+                    <div class="col-9">
+                        <h1 class="fw-bold mb-5">{{ $book_detail->name }}</h1>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end pt-2">
+                        <a class="mx-2 text-dark" href=""><i class="fa-regular fa-heart"></i></a>
+                        <a class="mx-2 text-dark" href=""><i class="fa-solid fa-share-nodes"></i></a>
+                    </div>
+                </div>
                 @php
                     echo $book_detail->sinopsis;
                 @endphp
@@ -83,7 +91,11 @@
                         <div class="audio-player" data-audio="../storage/{{ $book_detail->content }}"
                             style="margin: 0 auto">
                             <div class="controls">
-                                <div class="play-container">
+                                <div class="play-container shows"
+                                    data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                @else
+                                0 @endif
+                            @endif">
                                     <div class="toggle-play play">
                                     </div>
                                 </div>
@@ -109,19 +121,22 @@
                     </div>
                 @endif
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                    <div class="baca-button-group d-flex mt-5 pt-5">
-                        <form class=" me-4" action="{{ url('download') }}" method="post">
+                    {{-- audio --}}
+                    <div class="baca-button-group d-md-flex mt-5 pt-5">
+                        <form class="w-100 me-4" action="{{ url('download') }}" method="post">
                             @csrf
                             <input type="text" name="file" value="{{ $book_detail->content }}" style="display: none">
                             <input type="text" name="name" value="{{ $book_detail->name }}" style="display: none">
+                            <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
+                                style="display: none">
                             @method('POST')
                             <button
-                                class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button type="button"
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -133,25 +148,46 @@
 
                         @if ($book_detail['book_pdfs'] !== null)
                             <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
-                                class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                                            py-2 me-4"><i
+                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                            py-2 me-4"
+                                data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                @else
+                                0 @endif
+                            @endif"><i
                                     class="bi bi-book me-3 fs-5"></i> Baca
                                 Versi Buku</button>
                         @endif
 
                     </div>
                 @elseif($book_detail->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                    <div class="baca-button-group d-flex mt-5 pt-5">
-                        <button class="btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                    {{-- video --}}
+                    <div class="baca-button-group d-md-flex mt-5 pt-5">
+                        <button
+                            class="w-100 shows my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_si_saloi" data-bs-toggle="modal" data-bs-target="#tonton-video"><img
-                                src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""> Tonton
+                                src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""
+                                data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                @else
+                                0 @endif
+                            @endif">
+                            Tonton
                             Sekarang</button>
+                        <form class="w-100 me-4" action="{{ url('download') }}" method="post">
+                            @csrf
+                            <input type="text" name="file" value="{{ $book_detail->content }}"
+                                style="display: none">
+                            <input type="text" name="name" value="{{ $book_detail->name }}"
+                                style="display: none">
+                            <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
+                                style="display: none">
+                            @method('POST')
+                            <button
+                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100 download"><i
+                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        </form>
                         <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 download"><i
-                                class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                        <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -159,12 +195,19 @@
                                 @else
                                 status="unsaved" @endif
                             @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
-                        <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2"
-                            id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
-                                class="bi bi-book me-3 fs-5"></i> Baca
-                            Versi Buku</button>
+                        @if ($book_detail['book_pdfs'] !== null)
+                            <button
+                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                py-2"
+                                id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
+                                    class="bi bi-book me-3 fs-5"
+                                    data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                @else
+                                0 @endif
+                            @endif"></i>
+                                Baca
+                                Versi Buku</button>
+                        @endif
 
                         <div class="modal fade" id="tonton-video" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -177,7 +220,6 @@
                                     <div class="modal-body d-flex justify-content-center">
                                         <video controls style="width: 100%;" autoplay muted>
                                             <source src="../storage/{{ $book_detail->content }}" type="video/mp4">
-                                            <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
                                             Your browser does not support HTML video.
                                         </video>
                                     </div>
@@ -186,8 +228,9 @@
                         </div>
                     </div>
                 @else
-                    <div class="baca-button-group d-flex mt-5 pt-5">
-                        <button class="btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                    <div class="baca-button-group d-md-flex mt-5 pt-5">
+                        <button
+                            class="w-100 my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_book" data-book="../storage/{{ $book_detail->content }}"
                             data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -196,7 +239,7 @@
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
-                        <form class=" me-4" action="{{ url('download') }}" method="post">
+                        <form class="me-4 w-100" action="{{ url('download') }}" method="post">
                             @csrf
                             <input type="text" name="file" value="{{ $book_detail->content }}"
                                 style="display: none">
@@ -204,12 +247,12 @@
                                 style="display: none">
                             @method('POST')
                             <button
-                                class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="my-2 w-100 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -221,54 +264,84 @@
                 @endif
             </div>
         </div>
-        @if (auth()->guard('visitor')->check() == true)
-            <div class="row mt-5 row-comment">
-                <form action="{{ url('comment') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <input type="text" name="id" value="{{ $book_detail->id }}" hidden>
-                    <h3 class="fw-bold">Berikan Komentarmu: </h3>
-                    <div class="comment-profile mb-3 mt-4">
+        <div class="row mt-5 row-comment">
+            <form action="{{ url('comment') }}" method="POST">
+                @csrf
+                @method('POST')
+                <input type="text" name="id" value="{{ $book_detail->id }}" hidden>
+                <h3 class="fw-bold">Berikan Komentarmu: </h3>
+                <div class="comment-profile mb-3 mt-4">
+                    @if (auth()->guard('visitor')->check() == true)
                         <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                         <span class="fw-bold fs-4 ms-3">{{ auth()->guard('visitor')->user()->name }}</span>
+                    @else
+                        <img src="{{ url('storage/image/default.jpg') }}" alt="">
+                        <span class="fw-bold fs-4 ms-3">Anonim</span>
+                    @endif
+                </div>
+                <div class="ratting">
+                    <div class="star d-inline nonactive" data-star='1'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                    <div class="ratting">
-                        <div class="star d-inline nonactive" data-star='1'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='2'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='3'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='4'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='5'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <input type="text" name="star" value="0" hidden>
-                        <span class="ms-3"> Nilai</span>
+                    <div class="star d-inline nonactive" data-star='2'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                    <textarea class="form-control mt-3" name="comment" id="" cols="30" rows="6"></textarea>
-                    <div>
-                        <button class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
+                    <div class="star d-inline nonactive" data-star='3'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                </form>
-            </div>
-        @endif
+                    <div class="star d-inline nonactive" data-star='4'>
+                        <i class="fa-regular fa-star fs-3"></i>
+                    </div>
+                    <div class="star d-inline nonactive" data-star='5'>
+                        <i class="fa-regular fa-star fs-3"></i>
+                    </div>
+                    <input type="text" name="star" value="0" hidden>
+                    <span class="ms-3"> Nilai</span>
+                </div>
+                <textarea class="form-control mt-3" name="comment" id="" cols="30" rows="6"></textarea>
+                <div>
+                    @if (auth()->guard('visitor')->check() == true)
+                        <button type="submit" class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
+                    @else
+                        <button type="button" class="btn bg-blue text-white px-4 py-2 mt-3" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            Kirim
+                        </button>
+
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Masuk/ daftar untuk memberikan
+                                            komentar</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Tutup</button>
+                                        <a href="{{ url('login') }}" type="button" class="btn btn-primary">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </form>
+        </div>
 
         <div class="row row-review mt-5">
-            <h3 class="fw-bold">Komentar Terbaru</h3>
+            @if ($comments->count() !== 0)
+
+                <h3 class="fw-bold">Komentar Terbaru</h3>
+            @endif
             @foreach ($comments as $comment)
                 <div class="card-comment mb-4">
-                    <div class="card-comment-header">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('web') }}/assets/img/andi.png" alt="">
+                    <div class="d-block d-md-flex card-comment-header col-12 col-md-5">
+                        <div class="d-md-flex d-block align-items-center">
+                            <img src="{{ $comment->visitors->image }}" alt="">
                             <span class="fs-5 fw-bold ms-3">{{ $comment->visitors->name }}</span>
                         </div>
-                        <div class="ratting">
+                        <div class="d-flex ratting">
                             @for ($i = 0; $i < $comment->star; $i++)
                                 <img src="{{ asset('web') }}/assets/icon/star.svg" alt="">
                             @endfor
@@ -285,12 +358,14 @@
                     <h2 class="fw-bold">Referensi Buku Sejenis</h2>
                     <a href="{{ url('book_type/') }}/{{ $book_type->id }}">Lihat Semua</a>
                 </div>
-                <div class="row row-cols-6">
-                    @foreach ($related_books as $related_book)
-                        <div class="col">
-                            <img class="img-fluid" src="{{ $related_book->cover }}" alt="">
-                        </div>
-                    @endforeach
+                <div class="col-12">
+                    <div class="row row-cols-md-6 row-cols-1">
+                        @foreach ($related_books as $related_book)
+                            <div class="col">
+                                <img class="img-fluid w-100" src="{{ $related_book->cover }}" alt="">
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -387,7 +462,31 @@
                         }
                     }
                 });
-            })
+            });
+
+            $(".shows").on('click', function() {
+                var status = $(this).data('status');
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('being_read') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        if (status == 0) {
+                            $(".show").attr("data-status", '1');
+                        } else if (status == 3) {
+                            $(".show").attr("data-status", '1');
+                        } else {
+                            $(".show").attr("data-status", status);
+                        }
+                    }
+                });
+            });
 
             $(".download").on('click', function() {
                 $.ajax({

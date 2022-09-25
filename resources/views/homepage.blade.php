@@ -176,17 +176,21 @@
                             <div class="owl-carousel owl-theme px-5" id="owl-carousel-3">
                                 @foreach ($nexts as $next)
                                     <div class="item">
-                                        <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
-                                        @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                            <div class="icon">
-                                                <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                                            </div>
-                                        @endif
-                                        @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                            <div class="icon">
-                                                <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                                            </div>
-                                        @endif
+                                        <div class="img-container-for-icon">
+                                            <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
+                                            @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                <div class="icon">
+                                                    <img class="w-50" src="{{ asset('web') }}/assets/icon/play.svg"
+                                                        alt="">
+                                                </div>
+                                            @endif
+                                            @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                                <div class="icon">
+                                                    <img class="w-50" src="{{ asset('web') }}/assets/icon/mic.svg"
+                                                        alt="">
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -237,11 +241,11 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <p class="fw-600 fs-6">{{ $book->name }}</p>
-                                    <p class="mt-3">
+                                    <div class="mt-3 sinopsis-text">
                                         @php
-                                            echo $book->name;
+                                            echo $book->sinopsis;
                                         @endphp
-                                    </p>
+                                    </div>
                                     <div class="mt-5">
                                         @foreach ($book->authors as $author)
                                             <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
@@ -421,7 +425,7 @@
                         <div class="img-container">
                             @foreach ($send_creation->send_creation_images as $send_creation_image)
                                 <img src="{{ $send_creation_image->image }}" alt=""
-                                    class="@if ($loop->first) img-1 @else img-2 @endif img-fluid"
+                                    class="@if ($loop->first) ms-5 img-1 @else img-2 @endif img-fluid"
                                     style="width:40% ;">
                             @endforeach
                         </div>
@@ -468,7 +472,7 @@
         </div>
     </section>
 
-    <section id="section-10" style="margin-top: 80px;">
+    {{-- <section id="section-10" style="margin-top: 80px;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 bg-aqua py-5">
@@ -670,7 +674,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section id="section-11">
         <div class="container">
             <div class="row">
@@ -682,7 +686,7 @@
                         @if ($aotm->authors !== null)
                             <h3 class="text-blue">{{ $aotm->authors->name }}</h3>
                         @endif
-                        <div>
+                        <div class="text-justify" style="text-align: justify">
                             @php
                                 echo $aotm->content_homepage;
                             @endphp

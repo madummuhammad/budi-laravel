@@ -82,6 +82,11 @@ Route::middleware('visitor')->group(function () {
         Route::post('/reference_book/{id}', [WebController::class, 'reference_book_filter']);
         Route::get('/reference_book_detail/{id}', [WebController::class, 'reference_book_detail']);
 
+        Route::post('/reference_liked', [ReferenceBookController::class, 'liked']);
+        Route::post('/reference_download', [ReferenceBookController::class, 'download']);
+        Route::post('/reference_downloaded', [ReferenceBookController::class, 'downloaded']);
+        Route::post('/reference_comment', [ReferenceBookController::class, 'comment']);
+
         // Blog
         Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
 
@@ -95,6 +100,9 @@ Route::middleware('visitor')->group(function () {
 
         // Info seputar budi
         Route::get('/info_seputar_budi', [WebController::class, 'info_seputar_budi']);
+
+        // Tentang Budi
+        Route::get('/about', [WebController::class, 'about']);
 
         // Set Cookies
         Route::post('/set_cookie', [WebController::class, 'set_cookies']);
@@ -127,6 +135,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/author', [AuthorController::class, 'add']);
         Route::patch('/author', [AuthorController::class, 'update']);
         Route::delete('/author', [AuthorController::class, 'destroy']);
+
+        // Pustakaku
+        Route::get('/pustakaku', [MylibraryController::class, 'index']);
+        Route::patch('/pustakaku', [MylibraryController::class, 'update']);
 
         // Theme
         Route::get('/theme', [ThemeController::class, 'index']);
@@ -167,6 +179,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/reference_book_type/{id}', [ReferencebooktypeController::class, 'update']);
 
         // Blog
+        Route::get('/blog/banner', [BlogController::class, 'banner']);
+        Route::patch('/blog/banner', [BlogController::class, 'banner_update']);
+
         Route::get('/blog/{id}', [BlogController::class, 'index']);
         Route::delete('/blog/{id}/create', [BlogController::class, 'destroy']);
         Route::get('/blog/{id}/create', [BlogController::class, 'create']);
@@ -202,7 +217,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/visitor', [StatisticController::class, 'visitor']);
         Route::get('/statistic/visitor/{id}', [StatisticController::class, 'profiling']);
         Route::get('/statistic/book', [StatisticController::class, 'book']);
+        Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
 
+        // Visitor Profiling
+        Route::get('/visitor/profiling/{id}', [VisitorController::class, 'profiling']);
     });
 
 });

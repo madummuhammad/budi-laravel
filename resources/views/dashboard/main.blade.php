@@ -191,7 +191,15 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Katalog Buku</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('dashboard/book') }}">Buku</a></li>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    Buku</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="{{ url('dashboard/book') }}">
+                                            Buku</a></li>
+                                    <li><a href="{{ url('dashboard/theme') }}">
+                                            Tema</a></li>
+                                </ul>
+                            </li>
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                     Referensi</a>
                                 <ul aria-expanded="false">
@@ -205,7 +213,6 @@
                                             Tema</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
                             <li><a href="{{ url('dashboard/author') }}">Penulis</a></li>
                         </ul>
                     </li>
@@ -214,21 +221,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/statistic/visitor') }}">Pengunjung</a></li>
                             <li><a href="{{ url('dashboard/statistic/book') }}">Buku</a></li>
-                            {{-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                    Referensi</a>
-                                <ul aria-expanded="false">
-                                    <li><a
-                                            href="{{ url('dashboard/reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">
-                                            Bacaan</a></li>
-                                    <li><a
-                                            href="{{ url('dashboard/reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">
-                                            Video</a></li>
-                                    <li><a href="{{ url('dashboard/reference_theme') }}">
-                                            Tema</a></li>
-                                </ul>
-                            </li> --}}
-                            {{-- <li><a href="{{ url('dashboard/theme') }}">Tema</a></li>
-                            <li><a href="{{ url('dashboard/author') }}">Penulis</a></li> --}}
+                            <li><a href="{{ url('dashboard/statistic/referensi') }}">Referensi Buku</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>
@@ -253,9 +246,13 @@
                             </li>
                         </ul>
                     </li>
+                    <li><a href="{{ url('dashboard/pustakaku') }}" aria-expanded="false"><i
+                                class="icon icon-globe-2"></i><span class="nav-text">Pustakaku</span></a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Info Seputar Budi</span></a>
                         <ul aria-expanded="false">
+                    </li>
+                    <li><a href="{{ url('dashboard/blog/banner') }}">Banner</a>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Artikel</a>
                         <ul aria-expanded="false">
@@ -289,38 +286,13 @@
 
 
 
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
         <div class="footer">
             <div class="copyright">
-                {{-- <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p> --}}
+
             </div>
         </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
 
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
     <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script>
     <script src="{{ asset('assets') }}/js/quixnav-init.js"></script>
     <script src="{{ asset('assets') }}/js/custom.min.js"></script>

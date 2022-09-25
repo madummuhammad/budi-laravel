@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Mylibrary;
+use App\Models\ReferenceBook;
 use App\Models\VisitorVisit;
 
 class StatisticController extends Controller
@@ -18,9 +19,18 @@ class StatisticController extends Controller
     {
         $mylibrary = Mylibrary::get();
 
-        $data['books'] = Book::with('themes', 'book_types', 'levels', 'book_read_statistics', 'book_download_statistics', 'mylibraries', 'comments')->get();
+        $data['books'] = Book::with('themes', 'book_types', 'levels', 'book_read_statistics', 'book_download_statistics', 'mylibraries', 'comments', 'shares')->get();
 
         return view('dashboard.bookstatistic', $data);
+    }
+
+    public function referensi()
+    {
+        $mylibrary = Mylibrary::get();
+
+        $data['books'] = ReferenceBook::with('reference_themes', 'reference_book_types', 'levels', 'reference_book_downloads', 'reference_book_likeds', 'reference_comments')->get();
+
+        return view('dashboard.referencebookstatistic', $data);
     }
 
     public function profiling($id)

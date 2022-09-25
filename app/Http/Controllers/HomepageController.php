@@ -20,7 +20,6 @@ class HomepageController extends Controller
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->get();
-
         return view('dashboard.homepage', $data);
     }
 

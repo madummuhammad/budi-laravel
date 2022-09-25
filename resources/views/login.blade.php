@@ -13,7 +13,7 @@
 
 <body>
     <div class="background-dot-right-top">
-        <img src="{{ asset('web') }}/assets/img/dot.png" alt="">
+        <img class="d-none d-md-block" src="{{ asset('web') }}/assets/img/dot.png" alt="">
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
         <div class="container px-5">
@@ -91,31 +91,51 @@
     </nav>
     <div class="container mt-5 pt-5">
         <div class="row d-flex">
-            <div class="col-8">
+            <div class="col-md-8 col-12">
                 <img class="img-fluid rounded-50px" src="{{ asset('web') }}/assets/img/ilustrasi-login.png"
                     alt="">
             </div>
-            <div class="col-4 login">
+            <div class="col-md-4 col-12 login">
                 <div class="card card-login p-3">
                     <div class="card-body">
                         <img class="logo mb-2" src="{{ asset('web') }}/assets/img/logo.png" alt="">
                         <h5 class="card-title fw-bold">Selamat Datang</h5>
                         <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
+                        @if (session()->has('loginError'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('loginError') }}
+                            </div>
+                        @endif
                         <form action="{{ url('login') }}" method="POST">
                             @method('POST')
                             @csrf
-                            <input type="email" class="form-control mb-3 py-3" id="exampleFormControlInput1"
-                                placeholder="Pengguna" name="email">
+                            <input type="text"
+                                class="form-control mb-3 py-3 @error('username')
+                            is-invalid @enderror "
+                                id="exampleFormControlInput1" placeholder="Pengguna" name="username">
+                            @error('username')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control py-3" placeholder="Kata sandi"
-                                    name="password">
-                                <button type="button" class="input-group-text bg-white"><i
+                                <input type="password"
+                                    class="form-control py-3  @error('password')
+                            is-invalid @enderror "
+                                    placeholder="Kata sandi" name="password">
+                                <button id="btn-eye" type="button" class="input-group-text bg-white"><i
                                         class="bi bi-eye"></i></button>
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="d-flex justify-content-end">
                                 <a href="" class="text-decoration-none text-blue">Lupa Kata Sandi?</a>
                             </div>
-                            <button type="submit" class="btn bg-blue text-white w-100 mt-4">Masuk</button>
+                            <button id="btn-login" type="submit"
+                                class="btn bg-blue text-white w-100 mt-4">Masuk</button>
                         </form>
                         <p class="mt-5 text-center">Belum memiliki aku? <a href="{{ url('register') }}"
                                 class="text-decoration-none text-blue fw-bold">Daftar</a></p>
@@ -148,22 +168,18 @@
                 },
                 success: function(hasil) {}
             });
-        }, function(e) {
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('set_cookie') }}",
-                data: {
-                    _method: "POST",
-                    _token: token,
-                    latitude: latitude,
-                    longitude: longitude
-                },
-                success: function(hasil) {}
-            });
-            alert('Geolocation Tidak Mendukung Pada Browser Anda');
-        }, {
-            enableHighAccuracy: true
+
         });
+
+        $("#btn-eye").on('click', function() {
+            if ($("input[name=password]").hasClass('show') == false) {
+                $("input[name=password]").attr('type', 'text');
+                $("input[name=password]").addClass('show');
+            } else {
+                $("input[name=password]").attr('type', 'password');
+                $("input[name=password]").removeClass('show');
+            }
+        })
     });
 </script>
 

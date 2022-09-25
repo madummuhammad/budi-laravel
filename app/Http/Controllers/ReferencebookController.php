@@ -7,8 +7,13 @@ use App\Models\Book_type;
 use App\Models\Language;
 use App\Models\Level;
 use App\Models\ReferenceBook;
+use App\Models\ReferenceBookDownload;
+use App\Models\ReferenceBookLiked;
 use App\Models\ReferenceBookType;
+use App\Models\ReferenceComment;
 use App\Models\ReferenceTheme;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Intervention\Image\ImageManagerStatic as Image;
 use Storage;
 use Validator;
@@ -172,6 +177,130 @@ class ReferencebookController extends Controller
 
         return redirect('dashboard/reference_book/' . request('reference_book_type'));
 
+    }
+
+    public function liked()
+    {
+        $data = [
+            'book_id' => request('book_id'),
+            'visitor_id' => request('visitor_id'),
+        ];
+
+        $validation = Validator::make($data, [
+            'book_id' => 'required',
+            'visitor_id' => 'required',
+        ]);
+        $ReferenceBookLiked = ReferenceBookLiked::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->first();
+        if ($validation->fails()) {
+            return back();
+        }
+        if (request('status') == "unliked") {
+            // if ($mylibrary) {
+            //     RerenceBookLiked::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['liked' => 1]);
+            // } else {
+            ReferenceBookLiked::create($data);
+            // }
+        } else {
+            ReferenceBookLiked::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->delete();
+        }
+    }
+
+    public function download(Request $request)
+    {
+        $file = public_path() . '/storage' . '/' . request('file');
+        if (request('book_type') == '5cbb48f9-aed4-44a9-90c2-71cbcef71264') {
+            // bacaan
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            if (file_exists($file) !== false) {
+                $data = [
+                    'book_id' => request('book_id'),
+                ];
+
+                $validation = Validator::make($data, [
+                    'book_id' => 'required',
+                ]);
+
+                if (auth()->guard('visitor')->check() == false) {
+                    $visitor_id = null;
+                } else {
+                    $visitor_id = auth()->guard('visitor')->user()->id;
+                }
+
+                $dataVisitor = json_decode($request->cookie('visitor_session'));
+                ReferenceBookDownload::create(['book_id' => request('book_id'), 'visitor_id' => $visitor_id, 'visitor_visit_id' => $dataVisitor->id]);
+                $count = ReferenceBookDownload::where('book_id', request('book_id'))->count();
+                ReferenceBook::where('id', request('book_id'))->update(['number_downloaded' => $count]);
+                return response()->download($file, request('name') . '.pdf', $headers);
+                if ($validation->fails()) {
+                    return back();
+                }
+            } else {
+                return back();
+            }
+        }
+
+        if (request('book_type') == '220843b8-4f60-4e47-9aca-cf6ea0d54afe') {
+            // video
+            $headers = array(
+                'Content-Type: video/mp4',
+            );
+            if (file_exists($file) !== false) {
+                $data = [
+                    'book_id' => request('book_id'),
+                ];
+
+                $validation = Validator::make($data, [
+                    'book_id' => 'required',
+                ]);
+
+                if (auth()->guard('visitor')->check() == false) {
+                    $visitor_id = null;
+                } else {
+                    $visitor_id = auth()->guard('visitor')->user()->id;
+                }
+
+                $dataVisitor = json_decode($request->cookie('visitor_session'));
+                ReferenceBookDownload::create(['book_id' => request('book_id'), 'visitor_id' => $visitor_id, 'visitor_visit_id' => $dataVisitor->id]);
+
+                $count = ReferenceBookDownload::where('book_id', request('book_id'))->count();
+                ReferenceBook::where('id', request('book_id'))->update(['number_downloaded' => $count]);
+                return response()->download($file, request('name') . '.mp4', $headers);
+                if ($validation->fails()) {
+                    return back();
+                }
+            } else {
+                return back();
+            }
+        } else {
+            return back();
+        }
+
+    }
+
+    public function comment()
+    {
+        $data = [
+            'visitor_id' => auth()->guard('visitor')->user()->id,
+            'book_id' => request('id'),
+            'star' => request('star'),
+            'comment' => request('comment'),
+        ];
+
+        $validation = Validator::make($data, [
+            'visitor_id' => 'required',
+            'book_id' => 'required',
+            'star' => 'required',
+            'comment' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return back();
+        }
+
+        ReferenceComment::create($data);
+        return back();
     }
 
     public function upload_img($request)

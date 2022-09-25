@@ -282,7 +282,7 @@
   background-color: white;
   color: #FB4072;
   border-radius: 100%;
-  margin-left: 30px;
+  margin-left: 10px;
   border: 1px solid black;
 }
 
@@ -362,7 +362,6 @@
   -moz-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
 }
 .tab-pane .home-tab .home-tab-body .input-search {
-  width: 30%;
   display: flex;
   align-items: center;
 }
@@ -372,12 +371,16 @@
   padding-left: 2px;
   padding-right: 2px;
   height: 100%;
+  padding-left: 10%;
 }
 .tab-pane .home-tab .home-tab-body .input-search input::placeholder {
   padding-left: 8px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 30px;
+  position: relative;
+  left: calc(-10% - 8px);
+  width: 120%;
   box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
   -webkit-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.5) inset;
   -moz-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
@@ -386,7 +389,7 @@
   background-color: white;
   color: #FB4072;
   border-radius: 100%;
-  margin-left: 30px;
+  margin-left: 10px;
   border: 1px solid black;
 }
 
@@ -486,14 +489,14 @@ body.registrasi {
 
 .login {
   position: relative;
-  right: 100px;
-  top: 100px;
+  right: 0;
+  top: 0;
 }
 .login .card-login {
   border-radius: 20px;
   border: none;
   box-shadow: 2px 8px 30px rgba(79, 76, 74, 0.2);
-  width: 120%;
+  width: 100%;
 }
 .login .card-login .logo {
   width: 68px;
@@ -590,7 +593,7 @@ body.registrasi {
 }
 #section-8 .img-container .img-2 {
   top: 15%;
-  left: -8%;
+  left: -10%;
 }
 #section-8 .btn-section-8 {
   border-radius: 50px;
@@ -602,7 +605,7 @@ body.registrasi {
   border-radius: 0px;
 }
 .card-news img {
-  height: 200px;
+  /* height: 200px; */
 }
 .card-news .card-body .card-title {
   font-size: 16px;
@@ -772,7 +775,7 @@ footer .dash {
   border-radius: 10px;
 }
 .row-review .card-comment .card-comment-header {
-  width: 35%;
+  /* width: 35%; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -795,6 +798,33 @@ footer .dash {
   font-size: 40px;
 }
 
+.baca-button-group {
+  width: 100%;
+}
+
+.book-detail-content{
+    padding-left: 10px;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .login {
+    position: relative;
+    right: 100px;
+    top: 100px;
+  }
+  .login .card-login {
+    width: 120%;
+  }
+  .baca-button-group {
+  width: 70%;
+}
+
+.book-detail-content{
+    padding-left: 40px;
+}
+}
+
 @media only screen and (min-width: 768px) {
   #hero .tagline {
     font-size: 70px;
@@ -811,14 +841,26 @@ footer .dash {
 
 .audio-player {
   width: 100%;
-  height: 20px;
+  height: 50px;
   font-family: arial;
   color: white;
   font-size: 0.75em;
   overflow: hidden;
   display: grid;
   grid-template-rows: 6px auto;
-  padding-top: 5px;
+  padding-top: 10px;
+}
+
+.audio-player .play-container{
+    background-color: white;
+    height: 25px;
+    width: 25px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 100%;
+    margin-top: -10px;
+    margin-right: 10px;
 }
 .audio-player .timeline {
   background: white;
@@ -837,7 +879,7 @@ footer .dash {
 .audio-player .controls {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  /* align-items: stretch; */
 }
 .audio-player .controls .toggle-play.play {
   cursor: pointer;
@@ -977,7 +1019,7 @@ footer .dash {
 .news-detail .author {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 40%;
 }
 .news-detail .news-body .tag .tag-item {
   background-color: #F3EDED;
@@ -1052,5 +1094,13 @@ overflow: hidden;
 text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 4;
+-webkit-box-orient: vertical;
+}
+
+.sinopsis-text{
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 5;
 -webkit-box-orient: vertical;
 }

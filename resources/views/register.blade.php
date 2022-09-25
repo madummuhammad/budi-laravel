@@ -99,38 +99,100 @@
                     @method('POST')
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <input type="text" class="form-control mb-3 py-3" placeholder="Nama Lengkap"
-                                aria-label="Full Name" name="name">
+                            <input type="text"
+                                class="form-control mt-3 py-3 @error('name')
+                                is-invalid
+                            @enderror"
+                                placeholder="Nama Lengkap" aria-label="Full Name" name="name"
+                                value="{{ old('name') }}">
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-12 col-md-6">
-                            <input type="text" class="form-control mb-3 py-3"
-                                placeholder=" Pos-el atau No. Ponsel" aria-label="Last name" name="phone">
+                            <input type="text"
+                                class="form-control mt-3 py-3 @error('phone')
+                                    is-invalid
+                                @enderror"
+                                placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="phone">
+                            @error('phone')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <input type="text" class="form-control mb-3 py-3" placeholder="Kota/Kabupaten">
+                            <input type="text"
+                                class="form-control mt-3 py-3 @error('city')
+                                is-invalid
+                            @enderror"
+                                name="city" placeholder="Kota/Kabupaten">
+                            @error('city')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-12 col-md-4">
-                            <input type="text" class="form-control mb-3 py-3" placeholder="Kecamatan">
+                            <input type="text"
+                                class="form-control mt-3 py-3 @error('sub')
+                                is-invalid
+                            @enderror"
+                                name="sub" placeholder="Kecamatan">
+                            @error('sub')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-12 col-md-4">
-                            <input type="text" class="form-control mb-3 py-3" placeholder="Kelurahan">
+                            <input type="text"
+                                class="form-control mt-3 py-3 @error('area')
+                                is-invalid
+                            @enderror"
+                                name="area" placeholder="Kelurahan">
+                            @error('area')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
-                    <select class="form-select mb-3 py-3" aria-label="size 3 select example" placeholder=""
-                        name="status">
+                    <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
+                        placeholder="" name="status">
                         <option selected disabled>Status</option>
                         <option value="Siswa">Siswa</option>
                         <option value="Guru / Tenaga Pendidik">Guru/ Tenaga Pendidik</option>
                         <option value="Orang Tua Siswa">Orang Tua Siswa</option>
                         <option value="Umum">Umum</option>
                     </select>
-                    <input type="text" class="form-control mb-3 py-3" id="exampleFormControlInput1"
-                        placeholder="Pengguna  (Contoh : @Budiberbudi)" name="email">
-                    <input type="password" class="form-control mb-3 py-3" id="exampleFormControlInput1"
-                        placeholder="Kata sandi" name="password">
-                    <button class="btn bg-blue text-white w-100 py-2 ">Buat Akun</button>
+                    <div id="sub-status"></div>
+                    <input type="text"
+                        class="form-control mt-3 py-3 @error('username')
+                        is-invalid
+                    @enderror"
+                        id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : @Budiberbudi)"
+                        name="username" value="{{ old('username') }}">
+                    @error('username')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <div class="input-group mt-3">
+                        <input type="password"
+                            class="form-control py-3 @error('password')
+                            is-invalid
+                        @enderror"
+                            id="exampleFormControlInput2" placeholder="Kata sandi" name="password">
+                        <button id="btn-eye" type="button" class="input-group-text bg-white"><i
+                                class="bi bi-eye"></i></button>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <button class="btn bg-blue text-white w-100 py-2 mt-3">Buat Akun</button>
                 </form>
                 <p class="text-center mt-5">Sudah memiliki akun? <a href="{{ url('login') }}"
                         class="text-decoration-none text-blue fw-bold">Masuk</a></p>
@@ -138,7 +200,46 @@
         </div>
     </div>
 </body>
+<script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>
+<script>
+    $("#btn-eye").on('click', function() {
+        if ($("input[name=password]").hasClass('show') == false) {
+            $("input[name=password]").attr('type', 'text');
+            $("input[name=password]").addClass('show');
+        } else {
+            $("input[name=password]").attr('type', 'password');
+            $("input[name=password]").removeClass('show');
+        }
+    })
+    $("#status").on('change', function() {
+        if ($(this).val() == 'Siswa') {
+            $("#sub-status").html(`
+            <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
+                            placeholder="" name="sub-status">
+                            <option selected disabled>--Pilih Jenjang--</option>
+                            <option value="SD">SD</option>
+                            <option value="SMP / Tenaga Pendidik">SMP</option>
+                            <option value="SMA">SMA</option>
+                        </select>
+            `);
+        } else if ($(this).val() == 'Guru / Tenaga Pendidik' ||
+            $(this).val() == 'Orang Tua Siswa') {
+            $("#sub-status").html(`
+        <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
+                        placeholder="" name="sub-status">
+                        <option selected disabled>--Pilih Jenjang--</option>
+                        <option value="PAUD">PAUD</option>
+                        <option value="Siswa">SD</option>
+                        <option value="Guru / Tenaga Pendidik">SMP</option>
+                        <option value="Orang Tua Siswa">SMA</option>
+                    </select>
+        `);
+        } else {
+            $("#sub-status").html(``);
+        }
+    })
+</script>
 
 </html>

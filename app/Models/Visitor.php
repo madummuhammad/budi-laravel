@@ -59,6 +59,11 @@ class Visitor extends Authenticatable
         return $this->hasMany(BookReadStatistic::class, 'visitor_id', 'id');
     }
 
+    public function book_download_statistics()
+    {
+        return $this->hasMany(BookDownloadStatistic::class, 'visitor_id', 'id');
+    }
+
     public function mylibraries()
     {
         return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
@@ -73,5 +78,10 @@ class Visitor extends Authenticatable
     {
         return $this->hasMany(BookShare::class, 'visitor_id', 'id');
     }
+
+    // public function book_read_statistics()
+    // {
+    //     return $this->hasMany(BookReadStatistic::class,'visitor_id','id');
+    // }
 
 }

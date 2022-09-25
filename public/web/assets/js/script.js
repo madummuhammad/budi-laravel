@@ -51,14 +51,29 @@ $('#owl-carousel-3').owlCarousel({
 
 var numberPage = $(".pagination .pagination-link").length;
 
-showPage = function (pagination) {
+
+function showPage(pagination) {
+    console.log(pagination)
     if (pagination < 0 || pagination >= numberPage) return;
-
-    // $(".card-pagination").hide().eq(pagination).show();
     $("#pagin li").removeClass("active").eq(pagination).addClass("active");
-}
+    if (pagination == 2) {
+        $("#pagin li").eq(0).addClass("d-none");
+        $("#pagin li").eq(2).removeClass("d-none");
+    }
 
-// Go to Left
+    if (pagination == 3) {
+        $("#pagin li").eq(1).addClass("d-none");
+        $("#pagin li").eq(3).removeClass("d-none");
+    }
+
+    if (pagination > 2) {
+        var pagin = $("#pagin li");
+        for (let i = 0; i < pagination - 1; i++) {
+            $(pagin[i]).addClass("d-none");
+            $("#pagin li").eq(pagination).removeClass("d-none");
+        }
+    }
+}
 $(".prev").click(function () {
     $("[name=page-link]").val($("#pagin ul .active").index() - 1)
     showPage($("#pagin ul .active").index() - 1);

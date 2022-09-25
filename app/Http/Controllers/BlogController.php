@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\BlogWriter;
 use App\Models\Tag;
@@ -17,6 +18,37 @@ class BlogController extends Controller
         $data['blogs'] = Blog::with('writers')->where('blog_type', $id)->get();
         $data['id'] = $id;
         return view('dashboard.blog', $data);
+    }
+
+    public function banner()
+    {
+        $data['pustakaku'] = Banner::where('page_id', '5db1210c-d350-4abd-b09b-eb33058b93e1')->first();
+        return view('dashboard.blogbanner', $data);
+    }
+
+    public function banner_update()
+    {
+        $data = [
+            'page_id' => '5db1210c-d350-4abd-b09b-eb33058b93e1',
+            'tagline' => request('tagline'),
+        ];
+
+        $validation = Validator::make($data, [
+            'page_id' => 'required',
+        ]);
+
+        Banner::where('page_id', '5db1210c-d350-4abd-b09b-eb33058b93e1')->update($data);
+
+        if ($_FILES['cover']['name'] !== "") {
+            $data = [
+                'image' => $this->storage() . $this->upload_img(request(), 615, 86),
+            ];
+
+            Banner::where('page_id', '5db1210c-d350-4abd-b09b-eb33058b93e1')->update($data);
+        }
+
+        return back();
+
     }
 
     public function create($id)
@@ -131,10 +163,10 @@ class BlogController extends Controller
         return $explode[2] . ' ' . $bulan[(int) $explode[1]] . ' ' . $explode[0];
     }
 
-    public function upload_img($request)
+    public function upload_img($request, $fit_width = "396", $fit_height = "222")
     {
         $path = $request->file('cover')->store('image');
-        $resize = Image::make($request->file('cover'))->fit(396, 222);
+        $resize = Image::make($request->file('cover'))->fit($fit_width, $fit_height);
         $resize->save($this->storage_path('public/' . $path));
         unlink(storage_path('app/' . $path));
         return $path;

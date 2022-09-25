@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Book;
 use App\Models\BookDownloadStatistic;
 use App\Models\BookReadStatistic;
@@ -11,10 +12,61 @@ use App\Models\Mylibrary;
 use App\Models\Saved;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Intervention\Image\ImageManagerStatic as Image;
+use Storage;
 use Validator;
 
 class MylibraryController extends Controller
 {
+    public function index()
+    {
+        $data['pustakaku'] = Banner::where('page_id', '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6')->first();
+        return view('dashboard.pustakaku', $data);
+    }
+
+    public function update()
+    {
+        $data = [
+            'page_id' => '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6',
+            'tagline' => request('tagline'),
+        ];
+
+        $validation = Validator::make($data, [
+            'page_id' => 'required',
+        ]);
+
+        Banner::where('page_id', '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6')->update($data);
+
+        if ($_FILES['image']['name'] !== "") {
+            $data = [
+                'image' => $this->storage() . $this->upload(request()),
+            ];
+
+            Banner::where('page_id', '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6')->update($data);
+        }
+
+        return back();
+    }
+
+    public function upload($request)
+    {
+        $path = $request->file('image')->store('image');
+        $resize = Image::make($request->file('image'))->fit(615, 86);
+        $resize->save($this->storage_path('public/' . $path));
+        unlink(storage_path('app/' . $path));
+        return $path;
+
+    }
+
+    public function storage_path($path = '')
+    {
+        return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
+    }
+
+    public function storage()
+    {
+        return url('storage') . '/';
+    }
     public function digital()
     {
         return view('mylibrarydigitalfilter');
@@ -107,7 +159,7 @@ class MylibraryController extends Controller
         if ($request->cookie($request->book_id) == null) {
             $dataVisitor = json_decode($request->cookie('visitor_session'));
             $book_read_statistic = BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
-            $minutes = 1;
+            $minutes = 1440;
             $response = new Response("");
             $response->withCookie(cookie(request('book_id'), $book_read_statistic, $minutes));
             return $response;
@@ -115,9 +167,9 @@ class MylibraryController extends Controller
 
         if (auth()->guard('visitor')->check() == true) {
             if ($request->cookie($request->book_id) !== null) {
-                $data = json_decode($request->cookie(request('book_id')));
+                $dataVisitor = json_decode($request->cookie(request('book_id')));
                 $id = auth()->guard('visitor')->user()->id;
-                BookReadStatistic::where('id', $data->id)->update(['visitor_id' => $id]);
+                BookReadStatistic::where('id', $dataVisitor->id)->update(['visitor_id' => $id]);
             }
         }
 
@@ -140,7 +192,6 @@ class MylibraryController extends Controller
 
     public function download(Request $request)
     {
-
         $data = [
             'book_id' => request('book_id'),
             'visitor_id' => request('visitor_id'),

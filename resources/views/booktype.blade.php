@@ -176,8 +176,9 @@
                         </span>
                         <ul class="pagination">
                             @for ($i = 0; $i < ceil($books->total() / 10); $i++)
-                                <li class="page-item pagination-link active"><a class="page-link"
-                                        href="#">{{ $i + 1 }}</a>
+                                <li
+                                    class="page-item pagination-link active @if ($i >= 2) d-none @endif">
+                                    <a class="page-link" href="#">{{ $i + 1 }}</a>
                                 </li>
                             @endfor
                             <input type="number" name="page-link" value="0" hidden>
@@ -226,17 +227,21 @@
                             <div class="owl-carousel owl-theme px-5" id="owl-carousel-3">
                                 @foreach ($nexts as $next)
                                     <div class="item">
-                                        <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
-                                        @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                            <div class="icon">
-                                                <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                                            </div>
-                                        @endif
-                                        @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                            <div class="icon">
-                                                <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                                            </div>
-                                        @endif
+                                        <div class="img-container-for-icon">
+                                            <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
+                                            @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                                <div class="icon">
+                                                    <img class="w-50" src="{{ asset('web') }}/assets/icon/play.svg"
+                                                        alt="">
+                                                </div>
+                                            @endif
+                                            @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                                <div class="icon">
+                                                    <img class="w-50" src="{{ asset('web') }}/assets/icon/mic.svg"
+                                                        alt="">
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>

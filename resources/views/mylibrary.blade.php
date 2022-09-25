@@ -2,7 +2,7 @@
 @section('judul_halaman', 'Homepage')
 @section('content')
     <div id="hero">
-        <img class="w-100" src="{{ asset('web') }}/assets/img/pustakaku.png" alt="">
+        <img class="w-100" src="{{ $pustakaku->image }}" alt="">
         <h2 class="ff-kidzone tagline text-white">Pustakaku</h2>
     </div>
     <div class="container">

@@ -77,9 +77,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="{{ url('dashboard/visitor/pro') }}"
-                                                        class="btn badge badge-dark" data-toggle="modal"
-                                                        data-target="#hapus{{ $visitor->id }}"><i
+                                                    <a href="{{ url('dashboard/visitor/profiling') }}/{{ $visitor->id }}"
+                                                        class="btn badge badge-dark"><i
                                                             class="fa-solid fa-chart-column"></i></a>
                                                 </td>
                                             </tr>

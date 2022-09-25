@@ -1,4 +1,5 @@
-                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills">
+                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills"
+                    style="padding-left: 10%; padding-right:10%">
                     <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)
@@ -52,7 +53,8 @@
                                                         href="{{ url('login') }}"><i class="fa-regular fa-heart"></i>
                                                         {{ $liked_number->where('book_id', $book->id)->count() }}</a>
                                                 @endif
-                                                <span><img src="{{ asset('web') }}/assets/icon/little-book.svg"
+                                                <span class="ms-1"><img class="pb-1"
+                                                        src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                         alt="">
                                                     {{ $read_number->where('book_id', $book->id)->count() }} </span>
                                             </div>
@@ -101,6 +103,8 @@
                                                                 value="{{ $book->content }}" style="display: none">
                                                             <input type="text" name="name"
                                                                 value="{{ $book->name }}" style="display: none">
+                                                            <input type="text" name="book_type"
+                                                                value="{{ $book->book_type }}" style="display: none">
                                                             @method('POST')
                                                             <button type="submit" data-book_id="{{ $book->id }}"
                                                                 class="dropdown-item download" href="#"><i
@@ -118,14 +122,19 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-1">
-                                            <div class="card-title fw-bold">
+                                            <div class="card-title fw-bold"
+                                                style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
                                                 {{ $book->name }}
                                             </div>
                                             @foreach ($book->authors as $author)
-                                                <p class="card-text">Author: {{ $author->name }}</p>
+                                                <p class="card-text m-0"
+                                                    style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
+                                                    Penulis: {{ $author->name }}</p>
                                             @endforeach
                                             @foreach ($book->themes as $theme)
-                                                <p class="card-text">Tema: {{ $theme->name }}</p>
+                                                <p class="card-text m-0"
+                                                    style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
+                                                    Tema: {{ $theme->name }}</p>
                                             @endforeach
 
                                         </div>
@@ -180,7 +189,7 @@
                                                         {{ $book->name }}
                                                     </div>
                                                     @foreach ($book->authors as $author)
-                                                        <p class="card-text">Author: {{ $author->name }}</p>
+                                                        <p class="card-text">Penulis: {{ $author->name }}</p>
                                                     @endforeach
                                                     @foreach ($book->themes as $theme)
                                                         <p class="card-text">Tema: {{ $theme->name }}</p>

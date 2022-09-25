@@ -48,7 +48,7 @@
             <div class="news-body">
                 <div class="row">
                     <div class="col-12 col-md-7">
-                        <img class="img-fluid w-100" src="{{ $blog->cover }}" alt="">
+                        <img class="img-fluid w-100 mb-4" src="{{ $blog->cover }}" alt="">
                         @php
                             echo $blog->content;
                         @endphp
@@ -58,7 +58,7 @@
                             diselenggarakan secara bertahap pada bulan Agustus dan September di beberapa sekolah
                             lainnya di DKI Jakarta dengan perincian, yakni 2 sekolah dasar, 2 sekolah menengah
                             pertama, dan 2 sekolah menengah atas.   (EK/HS)</p> --}}
-                        <h5>Kategori</h5>
+                        <h5 class="fw-bold">Kategori</h5>
                         <div class="d-flex justify-content-between w-75 mt-4 mb-4">
                             <div class="fs-5">Berita</div>
                             <div class="text-green fw-bold">{{ $total_news }}</div>
@@ -69,8 +69,8 @@
                             <div class="text-green fw-bold">{{ $total_article }}</div>
                         </div>
                         <div class="dash w-75"></div>
-                        <div class="tag">
-                            <h3 class="fw-bold mb-4">Tag:</h3>
+                        <div class="tag mt-4">
+                            <h5 class="fw-bold mb-4">Tag:</h5>
                             @foreach ($blog->tags as $tag)
                                 <span class="tag-item">{{ $tag->tag }}</span>
                             @endforeach

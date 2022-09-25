@@ -70,7 +70,7 @@
                                                 <td>{{ $book->book_read_statistics->count() }}</td>
                                                 <td>{{ $book->book_download_statistics->count() }}</td>
                                                 <td>{{ $book->mylibraries->where('liked', 1)->count() }}</td>
-                                                <td></td>
+                                                <td>{{ $book->shares->count() }}</td>
                                                 <td>{{ $book->mylibraries->where('saved', 1)->count() }}</td>
                                                 <td>{{ $book->comments->count() }}</td>
                                                 @if ($book->comments->count() == 0)

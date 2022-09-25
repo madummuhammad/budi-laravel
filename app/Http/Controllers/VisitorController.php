@@ -46,7 +46,7 @@ class VisitorController extends Controller
             'sub' => request('sub'),
             'area' => request('area'),
             'status' => request('status'),
-            'email' => request('email'),
+            'username' => request('username'),
             'password' => request('password'),
         ];
 
@@ -57,22 +57,28 @@ class VisitorController extends Controller
             'sub' => 'required',
             'area' => 'required',
             'status' => 'required',
-            'email' => 'required',
+            'username' => 'required|unique:visitors,username',
             'password' => 'required',
         ]);
 
         if ($validation->fails()) {
-            return back();
+            return back()->withErrors($validation)->withInput($data);
+        }
+        if (request('sub_status') !== null) {
+            $status = request('status') . '-' . request('sub-status');
+        } else {
+            $status = request('status');
         }
 
         $data = [
             'name' => request('name'),
             'phone' => request('phone'),
+            'image' => url('/storage/image/default.jpg'),
             'city' => request('city'),
             'sub' => request('sub'),
             'area' => request('area'),
-            'status' => request('status'),
-            'email' => request('email'),
+            'status' => $status,
+            'username' => request('username'),
             'password' => Hash::make(request('password')),
         ];
         Visitor::create($data);
@@ -83,12 +89,12 @@ class VisitorController extends Controller
     public function auth_login(Request $request)
     {
         $credentials = [
-            'email' => request('email'),
+            'username' => request('username'),
             'password' => request('password'),
         ];
 
         $validation = Validator::make($credentials, [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
@@ -102,14 +108,8 @@ class VisitorController extends Controller
             request()->session()->regenerate();
             return redirect()->intended();
 
-        } else {
-
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(["Incorrect user login details!"]);
-
         }
+
         return back()->withInput($credentials)->with(['loginError' => 'Email atau password yang anda masukan salah']);
 
     }
@@ -181,6 +181,21 @@ class VisitorController extends Controller
         auth()->guard('visitor')->logout();
 
         return redirect('login');
+    }
+
+    public function profiling($id)
+    {
+        $data['visitors'] = Visitor::with('book_read_statistics', 'book_read_statistics.books', 'book_read_statistics.books.themes', 'book_read_statistics.books.levels', 'book_read_statistics.books.book_types')->where('id', $id)->first();
+
+        $data['likeds'] = Visitor::with('mylibraries', 'mylibraries.books', 'mylibraries.books.levels', 'mylibraries.books.themes', 'mylibraries.books.book_types')->where('id', $id)->first();
+
+        $data['downloaded'] = Visitor::with('book_download_statistics', 'book_download_statistics.books', 'book_download_statistics.books.themes', 'book_download_statistics.books.levels', 'book_download_statistics.books.book_types')->where('id', $id)->first();
+
+        $data['comments'] = Visitor::with('comments', 'comments.books', 'comments.books.levels', 'comments.books.themes', 'comments.books.book_types')->where('id', $id)->first();
+
+        $data['shared'] = Visitor::with('shares', 'shares.books', 'shares.books.levels', 'shares.books.themes', 'shares.books.book_types')->where('id', $id)->first();
+
+        return view('dashboard.visitorprofiling', $data);
     }
 
     public function upload_img($request, $fit_width = 100, $fit_height = 100, $name = "cover")

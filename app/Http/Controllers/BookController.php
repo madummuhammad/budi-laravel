@@ -175,6 +175,7 @@ class BookController extends Controller
         ]);
 
         if ($validation->fails()) {
+            return $validation->errors();
             return redirect('dashboard/book')->with(['message' => $validation->errors()]);
         }
 
@@ -285,10 +286,29 @@ class BookController extends Controller
     public function download()
     {
         $file = public_path() . '/storage' . '/' . request('file');
-        $headers = array(
-            'Content-Type: application/pdf',
-        );
-        return response()->download($file, request('name') . '.pdf', $headers);
+        if (file_exists($file) == false) {
+            return back();
+        }
+        if (request('book_type') == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
+            $file = public_path() . '/storage' . '/' . request('file');
+            $headers = array(
+                'Content-Type: audio/mpeg',
+            );
+            return response()->download($file, request('name') . '.mp3', $headers);
+        } elseif (request('book_type') == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
+            // Video
+            $file = public_path() . '/storage' . '/' . request('file');
+            $headers = array(
+                'Content-Type: video/mp4',
+            );
+            return response()->download($file, request('name') . '.mp4', $headers);
+        } else {
+            $file = public_path() . '/storage' . '/' . request('file');
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            return response()->download($file, request('name') . '.pdf', $headers);
+        }
 
     }
 }

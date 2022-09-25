@@ -54,4 +54,25 @@ class ReferenceBook extends Model
     {
         return $this->belongsTo(Book_pdf::class, 'id', 'book_id');
     }
+
+    public function mylibraries()
+    {
+        return $this->hasMany(Mylibrary::class, 'book_id', 'id');
+    }
+
+    public function reference_book_downloads()
+    {
+        return $this->hasMany(ReferenceBookDownload::class, 'book_id', 'id');
+    }
+
+    public function reference_book_likeds()
+    {
+        return $this->hasMany(ReferenceBookLiked::class, 'book_id', 'id');
+    }
+
+    public function reference_comments()
+    {
+        return $this->hasMany(ReferenceComment::class, 'book_id', 'id');
+    }
+
 }
