@@ -8,7 +8,6 @@ use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
 
@@ -54,6 +53,7 @@ class VisitorController extends Controller
     {
         $email = "";
         $phone = "";
+        $str_random = Str::random(60) . time();
         $check_email = Validator::make(['surel' => request('surel')], ['surel' => 'required|email']);
 
         if ($check_email->fails()) {
@@ -62,13 +62,12 @@ class VisitorController extends Controller
             $email = request('surel');
             ini_set('display_errors', 1);
             error_reporting(E_ALL);
-            $from = "testing@ansol.com";
+            $from = "support@ansol.id";
             $to = $email;
             $subject = "Checking PHP mail";
-            $message = "PHP mail berjalan dengan baik";
+            $message = "Link verifikasi anda" . url('confirm/') . '/' . $str_random;
             $headers = "From:" . $from;
             mail($to, $subject, $message, $headers);
-            return "Pesan email sudah terkirim.";
         }
 
         $data = [
@@ -104,7 +103,7 @@ class VisitorController extends Controller
             'sub' => request('sub'),
             'area' => request('area'),
             'status' => 'Pending',
-            'token' => Str::random(60) . time(),
+            'token' => $str_random,
             'profession' => request('status'),
             'level' => request('sub-status'),
             'username' => request('username'),
