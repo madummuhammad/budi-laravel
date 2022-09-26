@@ -628,6 +628,8 @@ class WebController extends Controller
             }
             $data['books'] = $query;
         }
+        $data['liked_number'] = Mylibrary::where('liked', 1)->get();
+        $data['read_number'] = BookReadStatistic::get();
         $data['s_languages'] = Language::where('id', request('language'))->first();
         $data['s_format'] = Book_type::where('id', request('format'))->first();
         $data['s_levels'] = Level::where('id', request('level'))->first();

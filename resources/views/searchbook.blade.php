@@ -210,23 +210,108 @@
                         <h5 class="mt-5 mb-3">( 10 /50 )</h5>
                     </div>
                     <div class="row row-cols-1 row-cols-md-5 paginate-search">
-                        @foreach ($books->where('book_type', $format->id)->get() as $book)
+                        @foreach ($books->with('mylibraries')->where('book_type', $format->id)->get() as $book)
                             <div class="col mb-4">
                                 <div class="card p-2">
-                                    <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                    <a href="{{ url('book/') }}/{{ $book->id }}">
+                                        <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                    </a>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
-                                            <span><img src="assets/icon/love.svg" alt=""> 100</span>
-                                            <span><img src="assets/icon/little-book.svg" alt=""> 100</span>
+                                            <span>
+                                                @if (auth()->guard('visitor')->check() == true)
+                                                    @if ($liked_number->where('book_id', $book->id)->where(
+                                                            'visitor_id',
+                                                            auth()->guard('visitor')->user()->id)->count() == 1)
+                                                        <span class="liked active" style="cursor: pointer"
+                                                            data-book_id="{{ $book->id }}">
+                                                            <i class="fa-solid fa-heart text-danger"></i>
+                                                        </span>{{ $liked_number->where('book_id', $book->id)->count() }}
+                                                    @else
+                                                        <span class="liked" style="cursor: pointer"
+                                                            data-book_id="{{ $book->id }}">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </span>{{ $liked_number->where('book_id', $book->id)->count() }}
+                                                    @endif
+                                                @else
+                                                    <a class="text-dark text-decoration-none"
+                                                        href="{{ url('login') }}"><i class="fa-regular fa-heart"></i>
+                                                        {{ $liked_number->where('book_id', $book->id)->count() }}</a>
+                                                @endif
+                                            </span>
+                                            <span class="ms-1"><img class="pb-1"
+                                                    src="{{ asset('web') }}/assets/icon/little-book.svg" alt="">
+                                                {{ $read_number->where('book_id', $book->id)->count() }} </span>
                                         </div>
-                                        <a href=""><i class="bi bi-three-dots-vertical"></i></a>
+                                        <style>
+                                            .dropdown-item {
+                                                cursor: pointer;
+                                            }
+                                        </style>
+                                        <div class="dropdown dropstart">
+                                            <a href="" data-bs-toggle="dropdown"><i
+                                                    class="bi bi-three-dots-vertical"></i></a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li>
+                                                    @if (auth()->guard('visitor')->check() == true)
+                                                        @php
+                                                            $visitor_id = auth()
+                                                                ->guard('visitor')
+                                                                ->user()->id;
+                                                        @endphp
+                                                        <a class="dropdown-item saved @foreach ($book->mylibraries->where('visitor_id', $visitor_id) as $mylibrary)
+                                                                    @if ($mylibrary->saved == 1)
+                                                                    on
+                                                                    @endif @endforeach"
+                                                            data-bookid="{{ $book->id }}">
+                                                            @if ($book->mylibraries->where('book_id', $book->id)->where('saved', 1)->where(
+                                                                    'visitor_id',
+                                                                    auth()->guard('visitor')->user()->id)->count() == 1)
+                                                                <i class="fa-solid fa-bookmark"></i>
+                                                                Disimpan
+                                                            @else
+                                                                <i class="fa-regular fa-bookmark"></i>
+                                                                Baca Nanti
+                                                            @endif
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ url('login') }}" class="dropdown-item">
+                                                            <i class="fa-regular fa-bookmark"></i>
+                                                            Baca Nanti
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                                <li>
+                                                    <form action="{{ url('download') }}" method="post">
+                                                        @csrf
+                                                        <input type="text" name="file"
+                                                            value="{{ $book->content }}" style="display: none">
+                                                        <input type="text" name="name" value="{{ $book->name }}"
+                                                            style="display: none">
+                                                        <input type="text" name="book_type"
+                                                            value="{{ $book->book_type }}" style="display: none">
+                                                        @method('POST')
+                                                        <button type="submit" data-book_id="{{ $book->id }}"
+                                                            class="dropdown-item download" href="#"><i
+                                                                class="bi bi-download fs-6"></i>
+                                                            Unduh</button>
+                                                    </form>
+                                                </li>
+                                                <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"
+                                                        href="whatsapp://send?text={{ url('book/') }}/{{ $book->id }}"><i
+                                                            class="fa-solid
+                                                                fa-share-nodes"></i>
+                                                        Share</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="card-body p-1">
-                                        <div class="card-title fw-bold">
+                                        <div class="card-title fw-bold"
+                                            style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
                                             {{ $book->name }}
                                         </div>
                                         @foreach ($book->authors as $author)
-                                            <p class="card-text">Author: {{ $author->name }}</p>
+                                            <p class="card-text m-0">Penulis: {{ $author->name }}</p>
                                         @endforeach
                                         @foreach ($book->themes as $theme)
                                             <p class="card-text">Tema: {{ $theme->name }}</p>
@@ -302,5 +387,109 @@
                 "{{ url('search?') }}level=" + jenjang + "&theme=" + tema +
                 "&language=" + bahasa + "&format=" + format + "&keyword=" + search
         });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var saved = $(".saved");
+            @if (auth()->guard('visitor')->check() == true)
+                var visitor_id = "{{ auth()->guard('visitor')->user()->id }}";
+            @else
+                var visitor_id = null;
+            @endif
+            var token = $("input[name=_token]").val();
+            for (let i = 0; i < saved.length; i++) {
+                $(saved[i]).on('click', function() {
+                    var book_id = $(this).data('bookid');
+                    if ($(this).hasClass('on') == false) {
+                        $(this).addClass('on');
+                        $(this).html(' <i class="fa-solid fa-bookmark"></i> Disimpan')
+                        var status = "unsaved";
+                    } else {
+                        $(this).removeClass('on');
+                        var status = "saved";
+                        $(this).html(' <i class="fa-regular fa-bookmark"></i> Baca Nanti')
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('saved') }}",
+                        data: {
+                            _method: "POST",
+                            status: status,
+                            book_id: book_id,
+                            visitor_id: visitor_id,
+                            _token: token
+                        },
+                        success: function(hasil) {
+                            console.log(hasil);
+                        }
+                    });
+                })
+            }
+            var download = $('.download')
+            for (let i = 0; i < download.length; i++) {
+                $(download[i]).on('click', function() {
+                    var book_id = $(this).data('book_id');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('downloaded') }}",
+                        data: {
+                            _method: "POST",
+                            book_id: book_id,
+                            visitor_id: visitor_id,
+                            _token: token
+                        },
+                        success: function(hasil) {}
+                    });
+                });
+            }
+
+            var share = $('.share')
+            for (let i = 0; i < share.length; i++) {
+                $(share[i]).on('click', function() {
+                    var book_id = $(this).data('book_id');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('share') }}",
+                        data: {
+                            _method: "POST",
+                            book_id: book_id,
+                            visitor_id: visitor_id,
+                            _token: token
+                        },
+                        success: function(hasil) {}
+                    });
+                });
+            }
+
+            var likeds = $('.liked')
+
+            for (let i = 0; i < likeds.length; i++) {
+                $(likeds[i]).on('click', function() {
+                    var book_id = $(this).data('book_id');
+                    if ($(this).hasClass('active') == false) {
+                        $(this).addClass('active');
+                        $(this).html(' <i class="fa-solid fa-heart text-danger"></i>')
+                        var status = "unliked";
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).html('<i class="fa-regular fa-heart"></i>')
+                        var status = "liked";
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('liked') }}",
+                        data: {
+                            _method: "POST",
+                            status: status,
+                            book_id: book_id,
+                            visitor_id: visitor_id,
+                            _token: token
+                        },
+                        success: function(hasil) {}
+                    });
+
+                });
+            }
+        })
     </script>
 @endsection
