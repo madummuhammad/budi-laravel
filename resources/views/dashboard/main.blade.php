@@ -234,7 +234,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashboard/statistic/visitor') }}">Pengunjung</a></li>
                             <li><a href="{{ url('dashboard/statistic/book') }}">Buku</a></li>
-                            <li><a href="{{ url('dashboard/statistic/referensi') }}">Referensi Buku</a></li>
+                            <li><a href="{{ url('dashboard/statistic/referensi') }}">Referensi</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>
@@ -304,7 +304,7 @@
                         </div>
                         <span class="nav-text">Kirimkan Karyamu</span>
                     </a></li>
-                <li class="nav-label">Pengguna</li>
+                <li class="nav-label">Anggota</li>
                 <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false">
                         <div class="d-icon">
                             <i class="fa-solid fa-users"></i>
@@ -380,10 +380,6 @@
     <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 
     <script src="{{ asset('assets') }}/js/script.js"></script>
-
-
-    {{-- <script src="{{ asset('assets') }}/js/dashboard/dashboard-1.js"></script> --}}
-
 </body>
 
 </html>

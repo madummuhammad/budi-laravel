@@ -1,7 +1,5 @@
 (function ($) {
     "use strict"
-
-    // single select box
     $(".single-select").select2();
 })(jQuery);
 

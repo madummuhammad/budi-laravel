@@ -118,7 +118,7 @@
                             Artikel
                         @endif Terkait
                     </h3>
-                    <a href="info_seputar_budi.html">Lihat Semua</a>
+                    <a href="{{ url('info_seputar_budi') }}">Lihat Semua</a>
                 </div>
                 <div class="row row-cols-1 row-cols-md-4 mt-4">
                     @foreach ($related_news->unique('blog_id') as $data)

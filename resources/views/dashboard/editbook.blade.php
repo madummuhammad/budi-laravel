@@ -18,6 +18,12 @@
                 </div>
             </div> --}}
             <!-- row -->
+            <style>
+                .card-footer,
+                .progress {
+                    display: none;
+                }
+            </style>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -165,9 +171,21 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">File
                                                             Video</label><br>
-                                                        <input type="file" class="form-control file-input-custom"
-                                                            id="content-buku" aria-describedby="emailHelp"
-                                                            name="content">
+                                                        <input type="file" name="content" hidden>
+                                                        <button id="browseFile" type="button" class="btn btn-primary">
+                                                            File Video</button>
+                                                        <input type="text" name="content" value=""
+                                                            id="value_video" hidden>
+                                                        <div class="card-footer p-4">
+                                                            <video id="videoPreview" src="" controls
+                                                                style="width: 100%; height: auto"></video>
+                                                        </div>
+                                                        <div class="progress mt-3" style="height: 25px">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                                aria-valuemax="100" style="width: 75%; height: 100%">75%
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <div class="form-group " id="versi-pdf">
@@ -230,6 +248,7 @@
     </div>
 @endsection
 <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 <script>
     $(document).ready(function() {
         var book_type = $('.book_type');
@@ -290,7 +309,11 @@
                     $("#file-edit").html(`
                         <div class="form-group">
                             <label for="exampleInputEmail1">File Video</label><br>
-                            <input type="file" class="form-control  file-input-custom" id="content-buku-edit" aria-describedby="emailHelp" name="content">
+                            <button id="browseFile" type="button" class="btn btn-primary">Pilih File</button>
+                            <input type="text" name="content" value="" id="value_video" hidden>
+                            <div class="card-footer p-4"><video id="videoPreview" src="" controls style="width: 100%; height: auto"></video></div>
+                            <div class="progress mt-3" style="height: 25px">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75% </div></div>
                         </div>
 
                         <div class="form-group " id="versi-pdf-edit">
@@ -314,7 +337,63 @@
                             $("#versi-pdf-container-edit").html(`
                             `)
                         }
-                    })
+                    });
+                    let browseFile = $('#browseFile');
+                    let resumable = new Resumable({
+                        target: '{{ route('dashboard.upload') }}',
+                        query: {
+                            _token: '{{ csrf_token() }}'
+                        }, // CSRF token
+                        fileType: ['mp4'],
+                        headers: {
+                            'Accept': 'application/json'
+                        },
+                        testChunks: false,
+                        throttleProgressCallbacks: 1,
+                    });
+
+                    resumable.assignBrowse(browseFile[0]);
+
+                    resumable.on('fileAdded', function(file) { // trigger when file picked
+                        showProgress();
+                        resumable.upload() // to actually start uploading.
+                    });
+
+                    resumable.on('fileProgress', function(file) { // trigger when file progress update
+                        updateProgress(Math.floor(file.progress() * 100));
+                    });
+
+                    resumable.on('fileSuccess', function(file,
+                        response) { // trigger when file upload complete
+                        response = JSON.parse(response)
+                        $('#videoPreview').attr('src', response.path);
+                        $('#value_video').val(response.path);
+                        $('.card-footer').show();
+                        console.log(response.path)
+                    });
+
+                    resumable.on('fileError', function(file, response) { // trigger when there is any error
+                        alert('file uploading error.')
+                    });
+
+
+                    let progress = $('.progress');
+
+                    function showProgress() {
+                        progress.find('.progress-bar').css('width', '0%');
+                        progress.find('.progress-bar').html('0%');
+                        progress.find('.progress-bar').removeClass('bg-success');
+                        progress.show();
+                    }
+
+                    function updateProgress(value) {
+                        progress.find('.progress-bar').css('width', `${value}%`)
+                        progress.find('.progress-bar').html(`${value}%`)
+                    }
+
+                    function hideProgress() {
+                        progress.hide();
+                    }
                 }
                 if ($(this).val() == '31ba455c-c9c7-4a3c-a2b1-62915546eaba') {
                     $("#display-count").html(`
@@ -342,6 +421,62 @@
                         `);
                 }
             }
+        }
+        let browseFile = $('#browseFile');
+        let resumable = new Resumable({
+            target: '{{ route('dashboard.upload') }}',
+            query: {
+                _token: '{{ csrf_token() }}'
+            }, // CSRF token
+            fileType: ['mp4'],
+            headers: {
+                'Accept': 'application/json'
+            },
+            testChunks: false,
+            throttleProgressCallbacks: 1,
+        });
+
+        resumable.assignBrowse(browseFile[0]);
+
+        resumable.on('fileAdded', function(file) { // trigger when file picked
+            showProgress();
+            resumable.upload() // to actually start uploading.
+        });
+
+        resumable.on('fileProgress', function(file) { // trigger when file progress update
+            updateProgress(Math.floor(file.progress() * 100));
+        });
+
+        resumable.on('fileSuccess', function(file,
+            response) { // trigger when file upload complete
+            response = JSON.parse(response)
+            $('#videoPreview').attr('src', response.path);
+            $('#value_video').val(response.path);
+            $('.card-footer').show();
+            console.log(response.path)
+        });
+
+        resumable.on('fileError', function(file, response) { // trigger when there is any error
+            alert('file uploading error.')
+        });
+
+
+        let progress = $('.progress');
+
+        function showProgress() {
+            progress.find('.progress-bar').css('width', '0%');
+            progress.find('.progress-bar').html('0%');
+            progress.find('.progress-bar').removeClass('bg-success');
+            progress.show();
+        }
+
+        function updateProgress(value) {
+            progress.find('.progress-bar').css('width', `${value}%`)
+            progress.find('.progress-bar').html(`${value}%`)
+        }
+
+        function hideProgress() {
+            progress.hide();
         }
     });
 </script>

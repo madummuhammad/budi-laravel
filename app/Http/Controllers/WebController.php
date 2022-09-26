@@ -122,7 +122,7 @@ class WebController extends Controller
         $data['themes'] = Theme::all();
         $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->paginate(10);
         $data['book_types'] = Book_type::where('id', $id)->first();
-        $data['most_reads'] = Book::orderBy('number_read', 'DESC')->limit(8)->get();
+        $data['most_reads'] = Book::where('book_type', $id)->orderBy('number_read', 'DESC')->limit(8)->get();
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }

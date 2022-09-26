@@ -752,7 +752,7 @@ footer .dash {
   color: #0190D6 !important;
 }
 
-.baca-button-group button {
+.baca-button-group button, .baca-button-group form {
   width: 25%;
 }
 
@@ -817,7 +817,7 @@ footer .dash {
     width: 120%;
   }
   .baca-button-group {
-  width: 70%;
+  width: 100%;
 }
 
 .book-detail-content{
@@ -1104,3 +1104,5 @@ display: -webkit-box;
 -webkit-line-clamp: 5;
 -webkit-box-orient: vertical;
 }
+
+

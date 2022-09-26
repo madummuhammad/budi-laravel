@@ -67,8 +67,9 @@
             </div>
             @endforeach
             <div class="d-flex justify-content-center">
-                <button class="btn bg-blue text-white rounded-5">Akses Gratis ! <span><i
-                            class="fa-solid fa-chevron-right"></i></span></button>
+                <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
+                    class="btn bg-blue text-white rounded-5">Akses Gratis ! <span><i
+                            class="fa-solid fa-chevron-right"></i></span></a>
             </div>
             <p class="text-center mt-2">Kapan pun & Di mana pun</p>
         </div>

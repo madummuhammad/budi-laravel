@@ -130,10 +130,21 @@
                                                     </div>
                                                 @elseif($book->reference_book_type == '220843b8-4f60-4e47-9aca-cf6ea0d54afe')
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">File
-                                                            Video</label><br>
-                                                        <input type="file" class="form-control file-input-custom"
-                                                            id="content-buku" aria-describedby="emailHelp" name="content">
+                                                        <label for="exampleInputEmail1">File Video</label><br>
+                                                        <button id="browseFile" type="button" class="btn btn-primary">Pilih
+                                                            File</button>
+                                                        <input type="text" name="content" value="" id="value_video"
+                                                            hidden>
+                                                        <input type="file" name="content" value="" hidden>
+                                                        <div class="card-footer p-4"><video id="videoPreview" src=""
+                                                                controls style="width: 100%; height: auto"></video>
+                                                        </div>
+                                                        <div class="progress mt-3" style="height: 25px">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                                aria-valuemax="100" style="width: 75%; height: 100%">75%
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 @else
                                                 @endif
@@ -154,4 +165,64 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
+    <script>
+        let browseFile = $('#browseFile');
+        let resumable = new Resumable({
+            target: '{{ route('dashboard.upload') }}',
+            query: {
+                _token: '{{ csrf_token() }}'
+            }, // CSRF token
+            fileType: ['mp4'],
+            headers: {
+                'Accept': 'application/json'
+            },
+            testChunks: false,
+            throttleProgressCallbacks: 1,
+        });
+
+        resumable.assignBrowse(browseFile[0]);
+
+        resumable.on('fileAdded', function(file) { // trigger when file picked
+            showProgress();
+            resumable.upload() // to actually start uploading.
+        });
+
+        resumable.on('fileProgress', function(file) { // trigger when file progress update
+            updateProgress(Math.floor(file.progress() * 100));
+        });
+
+        resumable.on('fileSuccess', function(file,
+            response) { // trigger when file upload complete
+            response = JSON.parse(response)
+            $('#videoPreview').attr('src', response.path);
+            $('#value_video').val(response.path);
+            $('.card-footer').show();
+            console.log(response.path)
+        });
+
+        resumable.on('fileError', function(file, response) { // trigger when there is any error
+            alert('file uploading error.')
+        });
+
+
+        let progress = $('.progress');
+
+        function showProgress() {
+            progress.find('.progress-bar').css('width', '0%');
+            progress.find('.progress-bar').html('0%');
+            progress.find('.progress-bar').removeClass('bg-success');
+            progress.show();
+        }
+
+        function updateProgress(value) {
+            progress.find('.progress-bar').css('width', `${value}%`)
+            progress.find('.progress-bar').html(`${value}%`)
+        }
+
+        function hideProgress() {
+            progress.hide();
+        }
+    </script>
 @endsection

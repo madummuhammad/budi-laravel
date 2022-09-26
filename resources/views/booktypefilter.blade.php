@@ -7,7 +7,7 @@
                                 href="#theme{{ $theme->id }}">{{ $theme->name }}</a></div>
                     @endforeach
                 </div>
-                <h3 class="mt-5 mb-3 fw-bold">Hasil Pencarian Buku Bacaan</h3>
+                <h3 class="mt-5 mb-3 fw-bold">Hasil Pencarian {{ $book_types->name }}</h3>
                 <div class="tab-content mt-5">
                     <div class="tab-pane container active" id="semua">
                         <div class="row row-cols-1 row-cols-md-5">

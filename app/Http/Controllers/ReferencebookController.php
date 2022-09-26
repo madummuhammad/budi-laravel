@@ -102,6 +102,9 @@ class ReferencebookController extends Controller
         }
 
         $reference_book = ReferenceBook::create($data);
+        if (request('content') !== null) {
+            $content = request('content');
+        }
 
         if ($_FILES['content']['name'] !== "") {
             if ($id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264') {
@@ -151,6 +154,16 @@ class ReferencebookController extends Controller
         }
 
         ReferenceBook::where('id', $id)->update($data);
+
+        if (request('content') !== null) {
+            $content = request('content');
+            $data = [
+                'content' => $content,
+            ];
+
+            ReferenceBook::where('id', $id)->update($data);
+
+        }
 
         if ($_FILES['content']['name'] !== "") {
             if ($id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264') {

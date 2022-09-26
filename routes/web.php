@@ -17,6 +17,7 @@ use App\Http\Controllers\ReferencethemeController;
 use App\Http\Controllers\SendcreationController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WebController;
@@ -129,6 +130,7 @@ Route::middleware('auth')->group(function () {
 
         // Book
         Route::get('/book', [BookController::class, 'index']);
+        Route::post('/upload', [UploadController::class, 'upload'])->name('dashboard.upload');
         Route::get('/book/comment/{id}', [CommentController::class, 'dashboard']);
         Route::delete('/book/comment/{id}', [CommentController::class, 'destroy']);
         Route::patch('/book/comment/{id}', [CommentController::class, 'update']);

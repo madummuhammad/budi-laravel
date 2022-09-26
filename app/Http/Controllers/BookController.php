@@ -98,7 +98,7 @@ class BookController extends Controller
         if ($request->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
             $content = $this->upload_audio($request);
         } elseif ($request->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
-            $content = $this->upload_video($request);
+            $content = request('content');
         } else {
             $content = $this->upload_pdf($request);
         }
@@ -188,11 +188,19 @@ class BookController extends Controller
             Book::where('id', $id)->update($cover);
         }
 
+        if (request('content') !== null) {
+            $content = request('content');
+            $contents = [
+                'content' => $content,
+            ];
+            Book::where('id', $id)->update($contents);
+        }
+
         if ($_FILES['content']['name'] !== "") {
             if (request($name) == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
                 $content = $this->upload_audio(request());
             } elseif (request($name) == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
-                $content = $this->upload_video(request());
+                $content = request('content');
             } else {
                 $content = $this->upload_pdf(request());
             }

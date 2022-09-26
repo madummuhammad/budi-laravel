@@ -194,7 +194,14 @@
         </div>
     </div>
     <div id="section-5" style="margin-top:80px">
-        <h2 class="text-center mb-4 fw-bold">Paling Banyak Dibaca</h2>
+        <h2 class="text-center mb-4 fw-bold">Paling Banyak @if ($book_types->id == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                Didengar
+            @elseif ($book_types->id == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                Ditonton
+            @else
+                Dibaca
+            @endif
+        </h2>
         <div class="container">
             <div class="row">
                 <div class="col-12">

@@ -234,7 +234,7 @@
                                     </div>
                                     <div class="modal-body d-flex justify-content-center">
                                         <video controls style="width: 100%;" autoplay muted>
-                                            <source src="../storage/{{ $book_detail->content }}" type="video/mp4">
+                                            <source src="{{ $book_detail->content }}" type="video/mp4">
                                             Your browser does not support HTML video.
                                         </video>
                                     </div>
@@ -245,7 +245,7 @@
                 @else
                     <div class="baca-button-group d-md-flex mt-5 pt-5">
                         <button
-                            class="w-100 my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                            class=" my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_book" data-book="../storage/{{ $book_detail->content }}"
                             data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -254,7 +254,7 @@
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
-                        <form class="me-4 w-100" action="{{ url('download') }}" method="post">
+                        <form class="me-4" action="{{ url('download') }}" method="post">
                             @csrf
                             <input type="text" name="file" value="{{ $book_detail->content }}"
                                 style="display: none">
@@ -262,12 +262,12 @@
                                 style="display: none">
                             @method('POST')
                             <button
-                                class="my-2 w-100 btn btn-outline-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100 download"><i
+                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
-                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class=" my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
