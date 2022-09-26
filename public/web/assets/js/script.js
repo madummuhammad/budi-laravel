@@ -53,7 +53,6 @@ var numberPage = $(".pagination .pagination-link").length;
 
 
 function showPage(pagination) {
-    console.log(pagination)
     if (pagination < 0 || pagination >= numberPage) return;
     $("#pagin li").removeClass("active").eq(pagination).addClass("active");
     if (pagination == 2) {
@@ -159,7 +158,7 @@ var format = $("#home-tab-body #format .dropdown-item");
 $("#jenjang button").on('click', function () {
     for (let s = 0; s < jenjang_item.length; s++) {
         jenjang_item[s].addEventListener('click', function () {
-            $("#jenjang button").html("<p>" + $(this).html() + "</p>");
+            $("#jenjang button").html("<p class='overflow-hidden'>" + $(this).html() + "</p>");
             $("[name=jenjang]").val($(this).data('value'));
         });
     }
@@ -167,7 +166,7 @@ $("#jenjang button").on('click', function () {
 $("#tema button").on('click', function () {
     for (let s = 0; s < tema.length; s++) {
         tema[s].addEventListener('click', function () {
-            $("#tema button").html("<p>" + $(this).html() + "</p>");
+            $("#tema button").html("<p class='overflow-hidden'>" + $(this).html() + "</p>");
             $("[name=tema]").val($(this).data('value'));
         });
     }
@@ -175,7 +174,7 @@ $("#tema button").on('click', function () {
 $("#bahasa button").on('click', function () {
     for (let s = 0; s < bahasa.length; s++) {
         bahasa[s].addEventListener('click', function () {
-            $("#bahasa button").html("<p>" + $(this).html() + "</p>");
+            $("#bahasa button").html("<p class='overflow-hidden'>" + $(this).html() + "</p>");
             $("[name=bahasa]").val($(this).data('value'));
         });
     }
@@ -183,7 +182,7 @@ $("#bahasa button").on('click', function () {
 $("#format button").on('click', function () {
     for (let s = 0; s < format.length; s++) {
         format[s].addEventListener('click', function () {
-            $("#format button").html("<p>" + $(this).html() + "</p>");
+            $("#format button").html("<p class='overflow-hidden'>" + $(this).html() + "</p>");
             $("[name=format]").val($(this).data('value'));
         });
     }

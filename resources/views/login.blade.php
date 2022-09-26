@@ -106,6 +106,11 @@
                                 {{ session('loginError') }}
                             </div>
                         @endif
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <form action="{{ url('login') }}" method="POST">
                             @method('POST')
                             @csrf

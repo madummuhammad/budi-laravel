@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookStatisticExport;
 use App\Models\Book;
 use App\Models\Mylibrary;
 use App\Models\ReferenceBook;
 use App\Models\VisitorVisit;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StatisticController extends Controller
 {
@@ -46,5 +48,10 @@ class StatisticController extends Controller
         $data['shared'] = VisitorVisit::with('visitors', 'visitors.shares', 'visitors.shares.books', 'visitors.shares.books.levels', 'visitors.shares.books.themes', 'visitors.shares.books.book_types')->where('id', $id)->get();
 
         return view('dashboard.profiling', $data);
+    }
+
+    public function book_export()
+    {
+        return Excel::download(new BookStatisticExport, 'siswa.xlsx');
     }
 }

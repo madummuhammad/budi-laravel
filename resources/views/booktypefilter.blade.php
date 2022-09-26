@@ -108,8 +108,8 @@
                                                             @method('POST')
                                                             <button type="submit" data-book_id="{{ $book->id }}"
                                                                 class="dropdown-item download" href="#"><i
-                                                                    class="fa-solid fa-download"></i>
-                                                                Download</button>
+                                                                    class="bi bi-download fs-6"></i>
+                                                                Unduh</button>
                                                         </form>
                                                     </li>
                                                     <li><a data-book_id="{{ $book->id }}"

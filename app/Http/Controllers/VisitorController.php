@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Visitor;
 use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
 
@@ -37,11 +39,40 @@ class VisitorController extends Controller
         }
     }
 
+    public function confirm($id)
+    {
+        $token = Visitor::where('token', $id)->where('status', 'Pending')->first();
+        if ($token) {
+            Visitor::where('token', $id)->update(['status' => 'Active']);
+            return redirect('login')->with(['success' => 'Kredensial berhasil dikonfirmasi! Silakan Login']);
+        } else {
+            return abort(404);
+        }
+    }
+
     public function auth_register()
     {
+        $email = "";
+        $phone = "";
+        $check_email = Validator::make(['surel' => request('surel')], ['surel' => 'required|email']);
+
+        if ($check_email->fails()) {
+            $phone = request('surel');
+        } else {
+            $email = request('surel');
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            $from = "testing@ansol.com";
+            $to = $email;
+            $subject = "Checking PHP mail";
+            $message = "PHP mail berjalan dengan baik";
+            $headers = "From:" . $from;
+            mail($to, $subject, $message, $headers);
+            return "Pesan email sudah terkirim.";
+        }
+
         $data = [
             'name' => request('name'),
-            'phone' => request('phone'),
             'city' => request('city'),
             'sub' => request('sub'),
             'area' => request('area'),
@@ -52,7 +83,6 @@ class VisitorController extends Controller
 
         $validation = Validator::make($data, [
             'name' => 'required',
-            'phone' => 'required',
             'city' => 'required',
             'sub' => 'required',
             'area' => 'required',
@@ -64,26 +94,25 @@ class VisitorController extends Controller
         if ($validation->fails()) {
             return back()->withErrors($validation)->withInput($data);
         }
-        if (request('sub_status') !== null) {
-            $status = request('status') . '-' . request('sub-status');
-        } else {
-            $status = request('status');
-        }
 
         $data = [
             'name' => request('name'),
-            'phone' => request('phone'),
+            'phone' => $phone,
+            'email' => $email,
             'image' => url('/storage/image/default.jpg'),
             'city' => request('city'),
             'sub' => request('sub'),
             'area' => request('area'),
-            'status' => $status,
+            'status' => 'Pending',
+            'token' => Str::random(60) . time(),
+            'profession' => request('status'),
+            'level' => request('sub-status'),
             'username' => request('username'),
             'password' => Hash::make(request('password')),
         ];
         Visitor::create($data);
 
-        return redirect('login');
+        return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
     }
 
     public function auth_login(Request $request)
@@ -100,6 +129,11 @@ class VisitorController extends Controller
 
         if ($validation->fails()) {
             return redirect('login')->withErrors($validation)->withInput($credentials);
+        }
+
+        $is_active = Visitor::where('username', request('username'))->where('status', 'Pending')->count();
+        if ($is_active == 1) {
+            return back()->with(['loginError' => 'Anda belum mengonfirmasi pos-el/no ponsel']);
         }
         if (Auth::guard('visitor')->attempt($credentials)) {
             $data = json_decode($request->cookie('visitor_session'));

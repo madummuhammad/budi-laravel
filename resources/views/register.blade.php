@@ -94,6 +94,11 @@
             <div class="col-12 col-md-6 bg-white">
                 <h5 class="fw-bold">Selamat Datang</h5>
                 <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
+                @if (session()->has('message'))
+                    <div class="alert alert-warning" role="alert">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 <form action="{{ url('register') }}" class="mb-5" method="POST">
                     @csrf
                     @method('POST')
@@ -116,7 +121,7 @@
                                 class="form-control mt-3 py-3 @error('phone')
                                     is-invalid
                                 @enderror"
-                                placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="phone">
+                                placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="surel">
                             @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -164,7 +169,7 @@
                     </div>
                     <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
                         placeholder="" name="status">
-                        <option selected disabled>Status</option>
+                        <option selected value="">Status</option>
                         <option value="Siswa">Siswa</option>
                         <option value="Guru / Tenaga Pendidik">Guru/ Tenaga Pendidik</option>
                         <option value="Orang Tua Siswa">Orang Tua Siswa</option>
@@ -218,9 +223,9 @@
             $("#sub-status").html(`
             <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
                             placeholder="" name="sub-status">
-                            <option selected disabled>--Pilih Jenjang--</option>
+                            <option selected value="">--Pilih Jenjang--</option>
                             <option value="SD">SD</option>
-                            <option value="SMP / Tenaga Pendidik">SMP</option>
+                            <option value="SMP">SMP</option>
                             <option value="SMA">SMA</option>
                         </select>
             `);
@@ -229,11 +234,11 @@
             $("#sub-status").html(`
         <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
                         placeholder="" name="sub-status">
-                        <option selected disabled>--Pilih Jenjang--</option>
+                        <option selected value="">--Pilih Jenjang--</option>
                         <option value="PAUD">PAUD</option>
                         <option value="Siswa">SD</option>
-                        <option value="Guru / Tenaga Pendidik">SMP</option>
-                        <option value="Orang Tua Siswa">SMA</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
                     </select>
         `);
         } else {

@@ -1,0 +1,306 @@
+@extends('main')
+@section('judul_halaman', 'Homepage')
+@section('content')
+    <div id="hero">
+        <img class="w-100" src="{{ url('web') }}/assets/img/cari_bukuku.png" alt="">
+        <h2 class=" ff-kidzone tagline text-white">Cari Bukuku</h2>
+    </div>
+    <img src="" alt="">
+    <div class="container">
+        <!-- Tab panes -->
+        <div class="tab-content mt-3">
+            <div class="tab-pane container active" id="buku_bacaan">
+                <div class="d-flex justify-content-center">
+                    <div class="home-tab bg-young-blue">
+                        <h4 class="text-center text-white mb-3"><img src="assets/icon/book_2.svg" alt="">
+                            Temukan
+                            Buku
+                            sesuai minat dan kebutuhanmu</h4>
+                        <div class="home-tab-body w-100" id="home-tab-body">
+                            <div class="container">
+                                <div class="row">
+                                    <button
+                                        class="text-white d-block d-sm-none text-center mx-auto btn text-decoration-underline"
+                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
+                                        Jenjang, Tema, Bahasa, dan Format</button>
+                                    <div class="d-none d-sm-block col-12 col-md-2 my-1">
+                                        <div class="dropdown w-100" id="jenjang">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <p>Jenjang</p>
+                                            </button>
+                                            <input type="text" name="jenjang" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                                        (123)</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
+                                                        (456)</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="555c961c-fb2a-4a25-8829-4a12c7d2afc0">SMA</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="a26a4afd-7226-434c-83f3-9ca3ce4af523">UMUM</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-sm-block col-12 col-md-2 my-1">
+                                        <div class="dropdown w-100" id="tema">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                                data-value="">
+                                                <p>Tema</p>
+                                            </button>
+                                            <input type="text" name="tema" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger" data-value="">Tema</a></li>
+                                                @foreach ($themes as $theme)
+                                                    <li><a class="dropdown-item"
+                                                            data-value="{{ $theme->id }}">{{ $theme->name }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-sm-block col-12 col-md-2 my-1">
+                                        <div class="dropdown w-100" id="bahasa">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="true"
+                                                data-value="">
+                                                <p>Bahasa</p>
+                                            </button>
+                                            <input type="text" name="bahasa" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger">Bahasa</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="31d76818-3c8a-4f54-aa65-f14dd5c71008">Indonesia</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="62efa3bd-5db5-4627-aabc-5c180f58cf26">Inggris</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="886bcb5a-43a8-4801-8a76-109b173cdb51">Daerah</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-sm-block col-12 col-md-2 my-1">
+                                        <div class="dropdown w-100" id="format">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle blue"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="true"
+                                                data-value="">
+                                                <p>Format</p>
+                                            </button>
+                                            <input type="text" name="format" value="" hidden>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-danger" data-value="">Format</a></li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="2fd97285-08d0-4d81-83f2-582f0e8b0f36">Buku
+                                                        Bacaan</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="31ba455c-c9c7-4a3c-a2b1-62915546eaba">Buku
+                                                        Komik</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="9e30a937-0d60-49ad-9775-c19b97cfe864">Buku
+                                                        Audio</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        data-value="bfe3060d-5f2e-4a1b-9615-40a9f936c6cc">Buku
+                                                        Video</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 my-1">
+                                        <div class="input-search w-100">
+                                            <input type="text" class="form-control" id="search"
+                                                placeholder="Cari">
+                                            <button class="btn" id="search-button"><i
+                                                    class="bi bi-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- asdfasdf -->
+                <div class="row">
+                    <h2 class="fw-bold">Hasil Pencarian :</h2>
+                    <div class="d-block d-md-flex">
+                        <div class="ms-2 fs-5">Jenjang: <span class="fw-bold fs-5">
+                                @if ($s_levels !== null)
+                                    {{ $s_levels->name }}
+                                @else
+                                    Semua,
+                                @endif
+                            </span></div>
+                        <div class="ms-2 fs-5">Tema: <span class="fw-bold fs-5">
+                                @if ($s_themes !== null)
+                                    {{ $s_themes->name }}
+                                @else
+                                    Semua,
+                                @endif
+                            </span></div>
+                        <div class="ms-2 fs-5">Bahasa: <span class="fw-bold fs-5">
+                                @if ($s_languages !== null)
+                                    {{ $s_languages->name }}
+                                @else
+                                    Semua,
+                                @endif
+                            </span></div>
+                        <div class="ms-2 fs-5">Format: <span class="fw-bold fs-5">
+                                @if ($s_format !== null)
+                                    {{ $s_format->name }}
+                                @else
+                                    Semua,
+                                @endif
+                            </span></div>
+                    </div>
+                </div>
+                <style>
+                    #pagin li {
+                        list-style: none;
+                    }
+
+                    #pagin .page-item {
+                        border: 2px solid #DDDDDD;
+                        background-color: transparent;
+                        margin-left: 10px;
+                        margin-right: 10px;
+                        width: 35px;
+                        height: 35px;
+                    }
+
+                    #pagin a {
+                        text-decoration: none;
+                        width: 100px;
+                        display: block;
+                        text-align: center;
+                    }
+
+                    #pagin .page-item.prev,
+                    #pagin .next {
+                        height: 35px;
+                        width: 35px;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .paginate-pagination {
+                        display: none
+                    }
+
+                    a.page-item.active {
+                        color: white;
+                        background-color: #3C6EFD !important;
+                    }
+                </style>
+                @foreach ($format as $format)
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mt-5 mb-3">Buku Teks</h5>
+                        <h5 class="mt-5 mb-3">( 10 /50 )</h5>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-5 paginate-search">
+                        @foreach ($books->where('book_type', $format->id)->get() as $book)
+                            <div class="col mb-4">
+                                <div class="card p-2">
+                                    <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
+                                            <span><img src="assets/icon/love.svg" alt=""> 100</span>
+                                            <span><img src="assets/icon/little-book.svg" alt=""> 100</span>
+                                        </div>
+                                        <a href=""><i class="bi bi-three-dots-vertical"></i></a>
+                                    </div>
+                                    <div class="card-body p-1">
+                                        <div class="card-title fw-bold">
+                                            {{ $book->name }}
+                                        </div>
+                                        @foreach ($book->authors as $author)
+                                            <p class="card-text">Author: {{ $author->name }}</p>
+                                        @endforeach
+                                        @foreach ($book->themes as $theme)
+                                            <p class="card-text">Tema: {{ $theme->name }}</p>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                                <div class="card-body p-1">
+
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <nav id="pagin" class="paginate-pagination paginate-pagination-{{ $loop->index }} d-block"
+                            data-parent="{{ $loop->index }}">
+                            <ul class="d-flex">
+                                <li class="page-item prev"><a href="#" data-page="prev"
+                                        class="page page-prev deactive prev page-link">
+                                        <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
+                                    </a>
+                                </li>
+                                @for ($i = 0; $i < ceil($books->where('book_type', $format->id)->count() / 20); $i++)
+                                    <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
+                                            class="page page-{{ $i + 1 }} page-item @if ($i > 2) d-none @endif">{{ $i + 1 }}</a>
+                                    </li>
+                                @endfor
+                                <li class="page-item next"><a href="#" data-page="next"
+                                        class="page page-next-link"><img src="{{ asset('web') }}/assets/icon/next-2.svg"
+                                            alt=""></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
+    <script src="{{ asset('web') }}/assets/js/jquery.paginate.js"></script>
+    <script>
+        var token = $("input[name=_token]").val();
+        $(".paginate-search").paginate({
+            perPage: 20,
+            paginatePosition: ['bottom'],
+            useHashLocation: false,
+            autoScroll: false,
+            onPageClick: function() {
+
+            }
+        });
+        // var paginate_search = $(".paginate-search").length;
+        // for (let i = 0; i < paginate_search; i++) {
+        //     page_item = $(".paginate-pagination-" + i + " .page.page-item");
+        //     for (let x = 0; x < page_item.length; x++) {
+        //         $(page_item[x]).on('click', function() {
+        //             page_item = $(".paginate-pagination-" + i + " .page.page-item");
+        //             for (let z = 0; z <= x; z++) {
+        //                 $(page_item[z + 1 - 2]).addClass('d-none')
+        //                 $(page_item[z + 2]).removeClass('d-none')
+        //             }
+        //         })
+        //     }
+        // }
+
+        $("#search-button").on('click', function() {
+            var jenjang = $("[name=jenjang]").val();
+            var tema = $("[name=tema]").val();
+            var bahasa = $("[name=bahasa]").val();
+            var format = $("[name=format]").val();
+            var search = $("#search").val();
+            window.location.href =
+                "{{ url('search?') }}level=" + jenjang + "&theme=" + tema +
+                "&language=" + bahasa + "&format=" + format + "&keyword=" + search
+        });
+    </script>
+@endsection

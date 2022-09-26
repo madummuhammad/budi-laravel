@@ -30,7 +30,7 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <i class="fa-regular fa-heart"></i>
+                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
                             {{ $liked_number }}</span>
@@ -77,8 +77,23 @@
                         <h1 class="fw-bold mb-5">{{ $book_detail->name }}</h1>
                     </div>
                     <div class="col-3 d-flex justify-content-end pt-2">
-                        <a class="mx-2 text-dark" href=""><i class="fa-regular fa-heart"></i></a>
-                        <a class="mx-2 text-dark" href=""><i class="fa-solid fa-share-nodes"></i></a>
+                        <a class="mx-2 text-dark" id="liked-top" style="cursor: pointer">
+                            <span id="liked-top-icon">
+                                @if (auth()->guard('visitor')->check() == true)
+                                    @if ($likeds)
+                                        <i class="fa-solid fa-heart text-danger"></i>
+                                    @else
+                                        <i class="fa-regular fa-heart"></i>
+                                    @endif
+                                @else
+                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
+                                @endif
+                            </span>
+                        </a>
+                        <a data-book_id="{{ $book_detail->id }}" class="dropdown-item share ms-3"
+                            href="whatsapp://send?text={{ url('book/') }}/{{ $book_detail->id }}"><i
+                                class="fa-solid fa-share-nodes"></i>
+                        </a>
                     </div>
                 </div>
                 @php
@@ -440,6 +455,58 @@
                 });
 
             });
+
+            $("#liked-top").on('click', function() {
+                var liked_top = $("#liked-top").hasClass("active");
+                if (liked_top == false) {
+                    var status = "unliked";
+                } else {
+                    var status = "liked";
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('liked') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {
+                        if (liked_top == false) {
+                            $("#liked-top").addClass('active');
+                            $("#liked-top #liked-top-icon").html(
+                                `<i class="fa-solid fa-heart text-danger"></i>`)
+                        } else {
+                            $("#liked-top").removeClass('active');
+                            $("#liked-top #liked-top-icon").html(
+                                `<i class="fa-regular fa-heart"></i>`)
+                        }
+                    }
+                });
+
+            });
+
+
+            var share = $('.share')
+            for (let i = 0; i < share.length; i++) {
+                $(share[i]).on('click', function() {
+                    var book_id = $(this).data('book_id');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('share') }}",
+                        data: {
+                            _method: "POST",
+                            book_id: book_id,
+                            visitor_id: visitor_id,
+                            _token: token
+                        },
+                        success: function(hasil) {}
+                    });
+                });
+            }
+
             $("#show_book").on('click', function() {
                 var status = $(this).data('status');
                 $.ajax({

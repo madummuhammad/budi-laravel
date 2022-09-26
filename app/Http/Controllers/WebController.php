@@ -213,6 +213,7 @@ class WebController extends Controller
         }
 
         $data['reference_book'] = ReferenceBook::with('authors', 'reference_themes', 'reference_book_types')->where('id', $id)->first();
+        $data['related_books'] = ReferenceBook::where('theme', $data['reference_book']->theme)->orWhere('level', $data['reference_book']->level)->limit(6)->get();
         return view('reference_book_detail', $data);
     }
 
@@ -599,6 +600,45 @@ class WebController extends Controller
     public function policy()
     {
         return view('policy');
+    }
+
+    public function search()
+    {
+        if (request('level') == null and request('theme') == null and request('language') == null and request('format') == null and request('keyword') == null) {
+            $data['books'] = new Book;
+        } else {
+            $queryData = $data['books'] = new Book;
+            if (request('level') !== null) {
+                $query = $queryData->where('level', request('level'));
+            }
+            if (request('theme') !== null) {
+                $query = $queryData->where('theme', request('theme'));
+            }
+
+            if (request('language') !== null) {
+                $query = $queryData->where('language', request('language'));
+            }
+
+            if (request('format') !== null) {
+                $query = $queryData->where('book_type', request('format'));
+            }
+
+            if (request('keyword') !== null) {
+                $query = $queryData->where('name', 'LIKE', '%' . request('keyword') . '%');
+            }
+            $data['books'] = $query;
+        }
+        $data['s_languages'] = Language::where('id', request('language'))->first();
+        $data['s_format'] = Book_type::where('id', request('format'))->first();
+        $data['s_levels'] = Level::where('id', request('level'))->first();
+        $data['s_themes'] = Theme::where('id', request('theme'))->first();
+
+        $data['languages'] = Language::all();
+        $data['format'] = Book_type::all();
+        $data['levels'] = Level::all();
+        $data['themes'] = Theme::all();
+        return view('searchbook', $data);
+
     }
 
     public function upload_img($request, $name)

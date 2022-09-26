@@ -11,6 +11,7 @@ use App\Models\ReferenceBookDownload;
 use App\Models\ReferenceBookLiked;
 use App\Models\ReferenceBookType;
 use App\Models\ReferenceComment;
+use App\Models\ReferenceShare;
 use App\Models\ReferenceTheme;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -301,6 +302,26 @@ class ReferencebookController extends Controller
 
         ReferenceComment::create($data);
         return back();
+    }
+
+    public function share(Request $request)
+    {
+        $data = [
+            'book_id' => request('book_id'),
+            'visitor_id' => request('visitor_id'),
+            'shared' => 1,
+        ];
+
+        $validation = Validator::make($data, [
+            'book_id' => 'required',
+            'visitor_id' => 'required',
+        ]);
+
+        $dataVisitor = json_decode($request->cookie('visitor_session'));
+        ReferenceShare::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
+        if ($validation->fails()) {
+            return back();
+        }
     }
 
     public function upload_img($request)

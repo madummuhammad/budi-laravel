@@ -722,22 +722,25 @@
                     var bahasa = $("[name=bahasa]").val();
                     var format = $("[name=format]").val();
                     var search = $("#search").val();
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ url('homebookfilter') }}",
-                        data: {
-                            _method: "POST",
-                            _token: token,
-                            jenjang: jenjang,
-                            tema: tema,
-                            bahasa: bahasa,
-                            format: format,
-                            search: search
-                        },
-                        success: function(hasil) {
-                            $("#tab-book").html(hasil);
-                        }
-                    });
+                    window.location.href =
+                        "{{ url('search?') }}level=" + jenjang + "&theme=" + tema +
+                        "&language=" + bahasa + "&format=" + format + "&keyword=" + search
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: "{{ url('homebookfilter') }}",
+                    //     data: {
+                    //         _method: "POST",
+                    //         _token: token,
+                    //         jenjang: jenjang,
+                    //         tema: tema,
+                    //         bahasa: bahasa,
+                    //         format: format,
+                    //         search: search
+                    //     },
+                    //     success: function(hasil) {
+                    //         $("#tab-book").html(hasil);
+                    //     }
+                    // });
                 });
                 $("#tab-book").html(hasil);
             }

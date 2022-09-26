@@ -10,12 +10,19 @@
                     <li class="breadcrumb-item"><a class="text-decoration-none"
                             href="{{ url('book_type/') . '/' . $book_type->id }}">{{ $book_type->name }}</a>
                 @endforeach
-                <li class="breadcrumb-item active">Selamat Tidur Kola</li>
+                <li class="breadcrumb-item active">{{ $reference_book->name }}</li>
             </ol>
         </nav>
         <div class="row mt-3">
-            <div class="col-3">
-                <img class="img-fluid w-100" src="{{ $reference_book->cover }}" alt="">
+            <div class="col-md-3 col-12">
+                <div class="img-container-for-icon">
+                    <img class="img-fluid w-100" src="{{ $reference_book->cover }}" alt="">
+                    @if ($reference_book->reference_book_type == '220843b8-4f60-4e47-9aca-cf6ea0d54afe')
+                        <div class="icon">
+                            <img class="w-50" src="{{ asset('web') }}/assets/icon/play.svg" alt="">
+                        </div>
+                    @endif
+                </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-flex ">
                         @if (auth()->guard('visitor')->check() == true)
@@ -85,8 +92,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
-                <h1 class="fw-bold mb-5">{{ $reference_book->name }}</h1>
+            <div class="col-md-9 col-12 book-detail-content">
+                <div class="row d-md-flex justify-content-between align-items-start">
+                    <div class="col-9">
+                        <h1 class="fw-bold mb-5">{{ $reference_book->name }}</h1>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end pt-2">
+                        <a class="mx-2 text-dark" id="liked-top" style="cursor: pointer">
+                            <span id="liked-top-icon" class="liked">
+                                @if (auth()->guard('visitor')->check() == true)
+                                    @if ($liked_number->where(
+                                            'visitor_id',
+                                            auth()->guard('visitor')->user()->id)->count() == 1)
+                                        <i class="fa-solid fa-heart text-danger"></i>
+                                    @else
+                                        <i class="fa-regular fa-heart"></i>
+                                    @endif
+                                @else
+                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
+                                @endif
+                            </span>
+                        </a>
+                        <a class="mx-2 text-dark share" data-book_id="{{ $reference_book->id }}"
+                            class="dropdown-item share"
+                            href="whatsapp://send?text={{ url('book/') }}/{{ $reference_book->id }}"><i
+                                class="fa-solid fa-share-nodes"></i>
+                        </a>
+                    </div>
+                </div>
                 @php
                     echo $reference_book->sinopsis;
                 @endphp
@@ -99,10 +132,14 @@
                         <input type="text" name="book_type" value="{{ $reference_book->reference_book_type }}"
                             style="display: none">
                         @method('POST')
-                        <button type="submit"
-                            class="btn btn-outline-blue d-flex justify-content-center align-items-center
-                                py-2 me-4"><i
-                                class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <button type="submit"
+                                    class="btn w-100 btn-outline-blue d-flex justify-content-center align-items-center
+                                        py-2 me-4 col-12"><i
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                            </div>
+                        </div>
                     </form>
                     <div class="modal fade" id="tonton-video" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -183,11 +220,12 @@
                         <p>{{ $comment->comment }}</p>
                     </div>
                 </div>
+                @csrf
             @endforeach
-            {{-- <div class="row mt-5 mb-5" id>
+            <div class="row mt-5 mb-5" id>
                 <div class="header d-flex justify-content-between" style="padding-right: 35px;">
                     <h2 class="fw-bold">Referensi Buku Sejenis</h2>
-                    <a href="{{ url('book_type/') }}/{{ $book_type->id }}">Lihat Semua</a>
+                    <a href="{{ url('reference_book/') }}/{{ $reference_book->reference_book_type }}">Lihat Semua</a>
                 </div>
                 <div class="col-12">
                     <div class="row row-cols-md-6 row-cols-1">
@@ -198,7 +236,63 @@
                         @endforeach
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
+    <script>
+        var token = $("input[name=_token]").val()
+        @if (auth()->guard('visitor')->check() == true)
+            var visitor_id = "{{ auth()->guard('visitor')->user()->id }}";
+        @else
+            var visitor_id = null;
+        @endif
+        var likeds = $('.liked')
+        for (let i = 0; i < likeds.length; i++) {
+            $(likeds[i]).on('click', function() {
+                var book_id = $(this).data('book_id');
+                if ($(this).hasClass('active') == false) {
+                    $(this).addClass('active');
+                    $(this).html(' <i class="fa-solid fa-heart text-danger"></i>')
+                    var status = "unliked";
+                } else {
+                    $(this).removeClass('active');
+                    $(this).html('<i class="fa-regular fa-heart"></i>')
+                    var status = "liked";
+                }
+                alert(token)
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('reference_liked') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {}
+                });
+
+            });
+        }
+
+        var share = $('.share')
+        for (let i = 0; i < share.length; i++) {
+            $(share[i]).on('click', function() {
+                var book_id = $(this).data('book_id');
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('reference_share') }}",
+                    data: {
+                        _method: "POST",
+                        book_id: book_id,
+                        visitor_id: visitor_id,
+                        _token: token
+                    },
+                    success: function(hasil) {}
+                });
+            });
+        }
+    </script>
 @endsection

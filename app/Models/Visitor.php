@@ -43,6 +43,7 @@ class Visitor extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'id',
     ];
 
     /**

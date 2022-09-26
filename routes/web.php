@@ -40,6 +40,7 @@ Route::middleware('visitor')->group(function () {
         Route::post('/logout', [VisitorController::class, 'logout']);
         Route::get('/register', [VisitorController::class, 'register']);
         Route::post('/register', [VisitorController::class, 'auth_register']);
+        Route::get('/confirm/{id}', [VisitorController::class, 'confirm']);
 
         // Route::get('/pdf', [WebController::class, 'pdf']);
 
@@ -86,6 +87,7 @@ Route::middleware('visitor')->group(function () {
         Route::post('/reference_download', [ReferenceBookController::class, 'download']);
         Route::post('/reference_downloaded', [ReferenceBookController::class, 'downloaded']);
         Route::post('/reference_comment', [ReferenceBookController::class, 'comment']);
+        Route::post('/reference_share', [ReferenceBookController::class, 'share']);
 
         // Blog
         Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
@@ -109,6 +111,9 @@ Route::middleware('visitor')->group(function () {
 
         // Set Cookies
         Route::post('/set_cookie', [WebController::class, 'set_cookies']);
+
+        // Search
+        Route::get('/search', [WebController::class, 'search']);
     });
 });
 
@@ -221,6 +226,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/visitor/{id}', [StatisticController::class, 'profiling']);
         Route::get('/statistic/book', [StatisticController::class, 'book']);
         Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
+
+        Route::get('statistic/book/export', [StatisticController::class, 'book_export']);
 
         // Visitor Profiling
         Route::get('/visitor/profiling/{id}', [VisitorController::class, 'profiling']);

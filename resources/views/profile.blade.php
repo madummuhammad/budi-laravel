@@ -52,7 +52,7 @@
             </div>
             <div class="col-7 ps-5">
                 <div class="d-flex align-items-center justify-content-between mb-5">
-                    <h2 class="fw-bold">Febri Hidayanto Azzikri</h2>
+                    <h2 class="fw-bold">{{ auth()->guard('visitor')->user()->name }}</h2>
                     <button data-bs-toggle="modal" data-bs-target="#profile" class="btn text-blue"><i
                             class="fas fa-edit"></i></button>
                     <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel"
