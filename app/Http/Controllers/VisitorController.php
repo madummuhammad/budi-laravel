@@ -65,8 +65,8 @@ class VisitorController extends Controller
             error_reporting(E_ALL);
             $from = "support@ansol.id";
             $to = $email;
-            $subject = "Checking PHP mail";
-            $message = "Link verifikasi anda" . url('confirm/') . '/' . $str_random;
+            $subject = "Verifikasi Email Anda";
+            $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
             $headers = "From:" . $from;
             mail($to, $subject, $message, $headers);
         }
