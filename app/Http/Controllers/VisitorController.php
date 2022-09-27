@@ -61,14 +61,14 @@ class VisitorController extends Controller
             $phone = request('surel');
         } else {
             $email = request('surel');
-            // ini_set('display_errors', 1);
-            // error_reporting(E_ALL);
-            // $from = "support@ansol.id";
-            // $to = $email;
-            // $subject = "Verifikasi Email Anda";
-            // $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
-            // $headers = "From:" . $from;
-            // mail($to, $subject, $message, $headers);
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            $from = "support@ansol.id";
+            $to = $email;
+            $subject = "Verifikasi Email Anda";
+            $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
+            $headers = "From:" . $from;
+            mail($to, $subject, $message, $headers);
         }
 
         $data = [
