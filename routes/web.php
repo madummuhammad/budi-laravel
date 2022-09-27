@@ -49,6 +49,7 @@ Route::middleware('visitor')->group(function () {
         Route::get('/profile', [VisitorController::class, 'index']);
         Route::patch('/profile', [VisitorController::class, 'update']);
         Route::patch('/profile_image', [VisitorController::class, 'profile_image']);
+        Route::delete('/profile_image', [VisitorController::class, 'delete_profile']);
 
         // My Library
         Route::get('/mylibrary', [WebController::class, 'my_library']);
@@ -229,7 +230,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/book', [StatisticController::class, 'book']);
         Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
 
-        Route::get('statistic/book/export', [StatisticController::class, 'book_export']);
+        Route::get('statistic/book/export', [StatisticController::class, 'book_statistic_export']);
+        Route::get('/visitor/export', [StatisticController::class, 'visitor_export']);
+        Route::get('/visitor/today/export', [StatisticController::class, 'visitor_today_export']);
+        Route::get('/visitor/alltime/export', [StatisticController::class, 'visitor_alltime_export']);
+        Route::get('/book/export', [StatisticController::class, 'book_export']);
 
         // Visitor Profiling
         Route::get('/visitor/profiling/{id}', [VisitorController::class, 'profiling']);

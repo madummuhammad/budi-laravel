@@ -33,7 +33,7 @@ class BookController extends Controller
     public function book_filter()
     {
         if (request('book_type') == null and request('theme') == null and request('level') == null and request('language') == null) {
-            $data['books'] = Book::with('authors', 'book_pdfs', 'book_types')->get();
+            $data['books'] = Book::with('authors', 'book_pdfs', 'book_types')->orderBy('created_at', 'DESC')->get();
         } else {
             $queryData = $data['books'] = Book::with('authors', 'book_pdfs', 'book_types');
             if (request('book_type') !== null) {
@@ -50,7 +50,7 @@ class BookController extends Controller
             if (request('language') !== null) {
                 $query = $queryData->where('language', request('language'));
             }
-            $data['books'] = $query->get();
+            $data['books'] = $query->orderBy('created_at', 'DESC')->get();
         }
         $data['authors'] = Author::all();
         $data['themes'] = Theme::all();

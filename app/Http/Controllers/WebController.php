@@ -37,7 +37,7 @@ class WebController extends Controller
     public function index()
     {
         $data['levels'] = Level::all();
-        $data['books'] = Book::where('display_homepage', 1)->get();
+        $data['books'] = Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
         $data['themes'] = Theme::all();
         $data['blogs'] = Blog::where('display_homepage', 1)->limit(4)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
@@ -55,7 +55,7 @@ class WebController extends Controller
     public function homebookfilter()
     {
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('format') == null and request('search') == null) {
-            $data['books'] = Book::where('display_homepage', 1)->get();
+            $data['books'] = Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
         } else {
             $queryData = $data['books'] = Book::where('display_homepage', 1);
             if (request('jenjang') !== null) {
@@ -76,7 +76,7 @@ class WebController extends Controller
             if (request('search') !== null) {
                 $query = $queryData->where('name', 'LIKE', '%' . request('search') . '%');
             }
-            $data['books'] = $query->get();
+            $data['books'] = $query->orderBy('name', 'ASC')->get();
         }
         $data['languages'] = Language::all();
         $data['format'] = Book_type::all();
@@ -562,10 +562,18 @@ class WebController extends Controller
         //         return json_encode(false);
         //     }
         // }
+        $width = request('width');
+        if ($width < "640") {
+            $device = 'Mobile';
+        } elseif ($width < "1024" and $width > "640") {
+            $device = "Tablet";
+        } elseif ($width > "1024") {
+            $device = "PC/Laptop";
+        }
         if (auth()->guard('visitor')->check() == false) {
             if ($request->cookie('visitor_session') == null) {
                 $data = [
-                    'device' => request('width') . '  X' . request('height'),
+                    'device' => $device,
                     'browser' => $_SERVER['HTTP_USER_AGENT'],
                     'time' => time(),
                 ];
@@ -579,7 +587,7 @@ class WebController extends Controller
             if ($request->cookie('visitor_session') == null) {
                 $data = [
                     'visitor_id' => auth()->guard('visitor')->user()->id,
-                    'device' => request('width') . '  X' . request('height'),
+                    'device' => $device,
                     'browser' => $_SERVER['HTTP_USER_AGENT'],
                     'time' => time(),
                 ];

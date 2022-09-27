@@ -304,12 +304,12 @@
                         </div>
                         <span class="nav-text">Kirimkan Karyamu</span>
                     </a></li>
-                <li class="nav-label">Anggota</li>
+                <li class="nav-label">Pengguna</li>
                 <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false">
                         <div class="d-icon">
                             <i class="fa-solid fa-users"></i>
                         </div>
-                        <span class="nav-text">Pengguna</span>
+                        <span class="nav-text">Anggota</span>
                     </a></li>
                 @if (auth()->user()->role == 1)
                     <li><a href="{{ url('dashboard/admin') }}" aria-expanded="false">

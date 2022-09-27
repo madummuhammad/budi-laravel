@@ -11,7 +11,7 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        $data['themes'] = Theme::all();
+        $data['themes'] = Theme::orderBy('name', 'ASC')->get();
         return view('dashboard.theme', $data);
     }
 

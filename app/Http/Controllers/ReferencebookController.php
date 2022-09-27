@@ -24,7 +24,7 @@ class ReferencebookController extends Controller
     public function index($id)
     {
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
-        $data['books'] = ReferenceBook::with('authors', 'book_pdfs', 'reference_book_types')->where('reference_book_type', $id)->get();
+        $data['books'] = ReferenceBook::with('authors', 'book_pdfs', 'reference_book_types')->where('reference_book_type', $id)->orderBy('created_at', 'DESC')->get();
         $data['authors'] = Author::all();
         $data['themes'] = ReferenceTheme::all();
         $data['book_types'] = Book_type::all();
@@ -49,7 +49,7 @@ class ReferencebookController extends Controller
             if (request('language') !== null) {
                 $query = $queryData->where('language', request('language'));
             }
-            $data['books'] = $query->get();
+            $data['books'] = $query->orderBy('created_at', 'DESC')->get();
         }
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
         $data['authors'] = Author::all();

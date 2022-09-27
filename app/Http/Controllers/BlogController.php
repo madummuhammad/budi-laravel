@@ -15,7 +15,7 @@ class BlogController extends Controller
 {
     public function index($id)
     {
-        $data['blogs'] = Blog::with('writers')->where('blog_type', $id)->get();
+        $data['blogs'] = Blog::with('writers')->where('blog_type', $id)->orderBy('created_at', 'DESC')->get();
         $data['id'] = $id;
         return view('dashboard.blog', $data);
     }

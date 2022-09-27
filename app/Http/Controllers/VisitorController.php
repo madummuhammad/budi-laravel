@@ -61,14 +61,14 @@ class VisitorController extends Controller
             $phone = request('surel');
         } else {
             $email = request('surel');
-            ini_set('display_errors', 1);
-            error_reporting(E_ALL);
-            $from = "support@ansol.id";
-            $to = $email;
-            $subject = "Verifikasi Email Anda";
-            $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
-            $headers = "From:" . $from;
-            mail($to, $subject, $message, $headers);
+            // ini_set('display_errors', 1);
+            // error_reporting(E_ALL);
+            // $from = "support@ansol.id";
+            // $to = $email;
+            // $subject = "Verifikasi Email Anda";
+            // $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
+            // $headers = "From:" . $from;
+            // mail($to, $subject, $message, $headers);
         }
 
         $data = [
@@ -157,25 +157,21 @@ class VisitorController extends Controller
         $data = [
             'name' => request('name'),
             'email' => request('email'),
-            'address' => request('address'),
             'city' => request('city'),
             'sub' => request('sub'),
             'area' => request('area'),
-            'profession' => request('profession'),
-            'level' => request('level'),
-            'instansi' => request('instansi'),
+            'profession' => request('status'),
+            'level' => request('sub-status'),
         ];
 
         $validation = Validator::make($data, [
             'name' => 'required',
             'email' => 'required',
-            'address' => 'required',
             'city' => 'required',
             'sub' => 'required',
             'area' => 'required',
             'profession' => 'required',
             'level' => 'required',
-            'instansi' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -200,6 +196,17 @@ class VisitorController extends Controller
 
             Visitor::where('id', auth()->guard('visitor')->user()->id)->update($data);
         }
+
+        return back();
+    }
+
+    public function delete_profile()
+    {
+        if (auth()->guard('visitor')->check() == 'false') {
+            redirect('login');
+        }
+
+        Visitor::where('id', auth()->guard('visitor')->user()->id)->update(['image' => url('/storage/image/default.jpg')]);
 
         return back();
     }

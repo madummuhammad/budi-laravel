@@ -33,8 +33,8 @@
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn badge badge-success mb-2" data-toggle="modal"
                                                     data-target="#edit-banner"><i class="bi bi-pencil-square"></i></button>
-                                                <div class="modal fade" id="edit-banner" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="edit-banner" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -104,8 +104,7 @@
                             <a href="#tambahbuku" data-toggle="modal" class="btn btn-primary mb-3">Tambah Referensi
                                 {{ $reference_book_types->name }}</a>
                             <!-- Modal -->
-                            <div class="modal fade" id="tambahbuku" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="tambahbuku" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">

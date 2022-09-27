@@ -23,6 +23,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Pengunjung Hari Ini</h4>
+                            <a href="{{ url('dashboard/visitor/today/export') }}" class="btn btn-success text-white"><i
+                                    class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -109,6 +111,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Pengunjung Sepanjang Waktu</h4>
+                            <a href="{{ url('dashboard/visitor/alltime/export') }}" class="btn btn-success text-white"><i
+                                    class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

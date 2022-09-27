@@ -23,12 +23,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Daftar Buku</h4>
+                            <a href="{{ url('dashboard/book/export') }}" class="btn btn-success text-white"><i
+                                    class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="card-body">
                             <a href="#tambahbuku" data-toggle="modal" class="btn btn-primary mb-3">Tambah Buku</a>
                             <!-- Modal -->
-                            <div class="modal fade" id="tambahbuku" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="tambahbuku" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">

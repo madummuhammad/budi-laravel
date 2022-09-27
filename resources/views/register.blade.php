@@ -180,7 +180,7 @@
                         class="form-control mt-3 py-3 @error('username')
                         is-invalid
                     @enderror"
-                        id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : @Budiberbudi)"
+                        id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : Budiberbudi)"
                         name="username" value="{{ old('username') }}">
                     @error('username')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -236,7 +236,7 @@
                         placeholder="" name="sub-status">
                         <option selected value="">--Pilih Jenjang--</option>
                         <option value="PAUD">PAUD</option>
-                        <option value="Siswa">SD</option>
+                        <option value="SD">SD</option>
                         <option value="SMP">SMP</option>
                         <option value="SMA">SMA</option>
                     </select>

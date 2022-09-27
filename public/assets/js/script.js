@@ -1,7 +1,7 @@
-(function ($) {
-    "use strict"
-    $(".single-select").select2();
-})(jQuery);
+// (function ($) {
+//     "use strict"
+// })(jQuery);
+$(".single-select").select2();
 
 jQuery(document).ready(function () {
     $(".sinopsis").summernote({

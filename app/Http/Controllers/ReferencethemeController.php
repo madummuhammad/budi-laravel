@@ -11,7 +11,7 @@ class ReferencethemeController extends Controller
 {
     public function index()
     {
-        $data['themes'] = ReferenceTheme::all();
+        $data['themes'] = ReferenceTheme::orderBy('name', 'ASC')->get();
         return view('dashboard.referencetheme', $data);
     }
 

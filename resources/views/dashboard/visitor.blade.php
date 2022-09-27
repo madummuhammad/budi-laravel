@@ -23,6 +23,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Pengguna</h4>
+                            <a href="{{ url('dashboard/visitor/export') }}" class="btn btn-success text-white"><i
+                                    class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

@@ -9,6 +9,26 @@
                         <div class="card-header">
                             <h4 class="card-title">Visitor {{ $visitors->name }}</h4>
                         </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <img class="img-fluid" src="{{ $visitors->image }}" alt="">
+                            </div>
+                            <div class="col-12 col-md-9 text-dark">
+                                <h5><span class="d-inline-block" style="width:120px">Nama</span> :{{ $visitors->name }}</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Pos-el</span>: {{ $visitors->email }}
+                                </h5>
+                                <h5><span class="d-inline-block" style="width:120px">Nama Pengguna</span>:
+                                    {{ $visitors->username }}</h5>
+                                <h5><span class="d-inline-block" style="width:120px">No Telp</span>:
+                                    {{ $visitors->username }}</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Alamat</span>: {{ $visitors->city }},
+                                    {{ $visitors->sub }},{{ $visitors->area }},</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Profesi</span>:
+                                    {{ $visitors->profession }}</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Jenjang</span>: {{ $visitors->level }}
+                                </h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

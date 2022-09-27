@@ -9,7 +9,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $data['authors'] = Author::all();
+        $data['authors'] = Author::orderBy('name', 'ASC')->get();
         return view('dashboard.author', $data);
     }
 

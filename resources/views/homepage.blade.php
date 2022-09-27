@@ -227,7 +227,7 @@
                         buku di tanah air
                         maupun di mancanegara.</p>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-6 ps-5">
                     <img class="img-fluid" src="{{ asset('web') }}/assets/img/ilustrasi-1.svg" alt="">
                 </div>
             </div>
