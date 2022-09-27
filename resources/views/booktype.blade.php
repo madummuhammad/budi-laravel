@@ -98,10 +98,7 @@
                                                 </li>
                                                 <li><a class="dropdown-item"
                                                         data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (123)</a></li>
-                                                <li><a class="dropdown-item"
-                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (456)</a></li>
+                                                    </a></li>
                                                 <li><a class="dropdown-item"
                                                         data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a>
                                                 </li>

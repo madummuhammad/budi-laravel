@@ -365,7 +365,7 @@
   display: flex;
   align-items: center;
 }
-.tab-pane .home-tab .home-tab-body .input-search input {
+.tab-pane .home-tab .home-tab-body .input-search input, .home .home-tab .home-tab-body .input-search input {
   border-radius: 30px;
   border: 1px solid black;
   padding-left: 2px;
@@ -373,7 +373,7 @@
   height: 100%;
   padding-left: 10%;
 }
-.tab-pane .home-tab .home-tab-body .input-search input::placeholder {
+.tab-pane .home-tab .home-tab-body .input-search input::placeholder,.home .home-tab .home-tab-body .input-search input::placeholder {
   padding-left: 8px;
   padding-top: 5px;
   padding-bottom: 5px;

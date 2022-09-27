@@ -23,7 +23,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center home">
             <div class="home-tab">
                 <h2 class="text-center title fw-bold fs-4 mb-4">Temukan Buku sesuai minat dan kebutuhanmu</h2>
                 <div class="home-tab-body w-100" id="home-tab-body">
@@ -42,10 +42,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item text-danger">Jenjang</a></li>
                                         <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                (123)</a>
-                                        </li>
-                                        <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                (456)</a>
+                                            </a>
                                         </li>
                                         <li><a class="dropdown-item"
                                                 data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a></li>

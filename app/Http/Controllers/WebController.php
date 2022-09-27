@@ -119,7 +119,7 @@ class WebController extends Controller
 
     public function book_type($id)
     {
-        $data['themes'] = Theme::all();
+        $data['themes'] = Theme::orderBy('name', 'ASC')->get();
         $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->paginate(10);
         $data['book_types'] = Book_type::where('id', $id)->first();
         $data['most_reads'] = Book::where('book_type', $id)->orderBy('number_read', 'DESC')->limit(8)->get();
@@ -155,7 +155,8 @@ class WebController extends Controller
             }
             $data['books'] = $query->paginate(10);
         }
-        $data['themes'] = Theme::all();
+        $data['themes'] = Theme::orderBy('name', 'ASC')->get();
+
         $data['book_types'] = Book_type::where('id', $id)->first();
         return view('booktypefilter', $data);
     }
