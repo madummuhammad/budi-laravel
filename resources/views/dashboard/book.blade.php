@@ -370,9 +370,9 @@
                             <label for="exampleInputEmail1">File Video</label><br>
                             <button id="browseFile" type="button" class="btn btn-primary">Pilih File</button>
                             <input type="text" name="content" value="" id="value_video" hidden>
-                            <div class="card-footer p-4"><video id="videoPreview" src="" controls style="width: 100%; height: auto"></video></div>
                             <div class="progress mt-3" style="height: 25px">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75% </div></div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75% </div></div>
+                                <span id="status_upload" class="text-success fw-bold"></span>
                         </div>
 
                         <div class="form-group " id="versi-pdf">
@@ -424,7 +424,8 @@
                         resumable.on('fileSuccess', function(file,
                             response) { // trigger when file upload complete
                             response = JSON.parse(response)
-                            $('#videoPreview').attr('src', response.path);
+                            // $('#videoPreview').attr('src', response.path);
+                            $("#status_upload").html('Video berhasil di unggah');
                             $('#value_video').val(response.path);
                             $('.card-footer').show();
                             console.log(response.path)
