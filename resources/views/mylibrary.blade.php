@@ -29,7 +29,7 @@
                                             <p class="fs-6 fw-light">Medali</p>
                                         </div>
                                         <div class="col-5 col-md-12">
-                                            <h3 class="fw-bold fs-5">Perunggu</h3>
+                                            <h3 class="fw-bold fs-5"> - </h3>
                                         </div>
                                     </div>
                                 </div>

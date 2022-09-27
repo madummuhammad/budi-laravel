@@ -120,13 +120,13 @@ class WebController extends Controller
     public function book_type($id)
     {
         $data['themes'] = Theme::orderBy('name', 'ASC')->get();
-        $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->paginate(10);
+        $data['books'] = Book::with('authors', 'themes')->where('book_type', $id)->get();
         $data['book_types'] = Book_type::where('id', $id)->first();
         $data['most_reads'] = Book::where('book_type', $id)->orderBy('number_read', 'DESC')->limit(8)->get();
         if (auth()->guard('visitor')->check() == true) {
             $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }
-        $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
+        $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->get();
 
         return view('booktype', $data);
     }
@@ -136,7 +136,7 @@ class WebController extends Controller
         $data['liked_number'] = Mylibrary::where('liked', 1)->get();
         $data['read_number'] = BookReadStatistic::get();
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
-            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
+            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->get();
         } else {
             $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id);
             if (request('jenjang') !== null) {
@@ -153,7 +153,7 @@ class WebController extends Controller
             if (request('search') !== null) {
                 $query = $queryData->where('name', 'LIKE', '%' . request('search') . '%');
             }
-            $data['books'] = $query->paginate(10);
+            $data['books'] = $query->get();
         }
         $data['themes'] = Theme::orderBy('name', 'ASC')->get();
 
@@ -166,7 +166,7 @@ class WebController extends Controller
         $data['themes'] = ReferenceTheme::get();
         $data['reference_book_types'] = ReferenceBookType::where('id', $id)->first();
         $data['most_downloaded'] = ReferenceBook::orderBy('number_downloaded', 'DESC')->limit(8)->get();
-        $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes', 'mylibraries')->where('reference_book_type', $id)->paginate(10);
+        $data['reference_books'] = ReferenceBook::with('authors', 'reference_themes', 'mylibraries')->where('reference_book_type', $id)->get();
         return view('reference_book', $data);
     }
 

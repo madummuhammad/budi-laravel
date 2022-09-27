@@ -693,7 +693,7 @@ body.registrasi {
   font-size: 14px;
 }
 
-#pagin .page-item {
+/* #pagin .page-item {
   border: 2px solid #DDDDDD;
   background-color: transparent;
   margin-left: 10px;
@@ -713,7 +713,7 @@ body.registrasi {
   width: 35px;
   display: flex;
   align-items: center;
-}
+} */
 
 footer {
   background-color: #F8F8F8;
@@ -1106,3 +1106,63 @@ display: -webkit-box;
 }
 
 
+/* Button Pagination */
+.simple-pagination ul {
+	margin: 0 0 20px;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.simple-pagination li {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.simple-pagination li a:hover{
+    border: 2px solid #DDDDDD;
+}
+
+.simple-pagination li a,
+.simple-pagination li span {
+	color: #3C6EFD;
+	padding: 8px 12px;
+	text-decoration: none;
+	background-color: #FFF;
+      border: 2px solid #DDDDDD;
+  background-color: transparent;
+}
+
+.simple-pagination .current {
+	color: #FFF;
+    background-color: #3C6EFD;
+}
+
+.simple-pagination .prev{
+    background: transparent;
+    background-image: url('../icon/prev-active.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.prev,.next{
+    color: transparent !important;
+}
+
+.simple-pagination .prev.current{
+    background-image: url('../icon/prev-2.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.simple-pagination .next{
+  background-image: url('../icon/next-active.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.simple-pagination .next.current {
+background: transparent;
+background-image: url('../icon/next-2.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -138,16 +138,21 @@
                 </div>
                 <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Produk</p>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Digital</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Komik</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Audio</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Buku Video</a>
-                    <a href="" class="d-block text-decoration-none mb-3">Referensi</a>
+                    <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
+                        class="d-block text-decoration-none mb-3">Buku Digital</a>
+                    <a href="{{ url('book_type/31ba455c-c9c7-4a3c-a2b1-62915546eaba') }}"
+                        class="d-block text-decoration-none mb-3">Buku Komik</a>
+                    <a href="{{ url('book_type/9e30a937-0d60-49ad-9775-c19b97cfe864') }}"
+                        class="d-block text-decoration-none mb-3">Buku Audio</a>
+                    <a href="{{ url('book_type/bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') }}"
+                        class="d-block text-decoration-none mb-3">Buku Video</a>
+                    <a href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}"
+                        class="d-block text-decoration-none mb-3">Referensi</a>
                 </div>
                 <div class="col-12 col-md-2">
                     <p class="fw-bold fs-5 text-dark">Panduan</p>
                     <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
-                    <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Kebijakan</a>
+                    <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Informasi</a>
                     <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
                 <div class="col-12 col-md-4">

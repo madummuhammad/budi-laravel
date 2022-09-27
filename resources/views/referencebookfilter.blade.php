@@ -2,7 +2,7 @@
                         <div class="tab-pane container active" id="semua">
                             <div class="row row-cols-1 row-cols-md-5 paginate">
                                 @foreach ($reference_books as $book)
-                                    <div class="col mb-4">
+                                    <div class="col mb-4 item-paginate">
                                         <div class="card p-2">
                                             <a href="{{ url('reference_book_detail') }}/{{ $book->id }}"
                                                 class="text-decoration-none text-dark">
@@ -117,69 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <style>
-                        #pagin li {
-                            list-style: none;
-                        }
-
-                        #pagin .page-item {
-                            border: 2px solid #DDDDDD;
-                            background-color: transparent;
-                            margin-left: 10px;
-                            margin-right: 10px;
-                            width: 35px;
-                            height: 35px;
-                        }
-
-                        #pagin a {
-                            text-decoration: none;
-                            width: 100px;
-                            display: block;
-                            text-align: center;
-                        }
-
-
-                        /* a.page-item.active {
-                            color: white;
-                            background-color: #3C6EFD !important;
-                        } */
-
-                        #pagin .page-item.prev,
-                        #pagin .next {
-                            height: 35px;
-                            width: 35px;
-                            display: flex;
-                            align-items: center;
-                        }
-
-                        .paginate-pagination {
-                            display: none
-                        }
-
-                        a.page-item.active {
-                            color: white;
-                            background-color: #3C6EFD !important;
-                        }
-                    </style>
-                    <div class="d-flex justify-content-center">
-                        <nav id="pagin" class="paginate-pagination paginate-pagination-1 d-block" data-parent="1">
-                            <ul class="d-flex">
-                                <li class="page-item prev"><a href="#" data-page="prev"
-                                        class="page page-prev deactive prev page-link">
-                                        <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
-                                    </a>
-                                </li>
-                                @for ($i = 0; $i < ceil($reference_books->count() / 20); $i++)
-                                    <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
-                                            class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
-                                    </li>
-                                @endfor
-                                <li class="page-item next"><a href="#" data-page="next"
-                                        class="page page-next-link"><img
-                                            src="{{ asset('web') }}/assets/icon/next-2.svg" alt=""></a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <div class="d-flex justify-content-center pagination-container">
                     </div>
                     {{-- <div class="tab-content mt-5">
                         <div class="tab-pane container active" id="semua">
@@ -298,12 +236,24 @@
                         @endforeach
                     </div> --}}
                     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
-                    <script src="{{ asset('web') }}/assets/js/jquery.paginate.js"></script>
+                    <script src="{{ asset('web') }}/assets/js/jquery.simplePagination.js"></script>
                     <script>
-                        $(".paginate").paginate({
-                            perPage: 20,
-                            paginatePosition: ['bottom'],
-                            useHashLocation: false,
+                        var items = $(".item-paginate");
+                        var numItems = items.length;
+                        var perPage = 10;
+
+                        items.slice(perPage).hide();
+
+                        $('.pagination-container').pagination({
+                            items: numItems,
+                            itemsOnPage: perPage,
+                            prevText: "g",
+                            nextText: "g",
+                            onPageClick: function(pageNumber) {
+                                var showFrom = perPage * (pageNumber - 1);
+                                var showTo = showFrom + perPage;
+                                items.hide().slice(showFrom, showTo).show();
+                            }
                         });
                         @if (auth()->guard('visitor')->check() == true)
                             var visitor_id = "{{ auth()->guard('visitor')->user()->id }}";

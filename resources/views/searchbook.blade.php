@@ -166,52 +166,14 @@
                             </span></div>
                     </div>
                 </div>
-                <style>
-                    #pagin li {
-                        list-style: none;
-                    }
-
-                    #pagin .page-item {
-                        border: 2px solid #DDDDDD;
-                        background-color: transparent;
-                        margin-left: 10px;
-                        margin-right: 10px;
-                        width: 35px;
-                        height: 35px;
-                    }
-
-                    #pagin a {
-                        text-decoration: none;
-                        width: 100px;
-                        display: block;
-                        text-align: center;
-                    }
-
-                    #pagin .page-item.prev,
-                    #pagin .next {
-                        height: 35px;
-                        width: 35px;
-                        display: flex;
-                        align-items: center;
-                    }
-
-                    .paginate-pagination {
-                        display: none
-                    }
-
-                    a.page-item.active {
-                        color: white;
-                        background-color: #3C6EFD !important;
-                    }
-                </style>
                 {{-- @foreach ($format as $format) --}}
                 <div class="d-flex justify-content-between">
                     <h5 class="mt-5 mb-3">Buku Teks</h5>
-                    <h5 class="mt-5 mb-3">( 10 /50 )</h5>
+                    {{-- <h5 class="mt-5 mb-3">( 10 /50 )</h5> --}}
                 </div>
                 <div class="row row-cols-1 row-cols-md-5 paginate-search">
                     @foreach ($books->with('mylibraries')->get() as $book)
-                        <div class="col mb-4">
+                        <div class="col mb-4 item-paginate">
                             <div class="card p-2">
                                 <a href="{{ url('book/') }}/{{ $book->id }}">
                                     <img src="{{ $book->cover }}" alt="" class="img-fluid">
@@ -325,7 +287,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center pagination-container">
+                </div>
+                {{-- <div class="d-flex justify-content-center">
                     <nav id="pagin" class="paginate-pagination paginate-pagination-0 d-block" data-parent="0">
                         <ul class="d-flex">
                             <li class="page-item prev"><a href="#" data-page="prev"
@@ -344,37 +308,32 @@
                             </li>
                         </ul>
                     </nav>
-                </div>
+                </div> --}}
                 {{-- @endforeach --}}
             </div>
         </div>
     </div>
     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
-    <script src="{{ asset('web') }}/assets/js/jquery.paginate.js"></script>
+    <script src="{{ asset('web') }}/assets/js/jquery.simplePagination.js"></script>
     <script>
         var token = $("input[name=_token]").val();
-        $(".paginate-search").paginate({
-            perPage: 20,
-            paginatePosition: ['bottom'],
-            useHashLocation: false,
-            autoScroll: false,
-            onPageClick: function() {
+        var items = $(".item-paginate");
+        var numItems = items.length;
+        var perPage = 20;
 
+        items.slice(perPage).hide();
+
+        $('.pagination-container').pagination({
+            items: numItems,
+            itemsOnPage: perPage,
+            prevText: "g",
+            nextText: "g",
+            onPageClick: function(pageNumber) {
+                var showFrom = perPage * (pageNumber - 1);
+                var showTo = showFrom + perPage;
+                items.hide().slice(showFrom, showTo).show();
             }
         });
-        // var paginate_search = $(".paginate-search").length;
-        // for (let i = 0; i < paginate_search; i++) {
-        //     page_item = $(".paginate-pagination-" + i + " .page.page-item");
-        //     for (let x = 0; x < page_item.length; x++) {
-        //         $(page_item[x]).on('click', function() {
-        //             page_item = $(".paginate-pagination-" + i + " .page.page-item");
-        //             for (let z = 0; z <= x; z++) {
-        //                 $(page_item[z + 1 - 2]).addClass('d-none')
-        //                 $(page_item[z + 2]).removeClass('d-none')
-        //             }
-        //         })
-        //     }
-        // }
 
         $("#search-button").on('click', function() {
             var jenjang = $("[name=jenjang]").val();

@@ -161,31 +161,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills"
+                    style="padding-left: 10%; padding-right:10%">
+                    <div class="col nav-item nav-pills-semua"><a class="nav-link active" data-semua="0"
+                            data-bs-toggle="pill" href="#semua">Semua
+                            Tema</a></div>
+                    @foreach ($themes as $theme)
+                        <div class="col nav-item nav-pills{{ $theme->id }}"><a class="nav-link" href=""
+                                data-bs-toggle="pill" data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
+                    @endforeach
+                </div>
                 <div class="row" id="book_type">
 
-                </div>
-                <div class="d-flex justify-content-center">
-                    <nav aria-label="Page navigation" id="pagin" class="d-flex">
-                        <span class="page-item prev">
-                            <button class="page-link" href="">
-                                <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
-                            </button>
-                        </span>
-                        <ul class="pagination">
-                            @for ($i = 0; $i < ceil($books->total() / 10); $i++)
-                                <li
-                                    class="page-item pagination-link active @if ($i >= 2) d-none @endif">
-                                    <a class="page-link" href="#">{{ $i + 1 }}</a>
-                                </li>
-                            @endfor
-                            <input type="number" name="page-link" value="0" hidden>
-                        </ul>
-                        <span class="page-item next">
-                            <button class="page-link" href="">
-                                <img src="{{ asset('web') }}/assets/icon/next-2.svg" alt="">
-                            </button>
-                        </span>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -269,64 +256,13 @@
         $(document).ready(function() {
             $.ajax({
                 type: 'POST',
-                url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=1",
+                url: "{{ url('book_type/') }}/{{ $book_types->id }}",
                 data: {
                     _method: "POST",
                     _token: token,
                 },
                 success: function(hasil) {
                     $("#book_type").html(hasil);
-                    $(".next").on('click', function() {
-                        var page_link_number = parseInt($("[name=page-link]").val());
-                        if (page_link_number >= {{ ceil($books->total() / 10) }}) {
-                            page_link = page_link_number;
-                        } else {
-                            page_link = page_link_number + 1
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                page_link,
-                            data: {
-                                _method: "POST",
-                                _token: token,
-                            },
-                            success: function(hasil) {
-                                $("#book_type").html(hasil);
-                            }
-                        });
-                    })
-                    $(".prev").on('click', function() {
-                        var page_link = parseInt($("[name=page-link]").val()) + 1;
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                page_link,
-                            data: {
-                                _method: "POST",
-                                _token: token,
-                            },
-                            success: function(hasil) {
-                                $("#book_type").html(hasil);
-                            }
-                        });
-                    })
-                    $("#pagin ul a").click(function(e) {
-                        e.preventDefault();
-                        var page_link = parseInt($(this).parent().index()) + 1;
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                page_link,
-                            data: {
-                                _method: "POST",
-                                _token: token,
-                            },
-                            success: function(hasil) {
-                                $("#book_type").html(hasil);
-                            }
-                        });
-                    });
                     $("#search-button").on('click', function() {
                         var jenjang = $("[name=jenjang]").val();
                         var tema = $("[name=tema]").val();
@@ -334,7 +270,7 @@
                         var search = $("#search").val();
                         $.ajax({
                             type: 'POST',
-                            url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=1",
+                            url: "{{ url('book_type/') }}/{{ $book_types->id }}",
                             data: {
                                 _method: "POST",
                                 _token: token,
@@ -344,81 +280,36 @@
                                 search: search
                             },
                             success: function(hasil) {
-                                $(".next").on('click', function() {
-                                    var page_link_number = parseInt($(
-                                        "[name=page-link]").val());
-                                    if (page_link_number >=
-                                        {{ ceil($books->total() / 10) }}) {
-                                        page_link = page_link_number;
-                                    } else {
-                                        page_link = page_link_number + 1
-                                    }
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                            page_link,
-                                        data: {
-                                            _method: "POST",
-                                            _token: token,
-                                            jenjang: jenjang,
-                                            tema: tema,
-                                            bahasa: bahasa,
-                                            search: search
-                                        },
-                                        success: function(hasil) {
-                                            $("#book_type")
-                                                .html(hasil);
-                                        }
-                                    });
-                                })
-                                $(".prev").on('click', function() {
-                                    var page_link = parseInt($(
-                                        "[name=page-link]").val()) + 1;
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                            page_link,
-                                        data: {
-                                            _method: "POST",
-                                            _token: token,
-                                            jenjang: jenjang,
-                                            tema: tema,
-                                            bahasa: bahasa,
-                                            search: search
-                                        },
-                                        success: function(hasil) {
-                                            $("#book_type")
-                                                .html(hasil);
-                                        }
-                                    });
-                                })
-                                $("#pagin ul a").click(function(e) {
-                                    e.preventDefault();
-                                    var page_link = parseInt($(this)
-                                        .parent().index()) + 1;
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "{{ url('book_type/') }}/{{ $book_types->id }}?page=" +
-                                            page_link,
-                                        data: {
-                                            _method: "POST",
-                                            _token: token,
-                                            jenjang: jenjang,
-                                            tema: tema,
-                                            bahasa: bahasa,
-                                            search: search
-                                        },
-                                        success: function(hasil) {
-                                            $("#book_type")
-                                                .html(hasil);
-                                        }
-                                    });
-                                });
                                 $("#book_type").html(hasil);
                             }
                         });
                     })
+                    var filter_theme = $(".filter-theme .nav-item a");
 
+                    for (let i = 0; i < filter_theme.length; i++) {
+                        $(filter_theme[i]).on('click', function() {
+                            var tema = $(this).data('id');
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ url('book_type/') }}/{{ $book_types->id }}",
+                                data: {
+                                    _method: "POST",
+                                    _token: token,
+                                    tema: tema,
+                                },
+                                success: function(hasil) {
+                                    $("#book_type").html(hasil);
+                                }
+                            });
+                            if ($(this).data('semua') == 0) {
+                                $("#tema button").html("<p class='overflow-hidden'>Tema</p>");
+                            } else {
+                                $("#tema button").html("<p class='overflow-hidden'>" + $(this)
+                                    .html() + "</p>");
+                            }
+                            $("[name=tema]").val(tema);
+                        })
+                    }
                 }
             });
         });

@@ -16,7 +16,7 @@ $('#owl-carousel-1').owlCarousel({
 });
 
 $('#owl-carousel-2').owlCarousel({
-    loop: true,
+    loop: false,
     margin: 40,
     nav: true,
     responsive: {
@@ -33,9 +33,9 @@ $('#owl-carousel-2').owlCarousel({
 });
 
 $('#owl-carousel-3').owlCarousel({
-    loop: true,
+    loop: false,
     margin: 40,
-    nav: true,
+    nav: false,
     responsive: {
         0: {
             items: 2
@@ -133,11 +133,11 @@ function starFunction() {
     $("[name=star]").val(dataStar);
     for (let i = 0; i < dataStar; i++) {
         if (className == "star d-inline nonactive") {
-            $(star[i]).html(`<i class="fa-solid fa-star fs-3"></i>`);
+            $(star[i]).html(`<i class="text-warning fa-solid fa-star fs-3"></i>`);
             $(star[i]).removeClass('nonactive');
             $(star[i]).addClass('active');
         } else {
-            $(star[i]).html(`<i class="fa-regular fa-star fs-3"></i>`);
+            $(star[i]).html(`<i class="text-warning fa-regular fa-star fs-3"></i>`);
             $(star[i]).removeClass('active');
             $(star[i]).addClass('nonactive');
         }
@@ -168,6 +168,14 @@ $("#tema button").on('click', function () {
         tema[s].addEventListener('click', function () {
             $("#tema button").html("<p class='overflow-hidden'>" + $(this).html() + "</p>");
             $("[name=tema]").val($(this).data('value'));
+            var value = $(this).data('value');
+            if (value !== "") {
+                $(".nav-item a").removeClass('active');
+                $(".nav-pills" + value + " a").addClass("active");
+            } else {
+                $(".nav-item a").removeClass('active');
+                $(".nav-pills-semua a").addClass("active");
+            }
         });
     }
 })

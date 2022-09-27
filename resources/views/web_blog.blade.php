@@ -12,51 +12,12 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <!-- asdfasdf -->
                 <div class="d-flex align-items-center justify-content-between mt-4">
-                    <h3 class="mb-3">Berita (8/30)</h3>
+                    <h3 class="mb-3">Berita</h3>
                 </div>
-                <style>
-                    #pagin li {
-                        list-style: none;
-                    }
-
-                    #pagin .page-item {
-                        border: 2px solid #DDDDDD;
-                        background-color: transparent;
-                        margin-left: 10px;
-                        margin-right: 10px;
-                        width: 35px;
-                        height: 35px;
-                    }
-
-                    #pagin a {
-                        text-decoration: none;
-                        width: 100px;
-                        display: block;
-                        text-align: center;
-                    }
-
-
-                    #pagin .page-item.prev,
-                    #pagin .next {
-                        height: 35px;
-                        width: 35px;
-                        display: flex;
-                        align-items: center;
-                    }
-
-                    .paginate-pagination {
-                        display: none
-                    }
-
-                    a.page-item.active {
-                        color: white;
-                        background-color: #3C6EFD !important;
-                    }
-                </style>
                 <div class="row row-cols-1 row-cols-md-4 mt-4 card-pagination paginate-news">
                     @foreach ($blogs as $blog)
                         @if ($blog->blog_type == 'News')
-                            <div class="col">
+                            <div class="col item-pagination-1">
                                 <a href="{{ url('blog/detail/') . '/' . $blog->id }}"
                                     class="text-decoration-none text-dark">
                                     <div class="card card-news">
@@ -76,24 +37,7 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center">
-                    <nav id="pagin" class="paginate-pagination paginate-pagination-0 d-block" data-parent="0">
-                        <ul class="d-flex">
-                            <li class="page-item prev"><a href="#" data-page="prev"
-                                    class="page page-prev deactive prev page-link">
-                                    <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
-                                </a>
-                            </li>
-                            @for ($i = 0; $i < ceil($blogs->where('blog_type', 'News')->count() / 8); $i++)
-                                <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
-                                        class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
-                                </li>
-                            @endfor
-                            <li class="page-item next"><a href="#" data-page="next" class="page page-next-link"><img
-                                        src="{{ asset('web') }}/assets/icon/next-2.svg" alt=""></a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="d-flex justify-content-center pagination-container-1">
                 </div>
             </div>
         </div>
@@ -101,12 +45,12 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <!-- asdfasdf -->
                 <div class="d-flex align-items-center justify-content-between mt-4">
-                    <h3 class="mb-3">Artikel (8/30)</h3>
+                    <h3 class="mb-3">Artikel</h3>
                 </div>
                 <div class="row row-cols-1 row-cols-md-4  mt-4 card-pagintion paginate-article">
                     @foreach ($blogs as $blog)
                         @if ($blog->blog_type == 'Article')
-                            <div class="col">
+                            <div class="col item-pagination-2">
                                 <a href="{{ url('blog/detail/') . '/' . $blog->id }}"
                                     class="text-decoration-none text-dark">
                                     <div class="card card-news">
@@ -126,41 +70,46 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center">
-                    <nav id="pagin" class="paginate-pagination paginate-pagination-1 d-block" data-parent="1">
-                        <ul class="d-flex">
-                            <li class="page-item prev"><a href="#" data-page="prev"
-                                    class="page page-prev deactive prev page-link">
-                                    <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
-                                </a>
-                            </li>
-                            @for ($i = 0; $i < ceil($blogs->where('blog_type', 'Article')->count() / 8); $i++)
-                                <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
-                                        class="page page-{{ $i + 1 }} page-item">{{ $i + 1 }}</a>
-                                </li>
-                            @endfor
-                            <li class="page-item next"><a href="#" data-page="next" class="page page-next-link"><img
-                                        src="{{ asset('web') }}/assets/icon/next-2.svg" alt=""></a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="d-flex justify-content-center pagination-container-2">
                 </div>
             </div>
         </div>
     </div>
     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
-    <script src="{{ asset('web') }}/assets/js/jquery.paginate.js"></script>
+    <script src="{{ asset('web') }}/assets/js/jquery.simplePagination.js"></script>
     <script>
-        $(".paginate-news").paginate({
-            perPage: 8,
-            paginatePosition: ['top'],
-            useHashLocation: false,
+        var items = $(".item-pagination-1");
+        var numItems = items.length;
+        var perPage = 8;
+        items.slice(perPage).hide();
+
+        $('.pagination-container-1').pagination({
+            items: numItems,
+            itemsOnPage: perPage,
+            prevText: "g",
+            nextText: "g",
+            onPageClick: function(pageNumber) {
+                var showFrom = perPage * (pageNumber - 1);
+                var showTo = showFrom + perPage;
+                items.hide().slice(showFrom, showTo).show();
+            }
         });
 
-        $(".paginate-article").paginate({
-            perPage: 8,
-            paginatePosition: ['top'],
-            useHashLocation: false,
+        var items2 = $(".item-pagination-2");
+        var numItems2 = items2.length;
+        var perPage2 = 8;
+        items2.slice(perPage2).hide();
+
+        $('.pagination-container-2').pagination({
+            items: numItems2,
+            itemsOnPage: perPage2,
+            prevText: "g",
+            nextText: "g",
+            onPageClick: function(pageNumber2) {
+                var showFrom = perPage * (pageNumber2 - 1);
+                var showTo = showFrom + perPage2;
+                items2.hide().slice(showFrom, showTo).show();
+            }
         });
     </script>
 @endsection
