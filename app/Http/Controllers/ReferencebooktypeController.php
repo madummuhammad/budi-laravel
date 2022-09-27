@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ReferenceBookType;
-use Intervention\Image\ImageManagerStatic as Image;
-
-
 class ReferencebooktypeController extends Controller
 {
     public function update($id)
@@ -22,11 +18,11 @@ class ReferencebooktypeController extends Controller
 
     public function upload($request)
     {
-        $path = $request->file('image')->store('image');
-        $resize = Image::make($request->file('image'))->fit(615, 86);
-        $resize->save($this->storage_path('public/' . $path));
-        unlink(storage_path('app/' . $path));
-        return $path;
+        $path = $request->file('image')->store('public/image');
+        // $resize = Image::make($request->file('image'))->fit(615, 86);
+        // $resize->save($this->storage_path('public/' . $path));
+        // unlink(storage_path('app/' . $path));
+        return str_replace("public/", "", $path);
     }
 
     public function storage()
