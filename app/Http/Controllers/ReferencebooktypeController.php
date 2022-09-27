@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReferenceBookType;
+
 class ReferencebooktypeController extends Controller
 {
     public function update($id)
