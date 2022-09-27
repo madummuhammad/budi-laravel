@@ -178,7 +178,7 @@
                     {{-- video --}}
                     <div class="baca-button-group d-md-flex mt-5 pt-5">
                         <button
-                            class="w-100 shows my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                            class="w-100 shows my-2 btn btn-primary bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_si_saloi" data-bs-toggle="modal" data-bs-target="#tonton-video"><img
                                 src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""
                                 data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
