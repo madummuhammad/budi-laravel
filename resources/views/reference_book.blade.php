@@ -138,7 +138,12 @@
                     @endforeach
                 </div>
                 <!-- asdfasdf -->
-                <h3 class="mt-5 mb-3">Hasil Pencarian <span class="fw-bold fs-4">Referensi Buku</span> </h3>
+                <h3 class="mt-5 mb-3">Hasil Pencarian <span class="fw-bold fs-4">Referensi @if ($reference_book_types->id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264')
+                            Buku
+                        @else
+                            Video
+                        @endif
+                    </span> </h3>
                 <div class="row" id="reference_book">
 
                 </div>

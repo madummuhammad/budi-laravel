@@ -376,6 +376,7 @@
     <script src="{{ asset('assets') }}/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->
     <script src="{{ asset('assets') }}/js/plugins-init/summernote-init.js"></script>
+
     <script src="https://unpkg.com/@yaireo/tagify"></script>
     <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 
