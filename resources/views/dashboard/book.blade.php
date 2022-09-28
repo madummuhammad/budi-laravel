@@ -149,12 +149,6 @@
                                                         </div> --}}
                                                         <div class="form-group">
                                                             <div class="form-check mb-2" id="display-count">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="check1" value="1" name="display_homepage"
-                                                                    @if ($digital_count >= 12) disabled @endif>
-                                                                <label class="form-check-label" for="check1">Tampilkan
-                                                                    di homepage?
-                                                                    <span>{{ $digital_count }}/12</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -323,15 +317,49 @@
                 });
             })
 
+            $("select[name=level]").on('change', function() {
+                // paud
+                if ($(this).val() == '014453da-54e6-41b5-be05-952bc233f144') {
+                    $("#display-count").html(`
+                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($paud_count >= 12) disabled @endif>
+                            <label class="form-check-label" for="check1">Tampilkan di homepage? ({{ $paud_count }}/12)</label>
+                            `);
+                }
+                // SD
+                if ($(this).val() == '0207580f-6a98-477b-a19f-35bfc0f938e9') {
+                    $("#display-count").html(`
+                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($sd_count >= 12) disabled @endif>
+                            <label class="form-check-label" for="check1">Tampilkan di homepage? ({{ $sd_count }}/12)</label>
+                            `);
+                }
+                // SMP
+                if ($(this).val() == '2070db95-9133-4aa1-9f3f-f711f10df750') {
+                    $("#display-count").html(`
+                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($smp_count >= 12) disabled @endif>
+                            <label class="form-check-label" for="check1">Tampilkan di homepage? ({{ $smp_count }}/12)</label>
+                            `);
+                }
+                // SMA
+                if ($(this).val() == '555c961c-fb2a-4a25-8829-4a12c7d2afc0') {
+                    $("#display-count").html(`
+                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($sma_count >= 12) disabled @endif>
+                            <label class="form-check-label" for="check1">Tampilkan di homepage? ({{ $sma_count }}/12)</label>
+                            `);
+                }
+                // UMUM
+                if ($(this).val() == 'a26a4afd-7226-434c-83f3-9ca3ce4af523') {
+                    $("#display-count").html(`
+                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($umum_count >= 12) disabled @endif>
+                            <label class="form-check-label" for="check1">Tampilkan di homepage? ({{ $umum_count }}/12)</label>
+                            `);
+                }
+            })
+
             var book_types = $('.book_types');
 
             for (let i = 0; i < book_types.length; i++) {
                 book_types[i].onclick = function() {
                     if ($(this).val() == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
-                        $("#display-count").html(`
-                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
-                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $audio_count }}/12)</span></label>
-                        `)
                         $("#file").html(`
                         <div class="form-group">
                         <label for="exampleInputEmail1">File Audio</label><br>
@@ -362,10 +390,6 @@
                     }
 
                     if ($(this).val() == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
-                        $("#display-count").html(`
-                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
-                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $video_count }}/12)</span></label>
-                        `)
                         $("#file").html(`
                         <div class="form-group">
                             <label for="exampleInputEmail1">File Video</label><br>
@@ -456,10 +480,6 @@
                         }
                     }
                     if ($(this).val() == '31ba455c-c9c7-4a3c-a2b1-62915546eaba') {
-                        $("#display-count").html(`
-                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
-                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $komik_count }}/12)</span></label>
-                        `);
                         $("#file").html(`
                         <div class="form-group">
                         <label for="exampleInputEmail1">File PDF</label><br>
@@ -468,10 +488,6 @@
                         `);
                     }
                     if ($(this).val() == '2fd97285-08d0-4d81-83f2-582f0e8b0f36') {
-                        $("#display-count").html(`
-                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="display_homepage" @if ($digital_count >= 12) disabled @endif>
-                        <label class="form-check-label" for="check1">Tampilkan di homepage? <span>({{ $digital_count }}/12)</span></label>
-                        `);
                         $("#file").html(`
                         <div class="form-group">
                         <label for="exampleInputEmail1">File PDF</label><br>

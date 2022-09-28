@@ -18,10 +18,11 @@ class BookController extends Controller
 {
     public function index()
     {
-        $data['digital_count'] = Book::where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36')->where('display_homepage', 1)->count();
-        $data['komik_count'] = Book::where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba')->where('display_homepage', 1)->count();
-        $data['audio_count'] = Book::where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864')->where('display_homepage', 1)->count();
-        $data['video_count'] = Book::where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')->where('display_homepage', 1)->count();
+        $data['paud_count'] = Book::where('level', '014453da-54e6-41b5-be05-952bc233f144')->where('display_homepage', 1)->count();
+        $data['sd_count'] = Book::where('level', '0207580f-6a98-477b-a19f-35bfc0f938e9')->where('display_homepage', 1)->count();
+        $data['smp_count'] = Book::where('level', '2070db95-9133-4aa1-9f3f-f711f10df750')->where('display_homepage', 1)->count();
+        $data['sma_count'] = Book::where('level', '555c961c-fb2a-4a25-8829-4a12c7d2afc0')->where('display_homepage', 1)->count();
+        $data['umum_count'] = Book::where('level', 'a26a4afd-7226-434c-83f3-9ca3ce4af523')->where('display_homepage', 1)->count();
         $data['authors'] = Author::all();
         $data['themes'] = Theme::all();
         $data['book_types'] = Book_type::all();
@@ -79,17 +80,19 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        $data['digital_count'] = Book::where('book_type', '2fd97285-08d0-4d81-83f2-582f0e8b0f36')->where('display_homepage', 1)->count();
-        $data['komik_count'] = Book::where('book_type', '31ba455c-c9c7-4a3c-a2b1-62915546eaba')->where('display_homepage', 1)->count();
-        $data['audio_count'] = Book::where('book_type', '9e30a937-0d60-49ad-9775-c19b97cfe864')->where('display_homepage', 1)->count();
-        $data['video_count'] = Book::where('book_type', 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')->where('display_homepage', 1)->count();
+        $data['paud_count'] = Book::where('level', '014453da-54e6-41b5-be05-952bc233f144')->where('display_homepage', 1)->count();
+        $data['sd_count'] = Book::where('level', '0207580f-6a98-477b-a19f-35bfc0f938e9')->where('display_homepage', 1)->count();
+        $data['smp_count'] = Book::where('level', '2070db95-9133-4aa1-9f3f-f711f10df750')->where('display_homepage', 1)->count();
+        $data['sma_count'] = Book::where('level', '555c961c-fb2a-4a25-8829-4a12c7d2afc0')->where('display_homepage', 1)->count();
+        $data['umum_count'] = Book::where('level', 'a26a4afd-7226-434c-83f3-9ca3ce4af523')->where('display_homepage', 1)->count();
         $data['authors'] = Author::all();
         $data['themes'] = Theme::all();
         $data['book_types'] = Book_type::all();
         $data['levels'] = Level::all();
         $data['languages'] = Language::all();
         $data['book'] = Book::where('id', $id)->first();
-        $data['count'] = Book::where('book_type', $data['book']->book_type)->where('id', $id)->where('display_homepage', 1)->count();
+        $data['book']->book_type;
+        $data['count'] = Book::where('level', $data['book']->level)->where('display_homepage', 1)->count();
         return view('dashboard.editbook', $data);
     }
 
@@ -175,7 +178,6 @@ class BookController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return $validation->errors();
             return redirect('dashboard/book')->with(['message' => $validation->errors()]);
         }
 
