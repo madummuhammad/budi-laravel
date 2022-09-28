@@ -63,10 +63,7 @@
                                                 </li>
                                                 <li><a class="dropdown-item"
                                                         data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (123)</a></li>
-                                                <li><a class="dropdown-item"
-                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (456)</a></li>
+                                                    </a></li>
                                                 <li><a class="dropdown-item"
                                                         data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a>
                                                 </li>
@@ -130,14 +127,14 @@
                 </div>
                 <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills"
                     style="padding-left: 10%; padding-right:10%;">
-                    <div class="col nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#semua">Semua
+                    <div class="col nav-item nav-pills-semua"><a class="nav-link active" data-bs-toggle="pill"
+                            href="#semua" data-semua="0">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)
-                        <div class="col nav-item"><a class="nav-link" data-bs-toggle="pill"
-                                href="#theme{{ $theme->id }}">{{ $theme->name }}</a></div>
+                        <div class="col nav-item nav-pills{{ $theme->id }}"><a class="nav-link" data-bs-toggle="pill"
+                                href="" data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
                     @endforeach
                 </div>
-                <!-- asdfasdf -->
                 <h3 class="mt-5 mb-3">Hasil Pencarian <span class="fw-bold fs-4">Referensi @if ($reference_book_types->id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264')
                             Buku
                         @else
@@ -209,6 +206,32 @@
                     })
                 }
             });
+            var filter_theme = $(".filter-theme .nav-item a");
+
+            for (let i = 0; i < filter_theme.length; i++) {
+                $(filter_theme[i]).on('click', function() {
+                    var tema = $(this).data('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('reference_book/') }}/{{ $reference_book_types->id }}",
+                        data: {
+                            _method: "POST",
+                            _token: token,
+                            tema: tema,
+                        },
+                        success: function(hasil) {
+                            $("#reference_book").html(hasil);
+                        }
+                    });
+                    if ($(this).data('semua') == 0) {
+                        $("#tema button").html("<p class='overflow-hidden'>Tema</p>");
+                    } else {
+                        $("#tema button").html("<p class='overflow-hidden'>" + $(this)
+                            .html() + "</p>");
+                    }
+                    $("[name=tema]").val(tema);
+                })
+            }
         });
     </script>
 @endsection
