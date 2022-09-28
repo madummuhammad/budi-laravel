@@ -53,7 +53,7 @@ class BannerController extends Controller
     public function upload($request)
     {
         $path = $request->file('image')->store('image');
-        $resize = Image::make($request->file('image'))->fit(615, 214);
+        $resize = Image::make($request->file('image'))->fit(1190, 414);
         $resize->save($this->storage_path('public/' . $path));
         unlink(storage_path('app/' . $path));
         return $path;

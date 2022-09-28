@@ -41,7 +41,7 @@ class BlogController extends Controller
 
         if ($_FILES['cover']['name'] !== "") {
             $data = [
-                'image' => $this->storage() . $this->upload_img(request(), 615, 86),
+                'image' => $this->storage() . $this->upload_img(request(), 1419, 200),
             ];
 
             Banner::where('page_id', '5db1210c-d350-4abd-b09b-eb33058b93e1')->update($data);
