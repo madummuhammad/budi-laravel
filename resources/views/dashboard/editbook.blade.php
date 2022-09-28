@@ -337,6 +337,7 @@
                             <label for="exampleInputEmail1">File Video</label><br>
                             <button id="browseFile" type="button" class="btn btn-primary">Pilih File</button>
                             <input type="text" name="content" value="" id="value_video" hidden>
+                            <input type="file" name="content" value="" hidden>
                             <div class="progress mt-3" style="height: 25px">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75% </div></div>
                             <span id="status_upload" class="text-success fw-bold"></span>

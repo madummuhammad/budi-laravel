@@ -197,7 +197,6 @@ class BookController extends Controller
             ];
             Book::where('id', $id)->update($contents);
         }
-
         if ($_FILES['content']['name'] !== "") {
             if (request($name) == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
                 $content = $this->upload_audio(request());

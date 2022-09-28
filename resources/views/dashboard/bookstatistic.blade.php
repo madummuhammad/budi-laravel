@@ -45,7 +45,7 @@
                                             <th>Simpan</th>
                                             <th>Komentar</th>
                                             <th>Ratting</th>
-                                            <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,7 +81,7 @@
                                                     <td>{{ number_format($book->comments->sum('star') / $book->comments->count(), 1) }}
                                                     </td>
                                                 @endif
-                                                <td>
+                                                {{-- <td>
                                                     <button class="btn badge badge-danger" data-toggle="modal"
                                                         data-target="#hapus{{ $book->id }}"><i
                                                             class="bi bi-trash3"></i></button>
@@ -116,9 +116,9 @@
                                                     <button class="btn badge badge-primary" data-toggle="modal"
                                                         data-target="#edit{{ $book->id }}"><i
                                                             class="bi bi-pencil-square"></i></button>
-                                                </td>
+                                                </td> --}}
                                             </tr>
-                                            <div class="modal fade" id="edit{{ $book->id }}" tabindex="-1"
+                                            {{-- <div class="modal fade" id="edit{{ $book->id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog ">
                                                     <div class="modal-content">
@@ -164,7 +164,7 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         @endforeach
                                     </tbody>
                                 </table>

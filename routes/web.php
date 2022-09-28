@@ -231,9 +231,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
 
         Route::get('statistic/book/export', [StatisticController::class, 'book_statistic_export']);
+        Route::get('statistic/referensi/export', [StatisticController::class, 'referensi_statistic_export']);
         Route::get('/visitor/export', [StatisticController::class, 'visitor_export']);
         Route::get('/visitor/today/export', [StatisticController::class, 'visitor_today_export']);
         Route::get('/visitor/alltime/export', [StatisticController::class, 'visitor_alltime_export']);
+        Route::get('/visitor/profiling/export/{id}', [StatisticController::class, 'visitor_profiling_export']);
+        Route::get('/book/export', [StatisticController::class, 'book_export']);
         Route::get('/book/export', [StatisticController::class, 'book_export']);
 
         // Visitor Profiling

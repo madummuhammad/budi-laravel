@@ -22,7 +22,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Analitik Buku</h4>
+                            <h4 class="card-title">Analitik Referensi</h4>
+                            <a href="{{ url('dashboard/statistic/referensi/export') }}" class="btn btn-success text-white"><i
+                                    class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="card-body">
                             {{-- <img class="img-fluid mb-3" src="{{ $books->cover }}" alt=""> --}}

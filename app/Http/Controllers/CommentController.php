@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function dashboard($id)
     {
-        $data['books'] = Book::with('comments.visitors', 'comments')->where("id", $id)->first();
+        $data['books'] = Book::with('comments')->where("id", $id)->first();
         return view('dashboard.comment', $data);
     }
     public function add()

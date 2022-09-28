@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exports\BookExport;
 use App\Exports\BookStatisticExport;
+use App\Exports\ReferensiExport;
 use App\Exports\VisitorAlltimeExport;
 use App\Exports\VisitorExport;
+use App\Exports\VisitorProfilingExport;
 use App\Exports\VisitorTodayExport;
 use App\Models\Book;
 use App\Models\Mylibrary;
@@ -77,5 +79,15 @@ class StatisticController extends Controller
     public function visitor_alltime_export()
     {
         return Excel::download(new VisitorAlltimeExport, 'semua_pengunjung' . date('d-m-Y') . '.xlsx');
+    }
+
+    public function visitor_profiling_export()
+    {
+        return Excel::download(new VisitorProfilingExport, 'analitik_pengunjung' . date('d-m-Y') . '.xlsx');
+    }
+
+    public function referensi_statistic_export()
+    {
+        return Excel::download(new ReferensiExport, 'analitik_referensi' . date('d-m-Y') . '.xlsx');
     }
 }

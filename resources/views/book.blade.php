@@ -103,7 +103,7 @@
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     <div class="d-flex align-items-center">
                         <span class="me-5">Dengarkan</span>
-                        <div class="audio-player" data-audio="../storage/{{ $book_detail->content }}"
+                        <div class="audio-player pt-4" data-audio="../storage/{{ $book_detail->content }}"
                             style="margin: 0 auto">
                             <div class="controls">
                                 <div class="play-container shows"
@@ -245,7 +245,7 @@
                 @else
                     <div class="baca-button-group d-md-flex mt-5 pt-5">
                         <button
-                            class=" my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                            class="w-100 my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                             id="show_book" data-book="../storage/{{ $book_detail->content }}"
                             data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -254,7 +254,7 @@
                                 class="bi bi-book me-3 fs-5"></i>
                             Baca
                             Sekarang</button>
-                        <form class="me-4" action="{{ url('download') }}" method="post">
+                        <form class="me-4 w-100" action="{{ url('download') }}" method="post">
                             @csrf
                             <input type="text" name="file" value="{{ $book_detail->content }}"
                                 style="display: none">
@@ -267,7 +267,7 @@
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
-                            class=" my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
                             py-2"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
