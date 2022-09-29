@@ -8,6 +8,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Visitor {{ $visitors->name }}</h4>
+                            <a href="{{ url('dashboard/visitor/member/profiling/export') }}/{{ $visitors->id }}"
+                                class="btn btn-success text-white"><i class="fa-regular fa-file-excel"></i> export</a>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-3">

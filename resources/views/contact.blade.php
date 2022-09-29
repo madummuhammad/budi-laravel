@@ -32,11 +32,16 @@
                 </div>
                 <div class="col-12">
                     <p>Media Sosial</p>
-                    <img class="mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg" alt="">
-                    <img class="mx-2" src="{{ asset('web') }}/assets/icon/facebook.svg" alt="">
-                    <img class="mx-2" src="{{ asset('web') }}/assets/icon/twitter.svg" alt="">
-                    <img class="mx-2" src="{{ asset('web') }}/assets/icon/rss.svg" alt="">
-                    <img class="mx-2" src="{{ asset('web') }}/assets/icon/linkedin.svg" alt="">
+                    <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/" target="_blank"><img
+                            class="mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/" target="_blank"><img
+                            class="mx-2" src="{{ asset('web') }}/assets/icon/facebook.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/twitter.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/youtube.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/tiktok.svg" alt=""></a>
                 </div>
             </div>
         </div>

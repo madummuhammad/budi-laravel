@@ -264,7 +264,7 @@
                     <img class="img-fluid" src="{{ asset('web') }}/assets/img/profile-banner.png" alt="">
                 </div>
                 <div class="profile-banner-tagline">
-                    <h2>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perunggu</h2>
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perunggu</h4>
                     <p>Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p>
                 </div>
             </div>

@@ -118,8 +118,19 @@
     color: #0190d6;
 }
 
+.btn-blue {
+    background-color: #0190d6;
+    color: white;
+}
+
+.btn.bg-blue {
+    color: white;
+}
+
 .btn.bg-blue:hover {
     background-color: #0190d6;
+    border-color: #0190d6;
+    color: white;
 }
 
 /*End Utilitas Background Color*/
@@ -879,6 +890,10 @@ footer .dash {
     border-radius: 100%;
     margin-top: -10px;
     margin-right: 10px;
+}
+
+.audio-player .play-container.border-blue {
+    border: 1px solid #0190d6;
 }
 .audio-player .timeline {
     background: white;

@@ -80,90 +80,11 @@
                                                     <td>{{ number_format($book->reference_comments->sum('star') / $book->reference_comments->count(), 1) }}
                                                     </td>
                                                 @endif
-                                                {{-- <td>
-                                                    <button class="btn badge badge-danger" data-toggle="modal"
-                                                        data-target="#hapus{{ $book->id }}"><i
-                                                            class="bi bi-trash3"></i></button>
-                                                    <div class="modal" tabindex="-1" id="hapus{{ $book->id }}">
-                                                        <div class="modal-dialog modal-dialog-centered modal-sm">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header border-0 py-0">
-                                                                    <h5 class="modal-title"></h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body py-0">
-                                                                    <p class="p-0 m-0 fs-4">Hapus komentar ini?</p>
-                                                                </div>
-                                                                <div class="modal-footer pt-0 pb-1 border-0">
-                                                                    <form
-                                                                        action="{{ url('dashboard/book/comment/') }}/{{ $book->id }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('delete')
-                                                                        <input type="text" name="id"
-                                                                            value="{{ $book->id }}" hidden>
-                                                                        <button type="submit" class="btn badge-danger"><i
-                                                                                class="bi bi-trash3"></i></button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn badge badge-primary" data-toggle="modal"
-                                                        data-target="#edit{{ $book->id }}"><i
-                                                            class="bi bi-pencil-square"></i></button>
-                                                </td> --}}
+                                                <td><a href="{{ url('dashboard/statistic/referensi/comment') }}/{{ $book->id }}"
+                                                        class="btn badge badge-outline-primary mx-1" href=""
+                                                        data-toggle="tooltip" data-placement="bottom" title="Komentar"><i
+                                                            class="fa-regular fa-comments"></i></a></td>
                                             </tr>
-                                            <div class="modal fade" id="edit{{ $book->id }}" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog ">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit
-                                                                Komentar</h5>
-                                                            <button type="button" class="close"
-                                                                data-dismiss="modal"><span>&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form
-                                                            action="{{ url('dashboard/book/comment/') }}/{{ $book->id }}"
-                                                            method="POST" enctype="multipart/form-data">
-                                                            <div class="modal-body">
-                                                                @method('patch')
-                                                                @csrf
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputEmail1">Komentar
-                                                                            </label>
-                                                                            <input type="text" name="id"
-                                                                                value="{{ $book->id }}" hidden>
-                                                                            <textarea class="form-control" name="comment" id="" cols="30" rows="10">{</textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputEmail1">Ratting
-                                                                            </label>
-                                                                            <input class="form-control" type="number"
-                                                                                name="star" value=""
-                                                                                max="5">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Tutup</button>
-                                                                <button type="submit" class="btn btn-primary">Kirim
-                                                                    Perubahan
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

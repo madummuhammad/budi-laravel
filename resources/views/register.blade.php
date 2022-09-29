@@ -93,7 +93,8 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6 bg-white">
                 <h5 class="fw-bold">Selamat Datang</h5>
-                <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
+                <p class="card-text"> Silahkan isi data diri anda untuk menjadi bagian
+                    dari keluarga Budi</p>
                 @if (session()->has('message'))
                     <div class="alert alert-warning" role="alert">
                         {{ session('message') }}

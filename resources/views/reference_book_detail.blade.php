@@ -135,7 +135,7 @@
                         <div class="row">
                             <div class="col-12 col-md-3">
                                 <button type="submit"
-                                    class="btn w-100 btn-outline-blue d-flex justify-content-center align-items-center
+                                    class="btn w-100 bg-blue d-flex justify-content-center align-items-center
                                         py-2 me-4 col-12"><i
                                         class="bi bi-download fs-5 me-3"></i> Unduh</button>
                             </div>
@@ -162,46 +162,76 @@
                 </div>
             </div>
         </div>
-        @if (auth()->guard('visitor')->check() == true)
-            <div class="row mt-5 row-comment">
-                <form action="{{ url('reference_comment') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <input type="text" name="id" value="{{ $reference_book->id }}" hidden>
-                    <h3 class="fw-bold">Berikan Komentarmu: </h3>
-                    <div class="comment-profile mb-3 mt-4">
+        <div class="row mt-5 row-comment">
+            <form action="{{ url('reference_comment') }}" method="POST">
+                @csrf
+                @method('POST')
+                <input type="text" name="id" value="{{ $reference_book->id }}" hidden>
+                <h3 class="fw-bold">Berikan Komentarmu: </h3>
+                <div class="comment-profile mb-3 mt-4">
+                    @if (auth()->guard('visitor')->check() == true)
                         <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                         <span class="fw-bold fs-4 ms-3">{{ auth()->guard('visitor')->user()->name }}</span>
+                    @else
+                        <img src="{{ url('storage/image/default.jpg') }}" alt="">
+                        <span class="fw-bold fs-4 ms-3">Anonim</span>
+                    @endif
+                </div>
+                <div class="ratting">
+                    <div class="star d-inline nonactive" data-star='1'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                    <div class="ratting">
-                        <div class="star d-inline nonactive" data-star='1'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='2'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='3'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='4'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <div class="star d-inline nonactive" data-star='5'>
-                            <i class="fa-regular fa-star fs-3"></i>
-                        </div>
-                        <input type="text" name="star" value="0" hidden>
-                        <span class="ms-3"> Nilai</span>
+                    <div class="star d-inline nonactive" data-star='2'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                    <textarea class="form-control mt-3" name="comment" id="" cols="30" rows="6"></textarea>
-                    <div>
-                        <button class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
+                    <div class="star d-inline nonactive" data-star='3'>
+                        <i class="fa-regular fa-star fs-3"></i>
                     </div>
-                </form>
-            </div>
-        @endif
+                    <div class="star d-inline nonactive" data-star='4'>
+                        <i class="fa-regular fa-star fs-3"></i>
+                    </div>
+                    <div class="star d-inline nonactive" data-star='5'>
+                        <i class="fa-regular fa-star fs-3"></i>
+                    </div>
+                    <input type="text" name="star" value="0" hidden>
+                    <span class="ms-3"> Nilai</span>
+                </div>
+                <textarea class="form-control mt-3" name="comment" id="" cols="30" rows="6"></textarea>
+                <div>
+                    @if (auth()->guard('visitor')->check() == true)
+                        <button type="submit" class="btn bg-blue text-white px-4 py-2 mt-3">Kirim</button>
+                    @else
+                        <button type="button" class="btn bg-blue text-white px-4 py-2 mt-3" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            Kirim
+                        </button>
+
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Masuk/ daftar untuk
+                                            memberikan
+                                            komentar</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Tutup</button>
+                                        <a href="{{ url('login') }}" type="button" class="btn btn-primary">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </form>
+        </div>
 
         <div class="row row-review mt-5">
-            <h3 class="fw-bold">Komentar Terbaru</h3>
+            @if ($comments->count() !== 0)
+                <h3 class="fw-bold">Komentar Terbaru</h3>
+            @endif
             @foreach ($comments as $comment)
                 <div class="card-comment mb-4">
                     <div class="d-block d-md-flex card-comment-header col-12 col-md-5">

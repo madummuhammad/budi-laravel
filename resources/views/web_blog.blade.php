@@ -37,7 +37,7 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center pagination-container-1">
+                <div class="d-flex justify-content-center pagination-container-1 mt-5">
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center pagination-container-2">
+                <div class="d-flex justify-content-center pagination-container-2 mt-5">
                 </div>
             </div>
         </div>

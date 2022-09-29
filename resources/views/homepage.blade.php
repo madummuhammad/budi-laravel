@@ -133,9 +133,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2 class="text-center fw-bold">Jelajahi Lebih Dari 700 Buku Bacaan, Buku Komik, Buku Audio, dan
+            <h3 class="text-center fw-bold">Jelajahi Lebih Dari 700 Buku Bacaan, Buku Komik, Buku Audio, dan
                 Buku Video
-            </h2>
+            </h3>
         </div>
         <div id="tab-book">
             @csrf;
@@ -216,11 +216,11 @@
                     <p class="mt-4">Melalui Budi (Buku Digital) ini, kami memberikan layanan Bahan Bacaan Literasi
                         yang di dalamnya terdapat nilai-nilai moral, inspirasi, serta semangat kecintaan terhadap
                         budaya Indonesia.</p>
-                    <p class="mt-5">Buku Digital ini didedikasikan untuk Anda, baik itu siswa sekolah, guru, orang
+                    <p class="mt-2">Buku Digital ini didedikasikan untuk Anda, baik itu siswa sekolah, guru, orang
                         tua hingga
                         masyarakat pecinta buku di tanah air maupun pecinta buku bahasa & budaya Indonesia di
                         mancanegara.</p>
-                    <p class="mt-5">Seluruh buku dapat diakses (baca, dengar, tonton) diunduh secara gratis pecinta
+                    <p class="mt-2">Seluruh buku dapat diakses (baca, dengar, tonton) diunduh secara gratis pecinta
                         buku di tanah air
                         maupun di mancanegara.</p>
                 </div>
@@ -331,7 +331,8 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-5 pb-5">
-                            <a href="buku_audio.html" class="text-white">Lihat semua Buku Audio</a>
+                            <a href="{{ url('book_type') }}/9e30a937-0d60-49ad-9775-c19b97cfe864"
+                                class="text-white">Lihat semua Buku Audio</a>
                             <h2 class="ff-kidzone fs-48px">{{ $book->name }}</h2>
                             @php
                                 echo $book->sinopsis;

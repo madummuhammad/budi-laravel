@@ -34,12 +34,7 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item text-danger">Jenjang</a></li>
                                                 <li><a class="dropdown-item"
-                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (123)</a>
-                                                </li>
-                                                <li><a class="dropdown-item"
-                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
-                                                        (456)</a>
+                                                        data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD</a>
                                                 </li>
                                                 <li><a class="dropdown-item"
                                                         data-value="2070db95-9133-4aa1-9f3f-f711f10df750">SMP</a></li>
@@ -166,150 +161,130 @@
                             </span></div>
                     </div>
                 </div>
-                {{-- @foreach ($format as $format) --}}
-                <div class="d-flex justify-content-between">
-                    <h5 class="mt-5 mb-3">Buku Teks</h5>
-                    {{-- <h5 class="mt-5 mb-3">( 10 /50 )</h5> --}}
-                </div>
-                <div class="row row-cols-1 row-cols-md-5 paginate-search">
-                    @foreach ($books->with('mylibraries')->get() as $book)
-                        <div class="col mb-4 item-paginate">
-                            <div class="card p-2">
-                                <a href="{{ url('book/') }}/{{ $book->id }}">
-                                    <img src="{{ $book->cover }}" alt="" class="img-fluid">
-                                </a>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex">
-                                        <span>
-                                            @if (auth()->guard('visitor')->check() == true)
-                                                @if ($liked_number->where('book_id', $book->id)->where(
-                                                        'visitor_id',
-                                                        auth()->guard('visitor')->user()->id)->count() == 1)
-                                                    <span class="liked active" style="cursor: pointer"
-                                                        data-book_id="{{ $book->id }}">
-                                                        <i class="fa-solid fa-heart text-danger"></i>
-                                                    </span>{{ $liked_number->where('book_id', $book->id)->count() }}
-                                                @else
-                                                    <span class="liked" style="cursor: pointer"
-                                                        data-book_id="{{ $book->id }}">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </span>{{ $liked_number->where('book_id', $book->id)->count() }}
-                                                @endif
-                                            @else
-                                                <a class="text-dark text-decoration-none" href="{{ url('login') }}"><i
-                                                        class="fa-regular fa-heart"></i>
-                                                    {{ $liked_number->where('book_id', $book->id)->count() }}</a>
-                                            @endif
-                                        </span>
-                                        <span class="ms-1"><img class="pb-1"
-                                                src="{{ asset('web') }}/assets/icon/little-book.svg" alt="">
-                                            {{ $read_number->where('book_id', $book->id)->count() }} </span>
-                                    </div>
-                                    <style>
-                                        .dropdown-item {
-                                            cursor: pointer;
-                                        }
-                                    </style>
-                                    <div class="dropdown dropstart">
-                                        <a href="" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots-vertical"></i></a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li>
+                @foreach ($format as $format)
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mt-5 mb-3">{{ $format->name }}</h5>
+                        {{-- <h5 class="mt-5 mb-3">( 10 /50 )</h5> --}}
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-5 paginate-search{{ $loop->index }}">
+                        @foreach ($books->with('mylibraries')->where('book_type', $format->id)->get() as $book)
+                            <div class="col mb-4 item-paginate">
+                                <div class="card p-2">
+                                    <a href="{{ url('book/') }}/{{ $book->id }}">
+                                        <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
+                                            <span>
                                                 @if (auth()->guard('visitor')->check() == true)
-                                                    @php
-                                                        $visitor_id = auth()
-                                                            ->guard('visitor')
-                                                            ->user()->id;
-                                                    @endphp
-                                                    <a class="dropdown-item saved @foreach ($book->mylibraries->where('visitor_id', $visitor_id) as $mylibrary)
+                                                    @if ($liked_number->where('book_id', $book->id)->where(
+                                                            'visitor_id',
+                                                            auth()->guard('visitor')->user()->id)->count() == 1)
+                                                        <span class="liked active" style="cursor: pointer"
+                                                            data-book_id="{{ $book->id }}">
+                                                            <i class="fa-solid fa-heart text-danger"></i>
+                                                        </span>{{ $liked_number->where('book_id', $book->id)->count() }}
+                                                    @else
+                                                        <span class="liked" style="cursor: pointer"
+                                                            data-book_id="{{ $book->id }}">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </span>{{ $liked_number->where('book_id', $book->id)->count() }}
+                                                    @endif
+                                                @else
+                                                    <a class="text-dark text-decoration-none"
+                                                        href="{{ url('login') }}"><i class="fa-regular fa-heart"></i>
+                                                        {{ $liked_number->where('book_id', $book->id)->count() }}</a>
+                                                @endif
+                                            </span>
+                                            <span class="ms-1"><img class="pb-1"
+                                                    src="{{ asset('web') }}/assets/icon/little-book.svg" alt="">
+                                                {{ $read_number->where('book_id', $book->id)->count() }} </span>
+                                        </div>
+                                        <style>
+                                            .dropdown-item {
+                                                cursor: pointer;
+                                            }
+                                        </style>
+                                        <div class="dropdown dropstart">
+                                            <a href="" data-bs-toggle="dropdown"><i
+                                                    class="bi bi-three-dots-vertical"></i></a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li>
+                                                    @if (auth()->guard('visitor')->check() == true)
+                                                        @php
+                                                            $visitor_id = auth()
+                                                                ->guard('visitor')
+                                                                ->user()->id;
+                                                        @endphp
+                                                        <a class="dropdown-item saved @foreach ($book->mylibraries->where('visitor_id', $visitor_id) as $mylibrary)
                                                                     @if ($mylibrary->saved == 1)
                                                                     on
                                                                     @endif @endforeach"
-                                                        data-bookid="{{ $book->id }}">
-                                                        @if ($book->mylibraries->where('book_id', $book->id)->where('saved', 1)->where(
-                                                                'visitor_id',
-                                                                auth()->guard('visitor')->user()->id)->count() == 1)
-                                                            <i class="fa-solid fa-bookmark"></i>
-                                                            Disimpan
-                                                        @else
+                                                            data-bookid="{{ $book->id }}">
+                                                            @if ($book->mylibraries->where('book_id', $book->id)->where('saved', 1)->where(
+                                                                    'visitor_id',
+                                                                    auth()->guard('visitor')->user()->id)->count() == 1)
+                                                                <i class="fa-solid fa-bookmark"></i>
+                                                                Disimpan
+                                                            @else
+                                                                <i class="fa-regular fa-bookmark"></i>
+                                                                Baca Nanti
+                                                            @endif
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ url('login') }}" class="dropdown-item">
                                                             <i class="fa-regular fa-bookmark"></i>
                                                             Baca Nanti
-                                                        @endif
-                                                    </a>
-                                                @else
-                                                    <a href="{{ url('login') }}" class="dropdown-item">
-                                                        <i class="fa-regular fa-bookmark"></i>
-                                                        Baca Nanti
-                                                    </a>
-                                                @endif
-                                            </li>
-                                            <li>
-                                                <form action="{{ url('download') }}" method="post">
-                                                    @csrf
-                                                    <input type="text" name="file" value="{{ $book->content }}"
-                                                        style="display: none">
-                                                    <input type="text" name="name" value="{{ $book->name }}"
-                                                        style="display: none">
-                                                    <input type="text" name="book_type"
-                                                        value="{{ $book->book_type }}" style="display: none">
-                                                    @method('POST')
-                                                    <button type="submit" data-book_id="{{ $book->id }}"
-                                                        class="dropdown-item download" href="#"><i
-                                                            class="bi bi-download fs-6"></i>
-                                                        Unduh</button>
-                                                </form>
-                                            </li>
-                                            <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"
-                                                    href="whatsapp://send?text={{ url('book/') }}/{{ $book->id }}"><i
-                                                        class="fa-solid
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                                <li>
+                                                    <form action="{{ url('download') }}" method="post">
+                                                        @csrf
+                                                        <input type="text" name="file"
+                                                            value="{{ $book->content }}" style="display: none">
+                                                        <input type="text" name="name" value="{{ $book->name }}"
+                                                            style="display: none">
+                                                        <input type="text" name="book_type"
+                                                            value="{{ $book->book_type }}" style="display: none">
+                                                        @method('POST')
+                                                        <button type="submit" data-book_id="{{ $book->id }}"
+                                                            class="dropdown-item download" href="#"><i
+                                                                class="bi bi-download fs-6"></i>
+                                                            Unduh</button>
+                                                    </form>
+                                                </li>
+                                                <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"
+                                                        href="whatsapp://send?text={{ url('book/') }}/{{ $book->id }}"><i
+                                                            class="fa-solid
                                                                 fa-share-nodes"></i>
-                                                    Share</a></li>
-                                        </ul>
+                                                        Share</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-1">
+                                        <div class="card-title fw-bold"
+                                            style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
+                                            {{ $book->name }}
+                                        </div>
+                                        @foreach ($book->authors as $author)
+                                            <p class="card-text m-0">Penulis: {{ $author->name }}</p>
+                                        @endforeach
+                                        @foreach ($book->themes as $theme)
+                                            <p class="card-text">Tema: {{ $theme->name }}</p>
+                                        @endforeach
+
                                     </div>
                                 </div>
                                 <div class="card-body p-1">
-                                    <div class="card-title fw-bold"
-                                        style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width:100%">
-                                        {{ $book->name }}
-                                    </div>
-                                    @foreach ($book->authors as $author)
-                                        <p class="card-text m-0">Penulis: {{ $author->name }}</p>
-                                    @endforeach
-                                    @foreach ($book->themes as $theme)
-                                        <p class="card-text">Tema: {{ $theme->name }}</p>
-                                    @endforeach
 
                                 </div>
                             </div>
-                            <div class="card-body p-1">
-
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="d-flex justify-content-center pagination-container">
-                </div>
-                {{-- <div class="d-flex justify-content-center">
-                    <nav id="pagin" class="paginate-pagination paginate-pagination-0 d-block" data-parent="0">
-                        <ul class="d-flex">
-                            <li class="page-item prev"><a href="#" data-page="prev"
-                                    class="page page-prev deactive prev page-link">
-                                    <img src="{{ asset('web') }}/assets/icon/prev-2.svg" alt="">
-                                </a>
-                            </li>
-                            @for ($i = 0; $i < ceil($books->count() / 20); $i++)
-                                <li><a href="#paginate-{{ $i + 1 }}" data-page="{{ $i + 1 }}"
-                                        class="page page-{{ $i + 1 }} page-item @if ($i > 2) d-none @endif">{{ $i + 1 }}</a>
-                                </li>
-                            @endfor
-                            <li class="page-item next"><a href="#" data-page="next"
-                                    class="page page-next-link"><img src="{{ asset('web') }}/assets/icon/next-2.svg"
-                                        alt=""></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> --}}
-                {{-- @endforeach --}}
+                        @endforeach
+                    </div>
+                    <div class="d-flex justify-content-center pagination-container{{ $loop->index }}">
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -317,23 +292,26 @@
     <script src="{{ asset('web') }}/assets/js/jquery.simplePagination.js"></script>
     <script>
         var token = $("input[name=_token]").val();
-        var items = $(".item-paginate");
-        var numItems = items.length;
+
         var perPage = 20;
+        @foreach ($format as $value)
+            var items{{ $loop->index }} = $(".paginate-search{{ $loop->index }} .item-paginate");
+            var numItems{{ $loop->index }} = items{{ $loop->index }}.length;
 
-        items.slice(perPage).hide();
+            items{{ $loop->index }}.slice(perPage).hide();
 
-        $('.pagination-container').pagination({
-            items: numItems,
-            itemsOnPage: perPage,
-            prevText: "g",
-            nextText: "g",
-            onPageClick: function(pageNumber) {
-                var showFrom = perPage * (pageNumber - 1);
-                var showTo = showFrom + perPage;
-                items.hide().slice(showFrom, showTo).show();
-            }
-        });
+            $('.pagination-container{{ $loop->index }}').pagination({
+                items: numItems{{ $loop->index }},
+                itemsOnPage: perPage,
+                prevText: "g",
+                nextText: "g",
+                onPageClick: function(pageNumber) {
+                    var showFrom = perPage * (pageNumber - 1);
+                    var showTo = showFrom + perPage;
+                    items{{ $loop->index }}.hide().slice(showFrom, showTo).show();
+                }
+            });
+        @endforeach
 
         $("#search-button").on('click', function() {
             var jenjang = $("[name=jenjang]").val();

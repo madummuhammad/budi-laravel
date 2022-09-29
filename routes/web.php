@@ -229,6 +229,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/visitor/{id}', [StatisticController::class, 'profiling']);
         Route::get('/statistic/book', [StatisticController::class, 'book']);
         Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
+        Route::get('/statistic/referensi/comment/{id}', [StatisticController::class, 'referensi_comment']);
+        Route::patch('/statistic/referensi/comment/{id}', [StatisticController::class, 'edit_referensi_comment']);
+        Route::delete('/statistic/referensi/comment/{id}', [StatisticController::class, 'delete_referensi_comment']);
 
         Route::get('statistic/book/export', [StatisticController::class, 'book_statistic_export']);
         Route::get('statistic/referensi/export', [StatisticController::class, 'referensi_statistic_export']);
@@ -241,6 +244,7 @@ Route::middleware('auth')->group(function () {
 
         // Visitor Profiling
         Route::get('/visitor/profiling/{id}', [VisitorController::class, 'profiling']);
+        Route::get('/visitor/member/profiling/export/{id}', [StatisticController::class, 'member_profiling_export']);
     });
 
 });

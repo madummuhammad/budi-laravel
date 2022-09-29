@@ -102,11 +102,11 @@
                 @csrf
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     <div class="d-flex align-items-center">
-                        <span class="me-5">Dengarkan</span>
+                        <span class="me-5 fw-bold">Dengarkan</span>
                         <div class="audio-player pt-4" data-audio="../storage/{{ $book_detail->content }}"
                             style="margin: 0 auto">
                             <div class="controls">
-                                <div class="play-container shows"
+                                <div class="play-container shows border-blue"
                                     data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
                                 0 @endif
@@ -146,12 +146,12 @@
                                 style="display: none">
                             @method('POST')
                             <button
-                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button type="button"
-                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -163,7 +163,7 @@
 
                         @if ($book_detail['book_pdfs'] !== null)
                             <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
-                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                                             py-2 me-4"
                                 data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -197,12 +197,12 @@
                                 style="display: none">
                             @method('POST')
                             <button
-                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
-                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -212,7 +212,7 @@
                             @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                         @if ($book_detail['book_pdfs'] !== null)
                             <button
-                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                                 py-2"
                                 id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
                                     class="bi bi-book me-3 fs-5"
@@ -228,9 +228,9 @@
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header border-0">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                    <div class="modal-header border-0 d-flex justify-content-end">
+                                        <a type="button" class="text-dark" data-bs-dismiss="modal"
+                                            aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
                                     </div>
                                     <div class="modal-body d-flex justify-content-center">
                                         <video controls style="width: 100%;" autoplay muted>
@@ -262,12 +262,12 @@
                                 style="display: none">
                             @method('POST')
                             <button
-                                class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 download"><i
                                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
                         </form>
                         <button
-                            class="w-100 my-2 btn btn-outline-blue d-flex justify-content-center align-items-center
+                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2"
                             id="saved"
                             @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"

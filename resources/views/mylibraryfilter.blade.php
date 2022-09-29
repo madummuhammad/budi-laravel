@@ -66,7 +66,9 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img src="{{ asset('web') }}/assets/icon/little-book.svg"
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
+                                                                style="padding-bottom: 5px"
+                                                                src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
                                                         </span>
@@ -181,7 +183,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -305,7 +307,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -429,7 +431,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -550,7 +552,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -668,7 +670,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -792,7 +794,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -916,7 +918,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1037,7 +1039,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1155,7 +1157,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1279,7 +1281,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1403,7 +1405,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1524,7 +1526,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1642,7 +1644,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1766,7 +1768,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}
@@ -1890,7 +1892,7 @@
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </span>{{ $liked_number->where('book_id', $saved->books->id)->count() }}
                                                         @endif
-                                                        <span><img
+                                                        <span class="ms-2"><img style="padding-bottom: 5px"
                                                                 src="{{ asset('web') }}/assets/icon/little-book.svg"
                                                                 alt="">
                                                             {{ $read_number->where('book_id', $saved->books->id)->count() }}

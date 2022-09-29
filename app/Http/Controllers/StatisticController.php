@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\BookExport;
 use App\Exports\BookStatisticExport;
+use App\Exports\MemberExport;
 use App\Exports\ReferensiExport;
 use App\Exports\VisitorAlltimeExport;
 use App\Exports\VisitorExport;
@@ -12,8 +13,10 @@ use App\Exports\VisitorTodayExport;
 use App\Models\Book;
 use App\Models\Mylibrary;
 use App\Models\ReferenceBook;
+use App\Models\ReferenceComment;
 use App\Models\VisitorVisit;
 use Maatwebsite\Excel\Facades\Excel;
+use Validator;
 
 class StatisticController extends Controller
 {
@@ -56,6 +59,40 @@ class StatisticController extends Controller
         return view('dashboard.profiling', $data);
     }
 
+    public function referensi_comment($id)
+    {
+        $data['books'] = ReferenceBook::with('reference_comments')->where("id", $id)->first();
+        return view('dashboard.referensicomment', $data);
+    }
+
+    public function edit_referensi_comment($id)
+    {
+        $data = [
+            'star' => request('star'),
+            'comment' => request('comment'),
+        ];
+
+        $validation = Validator::make($data, [
+            'star' => 'required',
+            'comment' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return back();
+        }
+
+        ReferenceComment::where('id', request('id'))->update($data);
+        return back();
+
+    }
+
+    public function delete_reference_comment()
+    {
+        $id = request('id');
+        ReferenceComment::where('id', $id)->delete();
+        return back();
+    }
+
     public function book_statistic_export()
     {
         return Excel::download(new BookStatisticExport, 'analitik_buku' . date('d-m-Y') . '.xlsx');
@@ -89,5 +126,10 @@ class StatisticController extends Controller
     public function referensi_statistic_export()
     {
         return Excel::download(new ReferensiExport, 'analitik_referensi' . date('d-m-Y') . '.xlsx');
+    }
+
+    public function member_profiling_export()
+    {
+        return Excel::download(new MemberExport, 'analitik_anggota' . date('d-m-Y') . '.xlsx');
     }
 }
