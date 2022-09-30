@@ -56,9 +56,7 @@
                                                     @else
                                                         <td>Unknown</td>
                                                     @endif
-                                                    <td>{{ $visitor_visit->visitors->city }},
-                                                        {{ $visitor_visit->visitors->sub }},
-                                                        {{ $visitor_visit->visitors->area }}</td>
+                                                    <td>{{ $visitor_visit->visitors->address }}</td>
                                                     <td>{{ $visitor_visit->device }}</td>
                                                     <td>{{ $visitor_visit->browser }}</td>
                                                     <td>{{ date('Y-m-d H:i:s', $visitor_visit->time) }}</td>

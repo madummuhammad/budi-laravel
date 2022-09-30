@@ -10,18 +10,19 @@
                         <div class="col-12 col-md-3">
                         </div>
                         <div class="col-12 col-md-9 text-dark">
-                            <h5><span class="d-inline-block" style="width:120px">Nama</span> :{{ $visitors->name }}</h5>
-                            <h5><span class="d-inline-block" style="width:120px">Pos-el</span>: {{ $visitors->email }}
+                            <h5><span class="d-inline-block">Nama</span> :{{ $visitors->name }}</h5>
+                            <h5><span class="d-inline-block">Pos-el</span>: {{ $visitors->email }}
                             </h5>
-                            <h5><span class="d-inline-block" style="width:120px">Nama Pengguna</span>:
+                            <h5><span class="d-inline-block">Nama Pengguna</span>:
                                 {{ $visitors->username }}</h5>
-                            <h5><span class="d-inline-block" style="width:120px">No Telp</span>:
+                            <h5><span class="d-inline-block">No Telp</span>:
                                 {{ $visitors->username }}</h5>
-                            <h5><span class="d-inline-block" style="width:120px">Alamat</span>: {{ $visitors->city }},
-                                {{ $visitors->sub }},{{ $visitors->area }},</h5>
-                            <h5><span class="d-inline-block" style="width:120px">Profesi</span>:
+                            <h5><span class="d-inline-block">Alamat</span>:{{ $address['sub_district'] }},
+                                {{ $address['district'] }}, {{ $address['city'] }},
+                                {{ $address['province'] }}</h5>
+                            <h5><span class="d-inline-block">Profesi</span>:
                                 {{ $visitors->profession }}</h5>
-                            <h5><span class="d-inline-block" style="width:120px">Jenjang</span>: {{ $visitors->level }}
+                            <h5><span class="d-inline-block">Jenjang</span>: {{ $visitors->level }}
                             </h5>
                         </div>
                     </div>
@@ -40,7 +41,6 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-
                                         <th>Judul</th>
                                         <th>Jenjang</th>
                                         <th>Tema</th>

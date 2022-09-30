@@ -15,9 +15,21 @@ class LocationController extends Controller
         return response()->json(json_decode($response));
     }
 
+    public function detail_province($id = "")
+    {
+        $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/provinsi/" . $id);
+        return response()->json(json_decode($response));
+    }
+
     public function city($id)
     {
         $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=" . $id);
+        return response()->json(json_decode($response));
+    }
+
+    public function detail_city($id)
+    {
+        $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/kota/" . $id);
         return response()->json(json_decode($response));
     }
 
@@ -27,9 +39,21 @@ class LocationController extends Controller
         return response()->json(json_decode($response));
     }
 
+    public function detail_district($id)
+    {
+        $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/kecamatan/" . $id);
+        return response()->json(json_decode($response));
+    }
+
     public function sub_district($id)
     {
         $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=" . $id);
+        return response()->json(json_decode($response));
+    }
+
+    public function detail_sub_district($id)
+    {
+        $response = $this->curl("https://dev.farizdotid.com/api/daerahindonesia/kelurahan/" . $id);
         return response()->json(json_decode($response));
     }
 
@@ -55,7 +79,6 @@ class LocationController extends Controller
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-            // return response()->json(json_decode($response));
             return $response;
         }
 

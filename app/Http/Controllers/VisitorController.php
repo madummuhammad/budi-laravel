@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LocationController;
 use App\Models\Visitor;
 use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
@@ -97,6 +98,12 @@ class VisitorController extends Controller
             return back()->withErrors($validation)->withInput($data);
         }
 
+        $location = new LocationController;
+        $province = $location->detail_province(request('province'))->original->nama;
+        $city = $location->detail_city(request('city'))->original->nama;
+        $district = $location->detail_district(request('district'))->original->nama;
+        $sub_district = $location->detail_sub_district(request('sub_district'))->original->nama;
+
         $data = [
             'name' => request('name'),
             'phone' => $phone,
@@ -106,6 +113,7 @@ class VisitorController extends Controller
             'city' => request('city'),
             'district' => request('district'),
             'sub_district' => request('sub_district'),
+            'address' => $sub_district . ', ' . $district . ', ' . $city . ', ' . $province,
             'status' => 'Pending',
             'token' => $str_random,
             'profession' => request('status'),
@@ -238,6 +246,15 @@ class VisitorController extends Controller
         $data['comments'] = Visitor::with('comments', 'comments.books', 'comments.books.levels', 'comments.books.themes', 'comments.books.book_types')->where('id', $id)->first();
 
         $data['shared'] = Visitor::with('shares', 'shares.books', 'shares.books.levels', 'shares.books.themes', 'shares.books.book_types')->where('id', $id)->first();
+
+        $location = new LocationController;
+
+        $data['address'] = [
+            'province' => $location->detail_province($data['visitors']->province)->original->nama,
+            'city' => $location->detail_city($data['visitors']->city)->original->nama,
+            'district' => $location->detail_district($data['visitors']->district)->original->nama,
+            'sub_district' => $location->detail_sub_district($data['visitors']->sub_district)->original->nama,
+        ];
 
         return view('dashboard.visitorprofiling', $data);
     }

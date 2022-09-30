@@ -23,8 +23,9 @@
                                     {{ $visitors->username }}</h5>
                                 <h5><span class="d-inline-block" style="width:120px">No Telp</span>:
                                     {{ $visitors->username }}</h5>
-                                <h5><span class="d-inline-block" style="width:120px">Alamat</span>: {{ $visitors->city }},
-                                    {{ $visitors->sub }},{{ $visitors->area }},</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Alamat</span>:
+                                    {{ $address['sub_district'] }}, {{ $address['district'] }}, {{ $address['city'] }},
+                                    {{ $address['province'] }}</h5>
                                 <h5><span class="d-inline-block" style="width:120px">Profesi</span>:
                                     {{ $visitors->profession }}</h5>
                                 <h5><span class="d-inline-block" style="width:120px">Jenjang</span>: {{ $visitors->level }}
