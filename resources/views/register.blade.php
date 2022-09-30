@@ -293,7 +293,7 @@
                     var district = hasil.kelurahan;
                     $("select[name=sub_district]").html("");
                     $("select[name=sub_district]").append(
-                        "<option value=''>--Pilih Kecamatan--</option>")
+                        "<option value=''>--Pilih Kelurahan--</option>")
                     for (let i = 0; i < district.length; i++) {
                         $("select[name=sub_district]").append("<option value='" + district[
                                 i]

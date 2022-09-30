@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Visitor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -27,13 +28,13 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        // return $this->view('view.name');
-        return $this->from('support@budi.ansol.com')
+        $visitor = Visitor::where('email', request('surel'))->first();
+        return $this->from('support@budi.ansol.id')
             ->view('verification')
             ->with(
                 [
-                    'nama' => 'Diki Alfarabi Hadi',
-                    'website' => 'www.malasngoding.com',
+                    'nama' => $visitor->name,
+                    'token' => $visitor->token,
                 ]);
 
     }

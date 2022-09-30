@@ -63,19 +63,7 @@ class VisitorController extends Controller
         if ($check_email->fails()) {
             $phone = request('surel');
         } else {
-            // $email = request('surel');
-            // ini_set('display_errors', 1);
-            // error_reporting(E_ALL);
-            // $from = "support@ansol.id";
-            // $to = $email;
-            // $subject = "Verifikasi Email Anda";
-            // $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
-            // $headers = "From:" . $from;
-            // mail($to, $subject, $message, $headers);
-            Mail::to("muhammad.madum2018@gmail.com")->send(new VerificationEmail());
-
-            return "Email telah dikirim";
-
+            $email = request('surel');
         }
 
         $data = [
@@ -128,6 +116,12 @@ class VisitorController extends Controller
             'password' => Hash::make(request('password')),
         ];
         Visitor::create($data);
+
+        if ($check_email->fails()) {
+            $phone = request('surel');
+        } else {
+            Mail::to($email)->send(new VerificationEmail());
+        }
 
         return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
     }
