@@ -49,8 +49,10 @@
                             <div class="input-group input-search w-100 p-0">
                                 <input type="text" class="form-control " id="search" placeholder="Cari">
                                 <input type="text" name="filter" value="1" hidden>
-                                <button class="btn btn-outline-secondary dropdown-toggle filter" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">Lanjutkan Membaca</button>
+                                <button class="btn btn-outline-secondary dropdown-toggle filter text-dark"
+                                    style="border-radius: 0px" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Lanjutkan
+                                    Membaca</button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item filter-item" style="cursor: pointer"
                                             data-value="1">Lanjutkan Membaca</a></li>
@@ -61,7 +63,7 @@
                                     <li><a class="dropdown-item filter-item" style="cursor: pointer"
                                             data-value="4">Selesai</a></li>
                                 </ul>
-                                <button class="btn search" style="border-left: 0;" id="search-button"><i
+                                <button class="btn search py-2" style="border-left: 0;" id="search-button"><i
                                         class="bi bi-search"></i></button>
                             </div>
                         </div>

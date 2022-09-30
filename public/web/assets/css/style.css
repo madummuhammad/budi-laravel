@@ -133,6 +133,12 @@
     color: white;
 }
 
+.btn.bg-blue:focus {
+    background-color: #0190d6;
+    border-color: #0190d6;
+    color: white;
+}
+
 /*End Utilitas Background Color*/
 .fw-600 {
     font-weight: bolder;

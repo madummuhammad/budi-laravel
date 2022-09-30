@@ -164,13 +164,20 @@ class VisitorController extends Controller
         if (auth()->guard('visitor')->check() == 'false') {
             redirect('login');
         }
+        $location = new LocationController;
+        $province = $location->detail_province(request('province'))->original->nama;
+        $city = $location->detail_city(request('city'))->original->nama;
+        $district = $location->detail_district(request('district'))->original->nama;
+        $sub_district = $location->detail_sub_district(request('sub_district'))->original->nama;
 
         $data = [
             'name' => request('name'),
             'email' => request('email'),
+            'province' => request('province'),
             'city' => request('city'),
-            'sub' => request('sub'),
-            'area' => request('area'),
+            'district' => request('district'),
+            'sub_district' => request('sub_district'),
+            'address' => $sub_district . ', ' . $district . ', ' . $city . ', ' . $province,
             'profession' => request('status'),
             'level' => request('sub-status'),
         ];
@@ -179,8 +186,9 @@ class VisitorController extends Controller
             'name' => 'required',
             'email' => 'required',
             'city' => 'required',
-            'sub' => 'required',
-            'area' => 'required',
+            'district' => 'required',
+            'sub_district' => 'required',
+            'province' => 'required',
             'profession' => 'required',
             'level' => 'required',
         ]);

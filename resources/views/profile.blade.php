@@ -91,29 +91,42 @@
                                                             aria-describedby="emailHelp" name="email"
                                                             value="{{ auth()->guard('visitor')->user()->email }}">
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Provinsi
+                                                        </label>
+                                                        <select name="province" id="" class="form-select">
+                                                            <option value="">--Pilih Provinsi--</option>
+                                                        </select>
+                                                    </div>
                                                     <div class="row row-cols-3">
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Kota
                                                                 </label>
-                                                                <input type="text"name="city" class="form-control"
-                                                                    value="{{ auth()->guard('visitor')->user()->city }}">
+                                                                <select name="city" id=""
+                                                                    class="form-select">
+                                                                    <option value="">--Pilih Kota--</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Kecamatan
                                                                 </label>
-                                                                <input type="text" class="form-control" name="sub"
-                                                                    value="{{ auth()->guard('visitor')->user()->sub }}">
+                                                                <select name="district" id=""
+                                                                    class="form-select">
+                                                                    <option value="">--Pilih Kecamatan--</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Kelurahan
                                                                 </label>
-                                                                <input type="text" class="form-control" name="area"
-                                                                    value="{{ auth()->guard('visitor')->user()->area }}">
+                                                                <select name="sub_district" id=""
+                                                                    class="form-select">
+                                                                    <option value="">--Pilih Kelurahan--</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -231,8 +244,7 @@
                             alt="">
                         Alamat
                     </div>
-                    <div class="col-9">: {{ auth()->guard('visitor')->user()->city }},
-                        {{ auth()->guard('visitor')->user()->sub }}, {{ auth()->guard('visitor')->user()->area }},</div>
+                    <div class="col-9">:{{ auth()->guard('visitor')->user()->address }}</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-3 fw-bold"><img style="width: 20px;"
@@ -345,6 +357,173 @@
             } else {
                 $("#sub-status").html(``);
             }
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            var u_province_id = {{ auth()->guard('visitor')->user()->province }};
+            var u_city_id = {{ auth()->guard('visitor')->user()->city }};
+            var u_district_id = {{ auth()->guard('visitor')->user()->district }};
+            var u_sub_district_id = {{ auth()->guard('visitor')->user()->sub_district }};
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('province') }}",
+                success: function(hasil) {
+                    var province = hasil.provinsi;
+                    for (let i = 0; i < province.length; i++) {
+                        if (u_province_id == province[i].id) {
+                            $("select[name=province]").append("<option value='" + province[i].id +
+                                "' selected>" +
+                                province[i].nama + "</option>")
+                        } else {
+                            $("select[name=province]").append("<option value='" + province[i].id +
+                                "'>" +
+                                province[i].nama + "</option>")
+                        }
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('city') }}/" + u_province_id,
+                        success: function(hasil) {
+                            var city = hasil.kota_kabupaten;
+                            $("select[name=city]").html("");
+                            $("select[name=city]").append(
+                                "<option value=''>--Pilih Kota--</option>")
+                            for (let i = 0; i < city.length; i++) {
+                                if (u_city_id == city[i].id) {
+                                    $("select[name=city]").append("<option value='" + city[
+                                            i]
+                                        .id + "' selected>" +
+                                        city[i].nama + "</option>")
+                                } else {
+
+                                    $("select[name=city]").append("<option value='" + city[
+                                            i]
+                                        .id + "'>" +
+                                        city[i].nama + "</option>")
+                                }
+
+                            }
+                        }
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('district') }}/" + u_city_id,
+                        success: function(hasil) {
+                            var district = hasil.kecamatan;
+                            $("select[name=district]").html("");
+                            $("select[name=district]").append(
+                                "<option value=''>--Pilih Kecamatan--</option>")
+                            for (let i = 0; i < district.length; i++) {
+                                if (u_district_id == district[i].id) {
+                                    $("select[name=district]").append("<option value='" +
+                                        district[i]
+                                        .id + "' selected>" +
+                                        district[i].nama + "</option>")
+                                } else {
+
+                                    $("select[name=district]").append("<option value='" +
+                                        district[i]
+                                        .id + "'>" +
+                                        district[i].nama + "</option>")
+                                }
+                            }
+                        }
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('sub_district') }}/" + u_district_id,
+                        success: function(hasil) {
+                            var district = hasil.kelurahan;
+                            $("select[name=sub_district]").html("");
+                            $("select[name=sub_district]").append(
+                                "<option value=''>--Pilih Kelurahan--</option>")
+                            for (let i = 0; i < district.length; i++) {
+                                if (u_sub_district_id == district[i].id) {
+                                    $("select[name=sub_district]").append(
+                                        "<option value='" +
+                                        district[
+                                            i]
+                                        .id + "' selected>" +
+                                        district[i].nama + "</option>")
+                                } else {
+                                    $("select[name=sub_district]").append(
+                                        "<option value='" +
+                                        district[
+                                            i]
+                                        .id + "'>" +
+                                        district[i].nama + "</option>")
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("select[name=province]").on('change', function() {
+                var province_id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('city') }}/" + province_id,
+                    success: function(hasil) {
+                        var city = hasil.kota_kabupaten;
+                        $("select[name=city]").html("");
+                        $("select[name=city]").append(
+                            "<option value=''>--Pilih Kota--</option>")
+                        for (let i = 0; i < city.length; i++) {
+                            if (u_city_id == city[i].id) {
+                                $("select[name=city]").append("<option value='" + city[i]
+                                    .id + "' selected>" +
+                                    city[i].nama + "</option>")
+                            }
+                            $("select[name=city]").append("<option value='" + city[i]
+                                .id + "'>" +
+                                city[i].nama + "</option>")
+
+                        }
+                    }
+                });
+            });
+
+            $("select[name=city]").on('change', function() {
+                var city_id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('district') }}/" + city_id,
+                    success: function(hasil) {
+                        var district = hasil.kecamatan;
+                        $("select[name=district]").html("");
+                        $("select[name=district]").append(
+                            "<option value=''>--Pilih Kecamatan--</option>")
+                        for (let i = 0; i < district.length; i++) {
+                            $("select[name=district]").append("<option value='" + district[i]
+                                .id + "'>" +
+                                district[i].nama + "</option>")
+                        }
+                    }
+                });
+            });
+
+            $("select[name=district]").on('change', function() {
+                var district_id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('sub_district') }}/" + district_id,
+                    success: function(hasil) {
+                        var district = hasil.kelurahan;
+                        $("select[name=sub_district]").html("");
+                        $("select[name=sub_district]").append(
+                            "<option value=''>--Pilih Kelurahan--</option>")
+                        for (let i = 0; i < district.length; i++) {
+                            $("select[name=sub_district]").append("<option value='" + district[
+                                    i]
+                                .id + "'>" +
+                                district[i].nama + "</option>")
+                        }
+                    }
+                });
+            });
         })
     </script>
 @endsection

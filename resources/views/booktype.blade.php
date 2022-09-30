@@ -22,7 +22,7 @@
                                             @else
                                                 <img src="{{ asset('web') }}/assets/icon/book.svg" alt="">
                                             @endif
-                                            <span class="fw-bold text-blue">Buku Bacaan</span>
+                                            <span style="font-size: 14px" class="fw-bold text-blue">Buku Bacaan</span>
                                         </a>
                                     </li>
                                 </div>
@@ -35,7 +35,7 @@
                                             @else
                                                 <img src="{{ asset('web') }}/assets/icon/komik.svg" alt="">
                                             @endif
-                                            <span>Buku Komik</span>
+                                            <span style="font-size: 14px">Buku Komik</span>
                                         </a>
                                     </li>
                                 </div>
@@ -48,7 +48,7 @@
                                             @else
                                                 <img src="{{ asset('web') }}/assets/icon/audio.svg" alt="">
                                             @endif
-                                            <span>Buku Audio</span>
+                                            <span style="font-size: 14px">Buku Audio</span>
                                         </a>
                                     </li>
                                 </div>
@@ -61,7 +61,7 @@
                                             @else
                                                 <img src="{{ asset('web') }}/assets/icon/video.svg" alt="">
                                             @endif
-                                            <span>Buku Video</span>
+                                            <span style="font-size: 14px">Buku Video</span>
                                         </a>
                                     </li>
                                 </div>
