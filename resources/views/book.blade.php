@@ -145,10 +145,17 @@
                             <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
                                 style="display: none">
                             @method('POST')
-                            <button
-                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == false)
+                                <a href="{{ url('login') }}"
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100"><i
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
+                            @else
+                                <button
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
-                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                            @endif
                         </form>
                         <button type="button"
                             class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
@@ -196,10 +203,17 @@
                             <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
                                 style="display: none">
                             @method('POST')
-                            <button
-                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == false)
+                                <a href="{{ url('login') }}"
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
-                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
+                            @else
+                                <button
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100 download"><i
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                            @endif
                         </form>
                         <button
                             class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
@@ -261,10 +275,17 @@
                             <input type="text" name="name" value="{{ $book_detail->name }}"
                                 style="display: none">
                             @method('POST')
-                            <button
-                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == false)
+                                <a href="{{ url('login') }}"
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 download"><i
-                                    class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
+                            @else
+                                <button
+                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 download"><i
+                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                            @endif
                         </form>
                         <button
                             class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center

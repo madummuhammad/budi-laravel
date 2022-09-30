@@ -41,10 +41,18 @@
                                 <input type="text" name="book_type" value="{{ $book->reference_book_type }}"
                                     style="display: none">
                                 @method('POST')
-                                <button type="submit" data-book_id="{{ $book->id }}"
-                                    class="dropdown-item download" href="#"><i class="bi bi-download fs-6"></i>
-                                    {{ $download_number->where('book_id', $book->id)->count() }}
-                                </button>
+                                @if (auth()->guard('visitor')->check() == false)
+                                    <a href="{{ url('login') }}" type="submit" data-book_id="{{ $book->id }}"
+                                        class="dropdown-item" href="#"><i class="bi bi-download fs-6"></i>
+                                        {{ $download_number->where('book_id', $book->id)->count() }}
+                                    </a>
+                                @else
+                                    <button type="submit" data-book_id="{{ $book->id }}"
+                                        class="dropdown-item download" href="#"><i
+                                            class="bi bi-download fs-6"></i>
+                                        {{ $download_number->where('book_id', $book->id)->count() }}
+                                    </button>
+                                @endif
                             </form>
                         </span>
                     </div>
@@ -63,11 +71,18 @@
                                     <input type="text" name="book_type" value="{{ $book->reference_book_type }}"
                                         style="display: none">
                                     @method('POST')
-                                    <button type="submit" data-book_id="{{ $book->id }}"
-                                        class="dropdown-item download" href="#"><i
-                                            class="bi bi-download fs-6"></i>
-                                        Unduh
-                                    </button>
+                                    @if (auth()->guard('visitor')->check() == false)
+                                        <a href="{{ url('login') }}" type="submit"
+                                            data-book_id="{{ $book->id }}" class="dropdown-item download"
+                                            href="#"><i class="bi bi-download fs-6"></i>
+                                            Unduh
+                                        </a>
+                                    @else
+                                        <button type="submit" data-book_id="{{ $book->id }}" class="dropdown-item"
+                                            href="#"><i class="bi bi-download fs-6"></i>
+                                            Unduh
+                                        </button>
+                                    @endif
                                 </form>
                             </li>
                             <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"

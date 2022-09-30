@@ -134,10 +134,17 @@
                         @method('POST')
                         <div class="row">
                             <div class="col-12 col-md-3">
-                                <button type="submit"
-                                    class="btn w-100 bg-blue d-flex justify-content-center align-items-center
+                                @if (auth()->guard('visitor')->check() == false)
+                                    <a href="{{ url('login') }}" type="submit"
+                                        class="btn w-100 bg-blue d-flex justify-content-center align-items-center
                                         py-2 me-4 col-12"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</a>
+                                @else
+                                    <button type="submit"
+                                        class="btn w-100 bg-blue d-flex justify-content-center align-items-center
+                                        py-2 me-4 col-12"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                @endif
                             </div>
                         </div>
                     </form>
