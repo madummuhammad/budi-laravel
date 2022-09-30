@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LocationController;
+use App\Mail\VerificationEmail;
 use App\Models\Visitor;
 use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
@@ -61,15 +63,19 @@ class VisitorController extends Controller
         if ($check_email->fails()) {
             $phone = request('surel');
         } else {
-            $email = request('surel');
-            ini_set('display_errors', 1);
-            error_reporting(E_ALL);
-            $from = "support@ansol.id";
-            $to = $email;
-            $subject = "Verifikasi Email Anda";
-            $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
-            $headers = "From:" . $from;
-            mail($to, $subject, $message, $headers);
+            // $email = request('surel');
+            // ini_set('display_errors', 1);
+            // error_reporting(E_ALL);
+            // $from = "support@ansol.id";
+            // $to = $email;
+            // $subject = "Verifikasi Email Anda";
+            // $message = "Link verifikasi anda " . url('confirm/') . '/' . $str_random;
+            // $headers = "From:" . $from;
+            // mail($to, $subject, $message, $headers);
+            Mail::to("muhammad.madum2018@gmail.com")->send(new VerificationEmail());
+
+            return "Email telah dikirim";
+
         }
 
         $data = [
