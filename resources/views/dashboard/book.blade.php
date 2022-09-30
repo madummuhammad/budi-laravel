@@ -135,18 +135,6 @@
                                                                 display: none;
                                                             }
                                                         </style>
-                                                        {{-- <button id="browseFile" type="button" class="btn btn-primary">
-                                                            File Video</button>
-                                                        <div class="card-footer p-4">
-                                                            <video id="videoPreview" src="" controls
-                                                                style="width: 100%; height: auto"></video>
-                                                        </div>
-                                                        <div class="progress mt-3" style="height: 25px">
-                                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                                                aria-valuemax="100" style="width: 75%; height: 100%">75%
-                                                            </div>
-                                                        </div> --}}
                                                         <div class="form-group">
                                                             <div class="form-check mb-2" id="display-count">
                                                             </div>
@@ -221,7 +209,8 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script>
+    {{-- <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script> --}}
+    <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 
     <script type="text/javascript"></script>

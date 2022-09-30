@@ -14,6 +14,9 @@ class BannerController extends Controller
         $data = [
             'page_id' => request('page_id'),
             'tagline' => request('tagline'),
+            'top' => request('top'),
+            'left' => request('left'),
+            'color' => request('color'),
             'image' => $this->storage() . $this->upload(request()),
         ];
 
@@ -31,6 +34,9 @@ class BannerController extends Controller
         $data = [
             'page_id' => request('page_id'),
             'tagline' => request('tagline'),
+            'top' => request('top'),
+            'left' => request('left'),
+            'color' => request('color'),
         ];
 
         $validation = Validator::make($data, [

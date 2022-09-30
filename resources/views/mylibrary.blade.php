@@ -48,7 +48,20 @@
                         <div class="home-tab-body p-0">
                             <div class="input-group input-search w-100 p-0">
                                 <input type="text" class="form-control " id="search" placeholder="Cari">
-                                <button class="btn" style="border-left: 0;" id="search-button"><i
+                                <input type="text" name="filter" value="1" hidden>
+                                <button class="btn btn-outline-secondary dropdown-toggle filter" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Lanjutkan Membaca</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item filter-item" style="cursor: pointer"
+                                            data-value="1">Lanjutkan Membaca</a></li>
+                                    <li><a class="dropdown-item filter-item" style="cursor: pointer"
+                                            data-value="2">Disukai</a></li>
+                                    <li><a class="dropdown-item filter-item" style="cursor: pointer"
+                                            data-value="3">Disimpan</a></li>
+                                    <li><a class="dropdown-item filter-item" style="cursor: pointer"
+                                            data-value="4">Selesai</a></li>
+                                </ul>
+                                <button class="btn search" style="border-left: 0;" id="search-button"><i
                                         class="bi bi-search"></i></button>
                             </div>
                         </div>
@@ -64,21 +77,29 @@
     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
     <script>
         var token = $("input[name=_token]").val();
+        $(".filter-item").on('click', function() {
+            var value = $(this).data('value');
+            $("[name=filter]").val(value);
+            $(".filter").html($(this).html())
+        })
         $(document).ready(function() {
             $(".next").on('click', function() {
                 alert('asdfsadf')
             })
+            var filter = $("[name=filter]").val();
             $.ajax({
                 type: 'POST',
                 url: "{{ url('mylibrary') }}",
                 data: {
                     _method: "POST",
                     _token: token,
+                    filter: filter
                 },
                 success: function(hasil) {
                     $("#my_library").html(hasil);
                     $("#search").keyup(function() {
                         var keyword = $("#search").val();
+                        var filter = $("[name=filter]").val();
                         $.ajax({
                             type: 'POST',
                             url: "{{ url('mylibrary') }}",
@@ -86,6 +107,7 @@
                                 _method: "POST",
                                 _token: token,
                                 keyword: keyword,
+                                filter: filter,
                             },
                             success: function(hasil) {
                                 $("#my_library").html(hasil);

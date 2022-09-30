@@ -1,60 +1,64 @@
+@font-face {
+    font-family: "KidZone";
+    src: url("../../web/assets/vendor/font/Kidzone-2qVv.ttf");
+}
 .img-container-for-icon {
-  position: relative;
+    position: relative;
 }
 .img-container-for-icon .icon {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  top: calc(50% - 20px);
-  left: calc(25% - 20px);
-  width: 40px;
-  height: 40px;
-  background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    top: calc(50% - 20px);
+    left: calc(25% - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .file-input-custom {
-  color: transparent;
-  /* padding-bottom: 40px !important; */
-  padding: 0 !important;
+    color: transparent;
+    /* padding-bottom: 40px !important; */
+    padding: 0 !important;
 }
 .file-input-custom::-webkit-file-upload-button {
     visibility: hidden;
 }
 .file-input-custom::before {
-  content: 'Pilih File';
-  color: white;
-  display: inline-block;
-  background: #593BDB;
-  border-radius: 3px;
-  padding: 6px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  font-size: 10pt;
-  margin: 0px !important;
+    content: "Pilih File";
+    color: white;
+    display: inline-block;
+    background: #593bdb;
+    border-radius: 3px;
+    padding: 6px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 10pt;
+    margin: 0px !important;
 }
 .file-input-custom:hover::before {
-  border-color: black;
+    border-color: black;
 }
 .file-input-custom:active {
-  outline: 0;
+    outline: 0;
 }
 .file-input-custom:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-.sinopsis-text{
-overflow: hidden;
-text-overflow: ellipsis;
-display: -webkit-box;
--webkit-line-clamp: 5;
--webkit-box-orient: vertical;
+.sinopsis-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
 }
 
-.d-icon{
+.d-icon {
     display: inline-block;
     /* display: flex;
     justify-content: center;
@@ -63,6 +67,32 @@ display: -webkit-box;
     font-size: 18px;
 }
 
-.card-footer, .progress {
-display: none;
+.card-footer,
+.progress {
+    display: none;
+}
+
+/* .carousel-item {
+} */
+.carousel-item .img-container {
+    position: relative;
+    background-color: blue;
+    z-index: 1;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.carousel-caption h5 {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    font-family: "KidZone";
+    font-size: 45px;
+    width: 50%;
 }

@@ -75,6 +75,10 @@
                                                     <a href="{{ url('dashboard/reference_book/edit') }}/{{ $book->id }}"
                                                         class="btn badge badge-primary"><i
                                                             class="bi bi-pencil-square"></i></a>
+                                                    <a href="{{ url('dashboard/statistic/referensi/comment') }}/{{ $book->id }}"
+                                                        class="btn badge badge-outline-primary mx-1" href=""
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        title="Komentar"><i class="fa-regular fa-comments"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

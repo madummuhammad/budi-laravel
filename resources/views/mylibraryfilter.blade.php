@@ -11,23 +11,27 @@
                         }
                     </style>
                     <div class="col-6 col-md-3 nav-item text-center">
-                        <a href="#next" class="text-blue text-decoration-none fs-5 nav-link active mylibrary"
+                        <a href="#next"
+                            class="text-blue text-decoration-none fs-5 nav-link @if ($filter == 1) active @endif mylibrary"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Lanjutkan
                             Membaca</a>
                     </div>
                     <div class="col-6 col-md-2 nav-item text-center">
-                        <a href="#liked" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
+                        <a href="#liked"
+                            class="text-decoration-none fs-5 text-dark nav-link mylibrary @if ($filter == 2) active @endif"
                             data-bs-toggle="pill"><i class="bi bi-heart"></i></i>
                             Disukai</a>
                     </div>
                     <div class="col-6 col-md-2 nav-item text-center">
-                        <a href="#saved" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
+                        <a href="#saved"
+                            class="text-decoration-none fs-5 text-dark nav-link mylibrary @if ($filter == 3) active @endif"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Disimpan</a>
                     </div>
                     <div class="col-6 col-md-2 nav-item text-center">
-                        <a href="#done" class="text-decoration-none fs-5 text-dark nav-link mylibrary"
+                        <a href="#done"
+                            class="text-decoration-none fs-5 text-dark nav-link mylibrary @if ($filter == 4) active @endif"
                             data-bs-toggle="pill"><i class="bi bi-book"></i>
                             Selesai</a>
                     </div>
@@ -36,7 +40,7 @@
                 </div>
                 <div class="tab-content mt-3">
                     {{-- Lanjutkan Yuk --}}
-                    <div class="tab-pane container active" id="next">
+                    <div class="tab-pane container @if ($filter == 1) active @endif" id="next">
                         <div class="d-md-flex d-block align-items-center justify-content-between mt-4 d-block">
                             <h3 class="mb-3 text-center text-md-start">Buku Bacaan</h3>
                             <div class="d-flex justify-content-center pagination-container-1">
@@ -522,7 +526,7 @@
                         </div>
                     </div>
                     {{-- Disukai --}}
-                    <div class="tab-pane container" id="liked">
+                    <div class="tab-pane container @if ($filter == 2) active @endif" id="liked">
                         <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
                             <h3 class="mb-3 text-center text-md-start">Buku Bacaan</h3>
                             <div class="d-flex justify-content-center pagination-container-5">
@@ -1009,7 +1013,7 @@
                         </div>
                     </div>
                     {{-- Disimpan --}}
-                    <div class="tab-pane container" id="saved">
+                    <div class="tab-pane container @if ($filter == 3) active @endif" id="saved">
                         <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
                             <h3 class="mb-3 text-center text-md-start">Buku Bacaan</h3>
                             <div class="d-flex justify-content-center pagination-container-9">
@@ -1496,7 +1500,7 @@
                         </div>
                     </div>
                     {{-- Selesai --}}
-                    <div class="tab-pane container" id="done">
+                    <div class="tab-pane container @if ($filter == 4) active @endif" id="done">
                         <div class="d-md-flex d-block align-items-center justify-content-between mt-4">
                             <h3 class="mb-3 text-center text-md-start">Buku Bacaan</h3>
                             <div class="d-flex justify-content-center pagination-container-13">

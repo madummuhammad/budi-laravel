@@ -129,43 +129,27 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="col-12 col-md-12">
+                            <select name="province" id="" class="form-select py-3 mt-3">
+                                <option value="">--Pilih Provinsi--</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <input type="text"
-                                class="form-control mt-3 py-3 @error('city')
-                                is-invalid
-                            @enderror"
-                                name="city" placeholder="Kota/Kabupaten">
-                            @error('city')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <select name="city" id="" class="form-select py-3 mt-3">
+                                <option value="">--Pilih Kota--</option>
+                            </select>
                         </div>
                         <div class="col-12 col-md-4">
-                            <input type="text"
-                                class="form-control mt-3 py-3 @error('sub')
-                                is-invalid
-                            @enderror"
-                                name="sub" placeholder="Kecamatan">
-                            @error('sub')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <select name="district" id="" class="form-select py-3 mt-3">
+                                <option value="">--Pilih Kecamatan--</option>
+                            </select>
                         </div>
                         <div class="col-12 col-md-4">
-                            <input type="text"
-                                class="form-control mt-3 py-3 @error('area')
-                                is-invalid
-                            @enderror"
-                                name="area" placeholder="Kelurahan">
-                            @error('area')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <select name="sub_district" id="" class="form-select py-3 mt-3">
+                                <option value="">--Pilih Kelurahan--</option>
+                            </select>
                         </div>
                     </div>
                     <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
@@ -177,7 +161,7 @@
                         <option value="Umum">Umum</option>
                     </select>
                     <div id="sub-status"></div>
-                    <input type="text"
+                    <input type="text" autocomplete="true"
                         class="form-control mt-3 py-3 @error('username')
                         is-invalid
                     @enderror"
@@ -187,7 +171,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <div class="input-group mt-3">
-                        <input type="password"
+                        <input type="password" autocomplete="true"
                             class="form-control py-3 @error('password')
                             is-invalid
                         @enderror"
@@ -245,6 +229,80 @@
         } else {
             $("#sub-status").html(``);
         }
+    })
+</script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('province') }}",
+            success: function(hasil) {
+                var province = hasil.provinsi;
+                for (let i = 0; i < province.length; i++) {
+                    $("select[name=province]").append("<option value='" + province[i].id +
+                        "'>" +
+                        province[i].nama + "</option>")
+                }
+            }
+        });
+
+        $("select[name=province]").on('change', function() {
+            var province_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('city') }}/" + province_id,
+                success: function(hasil) {
+                    var city = hasil.kota_kabupaten;
+                    $("select[name=city]").html("");
+                    $("select[name=city]").append(
+                        "<option value=''>--Pilih Kota--</option>")
+                    for (let i = 0; i < city.length; i++) {
+                        $("select[name=city]").append("<option value='" + city[i]
+                            .id + "'>" +
+                            city[i].nama + "</option>")
+                    }
+                }
+            });
+        });
+
+        $("select[name=city]").on('change', function() {
+            var city_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('district') }}/" + city_id,
+                success: function(hasil) {
+                    var district = hasil.kecamatan;
+                    $("select[name=district]").html("");
+                    $("select[name=district]").append(
+                        "<option value=''>--Pilih Kecamatan--</option>")
+                    for (let i = 0; i < district.length; i++) {
+                        $("select[name=district]").append("<option value='" + district[i]
+                            .id + "'>" +
+                            district[i].nama + "</option>")
+                    }
+                }
+            });
+        });
+
+        $("select[name=district]").on('change', function() {
+            var district_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sub_district') }}/" + district_id,
+                success: function(hasil) {
+                    var district = hasil.kelurahan;
+                    $("select[name=sub_district]").html("");
+                    $("select[name=sub_district]").append(
+                        "<option value=''>--Pilih Kecamatan--</option>")
+                    for (let i = 0; i < district.length; i++) {
+                        $("select[name=sub_district]").append("<option value='" + district[
+                                i]
+                            .id + "'>" +
+                            district[i].nama + "</option>")
+                    }
+                }
+            });
+        });
     })
 </script>
 

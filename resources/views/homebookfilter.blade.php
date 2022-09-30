@@ -9,13 +9,13 @@
                                         {{-- <li class="nav-item"> --}}
                                         @if ($loop->first)
                                             <div class="col">
-                                                <a class="nav-link active" data-bs-toggle="pill"
+                                                <a class="nav-link active text-center" data-bs-toggle="pill"
                                                     href="#theme{{ Str::slug($level->name) }}"
                                                     aria-selected="true">{{ $level->name }}</a>
                                             </div>
                                         @else
                                             <div class="col">
-                                                <a class="nav-link" data-bs-toggle="pill"
+                                                <a class="nav-link text-center" data-bs-toggle="pill"
                                                     href="#theme{{ Str::slug($level->name) }}"
                                                     aria-selected="false">{{ $level->name }}</a>
                                             </div>

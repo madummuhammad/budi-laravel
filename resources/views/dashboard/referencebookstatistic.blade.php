@@ -80,10 +80,6 @@
                                                     <td>{{ number_format($book->reference_comments->sum('star') / $book->reference_comments->count(), 1) }}
                                                     </td>
                                                 @endif
-                                                <td><a href="{{ url('dashboard/statistic/referensi/comment') }}/{{ $book->id }}"
-                                                        class="btn badge badge-outline-primary mx-1" href=""
-                                                        data-toggle="tooltip" data-placement="bottom" title="Komentar"><i
-                                                            class="fa-regular fa-comments"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

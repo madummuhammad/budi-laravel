@@ -122,6 +122,77 @@
                                                                                                 aria-describedby="emailHelp"
                                                                                                 name="image">
                                                                                         </div>
+                                                                                        <div class="form-group">
+                                                                                            <h5 class="text-center">Posisi
+                                                                                                Tagline</h5>
+                                                                                            <p>100% dihitung dari lebar dan
+                                                                                                tinggi gambar</p>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Berapa
+                                                                                                Persen dari
+                                                                                                atas?</label>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="exampleInputEmail1"
+                                                                                                    aria-describedby="emailHelp"
+                                                                                                    name="top"
+                                                                                                    value="{{ $banner->top }}">
+                                                                                                <span
+                                                                                                    class="input-group-text"
+                                                                                                    id="basic-addon1">%</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Berapa
+                                                                                                Persen dari
+                                                                                                kiri?</label>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="exampleInputEmail1"
+                                                                                                    aria-describedby="emailHelp"
+                                                                                                    name="left"
+                                                                                                    value="{{ $banner->left }}">
+                                                                                                <span
+                                                                                                    class="input-group-text"
+                                                                                                    id="basic-addon1">%</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Warna
+                                                                                                Tagline</label><br>
+                                                                                            <div
+                                                                                                class="form-check form-check-inline">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    id="inlineCheckbox1{{ $banner->id }}"
+                                                                                                    value="white"
+                                                                                                    name="color"
+                                                                                                    @if ($banner->color == 'white') checked @endif>
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="inlineCheckbox1{{ $banner->id }}">Putih</label>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="form-check form-check-inline">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    id="inlineCheckbox2{{ $banner->id }}"
+                                                                                                    value="black"
+                                                                                                    name="color"
+                                                                                                    @if ($banner->color == 'black') checked @endif>
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="inlineCheckbox2{{ $banner->id }}">Hitam</label>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -138,11 +209,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <img src="{{ $banner->image }}" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <h5>{{ $banner->tagline }}</h5>
-                                                        {{-- <p>Some representative placeholder content for the first slide.</p> --}}
+                                                    <div class="img-container">
+                                                        <img src="{{ $banner->image }}" class="d-block w-100 img-fluid"
+                                                            alt="...">
+                                                        <div class="carousel-caption d-none d-md-block text-left">
+                                                            <h5 class="ff-kidzone"
+                                                                style="left:{{ $banner->left }}%;top:{{ $banner->top }}%;color:{{ $banner->color }}">
+                                                                {{ $banner->tagline }}</h5>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -194,6 +268,52 @@
                                                                             class="form-control file-input-custom"
                                                                             id="cover-buku" aria-describedby="emailHelp"
                                                                             name="image">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <h5 class="text-center">Posisi Tagline</h5>
+                                                                        <p>100% dihitung dari lebar dan tinggi gambar</p>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Berapa Persen dari
+                                                                            atas?</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputEmail1"
+                                                                                aria-describedby="emailHelp"
+                                                                                name="top">
+                                                                            <span class="input-group-text"
+                                                                                id="basic-addon1">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Berapa Persen dari
+                                                                            kiri?</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputEmail1"
+                                                                                aria-describedby="emailHelp"
+                                                                                name="left">
+                                                                            <span class="input-group-text"
+                                                                                id="basic-addon1">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Warna
+                                                                            Tagline</label><br>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                id="inlineCheckbox3" value="white"
+                                                                                name="color">
+                                                                            <label class="form-check-label"
+                                                                                for="inlineCheckbox3">Putih</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                id="inlineCheckbox4" value="black"
+                                                                                name="color">
+                                                                            <label class="form-check-label"
+                                                                                for="inlineCheckbox4">Hitam</label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

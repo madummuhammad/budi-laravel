@@ -232,7 +232,14 @@
                         <div class="modal-header">
                             {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
-                            <h5>Kamu belum selesai membaca !</h5>
+
+                            <h5>Kamu belum selesai @if ($reads->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                    mendengar
+                                @elseif ($reads->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                    menonton
+                                @else
+                                    membaca
+                                @endif !</h5>
                         </div>
                         <div class="modal-body">
                             <div class="row d-flex justify-content-center">
@@ -249,7 +256,13 @@
                                 data-bs-dismiss="modal">Tandai
                                 Selesai</button>
                             <button type="button" data-bs-dismiss="modal" id="next"
-                                class="btn btn-primary">Lanjutkan baca
+                                class="btn btn-primary">Lanjutkan @if ($reads->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
+                                    Dengar
+                                @elseif ($reads->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
+                                    Tonton
+                                @else
+                                    Membaca
+                                @endif
                                 nanti</button>
                         </div>
                     </div>

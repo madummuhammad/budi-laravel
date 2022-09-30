@@ -264,6 +264,9 @@ class WebController extends Controller
         if (auth()->guard('visitor')->check() == false) {
             return redirect('login');
         }
+        $data['filter'] = request('filter');
+        $data['pustakaku'] = Banner::where('page_id', '889ebf6f-4bdb-46ad-9a69-e4bee0e6ace6')->first();
+        $data['number_of_done'] = Mylibrary::where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 2)->count();
 
         $book = Book::get();
         $data['liked_number'] = Mylibrary::where('liked', 1)->get();

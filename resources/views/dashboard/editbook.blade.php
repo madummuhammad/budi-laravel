@@ -244,7 +244,8 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('assets') }}/vendor/global/global.min.js"></script>
+{{-- <script src="{{ asset('assets') }}/vendor/global/global.min.js"></script> --}}
+<script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 <script>
     $(document).ready(function() {

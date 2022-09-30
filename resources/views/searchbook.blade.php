@@ -18,7 +18,7 @@
                             sesuai minat dan kebutuhanmu</h4>
                         <div class="home-tab-body w-100" id="home-tab-body">
                             <div class="container">
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
                                     <button
                                         class="text-white d-block d-sm-none text-center mx-auto btn text-decoration-underline"
                                         onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
@@ -114,7 +114,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-4 my-1">
+                                    <div class="col-12 col-md-3 my-1">
                                         <div class="input-search w-100">
                                             <input type="text" class="form-control" id="search"
                                                 placeholder="Cari">

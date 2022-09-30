@@ -10,6 +10,7 @@ use App\Http\Controllers\BooktypeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MylibraryController;
 use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
@@ -116,6 +117,11 @@ Route::middleware('visitor')->group(function () {
 
         // Search
         Route::get('/search', [WebController::class, 'search']);
+
+        Route::get('/province', [LocationController::class, 'province']);
+        Route::get('/city/{id}', [LocationController::class, 'city']);
+        Route::get('/district/{id}', [LocationController::class, 'district']);
+        Route::get('/sub_district/{id}', [LocationController::class, 'sub_district']);
     });
 });
 

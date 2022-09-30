@@ -7,6 +7,9 @@
                 @foreach ($banners as $banner)
                     <div class="carousel-item @if ($loop->first) active @endif">
                         <img src="{{ $banner->image }}" class="d-block w-100" alt="...">
+                        <h1 class="ff-kidzone tagline"
+                            style="top:{{ $banner->top }}%;left:{{ $banner->left }}%;color:{{ $banner->color }}">
+                            {{ $banner->tagline }}</h1>
                     </div>
                 @endforeach
             </div>
@@ -120,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 my-1">
-                                <div class="input-search w-100">
+                                <div class="input-search">
                                     <input type="text" class="form-control" id="search" placeholder="Cari">
                                     <button class="btn" id="search-button"><i class="bi bi-search"></i></button>
                                 </div>
@@ -151,24 +154,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="row">
-                        @foreach ($nexts as $next)
-                            <div class="col">
-                                <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
-                                @if ($next->books->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                    <div class="icon">
-                                        <img src="{{ asset('web') }}/assets/icon/play.svg" alt="">
-                                    </div>
-                                @endif
-                                @if ($next->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                    <div class="icon">
-                                        <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">
-                                    </div>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div> --}}
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col-12">
                             <div class="owl-carousel owl-theme px-5" id="owl-carousel-3">
                                 @foreach ($nexts as $next)
@@ -300,7 +286,7 @@
                     <div class="row py-5">
                         <div class="col-12 col-md-6 pb-5 me-5">
                             <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
-                            <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-center mt-5">
                                 <img class="img" src="{{ $book->cover }}" alt="">
                             </div>
                             <div class="audio-player" data-audio="{{ asset('storage') }}/{{ $book->content }}"

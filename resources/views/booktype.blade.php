@@ -83,7 +83,7 @@
                                     <button class="d-block d-sm-none text-center mx-auto btn text-decoration-underline mb-2"
                                         onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
                                         Jenjang, Tema, dan Bahasa</button>
-                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                    <div class="d-none d-sm-block col-12 col-md-2-5 my-1">
                                         <div class="dropdown w-100" id="jenjang">
                                             <button
                                                 class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
@@ -111,7 +111,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                    <div class="d-none d-sm-block col-12 col-md-2-5 my-1">
                                         <div class="dropdown w-100" id="tema">
                                             <button
                                                 class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle orange dropdown-toggle"
@@ -128,7 +128,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="d-none d-sm-block col-12 col-md-3 my-1">
+                                    <div class="d-none d-sm-block col-12 col-md-2-5 my-1">
                                         <div class="dropdown w-100" id="bahasa">
                                             <button
                                                 class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle dropdown-toggle green"
@@ -148,8 +148,8 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-3 my-1">
-                                        <div class="input-search w-100">
+                                    <div class="col-12 col-md-4 my-1">
+                                        <div class="input-search">
                                             <input type="text" class="form-control" id="search"
                                                 placeholder="Cari">
                                             <button class="btn" id="search-button"><i

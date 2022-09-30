@@ -276,7 +276,7 @@
     -moz-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
 }
 .slider .home-tab .home-tab-body .input-search {
-    width: 30%;
+    width: 100%;
     display: flex;
     align-items: center;
 }
@@ -382,6 +382,7 @@
 .tab-pane .home-tab .home-tab-body .input-search {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 .tab-pane .home-tab .home-tab-body .input-search input,
 .home .home-tab .home-tab-body .input-search input {
@@ -391,6 +392,23 @@
     padding-right: 2px;
     height: 100%;
     padding-left: 10%;
+}
+.tab-pane .home-tab .home-tab-body .input-search button.filter {
+    border: 1px solid black;
+    border-left: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    /* box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
+    -webkit-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.5) inset;
+    -moz-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset; */
+}
+
+.tab-pane .home-tab .home-tab-body .input-search button {
+    background-color: white;
+    color: #fb4072;
+    border-radius: 100%;
+    margin-left: 10px;
+    border: 1px solid black;
 }
 .tab-pane .home-tab .home-tab-body .input-search input::placeholder,
 .home .home-tab .home-tab-body .input-search input::placeholder {
@@ -405,12 +423,14 @@
     -webkit-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.5) inset;
     -moz-box-shadow: 0px 0px 8px rgba(34, 85, 85, 0.49) inset;
 }
-.tab-pane .home-tab .home-tab-body .input-search button {
+.tab-pane .home-tab .home-tab-body .input-search .search {
     background-color: white;
     color: #fb4072;
     border-radius: 100%;
     margin-left: 10px;
     border: 1px solid black;
+    /* padding-top: 8px;
+    padding-bottom: 8px; */
 }
 
 #section-2 .owl-carousel .item {
@@ -577,8 +597,9 @@ body.registrasi {
 }
 
 #section-6 {
-    background-image: url("../img/section5.png");
+    background-image: url("../img/ayo_dengarkan_cerita.png");
     background-size: cover;
+    background-position: center;
 }
 #section-6 .h2 {
     color: white;
@@ -700,6 +721,7 @@ body.registrasi {
     text-align: center;
     padding: 5px;
     margin-bottom: 15px;
+    font-size: 14px;
 }
 .filter-theme .col a.active {
     background-color: #0190d6;
@@ -815,6 +837,14 @@ footer .dash {
     top: 25%;
     left: 15%;
     font-size: 40px;
+}
+
+.carousel-item .tagline {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    font-size: 4vw;
+    width: 50%;
 }
 
 .baca-button-group {
@@ -944,7 +974,7 @@ footer .dash {
 .audio-player .controls .toggle-play.pause:before {
     position: absolute;
     top: 0;
-    left: 0px;
+    left: 3px;
     background: #0190d6;
     content: "";
     height: 15px;
@@ -953,7 +983,7 @@ footer .dash {
 .audio-player .controls .toggle-play.pause:after {
     position: absolute;
     top: 0;
-    right: 8px;
+    right: 13px;
     background: #0190d6;
     content: "";
     height: 15px;
@@ -1198,4 +1228,15 @@ footer .dash {
     background-image: url("../icon/next-2.svg");
     background-repeat: no-repeat;
     background-position: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .col-md-2-5 {
+        flex: 0 0 auto;
+        width: calc(100% / 24 * 5);
+    }
+    .col-md-3-5 {
+        flex: 0 0 auto;
+        width: calc(100% / 24 * 7);
+    }
 }

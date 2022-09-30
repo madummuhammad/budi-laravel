@@ -73,9 +73,10 @@ class VisitorController extends Controller
 
         $data = [
             'name' => request('name'),
+            'province' => request('province'),
             'city' => request('city'),
-            'sub' => request('sub'),
-            'area' => request('area'),
+            'district' => request('district'),
+            'sub_district' => request('sub_district'),
             'status' => request('status'),
             'username' => request('username'),
             'password' => request('password'),
@@ -83,9 +84,10 @@ class VisitorController extends Controller
 
         $validation = Validator::make($data, [
             'name' => 'required',
+            'province' => 'required',
             'city' => 'required',
-            'sub' => 'required',
-            'area' => 'required',
+            'district' => 'required',
+            'sub_district' => 'required',
             'status' => 'required',
             'username' => 'required|unique:visitors,username',
             'password' => 'required',
@@ -100,9 +102,10 @@ class VisitorController extends Controller
             'phone' => $phone,
             'email' => $email,
             'image' => url('/storage/image/default.jpg'),
+            'province' => request('province'),
             'city' => request('city'),
-            'sub' => request('sub'),
-            'area' => request('area'),
+            'district' => request('district'),
+            'sub_district' => request('sub_district'),
             'status' => 'Pending',
             'token' => $str_random,
             'profession' => request('status'),
