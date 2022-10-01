@@ -2,7 +2,7 @@
 @section('judul_halaman', 'Daftar Buku')
 @section('content')
     <div id="hero">
-        <img class="w-100" src="{{ $banners->image }}" alt="">
+        <img class="banner-img-size" src="{{ $banners->image }}" alt="">
         <h2 class="ff-kidzone tagline text-white">{{ $banners->tagline }}</h2>
     </div>
     <div class="container">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-12">
                 @foreach ($send_creations->send_creation_images as $send_creation_image)
                     @if ($loop->index == 1)

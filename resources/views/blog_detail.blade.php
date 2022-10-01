@@ -26,21 +26,25 @@
             </div>
             <div class="row">
                 <div class="col-md-7 my-5">
-                    <div class="row">
-                        <div class="col-6 col-md-4">
-                            Oleh: @if ($blog->writer !== null)
-                                @foreach ($blog->writers as $writer)
-                                    {{ $writer->name }}
-                                @endforeach
-                            @else
-                                {{ $blog->uploader }}
-                            @endif
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex flex-column flex-md-row me-5 me-md-0">
+                            <div class="me-md-3">
+                                Oleh: @if ($blog->writer !== null)
+                                    @foreach ($blog->writers as $writer)
+                                        {{ $writer->name }}
+                                    @endforeach
+                                @else
+                                    {{ $blog->uploader }}
+                                @endif
+                            </div>
+                            <div class="me-md-3">{{ $blog->uploaded_at }}</div>
                         </div>
-                        <div class="col-md-4 col-6">{{ $blog->uploaded_at }}</div>
-                        <div class="col-md-2 col-3"><img src="{{ asset('web') }}/assets/icon/little-book.svg"
+                        
+                        <div class="d-flex flex-column flex-md-row">
+                            <div class="me-md-3"><img src="{{ asset('web') }}/assets/icon/little-book.svg"
                                 alt=""> 100
                         </div>
-                        <div class="col-md-2 col-3"><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100
+                        <div><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100</div>
                         </div>
                     </div>
                 </div>
@@ -53,26 +57,26 @@
                             echo $blog->content;
                         @endphp
                     </div>
-                    <div class="col-12 col-md-5">
+                    <div class="col-12 col-md-5 mt-5">
                         {{-- <p>Kegiatan Diseminasi Pengembangan Kosakata: Kamus Masuk Sekolah ini juga akan
                             diselenggarakan secara bertahap pada bulan Agustus dan September di beberapa sekolah
                             lainnya di DKI Jakarta dengan perincian, yakni 2 sekolah dasar, 2 sekolah menengah
                             pertama, dan 2 sekolah menengah atas.   (EK/HS)</p> --}}
                         <h5 class="fw-bold">Kategori</h5>
-                        <div class="d-flex justify-content-between w-75 mt-4 mb-4">
+                        <div class="d-flex justify-content-between w-100 mt-4 mb-2 mb-lg-4">
                             <div class="fs-5">Berita</div>
                             <div class="text-green fw-bold">{{ $total_news }}</div>
                         </div>
-                        <div class="dash w-75"></div>
-                        <div class="d-flex justify-content-between w-75 mt-4 mb-4">
+                        <div class="dash w-100"></div>
+                        <div class="d-flex justify-content-between w-100 mt-2 mb-2 mt-lg-4 mb-lg-4">
                             <div class="fs-5">Artikel</div>
                             <div class="text-green fw-bold">{{ $total_article }}</div>
                         </div>
-                        <div class="dash w-75"></div>
-                        <div class="tag mt-4">
+                        <div class="dash w-100"></div>
+                        <div class="tag mt-5">
                             <h5 class="fw-bold mb-4">Tag:</h5>
                             @foreach ($blog->tags as $tag)
-                                <span class="tag-item">{{ $tag->tag }}</span>
+                                <span class="tag-item px-2">{{ $tag->tag }}</span>
                             @endforeach
                         </div>
                     </div>

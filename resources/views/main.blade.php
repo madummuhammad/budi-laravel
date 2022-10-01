@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile-view.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
@@ -16,7 +17,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
-        <div class="container px-5">
+        <div class="container px-4 px-md-0">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('web') }}/assets/img/logo.png" alt="">
             </a>
@@ -67,7 +68,7 @@
                         </div>
                     @endif
                     @if (auth()->guard('visitor')->check() == 1)
-                        <div class="d-flex d-md-none navbar-profile align-items-center">
+                        <div class="d-flex d-lg-none navbar-profile align-items-center">
                             <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                             <div class="nav-item px-3 dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
@@ -94,7 +95,7 @@
                 </div>
             @endif
             @if (auth()->guard('visitor')->check() == 1)
-                <div class="d-md-flex d-none navbar-profile align-items-center">
+                <div class="d-lg-flex d-none navbar-profile align-items-center">
                     <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                     <div class="nav-item px-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"

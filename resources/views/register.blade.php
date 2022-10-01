@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile-view.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
@@ -13,7 +14,7 @@
 
 <body class="registrasi">
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
-        <div class="container px-5">
+        <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('web') }}/assets/img/logo.png" alt="">
             </a>
@@ -56,11 +57,15 @@
                     <li class="nav-item px-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
                     </li>
+                     <li class="nav-item d-block d-lg-none mt-4">
+                       <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
+                    <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
+                    </li>
                     </li>
                 </ul>
             </div>
             @if (auth()->guard('visitor')->check() == false)
-                <div class="d-flex">
+                <div class="d-none d-lg-flex">
                     <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
                     <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
                 </div>
@@ -86,106 +91,110 @@
             @endif
         </div>
     </nav>
-    <div class="container mt-5 pt-5" style="padding-bottom: 200px;">
-        <div class="d-flex justify-content-center">
+    <div class="">
+        <div class="text-center bg-atas mb-md-5">
             <img src="{{ asset('web') }}/assets/img/logo.png" alt="" style="width:120px">
         </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-12 col-md-6 bg-white">
-                <h5 class="fw-bold">Selamat Datang</h5>
-                <p class="card-text"> Silahkan isi data diri anda untuk menjadi bagian
-                    dari keluarga Budi</p>
-                @if (session()->has('message'))
-                    <div class="alert alert-warning" role="alert">
-                        {{ session('message') }}
-                    </div>
-                @endif
-                <form action="{{ url('register') }}" class="mb-5" method="POST">
-                    @csrf
-                    @method('POST')
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <input type="text"
-                                class="form-control mt-3 py-3 @error('name')
-                                is-invalid
-                            @enderror"
-                                placeholder="Nama Lengkap" aria-label="Full Name" name="name"
-                                value="{{ old('name') }}">
-                            @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-6 bg-white">
+                    <h5 class="fw-bold">Selamat Datang</h5>
+                    <p class="card-text"> Silahkan isi data diri anda untuk menjadi bagian
+                        dari keluarga Budi</p>
+                    @if (session()->has('message'))
+                        <div class="alert alert-warning" role="alert">
+                            {{ session('message') }}
                         </div>
-                        <div class="col-12 col-md-6">
-                            <input type="text"
-                                class="form-control mt-3 py-3 @error('phone')
+                    @endif
+                    <form action="{{ url('register') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <input type="text"
+                                    class="form-control mt-3 py-3 @error('name')
                                     is-invalid
                                 @enderror"
-                                placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="surel">
-                            @error('phone')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                    placeholder="Nama Lengkap" aria-label="Full Name" name="name"
+                                    value="{{ old('name') }}">
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="text"
+                                    class="form-control mt-3 py-3 @error('phone')
+                                        is-invalid
+                                    @enderror"
+                                    placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="surel">
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <select name="province" id="" class="form-select py-3 mt-3">
+                                    <option value="">--Pilih Provinsi--</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-12 col-md-12">
-                            <select name="province" id="" class="form-select py-3 mt-3">
-                                <option value="">--Pilih Provinsi--</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <select name="city" id="" class="form-select py-3 mt-3">
+                                    <option value="">--Pilih Kota--</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <select name="district" id="" class="form-select py-3 mt-3">
+                                    <option value="">--Pilih Kecamatan--</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <select name="sub_district" id="" class="form-select py-3 mt-3">
+                                    <option value="">--Pilih Kelurahan--</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <select name="city" id="" class="form-select py-3 mt-3">
-                                <option value="">--Pilih Kota--</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <select name="district" id="" class="form-select py-3 mt-3">
-                                <option value="">--Pilih Kecamatan--</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <select name="sub_district" id="" class="form-select py-3 mt-3">
-                                <option value="">--Pilih Kelurahan--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
-                        placeholder="" name="status">
-                        <option selected value="">Status</option>
-                        <option value="Siswa">Siswa</option>
-                        <option value="Guru / Tenaga Pendidik">Guru/ Tenaga Pendidik</option>
-                        <option value="Orang Tua Siswa">Orang Tua Siswa</option>
-                        <option value="Umum">Umum</option>
-                    </select>
-                    <div id="sub-status"></div>
-                    <input type="text" autocomplete="true"
-                        class="form-control mt-3 py-3 @error('username')
-                        is-invalid
-                    @enderror"
-                        id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : Budiberbudi)"
-                        name="username" value="{{ old('username') }}">
-                    @error('username')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    <div class="input-group mt-3">
-                        <input type="password" autocomplete="true"
-                            class="form-control py-3 @error('password')
+                        <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
+                            placeholder="" name="status">
+                            <option selected value="">Status</option>
+                            <option value="Siswa">Siswa</option>
+                            <option value="Guru / Tenaga Pendidik">Guru/ Tenaga Pendidik</option>
+                            <option value="Orang Tua Siswa">Orang Tua Siswa</option>
+                            <option value="Umum">Umum</option>
+                        </select>
+                        <div id="sub-status"></div>
+                        <input type="text" autocomplete="true"
+                            class="form-control mt-3 py-3 @error('username')
                             is-invalid
                         @enderror"
-                            id="exampleFormControlInput2" placeholder="Kata sandi" name="password">
-                        <button id="btn-eye" type="button" class="input-group-text bg-white"><i
-                                class="bi bi-eye"></i></button>
-                        @error('password')
+                            id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : Budiberbudi)"
+                            name="username" value="{{ old('username') }}">
+                        @error('username')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        <div class="input-group mt-3">
+                            <input type="password" autocomplete="true"
+                                class="form-control py-3 @error('password')
+                                is-invalid
+                            @enderror"
+                                id="exampleFormControlInput2" placeholder="Kata sandi" name="password">
+                            <button id="btn-eye" type="button" class="input-group-text bg-white"><i
+                                    class="bi bi-eye"></i></button>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button class="btn bg-blue text-white w-100 py-2 mt-3">Buat Akun</button>
+                    </form>
+                    <div class="bg-bawah">
+                        <p class="text-center mt-3 mb-5">Sudah memiliki akun? <a href="{{ url('login') }}"
+                            class="text-decoration-none text-blue fw-bold">Masuk</a></p>
                     </div>
-                    <button class="btn bg-blue text-white w-100 py-2 mt-3">Buat Akun</button>
-                </form>
-                <p class="text-center mt-5">Sudah memiliki akun? <a href="{{ url('login') }}"
-                        class="text-decoration-none text-blue fw-bold">Masuk</a></p>
+                </div>
             </div>
         </div>
     </div>
