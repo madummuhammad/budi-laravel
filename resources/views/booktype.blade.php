@@ -80,9 +80,10 @@
                         <div class="home-tab-body w-100" id="home-tab-body">
                             <div class="container">
                                 <div class="row">
-                                    <button class="d-block d-sm-none text-center mx-auto btn text-decoration-underline mb-2"
-                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
-                                        Jenjang, Tema, dan Bahasa</button>
+                                    <p class="text-white d-block d-sm-none text-center fs-m-12px dropdown-toggle"
+                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">
+                                        Pilih
+                                        Jenjang & Tema</p>
                                     <div class="d-none d-sm-block col-12 col-md-2-5 my-1">
                                         <div class="dropdown w-100" id="jenjang">
                                             <button

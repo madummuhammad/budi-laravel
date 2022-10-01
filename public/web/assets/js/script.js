@@ -22,15 +22,18 @@ $('#owl-carousel-2').owlCarousel({
     loop: false,
     margin: 40,
     nav: true,
+    dots: true,
     responsive: {
         0: {
-            items: 1
+            items: 2,
+            nav: false
         },
         600: {
             items: 3
         },
         1000: {
-            items: 4
+            items: 4,
+            dots: false
         }
     }
 });

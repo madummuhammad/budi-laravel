@@ -1,5 +1,5 @@
 <h3 class="mt-5 mb-3 fw-bold">Hasil Pencarian {{ $book_types->name }}</h3>
-<div class="row row-cols-1 row-cols-md-5">
+<div class="row row-cols-2 row-cols-md-5">
     @foreach ($books as $book)
         <div class="col mb-4 item-paginate">
             <div class="card p-2">

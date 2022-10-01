@@ -11,6 +11,17 @@
         margin: 0px 0px;
     }
 
+    .tab-pane .home-tab {
+        width: 90%;
+    }
+    .tab-pane .home-tab .home-tab-body {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .tab-pane .home-tab .home-tab-body .dropdown {
+        margin: 0px 0px;
+    }
+
     .carousel-item img {
         object-fit: none;
         object-position: right top;
@@ -54,4 +65,10 @@
     .fs-m-14px {
         font-size: 14px !important;
     }
+}
+
+.owl-next:hover,
+.owl-prev:hover {
+    background-color: transparent !important;
+    transform: scale(1.2);
 }
