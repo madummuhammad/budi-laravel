@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/css/owl.carousel.css">
+    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/css/owl.theme.default.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.css" type="text/css" />
     <title>Homepage</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
-        <div class="container px-5">
+        <div class="container px-md-5">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('web') }}/assets/img/logo.png" alt="">
             </a>
@@ -122,22 +124,25 @@
             <div class="row">
                 <div class="col-12 col-md-4">
                     <div class="row">
-                        <div class="col-2">
-                            <img src="{{ url('web') }}/assets/img/logo.png" alt="" class="img-fluid">
+                        <div class="col-12 col-md-2 d-flex d-md-block justify-content-center mb-4">
+                            <img src="{{ url('web') }}/assets/img/logo.png" alt=""
+                                class="img-fluid col-4 col-md-12">
                         </div>
-                        <div class="col-10">
-                            <p class="text-dark fw-bold">Kementerian Pendidikan, Kebudayaan, Riset, dan
+                        <div class="col-12 col-md-10">
+                            <p class="text-dark fw-bold fs-m-14px">Kementerian Pendidikan, Kebudayaan,
+                                Riset, dan
                                 Teknologi
                                 Badan Pengembangan dan Pembinaan Bahasa
                                 Pusat Pembinaan Bahasa dan Sastra</p>
-                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui bahasa
+                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui
+                                bahasa
                                 dan sastra
                                 Indonesia</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-2">
-                    <p class="fw-bold fs-5 text-dark">Produk</p>
+                <div class="col-6 col-md-2">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Produk</p>
                     <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
                         class="d-block text-decoration-none mb-3">Buku Digital</a>
                     <a href="{{ url('book_type/31ba455c-c9c7-4a3c-a2b1-62915546eaba') }}"
@@ -149,18 +154,30 @@
                     <a href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}"
                         class="d-block text-decoration-none mb-3">Referensi</a>
                 </div>
-                <div class="col-12 col-md-2">
-                    <p class="fw-bold fs-5 text-dark">Panduan</p>
+                <div class="col-6 col-md-2">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Panduan</p>
                     <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
                     <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Informasi</a>
                     <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
                 <div class="col-12 col-md-4">
-                    <p class="fw-bold fs-5 text-dark">Kontak Kami</p>
-                    <p class="p-0"><img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Kontak Kami</p>
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                    </div>
+                    <p class="p-0"><img class="d-none d-md-inline"
+                            src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
                         badan.bahasa@kemdikbud.go.id</p>
-                    <p><img src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
-                    <p><img src="{{ url('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat IV,
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
+                    </div>
+                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/telephone.svg"
+                            alt=""> (021) 4750406</p>
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                    </div>
+                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                        Jalan Daksinapati Barat IV,
                         Rawamangun,
                         Jakarta
                         13220</p>
