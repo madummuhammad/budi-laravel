@@ -23,8 +23,8 @@
     }
 
     .carousel-item img {
-        object-fit: none;
-        object-position: right top;
+        object-fit: cover;
+        object-position: center;
         height: 400px;
     }
 
@@ -46,8 +46,8 @@
     }
 
     #hero img {
-        object-fit: none;
-        object-position: 95% 100%;
+        object-fit: cover;
+        object-position: center;
         /* object-position: right top; */
         height: 250px;
     }
