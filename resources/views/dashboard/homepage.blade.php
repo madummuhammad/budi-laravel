@@ -334,7 +334,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 class="text-center">Banner Mobile</h4>
-                                    <div id="carouselExampleCaptions" class="carousel slide w-50 " data-ride="carousel"
+                                    <div id="bannermobile" class="carousel slide w-50 " data-ride="carousel"
                                         data-interval="false">
                                         <div class="carousel-inner">
                                             @foreach ($banner_mobiles as $banner)
@@ -491,12 +491,12 @@
                                             @endforeach
                                         </div>
                                         <button class="carousel-control-prev border-0" style="background:transparent;"
-                                            type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                                            type="button" data-target="#bannermobile" data-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Previous</span>
                                         </button>
                                         <button class="carousel-control-next border-0" style="background:transparent;"
-                                            type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                                            type="button" data-target="#bannermobile" data-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Next</span>
                                         </button>

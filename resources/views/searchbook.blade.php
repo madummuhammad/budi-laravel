@@ -19,10 +19,10 @@
                         <div class="home-tab-body w-100" id="home-tab-body">
                             <div class="container">
                                 <div class="row d-flex justify-content-center">
-                                    <button
-                                        class="text-white d-block d-sm-none text-center mx-auto btn text-decoration-underline"
-                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
-                                        Jenjang, Tema, Bahasa, dan Format</button>
+                                    <p class="text-white d-block d-sm-none text-center mx-auto dropdown-toggle fs-12px"
+                                        onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">
+                                        Pilih
+                                        Jenjang, Tema, Bahasa, dan Format</p>
                                     <div class="d-none d-sm-block col-12 col-md-2 my-1">
                                         <div class="dropdown w-100" id="jenjang">
                                             <button
@@ -166,7 +166,7 @@
                         <h5 class="mt-5 mb-3">{{ $format->name }}</h5>
                         {{-- <h5 class="mt-5 mb-3">( 10 /50 )</h5> --}}
                     </div>
-                    <div class="row row-cols-1 row-cols-md-5 paginate-search{{ $loop->index }}">
+                    <div class="row row-cols-2 row-cols-md-5 paginate-search{{ $loop->index }}">
                         @foreach ($books->with('mylibraries')->where('book_type', $format->id)->get() as $book)
                             <div class="col mb-4 item-paginate">
                                 <div class="card p-2">
