@@ -1,256 +1,677 @@
 @extends('dashboard.main')
 @section('judul_halaman', 'Aset')
+
+@section('css')
+<link href="{{ asset('assets') }}/vendor/daterangepicker-master/daterangepicker.css" rel="stylesheet">
+<style>
+    .analytics .row .card{
+        /* height: 100%; */
+    }
+</style>
+@stop
+
+@section('script')
+<script src="{{ asset('assets') }}/vendor/daterangepicker-master/moment.min.js"></script>
+<script src="{{ asset('assets') }}/vendor/daterangepicker-master/daterangepicker.js"></script>
+<script src="https://cdnout.com/patternomaly    "></script>
+<script>
+
+    @php
+        $sixStart = new DateTime(date('Y-m-d 00:00:00', strtotime('-6 month')));
+        $sixEnd = new DateTime(date('Y-m-d 00:00:00'));
+
+        $inc = DateInterval::createFromDateString('first day of next month');
+        $sixEnd->modify('+1 day');
+        $sixPeriod = new DatePeriod($sixStart,$inc,$sixEnd);
+    @endphp
+
+    const labels = [
+        @foreach ($sixPeriod as $keySix => $valueSix)
+            '{{$valueSix->format("F")}}',
+        @endforeach
+    ];
+
+    const background_color_bar_chart = [];
+    const border_colo_bar_chart = [];
+
+    for(i=0;i < labels.length; i++){
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+
+        background_color_bar_chart.push('rgba('+r+', '+g+' ,'+b+', 0.2)');
+        border_colo_bar_chart.push('rgba('+r+', '+g+' ,'+b+', 1)');
+    }
+
+    @php
+        $bukuLoop = ['tema', 'jenis', 'jenjang'];
+        $bukuLoopData = [$tema, $jenis, $jenjang];
+    @endphp
+
+    @for($i=0; $i < count($bukuLoop); $i++)
+        const data_{{$bukuLoop[$i]}} = {
+                                            labels: labels,
+                                            datasets: [
+                                                @foreach($bukuLoopData[$i] as $item)
+                                                    {
+                                                        label: "{{$item->name}}",
+                                                        data: [
+                                                            @foreach ($sixPeriod as $keySix => $valueSix)
+                                                            @php
+                                                                if($bukuLoop[$i] == 'tema'){
+                                                                    $sixData = \App\Models\Theme::with(['book' => function($query) use ($valueSix){
+                                                                        $query->withCount(['book_read_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['book_download_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['mylibraries' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                    }])->where('id', $item->id)->first();
+                                                                }elseif($bukuLoop[$i] == 'jenis'){
+                                                                    $sixData = \App\Models\Book_type::with(['book' => function($query) use ($valueSix){
+                                                                        $query->withCount(['book_read_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['book_download_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['mylibraries' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                    }])->where('id', $item->id)->first();
+                                                                }elseif($bukuLoop[$i] == 'jenjang'){
+                                                                    $sixData = \App\Models\Level::with(['book' => function($query) use ($valueSix){
+                                                                        $query->withCount(['book_read_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['book_download_statistics' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                        $query->withCount(['mylibraries' => function($queryBaca) use ($valueSix){
+                                                                            $time = strtotime($valueSix->format("Y-m-d"));
+                                                                            $queryBaca->where("created_at" , ">=", $valueSix->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59");
+                                                                        }]);
+                                                                    }])->where('id', $item->id)->first();
+                                                                }
+
+
+                                                                $total = $sixData->book->sum('book_read_statistics_count') + $sixData->book->sum('book_download_statistics_count') + $sixData->book->sum('mylibraries_count');
+                                                            @endphp
+                                                            {{$total}},
+                                                            @endforeach
+                                                        ],
+                                                        backgroundColor: background_color_bar_chart,
+                                                        borderColor: border_colo_bar_chart,
+                                                    },
+                                                @endforeach
+                                            ]
+                                        };
+
+        const config_bar_buku_{{$bukuLoop[$i]}} = {
+            type: 'bar',
+            data: data_{{$bukuLoop[$i]}},
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Bar Chart'
+                    }
+                }
+            },
+        };
+
+        const chart_bar_buku_{{$bukuLoop[$i]}} = new Chart($("#chart_bar_buku_{{$bukuLoop[$i]}}"),config_bar_buku_{{$bukuLoop[$i]}});
+
+
+        const label_{{$bukuLoop[$i]}} = [
+            @foreach($bukuLoopData[$i] as $itemTema)
+                "{{$itemTema->name}}",
+            @endforeach
+        ];
+
+        const background_color_{{$bukuLoop[$i]}}_chart = [];
+        const border_color_{{$bukuLoop[$i]}}_chart = [];
+
+        for(i=0;i < label_{{$bukuLoop[$i]}}.length; i++){
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+
+            background_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 0.2)');
+            border_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 1)');
+        }
+
+        const data_pie_{{$bukuLoop[$i]}}_baca = [
+            @foreach($bukuLoopData[$i] as $item)
+                {{$item->book->sum('book_read_statistics_count')}},
+            @endforeach
+        ];
+
+        const data_pie_{{$bukuLoop[$i]}}_unduh = [
+            @foreach($bukuLoopData[$i] as $item)
+                {{$item->book->sum('book_download_statistics_count')}},
+            @endforeach
+        ];
+
+        const data_pie_{{$bukuLoop[$i]}}_like = [
+            @foreach($bukuLoopData[$i] as $item)
+                {{$item->book->sum('mylibraries_count')}},
+            @endforeach
+        ];
+
+        const dataset_pie_{{$bukuLoop[$i]}}_baca = {
+            labels: label_{{$bukuLoop[$i]}},
+            datasets: [{
+                label: 'Analisis Tema Buku',
+                data: data_pie_{{$bukuLoop[$i]}}_baca,
+                backgroundColor: background_color_{{$bukuLoop[$i]}}_chart,
+                borderColor: border_color_{{$bukuLoop[$i]}}_chart,
+                hoverOffset: 4
+            }]
+        };
+
+        const dataset_pie_{{$bukuLoop[$i]}}_unduh = {
+            labels: label_{{$bukuLoop[$i]}},
+            datasets: [{
+                label: 'Analisis Tema Buku',
+                data: data_pie_{{$bukuLoop[$i]}}_unduh,
+                backgroundColor: background_color_{{$bukuLoop[$i]}}_chart,
+                borderColor: border_color_{{$bukuLoop[$i]}}_chart,
+                hoverOffset: 4
+            }]
+        };
+
+        const dataset_pie_{{$bukuLoop[$i]}}_like = {
+            labels: label_{{$bukuLoop[$i]}},
+            datasets: [{
+                label: 'Analisis Tema Buku',
+                data: data_pie_{{$bukuLoop[$i]}}_like,
+                backgroundColor: background_color_{{$bukuLoop[$i]}}_chart,
+                borderColor: border_color_{{$bukuLoop[$i]}}_chart,
+                hoverOffset: 4
+            }]
+        };
+
+        const config_pie_{{$bukuLoop[$i]}}_unduh = {
+            type: 'pie',
+            data: dataset_pie_{{$bukuLoop[$i]}}_unduh,
+        };
+
+        const config_pie_{{$bukuLoop[$i]}}_baca = {
+            type: 'pie',
+            data: dataset_pie_{{$bukuLoop[$i]}}_baca,
+        };
+
+        const config_pie_{{$bukuLoop[$i]}}_like = {
+            type: 'pie',
+            data: dataset_pie_{{$bukuLoop[$i]}}_like,
+        };
+
+        const chart_pie_buku_{{$bukuLoop[$i]}}_baca = new Chart($("#chart_pie_buku_{{$bukuLoop[$i]}}_baca"),config_pie_{{$bukuLoop[$i]}}_baca);
+        const chart_pie_buku_{{$bukuLoop[$i]}}_unduh = new Chart($("#chart_pie_buku_{{$bukuLoop[$i]}}_unduh"),config_pie_{{$bukuLoop[$i]}}_unduh);
+        const chart_pie_buku_{{$bukuLoop[$i]}}_like = new Chart($("#chart_pie_buku_{{$bukuLoop[$i]}}_like"),config_pie_{{$bukuLoop[$i]}}_like);
+    @endfor
+
+
+    const labels_chart_pengunjung = [
+        @foreach ($period as $key => $value)
+            @if($to < date('Y-m-d 00:00:00', strtotime('+1 month', strtotime($from))))
+            '{{$value->format("Y-m-d")}}',
+            @else
+            '{{$value->format("F")}}',
+            @endif
+        @endforeach
+    ];
+
+    const data_chart_pengunjung = {
+        labels: labels_chart_pengunjung,
+        datasets: [
+            {
+                label: 'Data Pengunjung',
+                data: [
+                    @foreach ($period as $key => $value)
+                        @if($to < date('Y-m-d 00:00:00', strtotime('+1 month', strtotime($from))))
+                            '{{count($datapengunjung->where("created_at" , ">=", $value->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", $value->format("Y-m-d")." 23:59:59")->groupBy("session"))}}',
+                        @else
+                            @php 
+                                $time = strtotime($value->format("Y-m-d"));
+                            @endphp
+                            '{{count($datapengunjung->where("created_at" , ">=", $value->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59")->groupBy("session"))}}',
+                        @endif
+                    @endforeach
+                ],
+            }
+        ]
+    };
+
+    const config_chart_pengunjung = {
+        type: '{{iterator_count($period) > 1 ? "line" : "bar"}}',
+        data: data_chart_pengunjung,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Bar Chart'
+            }
+            }
+        },
+    };
+
+    const chart_pengunjung = new Chart($("#Chart-pengunjung"),config_chart_pengunjung);
+
+    $(function() {
+        @php
+            $periodArray = iterator_to_array($period);
+            $startDate = reset($periodArray);
+            $endDate = end($periodArray);
+        @endphp
+        
+        var start = moment("{{$startDate->format('m-d-y')}}");
+        var end = moment("{{$endDate->format('m-d-y')}}");
+        var config = {
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Year': [moment().startOf('year'), moment().endOf('year')],
+                'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
+            }
+        };
+
+        function cb(start, end) {
+            $('#basic-pengunjung span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+
+        function cb2(start, end) {
+            $('#basic-buku span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+
+        $('#basic-pengunjung').daterangepicker(config, cb);
+        $('#basic-buku').daterangepicker(config, cb2);
+
+        cb(start, end);
+        cb2(start, end);
+
+        $('#basic-pengunjung').on('apply.daterangepicker', function(ev, picker) {
+            var startDate = picker.startDate.format('YYYY-MM-DD');
+            var endDate = picker.endDate.format('YYYY-MM-DD');
+            $("#input-filter-pengunjung").val(startDate+'/'+endDate);
+            $("#form-filter-pengunjung").submit();
+        });
+
+    });
+
+</script>
+@stop
+
 @section('content')
 
-    <!--**********************************
-                            Content body start
-                        ***********************************-->
-    {{-- <div class="content-body">
+    <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="stat-widget-two card-body">
-                            <div class="stat-content">
-                                <div class="stat-text">Today Expenses </div>
-                                <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="stat-content text-left">
+                                <div class="stat-text">Pengujung online saat ini </div>
+                                <div class="stat-digit"> <i class="fa fa-live mr-4"></i> {{number_format($totalActiveUser)}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="stat-widget-two card-body">
-                            <div class="stat-content">
-                                <div class="stat-text">Income Detail</div>
-                                <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="stat-content text-left">
+                                <div class="stat-text">Pengunjung hari ini</div>
+                                <div class="stat-digit"> <i class="fa fa-user mr-4"></i> {{count($kunjungan->groupBy('session'))}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="stat-widget-two card-body">
-                            <div class="stat-content">
-                                <div class="stat-text">Task Completed</div>
-                                <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="stat-content text-left">
+                                <div class="stat-text">Kunjungan hari ini</div>
+                                <div class="stat-digit"> <i class="fa fa-users mr-4"></i> {{count($kunjungan)}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="stat-widget-two card-body">
-                            <div class="stat-content">
-                                <div class="stat-text">Task Completed</div>
-                                <div class="stat-digit"> <i class="fa fa-usd"></i>650</div>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="stat-content text-left">
+                                <div class="stat-text">Pengunjung sepanjang waktu</div>
+                                <div class="stat-digit"> <i class="fa fa-users mr-4"></i> {{count($pengunjung)}}</div>
                             </div>
                         </div>
                     </div>
-                    <!-- /# card -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="stat-widget-two card-body">
+                            <div class="stat-content text-left">
+                                <div class="stat-text">Kunjungan sepanjang waktu</div>
+                                <div class="stat-digit"> <i class="fa fa-users mr-4"></i> {{count($kunjunganAll)}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /# column -->
             </div>
             <div class="row">
-                <div class="col-xl-8 col-lg-8 col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Sales Overview</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-8">
-                                    <div id="morris-bar-chart"></div>
+                <div class="col-xl-12 col-lg-8 col-md-8">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h3 class="mb-0">
+                                    Filter Analisis Pengunjung
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="basic-pengunjung" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span> <i class="fa fa-caret-down"></i>
                                 </div>
+
+                                <form action="" id="form-filter-pengunjung">
+                                    <input type="hidden" name="filter_pengunjung" id="input-filter-pengunjung">
+                                </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="m-t-10">
-                                <h4 class="card-title">Customer Feedback</h4>
-                                <h2 class="mt-3">385749</h2>
-                            </div>
-                            <div class="widget-card-circle mt-5 mb-5" id="info-circle-card">
-                                <i class="ti-control-shuffle pa"></i>
-                            </div>
-                            <ul class="widget-line-list m-b-15">
-                                <li class="border-right">92% <br><span class="text-success"><i class="ti-hand-point-up"></i>
-                                        Positive</span></li>
-                                <li>8% <br><span class="text-danger"><i class="ti-hand-point-down"></i>Negative</span></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-8">
+                                    <canvas id="Chart-pengunjung" height="80"></canvas>
+                                </div>
+                                <div class="col-xl-12 col-lg-8">
+                                    <div class="table-responsive">
+                                        <h3 class="mt-5">Data Pengunjung</h3>
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nama</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Device</th>
+                                                    <th>Tanggal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php $i=1; @endphp
+                                                @foreach($datapengunjung->groupBy('session') as $itemDatapengunjung)
+                                                <tr>
+                                                    <td>{{$i++}}</td>
+                                                    <td>{{$itemDatapengunjung->first()->session_data->user ? $itemDatapengunjung->first()->session_data->user->name : 'Unknow'}}</td>
+                                                    <td><span>{{$itemDatapengunjung->first()->country}}</span></td>
+                                                    <td><span>{{$itemDatapengunjung->first()->device}}</span></td>
+                                                    <td><span>{{$itemDatapengunjung->first()->created_at}}</span></td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Tema Buku</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Jenis Buku</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Jenjang Buku</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <h4 class="card-title mt-4 mb-4">Analisis Buku Berdasarkan Tema</h4>
+                    <div class="analytics">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-8 col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-8">
+                                                <canvas id="chart_bar_buku_tema" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_tema_baca" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_tema_unduh" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_tema_like" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-4 col-md-4">
+                                <div class="card" style="margin-top: 20px;">
+                                    <div class="card-body">
+                                        <h4>Analisis Tema</h4>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Tema</th>
+                                                <th>Baca</th>
+                                                <th>Unduh</th>
+                                                <th>Like</th>
+                                            </tr>
+                                            @foreach($tema as $itemTema)
+                                            <tr>
+                                                <td>{{$itemTema->name}}</td>
+                                                <td>{{$itemTema->book ? $itemTema->book->sum('book_read_statistics_count') : 0}}</td>
+                                                <td>{{$itemTema->book ? $itemTema->book->sum('book_download_statistics_count') : 0}}</td>
+                                                <td>{{$itemTema->book ? $itemTema->book->sum('mylibraries_count') : 0}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <h4 class="card-title mt-4 mb-4">Analisis Buku Berdasarkan Jenis</h4>
+                    <div class="analytics">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-8 col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-8">
+                                                <canvas id="chart_bar_buku_jenis" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenis_baca" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenis_unduh" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenis_like" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-4 col-md-4">
+                                <div class="card" style="margin-top: 20px;">
+                                    <div class="card-body">
+                                        <h4>Analisis Jenis</h4>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Jenis</th>
+                                                <th>Baca</th>
+                                                <th>Unduh</th>
+                                                <th>Like</th>
+                                            </tr>
+                                            @foreach($jenis as $itemJenis)
+                                            <tr>
+                                                <td>{{$itemJenis->name}}</td>
+                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('book_read_statistics_count') : 0}}</td>
+                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('book_download_statistics_count') : 0}}</td>
+                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('mylibraries_count') : 0}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <h4 class="card-title mt-4 mb-4">Analisis Buku Berdasarkan Jenjang</h4>
+                    <div class="analytics">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-8 col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-8">
+                                                <canvas id="chart_bar_buku_jenjang" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenjang_baca" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenjang_unduh" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <canvas id="chart_pie_buku_jenjang_like" height="350"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-4 col-md-4">
+                                <div class="card" style="margin-top: 20px;">
+                                    <div class="card-body">
+                                        <h4>Analisis Jenjang</h4>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Jenjang</th>
+                                                <th>Baca</th>
+                                                <th>Unduh</th>
+                                                <th>Like</th>
+                                            </tr>
+                                            @foreach($jenjang as $itemJenjang)
+                                            <tr>
+                                                <td>{{$itemJenjang->name}}</td>
+                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_read_statistics_count') : 0}}</td>
+                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_download_statistics_count') : 0}}</td>
+                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('mylibraries_count') : 0}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="card-title mt-4 mb-4">Analisis Website</h4>
+
+            <div class="row" style="margin-top:30px">
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Project</h4>
+                            <h4 class="card-title">Perangkat</h4>
                         </div>
                         <div class="card-body">
                             <div class="current-progress">
+                                @foreach($kunjunganAll->groupBy('device') as $item)
                                 <div class="progress-content py-2">
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="progress-text">Website</div>
-                                        </div>
                                         <div class="col-lg-8">
-                                            <div class="current-progressbar">
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-primary w-40" role="progressbar"
-                                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                        40%
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="progress-text">{{$item->first()->device}}</div>
+                                        </div>
+                                        <div class="col-lg-4 text-center">
+                                            {{count($item)}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="progress-content py-2">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="progress-text">Android</div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="current-progressbar">
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-primary w-60" role="progressbar"
-                                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                        60%
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-content py-2">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="progress-text">Ios</div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="current-progressbar">
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-primary w-70" role="progressbar"
-                                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                                        70%
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-content py-2">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="progress-text">Mobile</div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="current-progressbar">
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-primary w-90" role="progressbar"
-                                                        aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                        90%
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="testimonial-widget-one p-17">
-                                <div class="testimonial-widget-one owl-carousel owl-theme">
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation.
-                                                consectetur adipisicing elit.
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="testimonial-author">TYRION LANNISTER</div>
-                                                    <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                    </div>
-                                                </div>
-                                                <img class="testimonial-author-img ml-3" src="./images/avatar/1.png"
-                                                    alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation.
-                                                consectetur adipisicing elit.
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="testimonial-author">TYRION LANNISTER</div>
-                                                    <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                    </div>
-                                                </div>
-                                                <img class="testimonial-author-img ml-3" src="./images/avatar/1.png"
-                                                    alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation.
-                                                consectetur adipisicing elit.
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="testimonial-author">TYRION LANNISTER</div>
-                                                    <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                    </div>
-                                                </div>
-                                                <img class="testimonial-author-img ml-3" src="./images/avatar/1.png"
-                                                    alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -258,30 +679,53 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Web Server</h4>
+                            <h4 class="card-title">Negara</h4>
                         </div>
                         <div class="card-body">
-                            <div class="cpu-load-chart">
-                                <div id="cpu-load" class="cpu-load"></div>
+                            <div class="current-progress">
+                                @foreach($kunjunganAll->groupBy('country') as $item)
+                                <div class="progress-content py-2">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="progress-text">{{$item->first()->country}}</div>
+                                        </div>
+                                        <div class="col-lg-4 text-center">
+                                            {{count($item)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <!-- /# card -->
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Country</h4>
+                            <h4 class="card-title">Asal Kunjungan</h4>
                         </div>
                         <div class="card-body">
-                            <div id="vmap13" class="vmap"></div>
+                            <div class="current-progress">
+                                @foreach($kunjunganAll->groupBy('source') as $item)
+                                <div class="progress-content py-2">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="progress-text">{{$item->first()->source}}</div>
+                                        </div>
+                                        <div class="col-lg-4 text-center">
+                                            {{count($item)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">New Orders</h4>
+                            <h4 class="card-title">Halaman Yang Dilihat</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -289,87 +733,25 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Product</th>
-                                            <th>quantity</th>
-                                            <th>Status</th>
+                                            <th>Url</th>
+                                            <th>Asal Kunjungan</th>
+                                            <th>Lokasi</th>
+                                            <th>Perangkat</th>
+                                            <th>Tanggal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $i=1; @endphp
+                                        @foreach($kunjunganAll as $item)
                                         <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>Lew Shawon</td>
-                                            <td><span>Dell-985</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-success">Done</span></td>
+                                            <td>{{$i++}}</td>
+                                            <td>{{$item->uri}}</td>
+                                            <td>{{$item->source}}</td>
+                                            <td>{{$item->country}}</td>
+                                            <td>{{$item->device}}</td>
+                                            <td>{{$item->created_at}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>Lew Shawon</td>
-                                            <td><span>Asus-565</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>lew Shawon</td>
-                                            <td><span>Dell-985</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-success">Done</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>Lew Shawon</td>
-                                            <td><span>Asus-565</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>lew Shawon</td>
-                                            <td><span>Dell-985</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-success">Done</span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="round-img">
-                                                    <a href=""><img width="35" src="./images/avatar/1.png"
-                                                            alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td>Lew Shawon</td>
-                                            <td><span>Asus-565</span></td>
-                                            <td><span>456 pcs</span></td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -377,235 +759,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Timeline</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="widget-timeline">
-                                <ul class="timeline">
-                                    <li>
-                                        <div class="timeline-badge primary"></div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>10 minutes ago</span>
-                                            <h6 class="m-t-5">Youtube, a video-sharing website, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge warning">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>20 minutes ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge danger">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>30 minutes ago</span>
-                                            <h6 class="m-t-5">Google acquires Youtube.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge success">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>15 minutes ago</span>
-                                            <h6 class="m-t-5">StumbleUpon is acquired by eBay. </h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge warning">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>20 minutes ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge dark">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>20 minutes ago</span>
-                                            <h6 class="m-t-5">Mashable, a news website and blog, goes live.</h6>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <div class="timeline-badge info">
-                                        </div>
-                                        <a class="timeline-panel text-muted" href="#">
-                                            <span>30 minutes ago</span>
-                                            <h6 class="m-t-5">Google acquires Youtube.</h6>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Todo</h4>
-                        </div>
-                        <div class="card-body px-0">
-                            <div class="todo-list">
-                                <div class="tdl-holder">
-                                    <div class="tdl-content widget-todo mr-4">
-                                        <ul id="todo_list">
-                                            <li><label><input type="checkbox"><i></i><span>Get up</span><a href='#'
-                                                        class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox" checked><i></i><span>Stand
-                                                        up</span><a href='#' class="ti-trash"></a></label>
-                                            </li>
-                                            <li><label><input type="checkbox"><i></i><span>Don't give up the
-                                                        fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox" checked><i></i><span>Do something
-                                                        else</span><a href='#' class="ti-trash"></a></label>
-                                            </li>
-                                            <li><label><input type="checkbox" checked><i></i><span>Stand
-                                                        up</span><a href='#' class="ti-trash"></a></label>
-                                            </li>
-                                            <li><label><input type="checkbox"><i></i><span>Don't give up the
-                                                        fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                        </ul>
-                                    </div>
-                                    <div class="px-4">
-                                        <input type="text" class="tdl-new form-control"
-                                            placeholder="Write new item and hit 'Enter'...">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-xxl-6 col-xl-4 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Product Sold</h4>
-                            <div class="card-action">
-                                <div class="dropdown custom-dropdown">
-                                    <div data-toggle="dropdown">
-                                        <i class="ti-more-alt"></i>
-                                    </div>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Option 1</a>
-                                        <a class="dropdown-item" href="#">Option 2</a>
-                                        <a class="dropdown-item" href="#">Option 3</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart py-4">
-                                <canvas id="sold-product"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-12 col-xxl-6 col-lg-6 col-md-12">
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-facebook">
-                                    <span class="s-icon"><i class="fa fa-facebook"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-linkedin">
-                                    <span class="s-icon"><i class="fa fa-linkedin"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-googleplus">
-                                    <span class="s-icon"><i class="fa fa-google-plus"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-twitter">
-                                    <span class="s-icon"><i class="fa fa-twitter"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
-    <!--**********************************
-                        Content body end
-                    ***********************************--> --}}
 
 @endsection

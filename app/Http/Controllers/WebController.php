@@ -673,4 +673,9 @@ class WebController extends Controller
     {
         return url('storage') . '/';
     }
+
+    public function read(Request $id)
+    {
+        return 'test';
+    }
 }

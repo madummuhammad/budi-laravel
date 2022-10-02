@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::middleware('visitor')->group(function () {
+Route::middleware('visitor', 'analytics')->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/login', [VisitorController::class, 'login']);
         Route::post('/login', [VisitorController::class, 'auth_login']);
@@ -70,6 +70,7 @@ Route::middleware('visitor')->group(function () {
 
         Route::get('/', [WebController::class, 'index']);
         Route::get('/book/{id}', [WebController::class, 'book']);
+        Route::get('/book/{id}/read', [WebController::class, 'read']);
         Route::post('/download', [BookController::class, 'download']);
 
         // Comment

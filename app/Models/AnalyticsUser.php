@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book_type extends Model
+class AnalyticsUser extends Model
 {
     use HasFactory;
-    public $primaryKey;
 
-    public function book()
+    public function user()
     {
-        return $this->hasMany('App\Models\Book', 'book_type', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }

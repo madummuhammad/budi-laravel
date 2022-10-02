@@ -541,6 +541,7 @@
                         _token: token
                     },
                     success: function(hasil) {
+                        console.log(hasil)
                         if (status == 0) {
                             $("#show_book").attr("data-status", '1');
                         } else if (status == 3) {

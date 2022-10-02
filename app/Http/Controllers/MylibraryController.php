@@ -158,7 +158,7 @@ class MylibraryController extends Controller
 
         if ($request->cookie($request->book_id) == null) {
             $dataVisitor = json_decode($request->cookie('visitor_session'));
-            $book_read_statistic = BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => $dataVisitor->id]);
+            $book_read_statistic = BookReadStatistic::create(['book_id' => request('book_id'), 'visitor_id' => request('visitor_id'), 'visitor_visit_id' => ($dataVisitor ? $dataVisitor->id : null)]);
             $minutes = 1440;
             $response = new Response("");
             $response->withCookie(cookie(request('book_id'), $book_read_statistic, $minutes));
@@ -167,7 +167,9 @@ class MylibraryController extends Controller
                 if ($mylibrary) {
                     Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['read' => 1]);
                 } else {
-                    Mylibrary::create($data);
+                    if($data["visitor_id"]){
+                        Mylibrary::create($data);
+                    }
                 }
             } else {
                 Mylibrary::where('book_id', request('book_id'))->where('visitor_id', request('visitor_id'))->update(['read' => request('status')]);

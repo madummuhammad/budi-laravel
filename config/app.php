@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Rainwater\Active\ActiveServiceProvider::class,
+
     ],
 
     /*
@@ -234,6 +236,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         // 'PDF' => setasign\Fpdi\Fpdi::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Active' => Rainwater\Active\ActiveFacade::class,
     ],
 
 ];

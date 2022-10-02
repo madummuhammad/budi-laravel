@@ -9,4 +9,9 @@ class Level extends Model
 {
     use HasFactory;
     public $primaryKey;
+
+    public function book()
+    {
+        return $this->hasMany('App\Models\Book', 'level', 'id');
+    }
 }

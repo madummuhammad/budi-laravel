@@ -20,7 +20,8 @@
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/css/custom.css" rel="stylesheet">
 
-
+    
+    @yield('css')
 
 </head>
 
@@ -364,6 +365,7 @@
     {{-- <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.min.js"></script>
     <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="{{ asset('assets') }}/vendor/jquery.counterup/jquery.counterup.min.js"></script> --}}
+    <script src="{{ asset('assets') }}/vendor/chart.js/Chart.bundle.min.js"></script>
     <script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
     <!-- Datatable -->
     <script src="{{ asset('assets') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -381,6 +383,7 @@
     <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 
     <script src="{{ asset('assets') }}/js/script.js"></script>
+    @yield('script')
 </body>
 
 </html>

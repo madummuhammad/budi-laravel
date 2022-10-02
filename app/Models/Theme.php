@@ -23,4 +23,9 @@ class Theme extends Model
           $model->id = (string) Str::uuid();
       });
     }
+
+    public function book()
+    {
+        return $this->hasMany('App\Models\Book', 'theme', 'id');
+    }
 }
