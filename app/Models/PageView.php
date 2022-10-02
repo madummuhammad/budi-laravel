@@ -24,10 +24,10 @@ class PageView extends Model
             : $value;
     }
 
-    public function setCountryAttribute($value): void
-    {
-        $this->attributes['country'] = \Locale::getDisplayRegion($value, 'en');
-    }
+    // public function setCountryAttribute($value): void
+    // {
+    //     $this->attributes['country'] = \Locale::getDisplayRegion($value, 'en');
+    // }
 
     public function getTypeAttribute($value): string
     {
