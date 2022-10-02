@@ -31,27 +31,35 @@
         @endforeach
     ];
 
-    const background_color_bar_chart = [];
-    const border_colo_bar_chart = [];
-
-    for(i=0;i < labels.length; i++){
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-
-        background_color_bar_chart.push('rgba('+r+', '+g+' ,'+b+', 0.2)');
-        border_colo_bar_chart.push('rgba('+r+', '+g+' ,'+b+', 1)');
-    }
-
     @php
         $bukuLoop = ['tema', 'jenis', 'jenjang'];
         $bukuLoopData = [$tema, $jenis, $jenjang];
     @endphp
 
     @for($i=0; $i < count($bukuLoop); $i++)
+
+        const label_{{$bukuLoop[$i]}} = [
+            @foreach($bukuLoopData[$i] as $itemTema)
+                "{{$itemTema->name}}",
+            @endforeach
+        ];
+
+        const background_color_{{$bukuLoop[$i]}}_chart = [];
+        const border_color_{{$bukuLoop[$i]}}_chart = [];
+
+        for(i=0;i < label_{{$bukuLoop[$i]}}.length; i++){
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+
+            background_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 0.8)');
+            border_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 1)');
+        }
+
         const data_{{$bukuLoop[$i]}} = {
                                             labels: labels,
                                             datasets: [
+                                                @php $z = 0; @endphp
                                                 @foreach($bukuLoopData[$i] as $item)
                                                     {
                                                         label: "{{$item->name}}",
@@ -111,9 +119,10 @@
                                                             {{$total}},
                                                             @endforeach
                                                         ],
-                                                        backgroundColor: background_color_bar_chart,
-                                                        borderColor: border_colo_bar_chart,
+                                                        borderColor: background_color_{{$bukuLoop[$i]}}_chart[{{$z}}],
+                                                        backgroundColor: background_color_{{$bukuLoop[$i]}}_chart[{{$z}}],
                                                     },
+                                                @php $z++; @endphp
                                                 @endforeach
                                             ]
                                         };
@@ -125,11 +134,11 @@
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'left',
                     },
                     title: {
                         display: true,
-                        text: 'Chart.js Bar Chart'
+                        text: 'Data Ketertarikan Buku Berdasarkan '+'{{$bukuLoop[$i]}}'
                     }
                 }
             },
@@ -138,23 +147,7 @@
         const chart_bar_buku_{{$bukuLoop[$i]}} = new Chart($("#chart_bar_buku_{{$bukuLoop[$i]}}"),config_bar_buku_{{$bukuLoop[$i]}});
 
 
-        const label_{{$bukuLoop[$i]}} = [
-            @foreach($bukuLoopData[$i] as $itemTema)
-                "{{$itemTema->name}}",
-            @endforeach
-        ];
-
-        const background_color_{{$bukuLoop[$i]}}_chart = [];
-        const border_color_{{$bukuLoop[$i]}}_chart = [];
-
-        for(i=0;i < label_{{$bukuLoop[$i]}}.length; i++){
-            const r = Math.floor(Math.random() * 255);
-            const g = Math.floor(Math.random() * 255);
-            const b = Math.floor(Math.random() * 255);
-
-            background_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 0.2)');
-            border_color_{{$bukuLoop[$i]}}_chart.push('rgba('+r+', '+g+' ,'+b+', 1)');
-        }
+        
 
         const data_pie_{{$bukuLoop[$i]}}_baca = [
             @foreach($bukuLoopData[$i] as $item)
@@ -210,16 +203,41 @@
         const config_pie_{{$bukuLoop[$i]}}_unduh = {
             type: 'pie',
             data: dataset_pie_{{$bukuLoop[$i]}}_unduh,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                    }
+                }
+            },
         };
 
         const config_pie_{{$bukuLoop[$i]}}_baca = {
             type: 'pie',
             data: dataset_pie_{{$bukuLoop[$i]}}_baca,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                    }
+                }
+            },
+            
         };
 
         const config_pie_{{$bukuLoop[$i]}}_like = {
             type: 'pie',
             data: dataset_pie_{{$bukuLoop[$i]}}_like,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                    }
+                }
+            },
         };
 
         const chart_pie_buku_{{$bukuLoop[$i]}}_baca = new Chart($("#chart_pie_buku_{{$bukuLoop[$i]}}_baca"),config_pie_{{$bukuLoop[$i]}}_baca);
@@ -426,6 +444,8 @@
                                                     <th>Nama</th>
                                                     <th>Lokasi</th>
                                                     <th>Device</th>
+                                                    <th>Browser</th>
+                                                    <th>Ip</th>
                                                     <th>Tanggal</th>
                                                 </tr>
                                             </thead>
@@ -435,8 +455,29 @@
                                                 <tr>
                                                     <td>{{$i++}}</td>
                                                     <td>{{$itemDatapengunjung->first()->session_data->user ? $itemDatapengunjung->first()->session_data->user->name : 'Unknow'}}</td>
-                                                    <td><span>{{$itemDatapengunjung->first()->country}}</span></td>
+                                                    <td>
+                                                        <span>
+                                                        @php
+                                                            if($itemDatapengunjung->first()->session_data->user){
+                                                                $local = $itemDatapengunjung->first()->session_data->user;
+                                                                $location = new \App\Http\Controllers\LocationController;
+                                                                $province = $location->detail_province($local->province)->original->nama;
+                                                                $city = $location->detail_city($local->city)->original->nama;
+                                                                $district = $location->detail_district($local->district)->original->nama;
+                                                                $sub_district = $location->detail_sub_district($local->sub_district)->original->nama;
+
+                                                                $localData = $sub_district.', '.$district.', '.$city.', '.$province;
+
+                                                                echo $localData;
+                                                            }else{
+                                                                echo 'Unknow';
+                                                            }
+                                                        @endphp
+                                                        </span>
+                                                    </td>
                                                     <td><span>{{$itemDatapengunjung->first()->device}}</span></td>
+                                                    <td><span>{{$itemDatapengunjung->first()->browser}}</span></td>
+                                                    <td><span>{{$itemDatapengunjung->first()->ip}}</span></td>
                                                     <td><span>{{$itemDatapengunjung->first()->created_at}}</span></td>
                                                 </tr>
                                                 @endforeach
@@ -480,6 +521,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-4">
                                 <div class="card">
                                     <div class="card-body">
+                                        <h4>Persentase Baca</h4>
                                         <canvas id="chart_pie_buku_tema_baca" height="350"></canvas>
                                     </div>
                                 </div>
@@ -487,6 +529,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-4">
                                 <div class="card">
                                     <div class="card-body">
+                                        <h4>Persentase Unduh</h4>
                                         <canvas id="chart_pie_buku_tema_unduh" height="350"></canvas>
                                     </div>
                                 </div>
@@ -494,6 +537,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-4">
                                 <div class="card">
                                     <div class="card-body">
+                                        <h4>Persentase Suka</h4>
                                         <canvas id="chart_pie_buku_tema_like" height="350"></canvas>
                                     </div>
                                 </div>
@@ -507,7 +551,7 @@
                                                 <th>Tema</th>
                                                 <th>Baca</th>
                                                 <th>Unduh</th>
-                                                <th>Like</th>
+                                                <th>Suka</th>
                                             </tr>
                                             @foreach($tema as $itemTema)
                                             <tr>
@@ -569,7 +613,7 @@
                                                 <th>Jenis</th>
                                                 <th>Baca</th>
                                                 <th>Unduh</th>
-                                                <th>Like</th>
+                                                <th>Suka</th>
                                             </tr>
                                             @foreach($jenis as $itemJenis)
                                             <tr>
@@ -631,7 +675,7 @@
                                                 <th>Jenjang</th>
                                                 <th>Baca</th>
                                                 <th>Unduh</th>
-                                                <th>Like</th>
+                                                <th>Suka</th>
                                             </tr>
                                             @foreach($jenjang as $itemJenjang)
                                             <tr>
@@ -734,9 +778,9 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Url</th>
-                                            <th>Asal Kunjungan</th>
-                                            <th>Lokasi</th>
                                             <th>Perangkat</th>
+                                            <th>Browser</th>
+                                            <th>Ip</th>
                                             <th>Tanggal</th>
                                         </tr>
                                     </thead>
@@ -746,9 +790,9 @@
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$item->uri}}</td>
-                                            <td>{{$item->source}}</td>
-                                            <td>{{$item->country}}</td>
                                             <td>{{$item->device}}</td>
+                                            <td>{{$item->browser}}</td>
+                                            <td>{{$item->ip}}</td>
                                             <td>{{$item->created_at}}</td>
                                         </tr>
                                         @endforeach

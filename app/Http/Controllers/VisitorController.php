@@ -149,7 +149,7 @@ class VisitorController extends Controller
         if (Auth::guard('visitor')->attempt($credentials)) {
             $data = json_decode($request->cookie('visitor_session'));
             $id = auth()->guard('visitor')->user()->id;
-            VisitorVisit::where('id', $data->id)->update(['visitor_id' => $id]);
+            // VisitorVisit::where('id', $data->id)->update(['visitor_id' => $id]);
             request()->session()->regenerate();
             return redirect()->intended();
 

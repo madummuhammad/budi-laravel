@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\PageView;
-use App\Models\SessionModel;
+use App\Models\AnalyticsUser;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -19,7 +19,7 @@ class Analytics
         $response = $next($request);
 
 
-        $session = SessionModel::find(Session::getId());
+        $session = AnalyticsUser::find(Session::getId());
 
         $exclude_uri = [
             '/being_read',
@@ -41,6 +41,11 @@ class Analytics
         $agent->setHttpHeaders($request->headers);
 
         if($session){
+            if(!$session->ip_address){
+                $session->ip_address = $request->ip();
+                $session->save();
+            }
+
             if(!$session->device){
                 $session->device = $agent->deviceType();
                 $session->save();

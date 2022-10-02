@@ -365,7 +365,7 @@
     {{-- <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.min.js"></script>
     <script src="{{ asset('assets') }}/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="{{ asset('assets') }}/vendor/jquery.counterup/jquery.counterup.min.js"></script> --}}
-    <script src="{{ asset('assets') }}/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
     <!-- Datatable -->
     <script src="{{ asset('assets') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
