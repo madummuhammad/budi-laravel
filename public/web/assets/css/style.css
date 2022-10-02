@@ -473,6 +473,7 @@
     left: -50px;
     top: -150px;
 }
+
 #section-2 .owl-carousel .owl-nav .owl-prev img {
     border-radius: 100%;
 }
@@ -1142,6 +1143,7 @@ footer .dash {
 .profile-list .profile-list-item .number {
     width: 80px;
     height: 80px;
+    padding: 10px;
     border-radius: 100%;
     background-color: #0190d6;
     display: flex;
@@ -1150,10 +1152,35 @@ footer .dash {
     font-size: 45px;
     font-weight: bold;
     color: white;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 .profile-list .profile-list-item .profile-list-content p {
     margin: 0;
+}
+
+.profile-achive-container {
+    background-size: cover;
+    background-image: url('../img/kotak-sm.svg');
+    color: #fff;
+    position: relative;
+}
+
+.profile-achive-container .img-top {
+    position: absolute;
+    top: -35px;
+    right: -20px;
+    height: 300px;
+}
+
+.profile-achive-container .img-bottom {
+    position: absolute;
+    bottom: -35px;
+    left: -15px;
+    height: 150px;
+}
+
+.profile-achive-text {
+    padding: 80px 50px;
 }
 
 /*# sourceMappingURL=style.css.map */

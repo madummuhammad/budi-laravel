@@ -28,13 +28,14 @@
         </div>
         <div class="d-flex justify-content-center home">
             <div class="home-tab">
-                <h2 class="text-center title fw-bold fs-4 mb-4">Temukan Buku sesuai minat dan kebutuhanmu</h2>
+                <h2 class="text-center title fw-bold fs-4 mb-4 fs-m-14px">Temukan Buku sesuai minat dan kebutuhanmu</h2>
                 <div class="home-tab-body w-100" id="home-tab-body">
                     <div class="container">
                         <div class="row">
-                            <button class="d-block d-sm-none text-center mx-auto btn text-decoration-underline"
-                                onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">Pilih
-                                Jenjang, Tema, Bahasa, dan Format</button>
+                            <p class="d-block d-sm-none text-center fs-m-12px dropdown-toggle"
+                                onclick="this.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');this.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle('d-none');">
+                                Pilih
+                                Jenjang & Tema</p>
                             <div class="d-none d-sm-block col-12 col-md-2 my-1">
                                 <div class="dropdown w-100" id="jenjang">
                                     <button class="btn btn-secondary dropdown-toggle home-tab-body-dropdown-toggle green"
@@ -190,50 +191,59 @@
                 <div class="row pt-3 px-5">
                     <img class="img-fluid" src="{{ asset('web') }}/assets/icon/board.svg" alt="">
                 </div>
-                <a class="d-block d-md-none my-2 text-center" href="pustakaku.html">Lihat Semua</a>
+                <a class="d-block d-md-none my-2 text-center" href="{{ url('mylibrary') }}">Lihat Semua</a>
             </div>
         @endif
     @endif
     <div class="container">
         <div id="section-3" class="mt-5">
+            <h2 class="fw-bold">Bacaan Literasi Untuk Semua</h2>
             <div class="row">
                 <div class="col-lg-6">
-                    <h2 class="fw-bold">Bacaan Literasi Untuk Semua</h2>
-                    <p class="mt-4">Melalui Budi (Buku Digital) ini, kami memberikan layanan Bahan Bacaan Literasi
+                    <p class="mt-4 text-m-center fs-m-12px">Melalui Budi (Buku Digital) ini, kami memberikan layanan Bahan
+                        Bacaan
+                        Literasi
                         yang di dalamnya terdapat nilai-nilai moral, inspirasi, serta semangat kecintaan terhadap
                         budaya Indonesia.</p>
-                    <p class="mt-2">Buku Digital ini didedikasikan untuk Anda, baik itu siswa sekolah, guru, orang
+                    <p class="mt-2 text-m-center fs-m-12px">Buku Digital ini didedikasikan untuk Anda, baik itu siswa
+                        sekolah, guru,
+                        orang
                         tua hingga
                         masyarakat pecinta buku di tanah air maupun pecinta buku bahasa & budaya Indonesia di
                         mancanegara.</p>
-                    <p class="mt-2">Seluruh buku dapat diakses (baca, dengar, tonton) diunduh secara gratis pecinta
+                    <p class="mt-2 text-m-center fs-m-12px">Seluruh buku dapat diakses (baca, dengar, tonton) diunduh
+                        secara gratis
+                        pecinta
                         buku di tanah air
                         maupun di mancanegara.</p>
                 </div>
-                <div class="col-lg-6 ps-5">
+                <div class="col-lg-6 ps-5 ps-m-0 order-first order-md-last d-flex justify-content-center">
                     <img class="img-fluid" src="{{ asset('web') }}/assets/img/ilustrasi-1.svg" alt="">
                 </div>
             </div>
         </div>
         <div id="section-4" class="mt-5">
             <div class="row">
-                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3">Buku Pilihan Bulan ini</h2>
+                <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3 text-m-center">Buku Pilihan Bulan ini</h2>
                 @foreach ($book_of_the_months as $botm)
                     @foreach ($botm->books as $book)
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mb-5">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <p class="fw-600 fs-6">{{ $book->name }}</p>
-                                    <div class="mt-3 sinopsis-text">
+                                    <p class="fw-600 fs-6 text-center text-md-start">{{ $book->name }}</p>
+                                    <div class="mt-3 sinopsis-text text-m-center">
                                         @php
                                             echo $book->sinopsis;
                                         @endphp
                                     </div>
                                     <div class="mt-5">
                                         @foreach ($book->authors as $author)
-                                            <p><span class="fw-bold">Pengarang : </span>{{ $author->name }}</p>
+                                            <p class="text-center text-md-start"><span
+                                                    class="fw-bold text-center text-md-start">Pengarang :
+                                                </span>{{ $author->name }}
+                                            </p>
                                         @endforeach
-                                        <p><span class="fw-bold">Rating : </span><img
+                                        <p class="text-center text-md-start"><span class="fw-bold">Rating : </span><img
                                                 src="{{ asset('web') }}/assets/icon/star.svg" alt="">
                                             @if ($book->comments->where('book_id', $book->id)->count() == 0)
                                                 0.0
@@ -242,10 +252,14 @@
                                             @endif
                                         </p>
                                     </div>
-                                    <a href="{{ url('/book') }}/{{ $book->id }}" class="text-blue">Lihat Buku</a>
+                                    <div class="d-flex d-md-block justify-content-center">
+                                        <a href="{{ url('/book') }}/{{ $book->id }}"
+                                            class="text-blue text-center text-md-start">Lihat Buku</a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="card border-0 shadow">
+                                <div
+                                    class="col-lg-6 order-first order-md-last mb-5 mb-md-0 d-flex d-md-block justify-content-center">
+                                    <div class="card border-0 shadow col-lg-12 col-8">
                                         <div class="card-body">
                                             <a href="{{ url('/book') }}/{{ $book->id }}">
                                                 <img class="img-fluid w-100" src="{{ $book->cover }}" alt="">
@@ -283,14 +297,14 @@
         <div class="container text-white">
             @foreach ($audio_book_homepages as $abh)
                 @foreach ($abh->books as $book)
-                    <div class="row py-5">
+                    <div class="row py-5 position-relative">
                         <div class="col-12 col-md-6 pb-5 me-5">
                             <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
                             <div class="d-flex justify-content-center mt-5">
                                 <img class="img" src="{{ $book->cover }}" alt="">
                             </div>
-                            <div class="audio-player" data-audio="{{ asset('storage') }}/{{ $book->content }}"
-                                style="margin-top: 10px">
+                            <div class="audio-player" id="audio-player-home"
+                                data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px">
                                 <div class="controls">
                                     <div class="play-container">
                                         <div class="toggle-play toggle-play-2 play">
@@ -317,9 +331,10 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-5 pb-5">
-                            <a href="{{ url('book_type') }}/9e30a937-0d60-49ad-9775-c19b97cfe864"
+                            <a class="d-none d-md-block text-white"
+                                href="{{ url('book_type') }}/9e30a937-0d60-49ad-9775-c19b97cfe864"
                                 class="text-white">Lihat semua Buku Audio</a>
-                            <h2 class="ff-kidzone fs-48px">{{ $book->name }}</h2>
+                            <h2 class="ff-kidzone fs-48px fs-m-30px">{{ $book->name }}</h2>
                             @php
                                 echo $book->sinopsis;
                             @endphp
@@ -333,6 +348,36 @@
                                     {{ number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1) }}
                                 @endif
                             </p>
+                            <div class="audio-player audio-player-2"
+                                data-audio="{{ asset('storage') }}/{{ $book->content }}"
+                                style="margin-top: 10px; visibility:hidden">
+                                <div class="controls controls-2">
+                                    <div class="play-container">
+                                        <div class="toggle-play toggle-play-2 play">
+                                        </div>
+                                    </div>
+                                    <div class="timeline timeline-2 d-flex justify-content-start border-0">
+                                        <div class="progress progress-2" style="background-color: #2B388B;"></div>
+                                    </div>
+                                    <div class="volume-container">
+                                        <div class="volume-button">
+                                            <div class="volume icono-volumeMedium"></div>
+                                        </div>
+
+                                        <div class="volume-slider volume-slider-2">
+                                            <div class="volume-percentage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="time time-2" style="display: none;">
+                                        <div class="current current-2">0:00</div>
+                                        <div class="divider">/</div>
+                                        <div class="length length-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="d-block d-md-none text-white"
+                                href="{{ url('book_type') }}/9e30a937-0d60-49ad-9775-c19b97cfe864">Lihat semua Buku
+                                Audio</a>
                         </div>
                     </div>
                 @endforeach
@@ -344,16 +389,20 @@
             <h2 class="ff-bubblewump text-center fw-bold">Banyak Membaca, Kunci Kreativitas dan Keberhasilan</h2>
             <p class="text-center fs-4">Bagaimana kami membantu mewujudkanya?</p>
             <div class="row mt-5">
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-4 mb-md-0">
                     <img src="{{ asset('web') }}/assets/img/ilustrasi-section5a.png" alt="" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold">Membaca Jadi lebih Mudah</h2>
-                        <p>Dapatkan beragam konten buku menarik dalam format teks, audio dan video yang bisa diakses
+                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Membaca Jadi lebih Mudah</h2>
+                        <p class="text-center text-md-start">Dapatkan beragam konten buku menarik dalam format teks, audio
+                            dan video
+                            yang bisa diakses
                             melalui desktop
                             maupun telepon pintar.</p>
-                        <p>Konten bisa diunduh kemudian bisa dibaca, didengarkan, atau ditonton tanpa internet.
+                        <p class="text-center text-md-start">Konten bisa diunduh kemudian bisa dibaca, didengarkan, atau
+                            ditonton tanpa
+                            internet.
                             Gratis.
                         </p>
                     </div>
@@ -362,24 +411,26 @@
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold">Miliki Perpustakaanku</h2>
-                        <p>Simpan buku yang kamu suka. Akses dan lanjutkan kapan pun. Dapatkan juga rekomendasi
+                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Miliki Perpustakaanku</h2>
+                        <p class="text-center text-md-start">Simpan buku yang kamu suka. Akses dan lanjutkan kapan pun.
+                            Dapatkan juga rekomendasi
                             terbaik sesuai minat dan
                             jenjang sekolahmu saat ini.</p>
                     </div>
                 </div>
-                <div class="col-lg-6 order-first order-md-last">
+                <div class="col-lg-6 order-first order-md-last mb-4 mb-md-0">
                     <img src="{{ asset('web') }}/assets/img/ilustrasi-section5b.png" alt="" class="img-fluid">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-4 mb-md-0">
                     <img src="{{ asset('web') }}/assets/img/ilustrasi-section5c.png" alt="" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold">Budi Tumbuh Bersama Kamu</h2>
-                        <p>Budi (Buku Digital) akan terus meningkatkan jumlah, jenis dan kualitas konten seiring
+                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Budi Tumbuh Bersama Kamu</h2>
+                        <p class="text-center text-md-start">Budi (Buku Digital) akan terus meningkatkan jumlah, jenis dan
+                            kualitas konten seiring
                             berkembangnya literasi
                             dan wawasan kamu.</p>
                     </div>
@@ -388,15 +439,17 @@
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold">Bersama Teman, Membaca Jadi Hobi
+                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Bersama Teman, Membaca Jadi Hobi
                             Menyenangkan</h2>
-                        <p>Saling berbagi buku dengan teman dengan minat yang sama. Bantu teman memilih buku yang
+                        <p class="text-center text-md-start">Saling berbagi buku dengan teman dengan minat yang sama. Bantu
+                            teman memilih buku yang
                             sesuai dengan rating
                             dan komentar yang membangun.</p>
                     </div>
                 </div>
-                <div class="col-lg-6 order-first order-md-last">
-                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5d.png" alt="" class="img-fluid">
+                <div class="col-lg-6 order-first order-md-last mb-4 mb-md-0">
+                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5d.png" alt=""
+                        class="img-fluid mb-md">
                 </div>
             </div>
         </div>
@@ -414,9 +467,9 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-lg-6 d-flex align-items-center text-white">
+                    <div class="col-lg-6 d-flex align-items-center text-white text-center text-md-start">
                         <div class="">
-                            <h2 class="ff-kidzone fs-50px text-white">{{ $send_creation->heading }}</h2>
+                            <h2 class="ff-kidzone fs-50px text-white fs-m-40px">{{ $send_creation->heading }}</h2>
                             <h4>{{ $send_creation->sub_heading }}</h4>
                             <p class="mt-5">{{ $send_creation->content }}</p>
                             <a href="{{ url('send_creation') }}" class="btn bg-oldblue text-white btn-section-8">Lebih
@@ -429,13 +482,13 @@
     </section>
     <section id="section-9" class="" style="margin-top: 80px;">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="fw-bold fs-25px">Info Seputar Budi</h2>
-                <a href="{{ url('info_seputar_budi') }}" class="text-blue">Lihat Semua</a>
+            <div class="d-flex justify-content-center align-items-center justify-content-md-between">
+                <h2 class="fw-bold fs-25px text-center text-md-start">Info Seputar Budi</h2>
+                <a href="{{ url('info_seputar_budi') }}" class="text-blue d-none d-md-block">Lihat Semua</a>
             </div>
             <div class="row row-cols-4 mt-4">
                 @foreach ($blogs as $blog)
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 p-4">
                         <a href="{{ url('blog/detail/') . '/' . $blog->id }}" class="text-decoration-none text-dark">
                             <div class="card card-news">
                                 <img src="{{ $blog->cover }}" class="card-img-top" alt="...">
@@ -452,6 +505,10 @@
                         </a>
                     </div>
                 @endforeach
+            </div>
+            <div class="d-flex justify-content-center">
+                <a href="{{ url('info_seputar_budi') }}" class="text-blue text-center d-block d-md-none w-100">Lihat
+                    Semua</a>
             </div>
         </div>
     </section>
@@ -666,11 +723,11 @@
                     <div class="col-12 order-first">
                         <h2 class="ff-bubblewump mb-4 fw-bold text-center text-md-start">Profil Penulis Bulan Ini</h2>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 p-md-2 p-4">
                         @if ($aotm->authors !== null)
                             <h3 class="text-blue">{{ $aotm->authors->name }}</h3>
                         @endif
-                        <div class="text-justify" style="text-align: justify">
+                        <div class="text-justify mb-4" style="text-align: justify">
                             @php
                                 echo $aotm->content_homepage;
                             @endphp

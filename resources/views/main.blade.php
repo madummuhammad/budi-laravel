@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile-view.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/css/owl.carousel.css">
+    <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/css/owl.theme.default.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.css" type="text/css" />
     <title>Homepage</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
-        <div class="container px-5">
+        <div class="container px-md-5">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('web') }}/assets/img/logo.png" alt="">
             </a>
@@ -27,10 +30,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Beranda</a>
                     </li>
-                    <li class="nav-item px-3 dropdown">
+                    <li class="nav-item px-0 px-md-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Buku
@@ -49,27 +52,27 @@
                                     href="{{ url('book_type/bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') }}">Buku Video</a>
                             </li>
                         </ul>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
                     </li>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page"
                             href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi</a>
                     </li>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
                     </li>
                     </li>
                     @if (auth()->guard('visitor')->check() == false)
                         <div class="d-flex d-md-none">
-                            <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
+                            <a class="btn text-blue ps-0" href="{{ url('login') }}">Masuk</a>
                             <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
                         </div>
                     @endif
                     @if (auth()->guard('visitor')->check() == 1)
-                        <div class="d-flex d-md-none navbar-profile align-items-center">
+                        <div class="d-flex d-lg-none navbar-profile align-items-center">
                             <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
-                            <div class="nav-item px-3 dropdown">
+                            <div class="nav-item px-0 px-md-3 dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth()->guard('visitor')->user()->name }}
@@ -94,9 +97,9 @@
                 </div>
             @endif
             @if (auth()->guard('visitor')->check() == 1)
-                <div class="d-md-flex d-none navbar-profile align-items-center">
+                <div class="d-lg-flex d-none navbar-profile align-items-center">
                     <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
-                    <div class="nav-item px-3 dropdown">
+                    <div class="nav-item px-0 px-md-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ auth()->guard('visitor')->user()->name }}
@@ -122,22 +125,25 @@
             <div class="row">
                 <div class="col-12 col-md-4">
                     <div class="row">
-                        <div class="col-2">
-                            <img src="{{ url('web') }}/assets/img/logo.png" alt="" class="img-fluid">
+                        <div class="col-12 col-md-2 d-flex d-md-block justify-content-center mb-4">
+                            <img src="{{ url('web') }}/assets/img/logo.png" alt=""
+                                class="img-fluid col-4 col-md-12">
                         </div>
-                        <div class="col-10">
-                            <p class="text-dark fw-bold">Kementerian Pendidikan, Kebudayaan, Riset, dan
+                        <div class="col-12 col-md-10">
+                            <p class="text-dark fw-bold fs-m-14px">Kementerian Pendidikan, Kebudayaan,
+                                Riset, dan
                                 Teknologi
                                 Badan Pengembangan dan Pembinaan Bahasa
                                 Pusat Pembinaan Bahasa dan Sastra</p>
-                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui bahasa
+                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui
+                                bahasa
                                 dan sastra
                                 Indonesia</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-2">
-                    <p class="fw-bold fs-5 text-dark">Produk</p>
+                <div class="col-6 col-md-2">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Produk</p>
                     <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
                         class="d-block text-decoration-none mb-3">Buku Digital</a>
                     <a href="{{ url('book_type/31ba455c-c9c7-4a3c-a2b1-62915546eaba') }}"
@@ -149,18 +155,30 @@
                     <a href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}"
                         class="d-block text-decoration-none mb-3">Referensi</a>
                 </div>
-                <div class="col-12 col-md-2">
-                    <p class="fw-bold fs-5 text-dark">Panduan</p>
+                <div class="col-6 col-md-2">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Panduan</p>
                     <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
                     <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Informasi</a>
                     <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
                 <div class="col-12 col-md-4">
-                    <p class="fw-bold fs-5 text-dark">Kontak Kami</p>
-                    <p class="p-0"><img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Kontak Kami</p>
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                    </div>
+                    <p class="p-0"><img class="d-none d-md-inline"
+                            src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
                         badan.bahasa@kemdikbud.go.id</p>
-                    <p><img src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
-                    <p><img src="{{ url('web') }}/assets/icon/pin.svg" alt=""> Jalan Daksinapati Barat IV,
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
+                    </div>
+                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/telephone.svg"
+                            alt=""> (021) 4750406</p>
+                    <div class="d-flex justify-content-center d-md-none">
+                        <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                    </div>
+                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                        Jalan Daksinapati Barat IV,
                         Rawamangun,
                         Jakarta
                         13220</p>

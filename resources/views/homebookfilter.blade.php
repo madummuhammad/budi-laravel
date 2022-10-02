@@ -37,7 +37,7 @@
                         @else
                             <div class="tab-pane container" id="theme{{ Str::slug($level->name) }}">
                     @endif
-                    <div class="row row-cols-1 row-cols-md-6">
+                    <div class="row row-cols-2 row-cols-md-6">
                         @foreach ($books as $book)
                             @if ($book->display_homepage == 1)
                                 @if ($book->level == $level->id)
