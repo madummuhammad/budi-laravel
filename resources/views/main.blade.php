@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="col-6 col-md-2">
-                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Produk</p>
+                    <p class="fw-bold fs-5 text-dark text-start">Produk</p>
                     <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
                         class="d-block text-decoration-none mb-3">Buku Digital</a>
                     <a href="{{ url('book_type/31ba455c-c9c7-4a3c-a2b1-62915546eaba') }}"
@@ -156,7 +156,7 @@
                         class="d-block text-decoration-none mb-3">Referensi</a>
                 </div>
                 <div class="col-6 col-md-2">
-                    <p class="fw-bold fs-5 text-dark text-center text-md-start">Panduan</p>
+                    <p class="fw-bold fs-5 text-dark text-start">Panduan</p>
                     <a href="{{ url('about') }}" class="d-block text-decoration-none mb-3">Tentang Budi</a>
                     <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Informasi</a>
                     <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
@@ -166,18 +166,19 @@
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
                     </div>
-                    <p class="p-0"><img class="d-none d-md-inline"
+                    <p class="p-0 text-center text-md-start"><img class="d-none d-md-inline"
                             src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
                         badan.bahasa@kemdikbud.go.id</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
                     </div>
-                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/telephone.svg"
-                            alt=""> (021) 4750406</p>
+                    <p class="text-md-start text-center"><img class="d-none d-md-inline"
+                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
                     </div>
-                    <p><img class="d-none d-md-inline" src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                    <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                            src="{{ url('web') }}/assets/icon/pin.svg" alt="">
                         Jalan Daksinapati Barat IV,
                         Rawamangun,
                         Jakarta
@@ -188,7 +189,7 @@
                 <div class="col-12 col-md-4">
                     <div class="row">
                         <div class="col-12 col-md-2"></div>
-                        <div class="col-12 col-md-10">
+                        <div class="col-12 col-md-10 d-flex d-md-block justify-content-center">
                             <img src="{{ url('web') }}/assets/icon/instagram.svg" alt="">
                             <img src="{{ url('web') }}/assets/icon/facebook.svg" alt="">
                             <img src="{{ url('web') }}/assets/icon/twitter.svg" alt="">
@@ -198,7 +199,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-8">
-                    <p class="text-md-end">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat :
+                    <p class="text-md-end text-center">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat :
                         09.00 - 16.00
                         WIB)</p>
                 </div>
@@ -289,6 +290,48 @@
         @endif
     @endif
     @csrf
+    <div class="modal fade" id="menyukai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Masuk/ daftar untuk menyukai</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <a href="{{ url('login') }}" type="button" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mengunduh" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Masuk/ daftar untuk mengunduh</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <a href="{{ url('login') }}" type="button" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="menyimpan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Masuk/ daftar untuk menyimpan</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <a href="{{ url('login') }}" type="button" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>

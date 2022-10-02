@@ -27,7 +27,7 @@
                                 </span>{{ $liked_number->where('book_id', $book->id)->count() }}
                             @endif
                         @else
-                            <a class="text-dark text-decoration-none" href="{{ url('login') }}"><i
+                            <a class="text-dark text-decoration-none" data-bs-toggle="modal" href="#menyukai"><i
                                     class="fa-regular fa-heart"></i>
                                 {{ $liked_number->where('book_id', $book->id)->count() }}</a>
                         @endif
@@ -42,8 +42,9 @@
                                     style="display: none">
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
-                                    <a href="{{ url('login') }}" type="submit" data-book_id="{{ $book->id }}"
-                                        class="dropdown-item" href="#"><i class="bi bi-download fs-6"></i>
+                                    <a href="#mengunduh" data-bs-toggle="modal" type="submit"
+                                        data-book_id="{{ $book->id }}" class="dropdown-item" href="#"><i
+                                            class="bi bi-download fs-6"></i>
                                         {{ $download_number->where('book_id', $book->id)->count() }}
                                     </a>
                                 @else
@@ -72,9 +73,9 @@
                                         style="display: none">
                                     @method('POST')
                                     @if (auth()->guard('visitor')->check() == false)
-                                        <a href="{{ url('login') }}" type="submit"
-                                            data-book_id="{{ $book->id }}" class="dropdown-item download"
-                                            href="#"><i class="bi bi-download fs-6"></i>
+                                        <a href="#mengunduh" data-bs-toggle="modal" data-book_id="{{ $book->id }}"
+                                            class="dropdown-item download" href="#"><i
+                                                class="bi bi-download fs-6"></i>
                                             Unduh
                                         </a>
                                     @else

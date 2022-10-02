@@ -2,9 +2,33 @@
 @section('judul_halaman', 'Homepage')
 @section('content')
     <div class="slider">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade d-none d-md-block" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @foreach ($banners as $banner)
+                    <div class="carousel-item @if ($loop->first) active @endif">
+                        <img src="{{ $banner->image }}" class="d-block w-100" alt="...">
+                        <h1 class="ff-kidzone tagline"
+                            style="top:{{ $banner->top }}%;left:{{ $banner->left }}%;color:{{ $banner->color }}">
+                            {{ $banner->tagline }}</h1>
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon-container">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-prev-icon-container">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade d-block d-md-none" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($banner_mobiles as $banner)
                     <div class="carousel-item @if ($loop->first) active @endif">
                         <img src="{{ $banner->image }}" class="d-block w-100" alt="...">
                         <h1 class="ff-kidzone tagline"

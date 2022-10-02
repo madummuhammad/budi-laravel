@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 class="text-center">Banner</h4>
+                                    <h4 class="text-center">Banner Desktop</h4>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-end">
@@ -87,6 +87,77 @@
                                                 </div>
                                             </div>
                                             <img class="img-fluid w-100" src="{{ $book_types->banner }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-lg-12">
+                                    <h4 class="text-center">Banner Mobile</h4>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn badge badge-success mb-2" data-toggle="modal"
+                                                    data-target="#edit-banners"><i class="bi bi-pencil-square"></i></button>
+                                                <div class="modal fade" id="edit-banners" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Banner
+                                                                    Mobile
+                                                                </h5>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal"><span>&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form
+                                                                action="{{ url('dashboard/book_type/mobile/') . '/' . $book_types->id }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                <div class="modal-body">
+                                                                    @method('patch')
+                                                                    @csrf
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="exampleInputEmail1">Tagline</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="exampleInputEmail1"
+                                                                                    aria-describedby="emailHelp"
+                                                                                    name="tagline"
+                                                                                    value="{{ $book_types->tagline }}">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Gambar
+                                                                                    Banner</label><br>
+                                                                                <input type="file" id="cover-bukus"
+                                                                                    class="form-control"
+                                                                                    aria-describedby="emailHelp" hidden
+                                                                                    name="image">
+                                                                                <label for="cover-bukus"
+                                                                                    class="label-upload-custom btn btn-secondary">Pilih
+                                                                                    File</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Tutup</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Kirim</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+
+                                                <img class="img-fluid w-50" src="{{ $book_types->banner_mobile }}"
+                                                    alt="">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

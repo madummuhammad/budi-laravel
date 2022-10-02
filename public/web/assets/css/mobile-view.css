@@ -75,7 +75,6 @@
         padding: 0px 0 300px 0;
         height: 100%;
         width: 100%;
-        
     }
 
     .card-login-x {
@@ -85,7 +84,7 @@
 
     .login-title {
         font-size: 2em;
-        padding: 0 .2rem;
+        padding: 0 0.2rem;
     }
 }
 

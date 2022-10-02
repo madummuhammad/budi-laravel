@@ -6,6 +6,7 @@ use App\Models\AudioBookHomepage;
 use App\Models\Author;
 use App\Models\AuthorOfTheMonth;
 use App\Models\Banner;
+use App\Models\BannerMobile;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
@@ -41,6 +42,7 @@ class WebController extends Controller
         $data['themes'] = Theme::all();
         $data['blogs'] = Blog::where('display_homepage', 1)->limit(4)->get();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
+        $data['banner_mobiles'] = BannerMobile::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();

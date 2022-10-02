@@ -68,29 +68,29 @@
                 </ul>
             </div>
             @if (auth()->guard('visitor')->check() == false)
-            <div class="d-none d-lg-flex">
-                <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
-                <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
-            </div>
+                <div class="d-none d-lg-flex">
+                    <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
+                    <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
+                </div>
             @endif
             @if (auth()->guard('visitor')->check() == 1)
-            <div class="d-flex d-lg-none navbar-profile align-items-center">
-                <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
-                <div class="nav-item px-3 dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ auth()->guard('visitor')->user()->name }}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                        <form method="POST" action="{{ url('logout') }}">
-                            @csrf
-                            @method('POST')
-                            <li><button type="submit" class="dropdown-item text-blue">Keluar</button></li>
-                        </form>
-                    </ul>
+                <div class="d-flex d-lg-none navbar-profile align-items-center">
+                    <img src="{{ asset('web') }}/assets/img/profile.png" alt="">
+                    <div class="nav-item px-3 dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ auth()->guard('visitor')->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <form method="POST" action="{{ url('logout') }}">
+                                @csrf
+                                @method('POST')
+                                <li><button type="submit" class="dropdown-item text-blue">Keluar</button></li>
+                            </form>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
     </nav>
@@ -98,47 +98,52 @@
         <div class="container d-block">
             <div class="row">
                 <div class="col-12 col-lg-8 d-none d-lg-flex">
-                    <img class="img-fluid rounded-50px" src="{{ asset('web') }}/assets/img/ilustrasi-login.png" alt="">
+                    <img class="img-fluid rounded-50px" src="{{ asset('web') }}/assets/img/ilustrasi-login.png"
+                        alt="">
                 </div>
                 <div class="col-12 d-lg-none py-4">
-                    <h2 class="ff-kidzone tagline text-white text-center login-title" style="margin-top: 4rem;">Kenali Budaya Bangsa dengan Budi</h2>
+                    <h2 class="ff-kidzone tagline text-white text-center login-title" style="margin-top: 4rem;">Kenali
+                        Budaya Bangsa dengan Budi</h2>
                 </div>
                 <div class="col-12 col-lg-4 login card-login-x text-md-center">
                     <div class="card card-login p-3 w-100">
                         <div class="card-body">
                             <img class="logo mb-2" src="{{ asset('web') }}/assets/img/logo.png" alt="">
                             <h5 class="card-title fw-bold">Selamat Datang</h5>
-                            <p class="card-text">Silakan masukan Email dan Kata Sandi</p>
+                            <p class="card-text">Silakan masukan Nama Pengguna dan Kata Sandi</p>
                             @if (session()->has('loginError'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('loginError') }}
-                            </div>
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('loginError') }}
+                                </div>
                             @endif
                             @if (session()->has('success'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('success') }}
-                            </div>
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
                             @endif
                             <form action="{{ url('login') }}" method="POST">
                                 @method('POST')
                                 @csrf
-                                <input type="text" class="form-control mb-3 py-3 @error('username')
-                            is-invalid @enderror " id="exampleFormControlInput1" placeholder="Pengguna"
-                                    name="username">
+                                <input type="text"
+                                    class="form-control mb-3 py-3 @error('username')
+                            is-invalid @enderror "
+                                    id="exampleFormControlInput1" placeholder="Pengguna" name="username">
                                 @error('username')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <div class="input-group mb-3">
-                                    <input type="password" class="form-control py-3  @error('password')
-                            is-invalid @enderror " placeholder="Kata sandi" name="password">
-                                    <button id="btn-eye" type="button" class="input-group-text bg-white"><i
-                                            class="bi bi-eye"></i></button>
-                                    @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
+                                @enderror
+                                <div class="input-group mb-3">
+                                    <input type="password"
+                                        class="form-control py-3  @error('password')
+                            is-invalid @enderror "
+                                        placeholder="Kata sandi" name="password">
+                                    <button id="btn-eye" type="button" class="input-group-text bg-white"><i
+                                            class="bi bi-eye"></i></button>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="d-flex justify-content-end">

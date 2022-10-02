@@ -26,10 +26,22 @@ class BooktypeController extends Controller
 
     }
 
-    public function upload($request)
+    public function update_mobile($id)
+    {
+        $data = [
+            'tagline' => request('tagline'),
+            'banner_mobile' => $this->storage() . $this->upload(request(), 393, 250),
+        ];
+        Book_type::where('id', $id)->update($data);
+
+        return back();
+
+    }
+
+    public function upload($request, $w = "1419", $h = "200")
     {
         $path = $request->file('image')->store('image');
-        $resize = Image::make($request->file('image'))->fit(1419, 200);
+        $resize = Image::make($request->file('image'))->fit($w, $h);
         $resize->save($this->storage_path('public/' . $path));
         unlink(storage_path('app/' . $path));
         return $path;

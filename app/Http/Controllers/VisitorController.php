@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LocationController;
 use App\Mail\VerificationEmail;
 use App\Models\Visitor;
-use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -164,6 +163,7 @@ class VisitorController extends Controller
         if (auth()->guard('visitor')->check() == 'false') {
             redirect('login');
         }
+
         $location = new LocationController;
         $province = $location->detail_province(request('province'))->original->nama;
         $city = $location->detail_city(request('city'))->original->nama;
@@ -189,8 +189,8 @@ class VisitorController extends Controller
             'district' => 'required',
             'sub_district' => 'required',
             'province' => 'required',
-            'profession' => 'required',
-            'level' => 'required',
+            // 'profession' => 'required',
+            // 'level' => 'required',
         ]);
 
         if ($validation->fails()) {

@@ -30,7 +30,8 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
+                                    <a href="#menyukai" data-bs-toggle="modal" class="text-dark"><i
+                                            class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
                             {{ $liked_number }}</span>
@@ -86,7 +87,8 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
+                                    <a href="#menyukai" data-bs-toggle="modal" class="text-dark"><i
+                                            class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
                         </a>
@@ -151,7 +153,7 @@
                                     style="display: none">
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
-                                    <a href="{{ url('login') }}"
+                                    <a href="#mengunduh" data-bs-toggle="modal"
                                         class="w-100 my-2 fs-12px btn bg-blue d-flex justify-content-center align-items-center
                                 py-2 me-4 w-100"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
@@ -164,16 +166,22 @@
                             </form>
                         </div>
                         <div class="col-md-3 col-6">
-                            <button type="button"
-                                class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == true)
+                                <button type="button"
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
-                                id="saved"
-                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                    id="saved"
+                                    @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
                                 status="unsaved" @endif
-                                @endif
-                                ><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                    @endif
+                                    ><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @else
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#menyimpan"
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center py-2 me-4"
+                                    id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @endif
                         </div>
 
                         @if ($book_detail['book_pdfs'] !== null)
@@ -218,7 +226,7 @@
                                     style="display: none">
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
-                                    <a href="{{ url('login') }}"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#mengunduh"
                                         class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
@@ -231,15 +239,22 @@
                             </form>
                         </div>
                         <div class="col-6 col-md-3">
-                            <button
-                                class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == true)
+                                <button
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
-                                id="saved"
-                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                    id="saved"
+                                    @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
                                 status="unsaved" @endif
-                                @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                    @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @else
+                                <button data-bs-toggle="modal" data-bs-target="#menyimpan"
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                            py-2 me-4"
+                                    id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @endif
                         </div>
                         @if ($book_detail['book_pdfs'] !== null)
                             <div class="col-6 col-md-3">
@@ -422,7 +437,7 @@
                 <div class="col-12">
                     <div class="row row-cols-md-6 row-cols-2">
                         @foreach ($related_books as $related_book)
-                            <div class="col">
+                            <div class="col mb-3">
                                 <img class="img-fluid w-100" src="{{ $related_book->cover }}" alt="">
                             </div>
                         @endforeach
@@ -489,13 +504,16 @@
                         _token: token
                     },
                     success: function(hasil) {
-                        if (liked == false) {
-                            $("#liked").addClass('active');
-                            $("#liked #liked-icon").html(
-                                `<i class="fa-solid fa-heart text-danger"></i>`)
-                        } else {
-                            $("#liked").removeClass('active');
-                            $("#liked #liked-icon").html(`<i class="fa-regular fa-heart"></i>`)
+                        if (auth() - > guard('visitor') - > check() == true) {
+                            if (liked == false) {
+                                $("#liked").addClass('active');
+                                $("#liked #liked-icon").html(
+                                    `<i class="fa-solid fa-heart text-danger"></i>`)
+                            } else {
+                                $("#liked").removeClass('active');
+                                $("#liked #liked-icon").html(
+                                    `<i class="fa-regular fa-heart"></i>`)
+                            }
                         }
                     }
                 });

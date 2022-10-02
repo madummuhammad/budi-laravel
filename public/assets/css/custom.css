@@ -76,7 +76,6 @@
 } */
 .carousel-item .img-container {
     position: relative;
-    background-color: blue;
     z-index: 1;
 }
 

@@ -173,8 +173,11 @@ Route::middleware('auth')->group(function () {
         // Website
         Route::get('/homepage', [HomepageController::class, 'index']);
         Route::post('/homepage/banner', [BannerController::class, 'add']);
+        Route::post('/homepage/bannermobile', [BannerController::class, 'add_mobile']);
         Route::patch('/homepage/banner', [BannerController::class, 'update']);
+        Route::patch('/homepage/bannermobile', [BannerController::class, 'update_mobile']);
         Route::delete('/homepage/banner', [BannerController::class, 'destroy']);
+        Route::delete('/homepage/bannermobile', [BannerController::class, 'destroy_mobile']);
         Route::patch('/homepage/book_of_the_month', [HomepageController::class, 'book_of_the_month']);
         Route::post('/homepage/book_of_the_month', [HomepageController::class, 'add_book_of_the_month']);
         Route::patch('/homepage/audio_book_homepage', [HomepageController::class, 'audio_book_homepage']);
@@ -184,6 +187,7 @@ Route::middleware('auth')->group(function () {
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);
         Route::patch('/book_type/{id}', [BooktypeController::class, 'update']);
+        Route::patch('/book_type/mobile/{id}', [BooktypeController::class, 'update_mobile']);
 
         // Reference Book
         Route::get('/reference_book/{id}', [ReferencebookController::class, 'index']);

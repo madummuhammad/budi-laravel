@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AudioBookHomepage;
 use App\Models\Banner;
+use App\Models\BannerMobile;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
 use App\Models\SendCreation;
@@ -17,6 +18,7 @@ class HomepageController extends Controller
     {
         $data['books'] = Book::all();
         $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
+        $data['banner_mobiles'] = BannerMobile::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->get();

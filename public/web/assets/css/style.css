@@ -1160,7 +1160,7 @@ footer .dash {
 
 .profile-achive-container {
     background-size: cover;
-    background-image: url('../img/kotak-sm.svg');
+    background-image: url("../img/kotak-sm.svg");
     color: #fff;
     position: relative;
 }

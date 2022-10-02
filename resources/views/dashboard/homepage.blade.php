@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h4 class="text-center">Banner</h4>
+                                    <h4 class="text-center">Banner Desktop</h4>
                                     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"
                                         data-interval="false">
                                         <div class="carousel-inner">
@@ -50,7 +50,7 @@
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body py-0">
-                                                                            <p class="p-0 m-0 fs-4">Hapus data buku ini?</p>
+                                                                            <p class="p-0 m-0 fs-4">Hapus banner ini?</p>
                                                                         </div>
                                                                         <div class="modal-footer pt-0 pb-1 border-0">
                                                                             <form
@@ -240,7 +240,8 @@
                                             <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Tema</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Banner
+                                                            Desktop</h5>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal"><span>&times;</span>
                                                         </button>
@@ -313,6 +314,247 @@
                                                                                 name="color">
                                                                             <label class="form-check-label"
                                                                                 for="inlineCheckbox4">Hitam</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="text-center">Banner Mobile</h4>
+                                    <div id="carouselExampleCaptions" class="carousel slide w-50 " data-ride="carousel"
+                                        data-interval="false">
+                                        <div class="carousel-inner">
+                                            @foreach ($banner_mobiles as $banner)
+                                                <div class="carousel-item @if ($loop->first) active @endif">
+                                                    <div class="d-flex justify-content-center mb-3">
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <button class="btn badge-danger" data-toggle="modal"
+                                                                data-target="#hapuss{{ $banner->id }}"><i
+                                                                    class="bi bi-trash"></i></button>
+                                                            <div class="modal" tabindex="-1"
+                                                                id="hapuss{{ $banner->id }}">
+                                                                <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header border-0 py-0">
+                                                                            <h5 class="modal-title"></h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body py-0">
+                                                                            <p class="p-0 m-0 fs-4">Hapus banner mobile
+                                                                                ini?
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="modal-footer pt-0 pb-1 border-0">
+                                                                            <form
+                                                                                action="{{ url('dashboard/homepage/bannermobile') }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('delete')
+                                                                                <input type="text" name="id"
+                                                                                    value="{{ $banner->id }}" hidden>
+                                                                                <button type="submit"
+                                                                                    class="btn badge-danger"><i
+                                                                                        class="bi bi-trash3"></i></button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn badge-success" data-toggle="modal"
+                                                                data-target="#editbanners{{ $banner->id }}"><i
+                                                                    class="bi bi-pencil-square"></i></button>
+                                                            <div class="modal fade" id="editbanners{{ $banner->id }}"
+                                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog modal-sm">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">
+                                                                                Edit Banner Mobile</h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal"><span>&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form
+                                                                            action="{{ url('dashboard/homepage/bannermobile') }}"
+                                                                            method="POST" enctype="multipart/form-data">
+                                                                            <div class="modal-body">
+                                                                                @method('patch')
+                                                                                @csrf
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Tagline</label>
+                                                                                            <input type="text"
+                                                                                                name="id"
+                                                                                                value="{{ $banner->id }}"
+                                                                                                hidden>
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                id="exampleInputEmail1"
+                                                                                                aria-describedby="emailHelp"
+                                                                                                name="tagline"
+                                                                                                value="{{ $banner->tagline }}">
+                                                                                            <input type="text"
+                                                                                                name="page_id"
+                                                                                                value="b732f255-2544-4966-933c-263fdaa27bd0"
+                                                                                                hidden>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Gambar
+                                                                                                Banner</label><br>
+                                                                                            <img class="img-fluid mb-3"
+                                                                                                src="{{ $banner->image }}"
+                                                                                                alt="">
+                                                                                            <input type="file"
+                                                                                                class="form-control file-input-custom"
+                                                                                                id="cover-buku"
+                                                                                                aria-describedby="emailHelp"
+                                                                                                name="image">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label
+                                                                                                for="exampleInputEmail1">Warna
+                                                                                                Tagline</label><br>
+                                                                                            <div
+                                                                                                class="form-check form-check-inline">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    id="inlineCheckbox1{{ $banner->id }}"
+                                                                                                    value="white"
+                                                                                                    name="color"
+                                                                                                    @if ($banner->color == 'white') checked @endif>
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="inlineCheckbox1{{ $banner->id }}">Putih</label>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="form-check form-check-inline">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    id="inlineCheckbox2{{ $banner->id }}"
+                                                                                                    value="black"
+                                                                                                    name="color"
+                                                                                                    @if ($banner->color == 'black') checked @endif>
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="inlineCheckbox2{{ $banner->id }}">Hitam</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">Tutup</button>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Kirim</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="img-container">
+                                                        <img src="{{ $banner->image }}" class="d-block w-100 img-fluid"
+                                                            alt="...">
+                                                        <div class="carousel-caption d-none d-md-block text-left">
+                                                            <h5 class="ff-kidzone"
+                                                                style="left:{{ $banner->left }}%;top:{{ $banner->top }}%;color:{{ $banner->color }}">
+                                                                {{ $banner->tagline }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button class="carousel-control-prev border-0" style="background:transparent;"
+                                            type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next border-0" style="background:transparent;"
+                                            type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </button>
+                                    </div>
+                                    <div class="py-4">
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#tambah-banner-mobile"><i class="bi bi-plus-lg"></i></button>
+                                        <div class="modal fade" id="tambah-banner-mobile" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Banner
+                                                            Mobile</h5>
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal"><span>&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{ url('dashboard/homepage/bannermobile') }}"
+                                                        method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-body">
+                                                            @method('POST')
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Tagline</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="exampleInputEmail1"
+                                                                            aria-describedby="emailHelp" name="tagline">
+                                                                        <input type="text" name="page_id"
+                                                                            value="b732f255-2544-4966-933c-263fdaa27bd0"
+                                                                            hidden>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Gambar
+                                                                            Banner</label><br>
+                                                                        <input type="file"
+                                                                            class="form-control file-input-custom"
+                                                                            id="cover-buku" aria-describedby="emailHelp"
+                                                                            name="image">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Warna
+                                                                            Tagline</label><br>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                id="inlineCheckbox12" value="white"
+                                                                                name="color">
+                                                                            <label class="form-check-label"
+                                                                                for="inlineCheckbox12">Putih</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                id="inlineCheckbox13" value="black"
+                                                                                name="color">
+                                                                            <label class="form-check-label"
+                                                                                for="inlineCheckbox13">Hitam</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
