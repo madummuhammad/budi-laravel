@@ -297,13 +297,13 @@
         <div class="container text-white">
             @foreach ($audio_book_homepages as $abh)
                 @foreach ($abh->books as $book)
-                    <div class="row py-5">
+                    <div class="row py-5 position-relative">
                         <div class="col-12 col-md-6 pb-5 me-5">
                             <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
                             <div class="d-flex justify-content-center mt-5">
                                 <img class="img" src="{{ $book->cover }}" alt="">
                             </div>
-                            <div class="audio-player d-none d-md-grid"
+                            <div class="audio-player" id="audio-player-home"
                                 data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px">
                                 <div class="controls">
                                     <div class="play-container">
@@ -348,29 +348,30 @@
                                     {{ number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1) }}
                                 @endif
                             </p>
-                            <div class="audio-player d-grid d-md-none"
-                                data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px">
-                                <div class="controls">
+                            <div class="audio-player audio-player-2"
+                                data-audio="{{ asset('storage') }}/{{ $book->content }}"
+                                style="margin-top: 10px; visibility:hidden">
+                                <div class="controls controls-2">
                                     <div class="play-container">
                                         <div class="toggle-play toggle-play-2 play">
                                         </div>
                                     </div>
-                                    <div class="timeline d-flex justify-content-start border-0">
-                                        <div class="progress" style="background-color: #2B388B;"></div>
+                                    <div class="timeline timeline-2 d-flex justify-content-start border-0">
+                                        <div class="progress progress-2" style="background-color: #2B388B;"></div>
                                     </div>
                                     <div class="volume-container">
                                         <div class="volume-button">
                                             <div class="volume icono-volumeMedium"></div>
                                         </div>
 
-                                        <div class="volume-slider">
+                                        <div class="volume-slider volume-slider-2">
                                             <div class="volume-percentage"></div>
                                         </div>
                                     </div>
-                                    <div class="time" style="display: none;">
-                                        <div class="current">0:00</div>
+                                    <div class="time time-2" style="display: none;">
+                                        <div class="current current-2">0:00</div>
                                         <div class="divider">/</div>
-                                        <div class="length"></div>
+                                        <div class="length length-2"></div>
                                     </div>
                                 </div>
                             </div>

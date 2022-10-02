@@ -29,10 +29,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Beranda</a>
                     </li>
-                    <li class="nav-item px-3 dropdown">
+                    <li class="nav-item px-0 px-md-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Buku
@@ -51,27 +51,27 @@
                                     href="{{ url('book_type/bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') }}">Buku Video</a>
                             </li>
                         </ul>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
                     </li>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page"
                             href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi</a>
                     </li>
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
                     </li>
                     </li>
                     @if (auth()->guard('visitor')->check() == false)
                         <div class="d-flex d-md-none">
-                            <a class="btn text-blue" href="{{ url('login') }}">Masuk</a>
+                            <a class="btn text-blue ps-0" href="{{ url('login') }}">Masuk</a>
                             <a class="btn bg-blue text-white" href="{{ url('register') }}">Daftar</a>
                         </div>
                     @endif
                     @if (auth()->guard('visitor')->check() == 1)
                         <div class="d-flex d-md-none navbar-profile align-items-center">
                             <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
-                            <div class="nav-item px-3 dropdown">
+                            <div class="nav-item px-0 px-md-3 dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth()->guard('visitor')->user()->name }}
@@ -98,7 +98,7 @@
             @if (auth()->guard('visitor')->check() == 1)
                 <div class="d-md-flex d-none navbar-profile align-items-center">
                     <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
-                    <div class="nav-item px-3 dropdown">
+                    <div class="nav-item px-0 px-md-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ auth()->guard('visitor')->user()->name }}

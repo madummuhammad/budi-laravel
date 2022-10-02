@@ -195,7 +195,12 @@
     $(document).ready(function() {
         var items = $(".item-paginate");
         var numItems = items.length;
-        var perPage = 10;
+        if (window.screen.width < 768) {
+            var perPage = 4;
+        } else {
+            var perPage = 10;
+
+        }
 
         items.slice(perPage).hide();
 

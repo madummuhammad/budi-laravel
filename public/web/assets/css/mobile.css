@@ -38,6 +38,19 @@
         font-size: 10vw !important;
     }
 
+    #audio-player-home {
+        position: absolute;
+        bottom: 120px;
+        left: 10px;
+        width: 90vw;
+    }
+
+    #hero img {
+        object-fit: none;
+        object-position: 95% 100%;
+        height: 200px;
+    }
+
     #section-6 .img {
         width: 55%;
     }
@@ -58,6 +71,10 @@
         font-size: 40px !important;
     }
 
+    .fs-m-11px {
+        font-size: 11px !important;
+    }
+
     .fs-m-12px {
         font-size: 12px !important;
     }
@@ -71,4 +88,12 @@
 .owl-prev:hover {
     background-color: transparent !important;
     transform: scale(1.2);
+}
+
+#time {
+    position: absolute;
+    right: 0;
+    padding-bottom: 10px;
+    top: 5px;
+    z-index: 1;
 }

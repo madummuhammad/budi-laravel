@@ -164,12 +164,13 @@
                 </div>
                 <div class="row row-cols-2 row-cols-md-5 filter-theme nav nav-pills"
                     style="padding-left: 10%; padding-right:10%">
-                    <div class="col nav-item nav-pills-semua"><a class="nav-link active" data-semua="0"
+                    <div class="col nav-item nav-pills-semua"><a class="nav-link active fs-m-12px" data-semua="0"
                             data-bs-toggle="pill" href="#semua">Semua
                             Tema</a></div>
                     @foreach ($themes as $theme)
-                        <div class="col nav-item nav-pills{{ $theme->id }}"><a class="nav-link" href=""
-                                data-bs-toggle="pill" data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
+                        <div class="col nav-item nav-pills{{ $theme->id }}"><a class="nav-link fs-m-11px px-0"
+                                href="" data-bs-toggle="pill"
+                                data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
                     @endforeach
                 </div>
                 <div class="row" id="book_type">

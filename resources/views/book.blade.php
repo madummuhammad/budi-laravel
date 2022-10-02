@@ -15,8 +15,8 @@
             </ol>
         </nav>
         <div class="row mt-3">
-            <div class="col-12 col-md-3">
-                <img class="img-fluid w-100" src="{{ $book_detail->cover }}" alt="">
+            <div class="col-12 col-md-3 px-4 px-md-2">
+                <img class="img-fluid w-100 mt-3 mt-md-3" src="{{ $book_detail->cover }}" alt="">
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-flex align-items-center">
                         <span
@@ -46,7 +46,7 @@
                         {{ number_format($ratting_number, 1) }}
                     </span>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-4 mb-2">
                         <span>Pengarang</span>
                     </div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9 col-12 book-detail-content">
+            <div class="col-md-9 col-12 book-detail-content px-4 px-md-5 mt-3 mt-md-2">
                 <div class="row d-md-flex justify-content-between align-items-start">
                     <div class="col-9">
                         <h1 class="fw-bold mb-5">{{ $book_detail->name }}</h1>
@@ -96,16 +96,18 @@
                         </a>
                     </div>
                 </div>
-                @php
-                    echo $book_detail->sinopsis;
-                @endphp
+                <div class="text-break text-justify">
+                    @php
+                        echo $book_detail->sinopsis;
+                    @endphp
+                </div>
                 @csrf
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     <div class="d-flex align-items-center">
-                        <span class="me-5 fw-bold">Dengarkan</span>
+                        <span class="me-5 fw-bold d-none d-md-block">Dengarkan</span>
                         <div class="audio-player pt-4" data-audio="../storage/{{ $book_detail->content }}"
                             style="margin: 0 auto">
-                            <div class="controls">
+                            <div class="controls position-relative">
                                 <div class="play-container shows border-blue"
                                     data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -126,7 +128,7 @@
                                         <div class="volume-percentage"></div>
                                     </div>
                                 </div>
-                                <div class="time">
+                                <div class="time" id="time">
                                     <div class="current">0:00</div>
                                     <div class="divider">/</div>
                                     <div class="length"></div>
@@ -137,105 +139,122 @@
                 @endif
                 @if ($book_detail->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                     {{-- audio --}}
-                    <div class="baca-button-group d-md-flex mt-5 pt-5">
-                        <form class="w-100 me-4" action="{{ url('download') }}" method="post">
-                            @csrf
-                            <input type="text" name="file" value="{{ $book_detail->content }}" style="display: none">
-                            <input type="text" name="name" value="{{ $book_detail->name }}" style="display: none">
-                            <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
-                                style="display: none">
-                            @method('POST')
-                            @if (auth()->guard('visitor')->check() == false)
-                                <a href="{{ url('login') }}"
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
-                            @else
-                                <button
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100 download"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                            @endif
-                        </form>
-                        <button type="button"
-                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                    <div class="baca-button-group mt-5 pt-5 row">
+                        <div class="col-md-3 col-6">
+                            <form class="w-100 me-4" action="{{ url('download') }}" method="post">
+                                @csrf
+                                <input type="text" name="file" value="{{ $book_detail->content }}"
+                                    style="display: none">
+                                <input type="text" name="name" value="{{ $book_detail->name }}"
+                                    style="display: none">
+                                <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
+                                    style="display: none">
+                                @method('POST')
+                                @if (auth()->guard('visitor')->check() == false)
+                                    <a href="{{ url('login') }}"
+                                        class="w-100 my-2 fs-12px btn bg-blue d-flex justify-content-center align-items-center
+                                py-2 me-4 w-100"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</a>
+                                @else
+                                    <button
+                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                py-2 me-4 w-100 download"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                @endif
+                            </form>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <button type="button"
+                                class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
-                            id="saved"
-                            @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                id="saved"
+                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
                                 status="unsaved" @endif
-                            @endif
-                            ><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                @endif
+                                ><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                        </div>
 
                         @if ($book_detail['book_pdfs'] !== null)
-                            <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
-                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            <div class="col-md-3 col-6">
+                                <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                                             py-2 me-4"
-                                data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                    data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
                                 0 @endif
                             @endif"><i
-                                    class="bi bi-book me-3 fs-5"></i> Baca
-                                Versi Buku</button>
+                                        class="bi bi-book me-3 fs-5"></i> Baca
+                                    Versi Buku</button>
+                            </div>
                         @endif
 
                     </div>
                 @elseif($book_detail->book_type == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
                     {{-- video --}}
-                    <div class="baca-button-group d-md-flex mt-5 pt-5">
-                        <button
-                            class="w-100 shows my-2 btn btn-primary bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
-                            id="show_si_saloi" data-bs-toggle="modal" data-bs-target="#tonton-video"><img
-                                src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""
-                                data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                    <div class="baca-button-group d-md-flex mt-5 pt-5 row">
+                        <div class="col-6 col-md-3">
+                            <button
+                                class="w-100 shows my-2 btn fs-12px btn-primary bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                                id="show_si_saloi" data-bs-toggle="modal" data-bs-target="#tonton-video"><img
+                                    src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""
+                                    data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                    @else
+                                    0 @endif
+                                @endif"
+                                    style="padding-top: 5px; pading-bottom:5px">
+                                Tonton
+                                Sekarang</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <form class="w-100" action="{{ url('download') }}" method="post">
+                                @csrf
+                                <input type="text" name="file" value="{{ $book_detail->content }}"
+                                    style="display: none">
+                                <input type="text" name="name" value="{{ $book_detail->name }}"
+                                    style="display: none">
+                                <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
+                                    style="display: none">
+                                @method('POST')
+                                @if (auth()->guard('visitor')->check() == false)
+                                    <a href="{{ url('login') }}"
+                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                            py-2 me-4 w-100 download"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
-                                0 @endif
-                            @endif">
-                            Tonton
-                            Sekarang</button>
-                        <form class="w-100 me-4" action="{{ url('download') }}" method="post">
-                            @csrf
-                            <input type="text" name="file" value="{{ $book_detail->content }}"
-                                style="display: none">
-                            <input type="text" name="name" value="{{ $book_detail->name }}"
-                                style="display: none">
-                            <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
-                                style="display: none">
-                            @method('POST')
-                            @if (auth()->guard('visitor')->check() == false)
-                                <a href="{{ url('login') }}"
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                    <button
+                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
-                            @else
-                                <button
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 w-100 download"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                            @endif
-                        </form>
-                        <button
-                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                @endif
+                            </form>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button
+                                class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
-                            id="saved"
-                            @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                id="saved"
+                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                             style="background-color: grey; color:white"
                                 @else
                                 status="unsaved" @endif
-                            @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                        </div>
                         @if ($book_detail['book_pdfs'] !== null)
-                            <button
-                                class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            <div class="col-6 col-md-3">
+                                <button
+                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                                 py-2"
-                                id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
-                                    class="bi bi-book me-3 fs-5"
-                                    data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                    id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
+                                        class="bi bi-book me-3 fs-5"
+                                        data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
                                 0 @endif
                             @endif"></i>
-                                Baca
-                                Versi Buku</button>
+                                    Baca
+                                    Versi Buku</button>
+                            </div>
                         @endif
 
                         <div class="modal fade" id="tonton-video" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -257,45 +276,51 @@
                         </div>
                     </div>
                 @else
-                    <div class="baca-button-group d-md-flex mt-5 pt-5">
-                        <button
-                            class="w-100 my-2 btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
-                            id="show_book" data-book="../storage/{{ $book_detail->content }}"
-                            data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                    <div class="baca-button-group mt-5 pt-5 row">
+                        <div class="col-6 col-md-4 pe-1">
+                            <button
+                                class="w-100 my-2 fs-12px btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                                id="show_book" data-book="../storage/{{ $book_detail->content }}"
+                                data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
+                                        @else
+                                        0 @endif
+                                    @endif "><i
+                                    class="bi bi-book me-3 fs-5"></i>
+                                Baca
+                                Sekarang</button>
+                        </div>
+                        <div class="col-6 col-md-4 pe-1">
+                            <form class="me-4 px-0 w-100" action="{{ url('download') }}" method="post">
+                                @csrf
+                                <input type="text" name="file" value="{{ $book_detail->content }}"
+                                    style="display: none">
+                                <input type="text" name="name" value="{{ $book_detail->name }}"
+                                    style="display: none">
+                                @method('POST')
+                                @if (auth()->guard('visitor')->check() == false)
+                                    <a href="{{ url('login') }}"
+                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                        py-2 me-4 download"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
-                                0 @endif
-                            @endif "><i
-                                class="bi bi-book me-3 fs-5"></i>
-                            Baca
-                            Sekarang</button>
-                        <form class="me-4 w-100" action="{{ url('download') }}" method="post">
-                            @csrf
-                            <input type="text" name="file" value="{{ $book_detail->content }}"
-                                style="display: none">
-                            <input type="text" name="name" value="{{ $book_detail->name }}"
-                                style="display: none">
-                            @method('POST')
-                            @if (auth()->guard('visitor')->check() == false)
-                                <a href="{{ url('login') }}"
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 download"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</a>
-                            @else
-                                <button
-                                    class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2 me-4 download"><i
-                                        class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                            @endif
-                        </form>
-                        <button
-                            class="w-100 my-2 btn bg-blue d-flex justify-content-center align-items-center
-                            py-2"
-                            id="saved"
-                            @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
-                            style="background-color: grey; color:white"
-                                @else
-                                status="unsaved" @endif
-                            @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                    <button
+                                        class="w-100 my-2 btn bg-blue fs-12px d-flex justify-content-center align-items-center
+                                        py-2 me-4 download"><i
+                                            class="bi bi-download fs-5 me-3"></i> Unduh</button>
+                                @endif
+                            </form>
+                        </div>
+                        <div class="col-6 col-md-4 pe-1">
+                            <button
+                                class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                    py-2"
+                                id="saved"
+                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                    style="background-color: grey; color:white"
+                                        @else
+                                        status="unsaved" @endif
+                                @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                        </div>
                     </div>
                 @endif
             </div>
@@ -390,12 +415,12 @@
                 </div>
             @endforeach
             <div class="row mt-5 mb-5" id>
-                <div class="header d-flex justify-content-between" style="padding-right: 35px;">
-                    <h2 class="fw-bold">Referensi Buku Sejenis</h2>
-                    <a href="{{ url('book_type/') }}/{{ $book_type->id }}">Lihat Semua</a>
+                <div class="header d-flex justify-content-between align-items-center">
+                    <h2 class="fw-bold w-75">Referensi Buku Sejenis</h2>
+                    <a class="d-block fs-m-12px" href="{{ url('book_type/') }}/{{ $book_type->id }}">Lihat Semua</a>
                 </div>
                 <div class="col-12">
-                    <div class="row row-cols-md-6 row-cols-1">
+                    <div class="row row-cols-md-6 row-cols-2">
                         @foreach ($related_books as $related_book)
                             <div class="col">
                                 <img class="img-fluid w-100" src="{{ $related_book->cover }}" alt="">
