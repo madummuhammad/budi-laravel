@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web') }}/assets/css/mobile-view.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('web') }}/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('web') }}/assets/vendor/fontawesome/css/all.css">
@@ -69,7 +70,7 @@
                         </div>
                     @endif
                     @if (auth()->guard('visitor')->check() == 1)
-                        <div class="d-flex d-md-none navbar-profile align-items-center">
+                        <div class="d-flex d-lg-none navbar-profile align-items-center">
                             <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                             <div class="nav-item px-0 px-md-3 dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
@@ -96,7 +97,7 @@
                 </div>
             @endif
             @if (auth()->guard('visitor')->check() == 1)
-                <div class="d-md-flex d-none navbar-profile align-items-center">
+                <div class="d-lg-flex d-none navbar-profile align-items-center">
                     <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                     <div class="nav-item px-0 px-md-3 dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"

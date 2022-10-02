@@ -2,8 +2,8 @@
 @section('judul_halaman', 'Info Seputar Budi')
 @section('content')
     <div id="hero">
-        <img class="w-100" src="{{ $banners->image }}" alt="">
-        <h2 class="ff-kidzone tagline text-white">{{ $banners->tagline }}</h2>
+        <img class="w-100 banner-img-size" src="{{ $banners->image }}" alt="">
+        <h2 class="ff-kidzone tagline text-white" style="">{{ $banners->tagline }}</h2>
     </div>
     <div class="container">
 
