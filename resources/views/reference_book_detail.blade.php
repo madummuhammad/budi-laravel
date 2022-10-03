@@ -270,14 +270,15 @@
                 @csrf
             @endforeach
             <div class="row mt-5 mb-5" id>
-                <div class="header d-flex justify-content-between" style="padding-right: 35px;">
-                    <h2 class="fw-bold">Referensi Buku Sejenis</h2>
-                    <a href="{{ url('reference_book/') }}/{{ $reference_book->reference_book_type }}">Lihat Semua</a>
+                <div class="header d-flex justify-content-between align-items-center">
+                    <h2 class="fw-bold w-75">Referensi Buku Sejenis</h2>
+                    <a class="d-block fs-m-12px"
+                        href="{{ url('reference_book/') }}/{{ $reference_book->reference_book_type }}">Lihat Semua</a>
                 </div>
                 <div class="col-12">
-                    <div class="row row-cols-md-6 row-cols-1">
+                    <div class="row row-cols-md-6 row-cols-2">
                         @foreach ($related_books as $related_book)
-                            <div class="col">
+                            <div class="col mb-3">
                                 <img class="img-fluid w-100" src="{{ $related_book->cover }}" alt="">
                             </div>
                         @endforeach
