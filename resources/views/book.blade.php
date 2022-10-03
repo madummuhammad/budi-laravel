@@ -313,7 +313,7 @@
                                     style="display: none">
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
-                                    <a href="{{ url('login') }}"
+                                    <a href="#mengunduh" data-bs-toggle="modal"
                                         class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
                                         py-2 me-4 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
@@ -326,15 +326,22 @@
                             </form>
                         </div>
                         <div class="col-6 col-md-4 pe-1">
-                            <button
-                                class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
+                            @if (auth()->guard('visitor')->check() == true)
+                                <button
+                                    class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
                                     py-2"
-                                id="saved"
-                                @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
+                                    id="saved"
+                                    @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
                                     style="background-color: grey; color:white"
                                         @else
                                         status="unsaved" @endif
-                                @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                                    @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @else
+                                <button data-bs-toggle="modal" data-bs-target="#menyimpan"
+                                    class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                    py-2"
+                                    id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
+                            @endif
                         </div>
                     </div>
                 @endif
