@@ -192,9 +192,8 @@
                                                             </span>{{ $liked_number->where('book_id', $book->id)->count() }}
                                                         @endif
                                                     @else
-                                                        <a class="text-dark text-decoration-none"
-                                                            href="{{ url('login') }}"><i
-                                                                class="fa-regular fa-heart"></i>
+                                                        <a data-bs-toggle="modal" class="text-dark text-decoration-none"
+                                                            href="#menyukai"><i class="fa-regular fa-heart"></i>
                                                             {{ $liked_number->where('book_id', $book->id)->count() }}</a>
                                                     @endif
                                                 </span>
@@ -235,7 +234,8 @@
                                                                 @endif
                                                             </a>
                                                         @else
-                                                            <a href="{{ url('login') }}" class="dropdown-item">
+                                                            <a href="#menyimpan" data-bs-toggle="modal"
+                                                                class="dropdown-item">
                                                                 <i class="fa-regular fa-bookmark"></i>
                                                                 Baca Nanti
                                                             </a>
@@ -251,10 +251,18 @@
                                                             <input type="text" name="book_type"
                                                                 value="{{ $book->book_type }}" style="display: none">
                                                             @method('POST')
-                                                            <button type="submit" data-book_id="{{ $book->id }}"
-                                                                class="dropdown-item download" href="#"><i
-                                                                    class="bi bi-download fs-6"></i>
-                                                                Unduh</button>
+                                                            @if (auth()->guard('visitor')->check() == true)
+                                                                <button type="submit" data-book_id="{{ $book->id }}"
+                                                                    class="dropdown-item download" href="#"><i
+                                                                        class="bi bi-download fs-6"></i>
+                                                                    Unduh</button>
+                                                            @else
+                                                                <button data-bs-toggle="modal" data-bs-target="#mengunduh"
+                                                                    data-book_id="{{ $book->id }}"
+                                                                    class="dropdown-item download" href="#"><i
+                                                                        class="bi bi-download fs-6"></i>
+                                                                    Unduh</button>
+                                                            @endif
                                                         </form>
                                                     </li>
                                                     <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"
