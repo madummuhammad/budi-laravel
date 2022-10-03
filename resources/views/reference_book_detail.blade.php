@@ -38,7 +38,7 @@
                                 </span> {{ $liked_number->count() }}
                             @endif
                         @else
-                            <a class="text-dark text-decoration-none" href="{{ url('login') }}"><i
+                            <a data-bs-toggle="modal" class="text-dark text-decoration-none" href="#menyukai"><i
                                     class="fa-regular fa-heart"></i>
                                 {{ $liked_number->count() }}</a>
                         @endif
@@ -52,10 +52,18 @@
                                 <input type="text" name="book_id" value="{{ $reference_book->id }}"
                                     style="display: none">
                                 @method('POST')
-                                <button type="submit" data-book_id="{{ $reference_book->id }}"
-                                    class="dropdown-item download me-1" href="#"><i class="bi bi-download fs-6"></i>
-                                    {{ $download_number->where('book_id', $reference_book->id)->count() }}
-                                </button>
+                                @if (auth()->guard('visitor')->check() == true)
+                                    <button type="submit" data-book_id="{{ $reference_book->id }}"
+                                        class="dropdown-item download me-1" href="#"><i
+                                            class="bi bi-download fs-6"></i>
+                                        {{ $download_number->where('book_id', $reference_book->id)->count() }}
+                                    </button>
+                                @else
+                                    <a type="button" data-bs-toggle="modal" data-book_id="{{ $reference_book->id }}"
+                                        class="dropdown-item download me-1" href="#mengunduh"><i
+                                            class="bi bi-download fs-6"></i>
+                                        {{ $download_number->where('book_id', $reference_book->id)->count() }}</a>
+                                @endif
                             </form>
                         </span>
                         <span class="d-flex align-items-center me-3"><img src="{{ asset('web') }}/assets/icon/comment.svg"
@@ -109,7 +117,8 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <a href="{{ url('login') }}" class="text-dark"><i class="fa-regular fa-heart"></i></a>
+                                    <a href="#menyukai" data-bs-toggle="#menyukai" class="text-dark"><i
+                                            class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
                         </a>
@@ -126,7 +135,8 @@
                 <div class="baca-button-group d-flex mt-5 pt-5">
                     <form class="w-100" action="{{ url('reference_download') }}" method="post">
                         @csrf
-                        <input type="text" name="file" value="{{ $reference_book->content }}" style="display: none">
+                        <input type="text" name="file" value="{{ $reference_book->content }}"
+                            style="display: none">
                         <input type="text" name="name" value="{{ $reference_book->name }}" style="display: none">
                         <input type="text" name="book_id" value="{{ $reference_book->id }}" style="display: none">
                         <input type="text" name="book_type" value="{{ $reference_book->reference_book_type }}"
@@ -135,7 +145,7 @@
                         <div class="row">
                             <div class="col-12 col-md-3">
                                 @if (auth()->guard('visitor')->check() == false)
-                                    <a href="{{ url('login') }}" type="submit"
+                                    <a data-bs-toggle="modal" href="#mengunduh" type="submit"
                                         class="btn w-100 bg-blue d-flex justify-content-center align-items-center
                                         py-2 me-4 col-12"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
