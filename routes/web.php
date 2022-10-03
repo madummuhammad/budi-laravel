@@ -44,6 +44,8 @@ Route::middleware('visitor', 'analytics')->group(function () {
         Route::post('/register', [VisitorController::class, 'auth_register']);
         Route::get('/confirm/{id}', [VisitorController::class, 'confirm']);
 
+        Route::post('/email', [WebController::class, 'message']);
+
         // Route::get('/pdf', [WebController::class, 'pdf']);
 
         // Profile
@@ -256,6 +258,7 @@ Route::middleware('auth')->group(function () {
         // Visitor Profiling
         Route::get('/visitor/profiling/{id}', [VisitorController::class, 'profiling']);
         Route::get('/visitor/member/profiling/export/{id}', [StatisticController::class, 'member_profiling_export']);
+
     });
 
 });

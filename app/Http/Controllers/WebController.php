@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MessageEmail;
 use App\Models\AudioBookHomepage;
 use App\Models\Author;
 use App\Models\AuthorOfTheMonth;
@@ -28,6 +29,7 @@ use App\Models\Theme;
 use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManagerStatic as Image;
 use setasign\Fpdi\Fpdi;
 use Storage;
@@ -679,5 +681,30 @@ class WebController extends Controller
     public function read(Request $id)
     {
         return 'test';
+    }
+
+    public function message()
+    {
+        $email = request('email');
+        $name = request('name');
+        $pesan = request('pesan');
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'pesan' => $pesan,
+        ];
+        $validation = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'pesan' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return back()->withErrors($validation)->withInput($data);
+        }
+
+        Mail::to('admin@budi.ansol.id')->send(new MessageEmail());
+
+        return back()->with(['message' => 'Pesan berhasil terkirim']);
     }
 }
