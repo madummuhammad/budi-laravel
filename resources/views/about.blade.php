@@ -3,7 +3,7 @@
 @section('content')
     <div id="hero">
         <img class="w-100" src="{{ url('storage/image') }}/tentang_budi.png" alt="">
-        <h2 class="ff-kidzone tagline text-white">Tentang Budi</h2>
+        <h2 class="ms-4 ff-kidzone tagline text-white">Tentang Budi</h2>
     </div>
     <div class="container p-4">
         <div class="row justify-content-center my-2">

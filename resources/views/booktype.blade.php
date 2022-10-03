@@ -4,7 +4,7 @@
     <div id="hero">
         <img class="w-100 d-none d-md-block" src="{{ $book_types->banner }}" alt="">
         <img class="w-100 d-block d-md-none" src="{{ $book_types->banner_mobile }}" alt="">
-        <h2 class="ff-kidzone tagline text-white">{{ $book_types->tagline }}</h2>
+        <h2 class="ms-4 ff-kidzone tagline text-white">{{ $book_types->tagline }}</h2>
     </div>
     <img src="" alt="">
     <div class="container">

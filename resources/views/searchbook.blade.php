@@ -3,7 +3,7 @@
 @section('content')
     <div id="hero">
         <img class="w-100" src="{{ url('web') }}/assets/img/cari_bukuku.png" alt="">
-        <h2 class=" ff-kidzone tagline text-white">Cari Bukuku</h2>
+        <h2 class="ms-4 ff-kidzone tagline text-white">Cari Bukuku</h2>
     </div>
     <img src="" alt="">
     <div class="container">
