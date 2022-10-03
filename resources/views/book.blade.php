@@ -302,7 +302,7 @@
                                     @endif "><i
                                     class="bi bi-book me-3 fs-5"></i>
                                 Baca
-                                Sekarangasdfsadf</button>
+                                Sekarang</button>
                         </div>
                         <div class="col-6 col-md-4 pe-1">
                             <form class="me-4 px-0 w-100" action="{{ url('download') }}" method="post">
