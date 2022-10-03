@@ -302,7 +302,7 @@
                                     @endif "><i
                                     class="bi bi-book me-3 fs-5"></i>
                                 Baca
-                                Sekarang</button>
+                                Sekarangasdfsadf</button>
                         </div>
                         <div class="col-6 col-md-4 pe-1">
                             <form class="me-4 px-0 w-100" action="{{ url('download') }}" method="post">
@@ -511,7 +511,7 @@
                         _token: token
                     },
                     success: function(hasil) {
-                        if (auth() - > guard('visitor') - > check() == true) {
+                        @if (auth()->guard('visitor')->check() == true)
                             if (liked == false) {
                                 $("#liked").addClass('active');
                                 $("#liked #liked-icon").html(
@@ -521,7 +521,7 @@
                                 $("#liked #liked-icon").html(
                                     `<i class="fa-regular fa-heart"></i>`)
                             }
-                        }
+                        @endif
                     }
                 });
 
@@ -577,7 +577,6 @@
                     });
                 });
             }
-
             $("#show_book").on('click', function() {
                 var status = $(this).data('status');
                 $.ajax({
