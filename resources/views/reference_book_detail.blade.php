@@ -117,7 +117,7 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <a href="#menyukai" data-bs-toggle="#menyukai" class="text-dark"><i
+                                    <a href="#menyukai" data-bs-toggle="#modal" class="text-dark"><i
                                             class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
