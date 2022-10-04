@@ -93,7 +93,7 @@
                             </span>
                         </a>
                         <a data-book_id="{{ $book_detail->id }}" class="share ms-3 text-dark"
-                            href="whatsapp://send?text={{ url('book/') }}/{{ $book_detail->id }}"><i
+                            href="https://wa.me/?text={{ url('book/') }}/{{ $book_detail->id }}"><i
                                 class="fa-solid fa-share-nodes"></i>
                         </a>
                     </div>

@@ -69,6 +69,9 @@
                                     <input type="text" name="jenjang" value="" hidden>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item text-danger">Jenjang</a></li>
+                                        <li><a class="dropdown-item" data-value="014453da-54e6-41b5-be05-952bc233f144">PAUD
+                                            </a>
+                                        </li>
                                         <li><a class="dropdown-item" data-value="0207580f-6a98-477b-a19f-35bfc0f938e9">SD
                                             </a>
                                         </li>
