@@ -12,6 +12,39 @@
             <div class="tab-pane container active" id="buku_bacaan">
                 <!-- asdfasdf -->
                 <div class="d-flex align-items-center justify-content-between mt-4">
+                    <h3 class="mb-3">Karyamu</h3>
+                </div>
+                <div class="row row-cols-1 row-cols-md-4  mt-4 card-pagintion paginate-article">
+                    @foreach ($blogs as $blog)
+                        @if ($blog->blog_type == 'Article')
+                            <div class="col item-pagination-2">
+                                <a href="{{ url('blog/detail/') . '/' . $blog->id }}"
+                                    class="text-decoration-none text-dark">
+                                    <div class="card card-news">
+                                        <img src="{{ $blog->cover }}" class="card-img-top" alt="...">
+                                        <div class="card-body px-0">
+                                            <h5 class="card-title fw-bold">{{ $blog->name }}
+                                            </h5>
+                                            <div class="card-text">
+                                                @php
+                                                    echo $blog->content;
+                                                @endphp
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+                <div class="d-flex justify-content-center pagination-container-2 mt-5">
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mt-3">
+            <div class="tab-pane container active" id="buku_bacaan">
+                <!-- asdfasdf -->
+                <div class="d-flex align-items-center justify-content-between mt-4">
                     <h3 class="mb-3">Berita</h3>
                 </div>
                 <div class="row row-cols-1 row-cols-md-4 mt-4 card-pagination paginate-news">
@@ -41,39 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-content mt-3">
-            <div class="tab-pane container active" id="buku_bacaan">
-                <!-- asdfasdf -->
-                <div class="d-flex align-items-center justify-content-between mt-4">
-                    <h3 class="mb-3">Artikel</h3>
-                </div>
-                <div class="row row-cols-1 row-cols-md-4  mt-4 card-pagintion paginate-article">
-                    @foreach ($blogs as $blog)
-                        @if ($blog->blog_type == 'Article')
-                            <div class="col item-pagination-2">
-                                <a href="{{ url('blog/detail/') . '/' . $blog->id }}"
-                                    class="text-decoration-none text-dark">
-                                    <div class="card card-news">
-                                        <img src="{{ $blog->cover }}" class="card-img-top" alt="...">
-                                        <div class="card-body px-0">
-                                            <h5 class="card-title fw-bold">{{ $blog->name }}
-                                            </h5>
-                                            <div class="card-text">
-                                                @php
-                                                    echo $blog->content;
-                                                @endphp
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="d-flex justify-content-center pagination-container-2 mt-5">
-                </div>
-            </div>
-        </div>
+
     </div>
     <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
     <script src="{{ asset('web') }}/assets/js/jquery.simplePagination.js"></script>

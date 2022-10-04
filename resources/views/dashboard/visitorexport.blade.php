@@ -17,7 +17,7 @@
                     <th>Nama</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>No Telepon</th>
+                    <th>Tanggal Lahir</th>
                     <th>Kota</th>
                     <th>Kecamatan</th>
                     <th>Kelurahan</th>
@@ -38,7 +38,7 @@
                         <td>{{ $visitor->name }}</td>
                         <td>{{ $visitor->username }}</td>
                         <td>{{ $visitor->email }}</td>
-                        <td>{{ $visitor->phone }}</td>
+                        <td>{{ $visitor->date_of_birth }}</td>
                         <td>{{ $visitor->city }}</td>
                         <td>{{ $visitor->sub }}</td>
                         <td>{{ $visitor->area }}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AudioBookHomepage;
 use App\Models\Banner;
+use App\Models\SectionSix;
 use App\Models\BannerMobile;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
@@ -22,6 +23,7 @@ class HomepageController extends Controller
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->get();
+        $data['section_sixs']=SectionSix::get();
         return view('dashboard.homepage', $data);
     }
 
@@ -33,6 +35,27 @@ class HomepageController extends Controller
             'book_id' => request('book_id'),
         ];
         BookOfTheMonth::where('id', $id)->update($data);
+        return back();
+    }
+
+    public function section_six()
+    {
+        $id = request('id');
+        $data = [
+            'title' => request('title'),
+            'content' => request('content'),
+        ];
+
+        SectionSix::where('id', $id)->update($data);
+
+        if($_FILES['image'] !==""){
+            $data=[
+                'image' => $this->storage() . $this->upload_img(request(), 602, 482, "image")
+            ];
+            SectionSix::where('id', $id)->update($data);
+        }
+
+
         return back();
     }
 

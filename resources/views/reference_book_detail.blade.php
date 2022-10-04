@@ -77,7 +77,7 @@
                 </div>
                 <div class="row">
                     <div class="col-4 mb-2">
-                        <span>Pengarang</span>
+                        <span>Penulis</span>
                     </div>
                     <div class="col-8 mb-2">
                         @foreach ($reference_book->authors as $author)
@@ -96,7 +96,9 @@
                         <span>Halaman</span>
                     </div>
                     <div class="col-8 mb-2">
-                        <span>: {{ $reference_book->page }}</span>
+                    @foreach ($reference_book->levels as $level)
+                        <span>: {{ $level->name }}</span>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -124,7 +126,7 @@
                         </a>
                         <a class="mx-2 text-dark share" data-book_id="{{ $reference_book->id }}"
                             class="dropdown-item share"
-                            href="whatsapp://send?text={{ url('book/') }}/{{ $reference_book->id }}"><i
+                            href="https://wa.me/?text={{ url('book/') }}/{{ $reference_book->id }}"><i
                                 class="fa-solid fa-share-nodes"></i>
                         </a>
                     </div>

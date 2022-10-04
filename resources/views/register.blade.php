@@ -119,46 +119,75 @@
                                     value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
-                                        {{ $message }}
+                                        Kolom ini wajib diisi!
                                     </div>
                                 @enderror
                             </div>
                             <div class="col-12 col-md-6">
-                                <input type="text"
-                                    class="form-control mt-3 py-3 @error('phone')
+                                <input type="email"
+                                    class="form-control mt-3 py-3 @error('pos-el')
                                         is-invalid
                                     @enderror"
-                                    placeholder="Pos-el atau No. Ponsel " aria-label="Last name" name="surel">
-                                @error('phone')
+                                    placeholder="Pos-el" aria-label="Last name" name="pos-el">
+                                @error('pos-el')
                                     <div class="invalid-feedback">
-                                        {{ $message }}
+                                        Kolom ini wajib diisi!
                                     </div>
                                 @enderror
                             </div>
                             <div class="col-12 col-md-12">
-                                <select name="province" id="" class="form-select py-3 mt-3">
+                                <select name="province" id="" class="form-select py-3 mt-3 @error('province') is-invalid @enderror">
                                     <option value="">--Pilih Provinsi--</option>
                                 </select>
+                                @error('province')
+                                <div class="invalid-feedback">
+                                    Kolom ini wajib diisi!
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-4">
-                                <select name="city" id="" class="form-select py-3 mt-3">
+                                <select name="city" id="" class="form-select py-3 mt-3 @error('city') is-invalid @enderror">
                                     <option value="">--Pilih Kota--</option>
                                 </select>
+                                @error('province')
+                                <div class="invalid-feedback">
+                                    Kolom ini wajib diisi!
+                                </div>
+                                @enderror
                             </div>
                             <div class="col-12 col-md-4">
-                                <select name="district" id="" class="form-select py-3 mt-3">
+                                <select name="district" id="" class="form-select py-3 mt-3 @error('province') is-invalid @enderror">
                                     <option value="">--Pilih Kecamatan--</option>
                                 </select>
+                                @error('district')
+                                <div class="invalid-feedback">
+                                    Kolom ini wajib diisi!
+                                </div>
+                                @enderror
                             </div>
                             <div class="col-12 col-md-4">
-                                <select name="sub_district" id="" class="form-select py-3 mt-3">
+                                <select name="sub_district" id="" class="form-select py-3 mt-3 @error('province') is-invalid @enderror">
                                     <option value="">--Pilih Kelurahan--</option>
                                 </select>
+                                @error('sub_district')
+                                <div class="invalid-feedback">
+                                    Kolom ini wajib diisi!
+                                </div>
+                                @enderror
                             </div>
                         </div>
-                        <select id="status" class="form-select mt-3 py-3" aria-label="size 3 select example"
+                        <div class="col-12 col-md-12">
+                                <!-- <input type="date" class="form-control py-3 mt-3" name="date"> -->
+                                <input type="text" name="date_of_birth" placeholder="Tanggal, Tahun, Lahir" class="form-control py-3 mt-3 @error('date_of_birth') is-invalid  @enderror" onfocus="this.type='date'" onblur="(this.type='text')">
+                                @error('date_of_birth')
+                                <div class="invalid-feedback">
+                                    Kolom ini wajib diisi!
+                                </div>
+                                @enderror
+                            </div>
+                        <select id="status" class="form-select mt-3 py-3 @error('status') is-invalid @enderror" aria-label="size 3 select example"
                             placeholder="" name="status">
                             <option selected value="">Status</option>
                             <option value="Siswa">Siswa</option>
@@ -166,6 +195,11 @@
                             <option value="Orang Tua Siswa">Orang Tua Siswa</option>
                             <option value="Umum">Umum</option>
                         </select>
+                        @error('status')
+                        <div class="invalid-feedback">
+                        Kolom ini wajib diisi!
+                        </div>
+                        @enderror
                         <div id="sub-status"></div>
                         <input type="text" autocomplete="true"
                             class="form-control mt-3 py-3 @error('username')
@@ -174,7 +208,7 @@
                             id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : Budiberbudi)"
                             name="username" value="{{ old('username') }}">
                         @error('username')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">Kolom ini wajib diisi!</div>
                         @enderror
                         <div class="input-group mt-3">
                             <input type="password" autocomplete="true"
@@ -185,7 +219,7 @@
                             <button id="btn-eye" type="button" class="input-group-text bg-white"><i
                                     class="bi bi-eye"></i></button>
                             @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">Kolom ini wajib diisi!</div>
                             @enderror
                         </div>
                         <button class="btn bg-blue text-white w-100 py-2 mt-3">Buat Akun</button>
@@ -211,7 +245,8 @@
             $("input[name=password]").attr('type', 'password');
             $("input[name=password]").removeClass('show');
         }
-    })
+    });
+
     $("#status").on('change', function() {
         if ($(this).val() == 'Siswa') {
             $("#sub-status").html(`

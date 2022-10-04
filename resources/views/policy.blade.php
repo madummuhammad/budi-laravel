@@ -9,10 +9,6 @@
         <div class="row justify-content-center my-2">
             <div class="col-12 col-md-10 d-block d-md-flex justify-content-between align-items-center">
                 <p class="my-auto fs-3 fw-bold text-primary">Beberapa pertanyaan umum seputar Budi</p>
-                <div>
-                    <a href="#" class="text-dark fs-5"><i class="fa-regular fa-heart"></i></a>
-                    <a href="#" class="text-dark fs-5"><i class="fa fa-share-nodes"></i></a>
-                </div>
             </div>
         </div>
         <div class="row justify-content-center">

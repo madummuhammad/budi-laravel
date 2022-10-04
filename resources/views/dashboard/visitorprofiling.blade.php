@@ -21,8 +21,8 @@
                                 </h5>
                                 <h5><span class="d-inline-block" style="width:120px">Nama Pengguna</span>:
                                     {{ $visitors->username }}</h5>
-                                <h5><span class="d-inline-block" style="width:120px">No Telp</span>:
-                                    {{ $visitors->username }}</h5>
+                                <h5><span class="d-inline-block" style="width:120px">Tanggal Lahir</span>:
+                                    {{ $visitors->date_of_birth }}</h5>
                                 <h5><span class="d-inline-block" style="width:120px">Alamat</span>:
                                     {{ $address['sub_district'] }}, {{ $address['district'] }}, {{ $address['city'] }},
                                     {{ $address['province'] }}</h5>

@@ -54,17 +54,7 @@ class VisitorController extends Controller
 
     public function auth_register()
     {
-        $email = "";
-        $phone = "";
         $str_random = Str::random(60) . time();
-        $check_email = Validator::make(['surel' => request('surel')], ['surel' => 'required|email']);
-
-        if ($check_email->fails()) {
-            $phone = request('surel');
-        } else {
-            $email = request('surel');
-        }
-
         $data = [
             'name' => request('name'),
             'province' => request('province'),
@@ -72,8 +62,10 @@ class VisitorController extends Controller
             'district' => request('district'),
             'sub_district' => request('sub_district'),
             'status' => request('status'),
+            'pos-el'=>request('pos-el'),
             'username' => request('username'),
             'password' => request('password'),
+            'date_of_birth'=>request('date_of_birth')
         ];
 
         $validation = Validator::make($data, [
@@ -83,6 +75,8 @@ class VisitorController extends Controller
             'district' => 'required',
             'sub_district' => 'required',
             'status' => 'required',
+            'date_of_birth'=>'required',
+            'pos-el'=>'required',
             'username' => 'required|unique:visitors,username',
             'password' => 'required',
         ]);
@@ -99,12 +93,12 @@ class VisitorController extends Controller
 
         $data = [
             'name' => request('name'),
-            'phone' => $phone,
-            'email' => $email,
+            'email' => request('pos-el'),
             'image' => url('/storage/image/default.jpg'),
             'province' => request('province'),
             'city' => request('city'),
             'district' => request('district'),
+            'date_of_birth'=>request('date_of_birth'),
             'sub_district' => request('sub_district'),
             'address' => $sub_district . ', ' . $district . ', ' . $city . ', ' . $province,
             'status' => 'Pending',
@@ -116,11 +110,7 @@ class VisitorController extends Controller
         ];
         Visitor::create($data);
 
-        if ($check_email->fails()) {
-            $phone = request('surel');
-        } else {
-            Mail::to($email)->send(new VerificationEmail());
-        }
+            Mail::to(request('pos-el'))->send(new VerificationEmail());
 
         return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
     }

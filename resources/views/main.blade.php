@@ -55,9 +55,19 @@
                     <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
                     </li>
-                    <li class="nav-item px-0 px-md-3">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi</a>
+                    <li class="nav-item px-0 px-md-3 dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Referensi
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item"
+                                    href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi Buku</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="{{ url('reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">Referensi Video</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item px-0 px-md-3">
                         <a class="nav-link active" aria-current="page" href="{{ url('contact') }}">Kontak Kami</a>
@@ -190,18 +200,21 @@
                     <div class="row">
                         <div class="col-12 col-md-2"></div>
                         <div class="col-12 col-md-10 d-flex d-md-block justify-content-center">
-                            <img src="{{ url('web') }}/assets/icon/instagram.svg" alt="">
-                            <img src="{{ url('web') }}/assets/icon/facebook.svg" alt="">
-                            <img src="{{ url('web') }}/assets/icon/twitter.svg" alt="">
-                            <img src="{{ url('web') }}/assets/icon/youtube.svg" alt="">
-                            <img src="{{ url('web') }}/assets/icon/tiktok.svg" alt="">
+                        <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/" target="_blank"><img
+                            class="mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/" target="_blank"><img
+                            class="mx-2" src="{{ asset('web') }}/assets/icon/facebook.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/twitter.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/youtube.svg" alt=""></a>
+                    <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img class="mx-2"
+                            src="{{ asset('web') }}/assets/icon/tiktok.svg" alt=""></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-8">
-                    <p class="text-md-end text-center">Jam Operasional : (Senin - Kamis : 09.00 - 17.00 WIB, Jumat :
-                        09.00 - 16.00
-                        WIB)</p>
+                    <p class="text-md-end text-center">Jam Operasional : (Senin - Jumat : 09.00 - 16.00 WIB)</p>
                 </div>
             </div>
             <div class="dash"></div>

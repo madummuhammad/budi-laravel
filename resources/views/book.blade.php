@@ -30,7 +30,7 @@
                                         <i class="fa-regular fa-heart"></i>
                                     @endif
                                 @else
-                                    <a href="#menyukai" data-bs-toggle="modal" class="text-dark"><i
+                                    <a href="#menyukai" data-bs-togglewa.="modal" class="text-dark"><i
                                             class="fa-regular fa-heart"></i></a>
                                 @endif
                             </span>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-4 mb-2">
-                        <span>Pengarang</span>
+                        <span>Penulis</span>
                     </div>
                     <div class="col-8 mb-2">
                         @foreach ($book_detail->authors as $author)
@@ -65,10 +65,12 @@
                         @endforeach
                     </div>
                     <div class="col-4 mb-2">
-                        <span>Halaman</span>
+                        <span>Jenjang</span>
                     </div>
                     <div class="col-8 mb-2">
-                        <span>: {{ $book_detail->page }}</span>
+                    @foreach ($book_detail->levels as $level)
+                        <span>: {{ $level->name }}</span>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -154,12 +156,12 @@
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
                                     <a href="#mengunduh" data-bs-toggle="modal"
-                                        class="w-100 my-2 fs-12px btn bg-blue d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 fs-14px btn bg-blue d-flex justify-content-center align-items-center
                                 py-2 me-4 w-100"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
                                     <button
-                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                                 py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</button>
                                 @endif
@@ -168,7 +170,7 @@
                         <div class="col-md-3 col-6">
                             @if (auth()->guard('visitor')->check() == true)
                                 <button type="button"
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4"
                                     id="saved"
                                     @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -179,7 +181,7 @@
                                     ><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @else
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#menyimpan"
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center py-2 me-4"
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center py-2 me-4"
                                     id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @endif
                         </div>
@@ -187,7 +189,7 @@
                         @if ($book_detail['book_pdfs'] !== null)
                             <div class="col-md-3 col-6">
                                 <button id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                                             py-2 me-4"
                                     data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                 @else
@@ -204,7 +206,7 @@
                     <div class="baca-button-group d-md-flex mt-5 pt-5 row">
                         <div class="col-6 col-md-3">
                             <button
-                                class="w-100 shows my-2 btn fs-12px btn-primary bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                                class="w-100 shows my-2 btn fs-14px btn-primary bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                                 id="show_si_saloi" data-bs-toggle="modal" data-bs-target="#tonton-video"><img
                                     src="{{ asset('web/') }}/assets/icon/play-2.svg" alt=""
                                     data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
@@ -227,12 +229,12 @@
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
                                     <a href="" data-bs-toggle="modal" data-bs-target="#mengunduh"
-                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
                                     <button
-                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</button>
                                 @endif
@@ -241,7 +243,7 @@
                         <div class="col-6 col-md-3">
                             @if (auth()->guard('visitor')->check() == true)
                                 <button
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
                                     id="saved"
                                     @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -251,7 +253,7 @@
                                     @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @else
                                 <button data-bs-toggle="modal" data-bs-target="#menyimpan"
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4"
                                     id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @endif
@@ -259,7 +261,7 @@
                         @if ($book_detail['book_pdfs'] !== null)
                             <div class="col-6 col-md-3">
                                 <button
-                                    class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                                 py-2"
                                     id="show_book" data-book="../storage/{{ $book_detail['book_pdfs']->content }}"><i
                                         class="bi bi-book me-3 fs-5"
@@ -294,7 +296,7 @@
                     <div class="baca-button-group mt-5 pt-5 row">
                         <div class="col-6 col-md-4 pe-1">
                             <button
-                                class="w-100 my-2 fs-12px btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
+                                class="w-100 my-2 fs-14px btn bg-blue text-white d-flex justify-content-center align-items-center py-2 me-4"
                                 id="show_book" data-book="../storage/{{ $book_detail->content }}"
                                 data-status="@if (auth()->guard('visitor')->check() == true) @if ($reads) {{ $reads->read }}
                                         @else
@@ -314,12 +316,12 @@
                                 @method('POST')
                                 @if (auth()->guard('visitor')->check() == false)
                                     <a href="#mengunduh" data-bs-toggle="modal"
-                                        class="w-100 my-2 btn fs-12px bg-blue d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                                         py-2 me-4 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
                                     <button
-                                        class="w-100 my-2 btn bg-blue fs-12px d-flex justify-content-center align-items-center
+                                        class="w-100 my-2 btn bg-blue fs-14px d-flex justify-content-center align-items-center
                                         py-2 me-4 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</button>
                                 @endif
@@ -328,7 +330,7 @@
                         <div class="col-6 col-md-4 pe-1">
                             @if (auth()->guard('visitor')->check() == true)
                                 <button
-                                    class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 fs-14px my-2 btn bg-blue d-flex justify-content-center align-items-center
                                     py-2"
                                     id="saved"
                                     @if (auth()->guard('visitor')->check() == true) @if ($saveds) status="saved"
@@ -338,7 +340,7 @@
                                     @endif><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @else
                                 <button data-bs-toggle="modal" data-bs-target="#menyimpan"
-                                    class="w-100 fs-12px my-2 btn bg-blue d-flex justify-content-center align-items-center
+                                    class="w-100 fs-14px my-2 btn bg-blue d-flex justify-content-center align-items-center
                                     py-2"
                                     id="saved"><i class="bi bi-bookmark fs-5 me-3"></i> Simpan</button>
                             @endif

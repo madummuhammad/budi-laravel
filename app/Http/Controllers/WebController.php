@@ -9,6 +9,7 @@ use App\Models\AuthorOfTheMonth;
 use App\Models\Banner;
 use App\Models\BannerMobile;
 use App\Models\Blog;
+use App\Models\SectionSix;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
 use App\Models\BookReadStatistic;
@@ -48,6 +49,7 @@ class WebController extends Controller
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
+        $data['section_sixs']=SectionSix::get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
 
         if (auth()->guard('visitor')->check() == true) {

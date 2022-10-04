@@ -223,7 +223,7 @@
         @endif
     @endif
     <div class="container">
-        <div id="section-3" class="mt-5">
+        <!-- <div id="section-3" class="mt-5">
             <h2 class="fw-bold">Bacaan Literasi Untuk Semua</h2>
             <div class="row">
                 <div class="col-lg-6">
@@ -248,7 +248,7 @@
                     <img class="img-fluid" src="{{ asset('web') }}/assets/img/ilustrasi-1.svg" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
         <div id="section-4" class="mt-5">
             <div class="row">
                 <h2 class="fw-bold ff-bubblewump text-end mb-5 mt-4 fs-3 text-m-center">Buku Pilihan Bulan ini</h2>
@@ -266,7 +266,7 @@
                                     <div class="mt-5">
                                         @foreach ($book->authors as $author)
                                             <p class="text-center text-md-start"><span
-                                                    class="fw-bold text-center text-md-start">Pengarang :
+                                                    class="fw-bold text-center text-md-start">Penulis :
                                                 </span>{{ $author->name }}
                                             </p>
                                         @endforeach
@@ -327,9 +327,12 @@
                     <div class="row py-5 position-relative">
                         <div class="col-12 col-md-6 pb-5 me-5">
                             <h2 class="h2 text-center fw-bolder">Dengarkan Cerita Menarik Setiap Hari</h2>
+                            
                             <div class="d-flex justify-content-center mt-5">
+                                <a href="{{url('book')}}/{{$book->id}}">
                                 <img class="img" src="{{ $book->cover }}" alt="">
-                            </div>
+                                </a>
+                            </div>   
                             <div class="audio-player" id="audio-player-home"
                                 data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px">
                                 <div class="controls">
@@ -366,7 +369,7 @@
                                 echo $book->sinopsis;
                             @endphp
                             @foreach ($book->authors as $author)
-                                <p class="fw-bold">Pengarang : {{ $author->name }}</p>
+                                <p class="fw-bold">Penulis : {{ $author->name }}</p>
                             @endforeach
                             <p><span class="fw-bold">Rating : </span>
                                 @if ($book->comments->where('book_id', $book->id)->count() == 0)
@@ -415,70 +418,19 @@
         <div class="container mt-5">
             <h2 class="ff-bubblewump text-center fw-bold">Banyak Membaca, Kunci Kreativitas dan Keberhasilan</h2>
             <p class="text-center fs-4">Bagaimana kami membantu mewujudkanya?</p>
+            @foreach($section_sixs as $value)
             <div class="row mt-5">
-                <div class="col-lg-6 mb-4 mb-md-0">
-                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5a.png" alt="" class="img-fluid">
+                <div class="col-lg-6 mb-4 mb-md-0 @if($loop->index==1) order-first order-md-last @endif @if($loop->index==3) order-first order-md-last @endif">
+                    <img src="{{$value->image}}" alt="" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Membaca Jadi lebih Mudah</h2>
-                        <p class="text-center text-md-start">Dapatkan beragam konten buku menarik dalam format teks, audio
-                            dan video
-                            yang bisa diakses
-                            melalui desktop
-                            maupun telepon pintar.</p>
-                        <p class="text-center text-md-start">Konten bisa diunduh kemudian bisa dibaca, didengarkan, atau
-                            ditonton tanpa
-                            internet.
-                            Gratis.
-                        </p>
+                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">{{$value->title}}</h2>
+                        <p class="text-center text-md-start">{{$value->content}}</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center">
-                    <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Miliki Perpustakaanku</h2>
-                        <p class="text-center text-md-start">Simpan buku yang kamu suka. Akses dan lanjutkan kapan pun.
-                            Dapatkan juga rekomendasi
-                            terbaik sesuai minat dan
-                            jenjang sekolahmu saat ini.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-first order-md-last mb-4 mb-md-0">
-                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5b.png" alt="" class="img-fluid">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-md-0">
-                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5c.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-lg-6 d-flex align-items-center">
-                    <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Budi Tumbuh Bersama Kamu</h2>
-                        <p class="text-center text-md-start">Budi (Buku Digital) akan terus meningkatkan jumlah, jenis dan
-                            kualitas konten seiring
-                            berkembangnya literasi
-                            dan wawasan kamu.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center">
-                    <div class="">
-                        <h2 class="ff-bubblewump fs-4 fw-bold text-center text-md-start">Bersama Teman, Membaca Jadi Hobi
-                            Menyenangkan</h2>
-                        <p class="text-center text-md-start">Saling berbagi buku dengan teman dengan minat yang sama. Bantu
-                            teman memilih buku yang
-                            sesuai dengan rating
-                            dan komentar yang membangun.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-first order-md-last mb-4 mb-md-0">
-                    <img src="{{ asset('web') }}/assets/img/ilustrasi-section5d.png" alt=""
-                        class="img-fluid mb-md">
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <section id="section-8">
@@ -510,7 +462,7 @@
     <section id="section-9" class="" style="margin-top: 80px;">
         <div class="container">
             <div class="d-flex justify-content-center align-items-center justify-content-md-between">
-                <h2 class="fw-bold fs-25px text-center text-md-start">Info Seputar Budi</h2>
+                <h2 class="fw-bold fs-25px text-center text-md-start">Pojok Baca</h2>
                 <a href="{{ url('info_seputar_budi') }}" class="text-blue d-none d-md-block">Lihat Semua</a>
             </div>
             <div class="row row-cols-4 mt-4">

@@ -325,7 +325,7 @@
                 <div class="px-5 profile-achive-container">
                     <img src="{{ asset('web/assets/img/platinum.svg') }}" class="img-top">
                     <div class="profile-achive-text">
-                        <h4>Hallo {{ auth()->guard('visitor')->user()->name }} Budi punya medali untukmu</h4>
+                        <h4>Hallo {{ auth()->guard('visitor')->user()->name }}, Budi punya medali untukmu</h4>
                         {{-- <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p> --}}
                     </div>
 

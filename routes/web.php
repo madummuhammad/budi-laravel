@@ -185,6 +185,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/homepage/audio_book_homepage', [HomepageController::class, 'audio_book_homepage']);
         Route::post('/homepage/audio_book_homepage', [HomepageController::class, 'add_audio_book_homepage']);
         Route::patch('/homepage/send_creation', [HomepageController::class, 'send_creation']);
+        Route::patch('/homepage/section_six', [HomepageController::class, 'section_six']);
 
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);

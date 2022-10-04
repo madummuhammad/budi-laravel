@@ -2,7 +2,7 @@
 @section('judul_halaman', 'Homepage')
 @section('content')
 <div id="hero">
-    <img class="banner-img-size" src="{{ asset('web') }}/assets/img/profile_penulis.png" alt="">
+    <img class="banner-img-size img-fluid" src="{{ asset('web') }}/assets/img/profile_penulis.png" alt="">
     <h2 class="ff-kidzone tagline text-white">Profil Penulis</h2>
 </div>
 <div class="container">
@@ -97,9 +97,9 @@
         @foreach ($aotm->authors->books as $book)
         <div class="col-6 col-md-4 col-lg-3 mb-4">
             <div class="card p-2">
-                <a href="audio.html" class="text-decoration-none text-dark">
+                <a href="{{url('book/')}}/{{$book->id}}" class="text-decoration-none text-dark">
                     <div class="img-container-for-icon">
-                        <img src="{{ $book->cover }}" alt="" class="img-fluid">
+                        <img src="{{ $book->cover }}" alt="" class="img-fluid w-100">
                         @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                         <div class="icon icon-center">
                             <img src="{{ asset('web') }}/assets/icon/mic.svg" alt="">

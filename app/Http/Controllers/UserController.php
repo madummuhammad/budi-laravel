@@ -28,7 +28,7 @@ class UserController extends Controller
             'role' => request('role'),
         ];
 
-        $validation = Validator::make($data, [
+        $validation = Validator::make($dataValidation, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',

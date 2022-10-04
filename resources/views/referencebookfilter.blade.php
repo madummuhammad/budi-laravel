@@ -87,7 +87,7 @@
                                 </form>
                             </li>
                             <li><a data-book_id="{{ $book->id }}" class="dropdown-item share"
-                                    href="whatsapp://send?text={{ url('book/') }}/{{ $book->id }}"><i
+                                    href="https://wa.me/?text={{ url('book/') }}/{{ $book->id }}"><i
                                         class="fa-solid
                                                                 fa-share-nodes"></i>
                                     Share</a></li>

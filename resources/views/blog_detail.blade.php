@@ -12,7 +12,7 @@
                     Berita
                 @endif
                 @if ($blog->blog_type == 'Article')
-                    Artikel
+                    Karyamu
                 @endif
             </h2>
         </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="dash w-100"></div>
                         <div class="d-flex justify-content-between w-100 mt-2 mb-2 mt-lg-4 mb-lg-4">
-                            <div class="fs-5">Artikel</div>
+                            <div class="fs-5">Karyamu</div>
                             <div class="text-green fw-bold">{{ $total_article }}</div>
                         </div>
                         <div class="dash w-100"></div>
@@ -119,7 +119,7 @@
                             Berita
                         @endif
                         @if ($blog->blog_type == 'Article')
-                            Artikel
+                            Karyamu
                         @endif Terkait
                     </h3>
                     <a href="{{ url('info_seputar_budi') }}">Lihat Semua</a>
