@@ -238,6 +238,13 @@
                             <li><a href="{{ url('dashboard/statistic/referensi') }}">Referensi</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ url('dashboard/comment') }}" aria-expanded="false">
+                            <div class="d-icon">
+                            <i class="fa-regular fa-comments"></i>
+                            </div>
+                            <span class="nav-text">Komentar</span>
+                        </a>
+                    </li>
                     <li class="nav-label">PENGATURAN KONTEN</li>
                     <li><a href="{{ url('dashboard/homepage') }}" aria-expanded="false">
                             <div class="d-icon">
@@ -282,17 +289,17 @@
                             <div class="d-icon">
                                 <i class="fa-regular fa-circle-question"></i>
                             </div>
-                            <span class="nav-text">Info Seputar Budi</span>
+                            <span class="nav-text">Pojok Baca</span>
                         </a>
                         <ul aria-expanded="false">
                     </li>
                     <li><a href="{{ url('dashboard/blog/banner') }}">Banner</a>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Artikel</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Karyamu</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('dashboard/blog/article') }}">Isi Artikel</a></li>
+                            <li><a href="{{ url('dashboard/blog/article') }}">Isi Karyamu</a></li>
                             <li><a href="{{ url('dashboard/blog/article/writer') }}">Penulis
-                                    Artikel</a></li>
+                                    Karyamu</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url('dashboard/blog/news') }}">Berita</a>

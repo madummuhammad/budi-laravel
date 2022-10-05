@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Comment;
+use App\Models\ReferenceComment;
 use Validator;
 
 class CommentController extends Controller
@@ -13,6 +14,14 @@ class CommentController extends Controller
         $data['books'] = Book::with('comments')->where("id", $id)->first();
         return view('dashboard.comment', $data);
     }
+
+    public function allcomment()
+    {
+        $data['books']=Comment::with('visitors','books')->get();
+        $data['reference_books']=ReferenceComment::with('visitors','reference_books')->get();
+        return view('dashboard.allcomment',$data);
+    }
+
     public function add()
     {
         $data = [

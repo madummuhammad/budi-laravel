@@ -24,7 +24,7 @@
                         <div class="card-header">
                             <h4 class="card-title">
                                 @if ($id == 'article')
-                                    Artikel
+                                    Karyamu
                                 @endif
                                 @if ($id == 'news')
                                     Berita
@@ -41,7 +41,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1" class="text-dark">Judul @if ($id == 'article')
-                                                        Artikel
+                                                        Karyamu
                                                     @endif
                                                     @if ($id == 'news')
                                                         Berita
@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1" class="text-dark">Isi @if ($id == 'article')
-                                                        Artikel
+                                                        Karyamu
                                                     @endif
                                                     @if ($id == 'news')
                                                         Berita

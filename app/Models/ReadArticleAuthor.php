@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class ReferenceComment extends Model
+class ReadArticleAuthor extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -23,15 +23,5 @@ class ReferenceComment extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
-    }
-
-    public function visitors()
-    {
-        return $this->hasOne(Visitor::class, 'id', 'visitor_id');
-    }
-
-    public function reference_books()
-    {
-        return $this->hasMany(ReferenceBook::class, 'id', 'book_id');
     }
 }

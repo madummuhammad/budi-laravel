@@ -24,7 +24,7 @@
                         <div class="card-header">
                             <h4 class="card-title">
                                 @if ($id == 'article')
-                                    Artikel
+                                    Karyamu
                                 @endif
                                 @if ($id == 'news')
                                     Berita
@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <a href="{{ url('dashboard/blog/') . '/' . $id . '/create' }}" class="btn btn-primary mb-3">Tulis
                                 @if ($id == 'article')
-                                    Artikel
+                                    Karyamu
                                 @endif
                                 @if ($id == 'news')
                                     Berita

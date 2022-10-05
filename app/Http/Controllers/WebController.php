@@ -7,6 +7,7 @@ use App\Models\AudioBookHomepage;
 use App\Models\Author;
 use App\Models\AuthorOfTheMonth;
 use App\Models\Banner;
+use App\Models\ReadArticleAuthor;
 use App\Models\BannerMobile;
 use App\Models\Blog;
 use App\Models\SectionSix;
@@ -25,6 +26,7 @@ use App\Models\ReferenceBookType;
 use App\Models\ReferenceComment;
 use App\Models\ReferenceTheme;
 use App\Models\SendCreation;
+use App\Models\LikedArticleAuthor;
 use App\Models\Tag;
 use App\Models\Theme;
 use App\Models\VisitorVisit;
@@ -507,10 +509,70 @@ class WebController extends Controller
         return $fpdi->Output($outputFile, 'F');
     }
 
-    public function author_profile()
+    public function author_profile(Request $request)
     {
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->first();
+        $author_id=$data['aotm']->author_id;
+        $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
+        if (auth()->guard('visitor')->check()==true) {
+            $visitor_id=auth()->guard('visitor')->user()->id;
+        } else {
+            $visitor_id=null;
+        }
+        $read=[
+            'author_id'=>$author_id,
+            'visitor_id'=>$visitor_id,
+            'visitor_visit_id'=>$visitor_visit_id
+        ];
+        ReadArticleAuthor::create($read);
+        $data['number_reads']=ReadArticleAuthor::where('author_id',$author_id)->get();
+        $data['number_liked']=LikedArticleAuthor::where('author_id',$author_id)->count();
+        $data['liked']=LikedArticleAuthor::where('author_id',$author_id)->Where('visitor_id',$visitor_id)->orWhere('visitor_visit_id',$visitor_visit_id)->count();
         return view('author', $data);
+    }
+
+    public function author_profile_liked(Request $request)
+    {
+        $author_id=$request->author_id;
+        $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
+        $status=request('status');
+        if (auth()->guard('visitor')->check()==true) {
+            $visitor_id=auth()->guard('visitor')->user()->id;
+        } else {
+            $visitor_id=null;
+        }
+        $read=[
+            'author_id'=>$author_id,
+            'visitor_id'=>$visitor_id,
+            'visitor_visit_id'=>$visitor_visit_id
+        ];
+
+        if($status=='unliked'){
+            LikedArticleAuthor::create($read);
+        } else {
+            LikedArticleAuthor::where('author_id',$author_id)->where('visitor_visit_id',$visitor_visit_id)->orWhere('visitor_id',$visitor_id)->delete();
+        }
+    }
+
+    public function ind_date($tanggal)
+    {
+        $bulan = array(
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        );
+        $explode = explode('-', $tanggal);
+
+        return $explode[2] . ' ' . $bulan[(int) $explode[1]] . ' ' . $explode[0];
     }
 
     public function author_of_the_month()
@@ -529,6 +591,8 @@ class WebController extends Controller
             'author_id' => $author_id,
             'content' => $content,
             'content_homepage' => $content_homepage,
+            'user_id'=>auth()->user()->name,
+            'uploaded_at'=>$this->ind_date(date('Y-m-d'))
         ];
         $validation = Validator::make($data, [
             'author_id' => 'required',

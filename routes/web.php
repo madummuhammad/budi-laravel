@@ -105,7 +105,7 @@ Route::middleware('visitor', 'analytics')->group(function () {
 
         // Author
         Route::get('/author_profile', [WebController::class, 'author_profile']);
-
+        Route::post('/author_profile', [WebController::class, 'author_profile_liked']);
         // Info seputar budi
         Route::get('/info_seputar_budi', [WebController::class, 'info_seputar_budi']);
 
@@ -137,6 +137,7 @@ Route::middleware('auth')->group(function () {
 
         // Dashboard
         Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/comment', [CommentController::class, 'allcomment']);
 
         // Book
         Route::get('/book', [BookController::class, 'index']);
@@ -245,7 +246,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/statistic/referensi', [StatisticController::class, 'referensi']);
         Route::get('/statistic/referensi/comment/{id}', [StatisticController::class, 'referensi_comment']);
         Route::patch('/statistic/referensi/comment/{id}', [StatisticController::class, 'edit_referensi_comment']);
-        Route::delete('/statistic/referensi/comment/{id}', [StatisticController::class, 'delete_referensi_comment']);
+        Route::delete('/statistic/referensi/comment/{id}', [StatisticController::class, 'delete_reference_comment']);
 
         Route::get('statistic/book/export', [StatisticController::class, 'book_statistic_export']);
         Route::get('statistic/referensi/export', [StatisticController::class, 'referensi_statistic_export']);

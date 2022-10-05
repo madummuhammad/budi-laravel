@@ -15,23 +15,31 @@
             <h1 class="fw-bold w-100">{{ $aotm->authors->name }}</h1>
             @endif
             <div class="share">
-                <a class=""><i class="bi bi-heart"></i></a>
-                <a class=""><i class="bi bi-share"></i></a>
+                <div>
+                <a style="cursor:pointer" class="liked @if($liked !==0) active @endif">
+                    @if($liked==0)
+                        <i class="bi bi-heart"></i>
+                        @else
+                        <i class="fa-solid fa-heart text-danger mt-1" style="font-size:20px"></i>
+                        @endif
+                </a>
+                </div>
+                <a class="" href="https://wa.me/?text={{ url('author_profile') }}"><i class="bi bi-share"></i></a>
             </div>
         </div>
         <div class="my-5">
             <div class="d-flex align-items-center">
                 <div class="d-flex flex-column flex-md-row me-5 me-md-0">
-                    <div class="me-md-3">
-                        Agustina Septi
+                    <div class="me-md-3 text-capitalize">
+                        {{$aotm->user_id}}
                     </div>
-                    <div class="me-md-3">2 Agustus 2022</div>
+                    <div class="me-md-3">{{$aotm->uploaded_at}}</div>
                 </div>
 
                 <div class="d-flex flex-column flex-md-row">
-                    <div class="me-md-3"><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt=""> 100
+                    <div class="me-md-3"><img src="{{ asset('web') }}/assets/icon/little-book.svg" alt=""> {{$number_reads->count()}}
                     </div>
-                    <div><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> 100</div>
+                    <div><img src="{{ asset('web') }}/assets/icon/love.svg" alt=""> {{$number_liked}}</div>
                 </div>
             </div>
         </div>
@@ -162,7 +170,7 @@
             </ul>
         </nav>
     </div>
-
+    @csrf
     <div class="dash" style="margin: 80px 0px;"></div>
 </div>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
@@ -173,5 +181,33 @@
             paginatePosition: ['top'],
             useHashLocation: false,
         });
+        var likeds = $('.liked')
+
+        for (let i = 0; i < likeds.length; i++) {
+            $(likeds[i]).on('click', function() {
+                var token = $("input[name=_token]").val();
+                if ($(this).hasClass('active') == false) {
+                    $(this).addClass('active');
+                    $(this).html(' <i class="fa-solid fa-heart text-danger" style="font-size:20px"></i>')
+                    var status = "unliked";
+                } else {
+                    $(this).removeClass('active');
+                    $(this).html('<i class="fa-regular fa-heart" style="font-size:20px"></i>')
+                    var status = "liked";
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('author_profile') }}",
+                    data: {
+                        _method: "POST",
+                        status: status,
+                        author_id:'{{$aotm->author_id}}',
+                        _token: token
+                    },
+                    success: function(hasil) {}
+                });
+
+            });
+        }
 </script>
 @endsection
