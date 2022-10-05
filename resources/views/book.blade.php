@@ -233,7 +233,7 @@
                             py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</a>
                                 @else
-                                    <button
+                                    <button type="submit" 
                                         class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                             py-2 me-4 w-100 download"><i
                                             class="bi bi-download fs-5 me-3"></i> Unduh</button>

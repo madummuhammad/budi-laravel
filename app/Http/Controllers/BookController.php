@@ -295,10 +295,10 @@ class BookController extends Controller
     public function download()
     {
         $file = public_path() . '/storage' . '/' . request('file');
-        if (file_exists($file) == false) {
-            return back();
-        }
         if (request('book_type') == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
+            if (file_exists($file) == false) {
+                return back();
+            }
             $file = public_path() . '/storage' . '/' . request('file');
             $headers = array(
                 'Content-Type: audio/mpeg',
@@ -306,12 +306,19 @@ class BookController extends Controller
             return response()->download($file, request('name') . '.mp3', $headers);
         } elseif (request('book_type') == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') {
             // Video
-            $file = public_path() . '/storage' . '/' . request('file');
+            $video_url=str_replace(url('storage/'), "", request('file'));
+            $file = public_path() . '/storage' . '/' . $video_url;
+            if (file_exists($file) == false) {
+                return back();
+            }
             $headers = array(
                 'Content-Type: video/mp4',
             );
             return response()->download($file, request('name') . '.mp4', $headers);
         } else {
+            if (file_exists($file) == false) {
+                return back();
+            }
             $file = public_path() . '/storage' . '/' . request('file');
             $headers = array(
                 'Content-Type: application/pdf',
