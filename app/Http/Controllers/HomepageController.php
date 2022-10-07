@@ -49,8 +49,8 @@ class HomepageController extends Controller
         SectionSix::where('id', $id)->update($data);
 
         if($_FILES['image'] !==""){
-            $data=[
-                'image' => $this->storage() . $this->upload_img(request(), 602, 482, "image")
+           $data=[
+                'image' => $this->storage() . $this->upload(request(),'image')
             ];
             SectionSix::where('id', $id)->update($data);
         }
@@ -135,6 +135,15 @@ class HomepageController extends Controller
         $resize->save($this->storage_path('public/' . $path));
         unlink(storage_path('app/' . $path));
         return $path;
+    }
+
+    public function upload($request,$name="image")
+    {
+        $path = $request->file($name)->store('public/image');
+        // $resize = Image::make($request->file($name))->fit($fit_width, $fit_height);
+        // $resize->save($this->storage_path('public/' . $path));
+        // unlink(storage_path('app/' . $path));
+        return str_replace('public/', "", $path);
     }
 
     public function storage()
