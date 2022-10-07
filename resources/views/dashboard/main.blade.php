@@ -312,6 +312,12 @@
                         </div>
                         <span class="nav-text">Kirimkan Karyamu</span>
                     </a></li>
+                    <li><a href="{{ url('dashboard/footer') }}" aria-expanded="false">
+                        <div class="d-icon">
+                            <i class="fa-sharp fa-solid fa-shoe-prints"></i>
+                        </div>
+                        <span class="nav-text">Footer</span>
+                    </a></li>
                 <li class="nav-label">Pengguna</li>
                 <li><a href="{{ url('dashboard/visitor') }}" aria-expanded="false">
                         <div class="d-icon">

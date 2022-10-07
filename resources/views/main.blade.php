@@ -130,6 +130,11 @@
 
     @yield('content')
 
+    @php
+    use App\Models\Contact;
+    $footer=Contact::where('id','f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->first();
+    @endphp
+
     <footer>
         <div class="container-fluid footer">
             <div class="row">
@@ -140,15 +145,8 @@
                                 class="img-fluid col-4 col-md-12">
                         </div>
                         <div class="col-12 col-md-10">
-                            <p class="text-dark fw-bold fs-m-14px">Kementerian Pendidikan, Kebudayaan,
-                                Riset, dan
-                                Teknologi
-                                Badan Pengembangan dan Pembinaan Bahasa
-                                Pusat Pembinaan Bahasa dan Sastra</p>
-                            <p>Menuju terwujudnya insan berkarakter dan jati diri bangsa melalui
-                                bahasa
-                                dan sastra
-                                Indonesia</p>
+                            <p class="text-dark fw-bold fs-m-14px">{{$footer->heading}}</p>
+                            <p>{{$footer->sub_heading}}</p>
                         </div>
                     </div>
                 </div>
@@ -178,21 +176,18 @@
                     </div>
                     <p class="p-0 text-center text-md-start"><img class="d-none d-md-inline"
                             src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
-                        badan.bahasa@kemdikbud.go.id</p>
+                        {{$footer->email}}</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
                     </div>
                     <p class="text-md-start text-center"><img class="d-none d-md-inline"
-                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> (021) 4750406</p>
+                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> {{$footer->phone}}</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
                     </div>
                     <p class="text-center text-md-start"><img class="d-none d-md-inline"
                             src="{{ url('web') }}/assets/icon/pin.svg" alt="">
-                        Jalan Daksinapati Barat IV,
-                        Rawamangun,
-                        Jakarta
-                        13220</p>
+                        {{$footer->address}}</p>
                 </div>
             </div>
             <div class="row sosmed-icon">

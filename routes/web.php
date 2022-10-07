@@ -16,6 +16,7 @@ use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\ReferencethemeController;
 use App\Http\Controllers\SendcreationController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UploadController;
@@ -187,6 +188,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/homepage/audio_book_homepage', [HomepageController::class, 'add_audio_book_homepage']);
         Route::patch('/homepage/send_creation', [HomepageController::class, 'send_creation']);
         Route::patch('/homepage/section_six', [HomepageController::class, 'section_six']);
+
+        Route::get('/footer', [FooterController::class, 'index']);
+        Route::patch('/footer', [FooterController::class, 'update']);
 
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);
