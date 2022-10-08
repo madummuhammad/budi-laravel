@@ -339,6 +339,8 @@
             $("#form-filter-pengunjung").submit();
         });
 
+        $(".table").DataTable();
+
     });
 
 </script>
@@ -547,20 +549,24 @@
                                     <div class="card-body">
                                         <h4>Analisis Tema</h4>
                                         <table class="table">
-                                            <tr>
-                                                <th>Tema</th>
-                                                <th>Baca</th>
-                                                <th>Unduh</th>
-                                                <th>Suka</th>
-                                            </tr>
-                                            @foreach($tema as $itemTema)
-                                            <tr>
-                                                <td>{{$itemTema->name}}</td>
-                                                <td>{{$itemTema->book ? $itemTema->book->sum('book_read_statistics_count') : 0}}</td>
-                                                <td>{{$itemTema->book ? $itemTema->book->sum('book_download_statistics_count') : 0}}</td>
-                                                <td>{{$itemTema->book ? $itemTema->book->sum('mylibraries_count') : 0}}</td>
-                                            </tr>
-                                            @endforeach
+                                            <thead>
+                                                <tr>
+                                                    <th>Tema</th>
+                                                    <th>Baca</th>
+                                                    <th>Unduh</th>
+                                                    <th>Suka</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($tema as $itemTema)
+                                                <tr>
+                                                    <td>{{$itemTema->name}}</td>
+                                                    <td>{{$itemTema->book ? $itemTema->book->sum('book_read_statistics_count') : 0}}</td>
+                                                    <td>{{$itemTema->book ? $itemTema->book->sum('book_download_statistics_count') : 0}}</td>
+                                                    <td>{{$itemTema->book ? $itemTema->book->sum('mylibraries_count') : 0}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -609,20 +615,24 @@
                                     <div class="card-body">
                                         <h4>Analisis Jenis</h4>
                                         <table class="table">
-                                            <tr>
-                                                <th>Jenis</th>
-                                                <th>Baca</th>
-                                                <th>Unduh</th>
-                                                <th>Suka</th>
-                                            </tr>
-                                            @foreach($jenis as $itemJenis)
-                                            <tr>
-                                                <td>{{$itemJenis->name}}</td>
-                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('book_read_statistics_count') : 0}}</td>
-                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('book_download_statistics_count') : 0}}</td>
-                                                <td>{{$itemJenis->book ? $itemJenis->book->sum('mylibraries_count') : 0}}</td>
-                                            </tr>
-                                            @endforeach
+                                            <thead>
+                                                <tr>
+                                                    <th>Jenis</th>
+                                                    <th>Baca</th>
+                                                    <th>Unduh</th>
+                                                    <th>Suka</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($jenis as $itemJenis)
+                                                <tr>
+                                                    <td>{{$itemJenis->name}}</td>
+                                                    <td>{{$itemJenis->book ? $itemJenis->book->sum('book_read_statistics_count') : 0}}</td>
+                                                    <td>{{$itemJenis->book ? $itemJenis->book->sum('book_download_statistics_count') : 0}}</td>
+                                                    <td>{{$itemJenis->book ? $itemJenis->book->sum('mylibraries_count') : 0}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -671,20 +681,24 @@
                                     <div class="card-body">
                                         <h4>Analisis Jenjang</h4>
                                         <table class="table">
-                                            <tr>
-                                                <th>Jenjang</th>
-                                                <th>Baca</th>
-                                                <th>Unduh</th>
-                                                <th>Suka</th>
-                                            </tr>
-                                            @foreach($jenjang as $itemJenjang)
-                                            <tr>
-                                                <td>{{$itemJenjang->name}}</td>
-                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_read_statistics_count') : 0}}</td>
-                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_download_statistics_count') : 0}}</td>
-                                                <td>{{$itemJenjang->book ? $itemJenjang->book->sum('mylibraries_count') : 0}}</td>
-                                            </tr>
-                                            @endforeach
+                                            <thead>
+                                                <tr>
+                                                    <th>Jenjang</th>
+                                                    <th>Baca</th>
+                                                    <th>Unduh</th>
+                                                    <th>Suka</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($jenjang as $itemJenjang)
+                                                <tr>
+                                                    <td>{{$itemJenjang->name}}</td>
+                                                    <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_read_statistics_count') : 0}}</td>
+                                                    <td>{{$itemJenjang->book ? $itemJenjang->book->sum('book_download_statistics_count') : 0}}</td>
+                                                    <td>{{$itemJenjang->book ? $itemJenjang->book->sum('mylibraries_count') : 0}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -723,7 +737,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Negara</h4>
+                            <h4 class="card-title">Browser</h4>
                         </div>
                         <div class="card-body">
                             <div class="current-progress">
@@ -731,7 +745,7 @@
                                 <div class="progress-content py-2">
                                     <div class="row">
                                         <div class="col-lg-8">
-                                            <div class="progress-text">{{$item->first()->country}}</div>
+                                            <div class="progress-text">{{$item->first()->browser}}</div>
                                         </div>
                                         <div class="col-lg-4 text-center">
                                             {{count($item)}}
