@@ -164,6 +164,7 @@ class VisitorController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'province' => request('province'),
+            'date_of_birth'=>request('date'),
             'city' => request('city'),
             'district' => request('district'),
             'sub_district' => request('sub_district'),

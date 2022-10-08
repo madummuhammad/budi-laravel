@@ -180,7 +180,7 @@
                         </div>
                         <div class="col-12 col-md-12">
                                 <!-- <input type="date" class="form-control py-3 mt-3" name="date"> -->
-                                <input type="text" name="date_of_birth" placeholder="Tanggal, Tahun, Lahir" class="form-control py-3 mt-3 @error('date_of_birth') is-invalid  @enderror" onfocus="this.type='date'" onblur="(this.type='text')">
+                                <input type="text" name="date_of_birth" placeholder="Tanggal, Bulan dan Tahun Lahir" class="form-control py-3 mt-3 @error('date_of_birth') is-invalid  @enderror" onfocus="this.type='date'" onblur="(this.type='text')">
                                 @error('date_of_birth')
                                 <div class="invalid-feedback">
                                     Kolom ini wajib diisi!

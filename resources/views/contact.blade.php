@@ -15,19 +15,19 @@
                         <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start">
                             <img src="{{ asset('web') }}/assets/icon/evelope.svg" class="mb-2 mb-lg-0 mr-lg-2 me-lg-2"
                                 style="max-height: 20px">
-                            <span class="text-break">badan.bahasa@kemdikbud.go.id</span>
+                            <span class="text-break">{{$contact->email}}</span>
                         </div>
                         <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start mt-4">
                             <img src="{{ asset('web') }}/assets/icon/pin.svg" class="mb-2 mb-lg-0 mr-lg-2 me-lg-2"
                                 style="max-height: 20px">
-                            <span>Jalan Daksinapati Barat IV, Rawamangun, Jakarta 13220</span>
+                            <span>{{$contact->address}}</span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start mt-4 mt-md-0">
                             <img src="{{ asset('web') }}/assets/icon/telephone.svg" class="mb-2 mb-lg-0 mr-lg-2 me-lg-2"
                                 style="max-height: 20px">
-                            <span>(021) 4750406</span>
+                            <span>{{$contact->phone}}</span>
                         </div>
 
                         <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start mt-4">
@@ -35,8 +35,7 @@
                                 style="max-height: 20px">
                             <div>
                                 <span>Jam Operasional:</span>
-                                <p class="m-0"><b>Senin - Kamis : </b>09.00 - 17.00 WIB</p>
-                                <p class="m-0"><b>Jumat : </b> 09.00 - 16.00 WIB</p>
+                                <p class="m-0"><b>Senin - Jumat : </b>09.00 - 16.00 WIB</p>
                             </div>
                         </div>
                     </div>

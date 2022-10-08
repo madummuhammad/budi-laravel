@@ -1108,7 +1108,7 @@ footer .dash {
     border: 5px solid rgb(1, 144, 214);
     background-color: white;
     position: absolute;
-    left: -55px;
+    right: -55px;
     bottom: 0;
     border-radius: 100%;
     padding: 15px;

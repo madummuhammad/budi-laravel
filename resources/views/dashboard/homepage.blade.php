@@ -1072,72 +1072,155 @@ type="button" data-target="#bannermobile" data-slide="next">
 </div>
 </div>
 <div id="section-4" class="mt-5">
-    <h2 class="fw-bold ff-bubblewump text-end mt-4 fs-3">Banyak Membaca, Kunci Kreativitas dan Keberhasilan
-    </h2>
-    <p>Bagaimana kami membantu mewujudkanya?</p>
-    <div class="row text-dark">
-        @foreach ($section_sixs as $value)
-        <div class="col-lg-12">
-            <div class="d-flex justify-content-between">
-                <h2>{{$value->title}}</h2>
-                <button class="btn badge-success" data-toggle="modal"
-                data-target="#edit{{ $value->id }}"><i
-                class="bi bi-pencil-square"></i></button>
-                <div class="modal" tabindex="-1" id="edit{{ $value->id }}">
-                    <div class="modal-dialog modal-md">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                Edit Banner</h5>
-                                <button type="button" class="close"
-                                data-dismiss="modal"><span>&times;</span>
-                            </button>
-                        </div>
-                        <form
-                        action="{{ url('dashboard/homepage/section_six') }}"
-                        method="POST" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            @method('patch')
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Judul</label>
-                                        <input type="text" name="title" class="form-control" value="{{$value->title}}">
-                                        <input type="text" name="id" value="{{$value->id}}" hidden>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Konten</label>
-                                        <textarea class="form-control" name="content" id="" cols="30" rows="5">{{$value->content}}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail13">Gambar</label><br>
-                                        <img class="img-fluid mb-3" src="{{ $value->image }}" alt="">
-                                        <input type="file" class="form-control file-input-custom" id="exampleInputEmail13" aria-describedby="emailHelp" name="image">
-                                    </div>
-                                </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="fw-bold ff-bubblewump text-end mt-4 fs-3">Banyak Membaca, Kunci Kreativitas dan Keberhasilan
+        </h2>
+        @if($section_sixs->count() <4)
+        <button class="btn badge-primary" data-toggle="modal"
+        data-target="#tambahsection"><i class="bi bi-plus-lg"></i></button>
+        <div class="modal" tabindex="-1" id="tambahsection">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                        Edit Banner</h5>
+                        <button type="button" class="close"
+                        data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <form
+                action="{{ url('dashboard/homepage/section_six') }}"
+                method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @method('post')
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Judul</label>
+                                <input type="text" name="title" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Konten</label>
+                                <textarea class="form-control" name="content" id="" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail13">Gambar</label><br>
+                                <input type="file" class="form-control file-input-custom" id="exampleInputEmail13" aria-describedby="emailHelp" name="image">
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">Tutup</button>
-                            <button type="submit"
-                            class="btn btn-primary">Kirim</button>
-                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal">Tutup</button>
+                    <button type="submit"
+                    class="btn btn-primary">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
+</div>
+<p>Bagaimana kami membantu mewujudkanya?</p>
+<div class="row text-dark">
+    @foreach ($section_sixs as $value)
+    <div class="col-lg-12">
+        <div class="d-flex justify-content-between">
+            <h2>{{$value->title}}</h2>
+            <div class="btn-group">          
+                <button class="btn badge-success mx-1" data-toggle="modal"
+                data-target="#edit-section{{ $value->id }}"><i
+                class="bi bi-pencil-square"></i></button>
+                <button class="btn badge-danger mx-1" data-toggle="modal"
+                data-target="#hapus-section{{ $value->id }}"><i class="bi bi-trash"></i></button>
+            </div>
+            <div class="modal" tabindex="-1" id="hapus-section{{ $value->id }}">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header border-0 py-0">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <p class="p-0 m-0 fs-4">Hapus konten ini?</p>
+                    </div>
+                    <div class="modal-footer pt-0 pb-1 border-0">
+                        <form
+                        action="{{ url('dashboard/homepage/section_six') }}"
+                        method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="text" name="id"
+                        value="{{ $value->id }}" hidden>
+                        <button type="submit"
+                        class="btn badge-danger"><i
+                        class="bi bi-trash3"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row d-flex align-items-center">
-        <div class="col-lg-6">
-            <p>{{$value->content}}</p>
-        </div>
-        <div class="col-lg-6">
-            <img src="{{ $value->image }}" class="img-fluid">
-        </div>
+    <div class="modal" tabindex="-1" id="edit-section{{ $value->id }}">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                    Edit Banner</h5>
+                    <button type="button" class="close"
+                    data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <form
+            action="{{ url('dashboard/homepage/section_six') }}"
+            method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+                @method('patch')
+                @csrf
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Judul</label>
+                            <input type="text" name="title" class="form-control" value="{{$value->title}}">
+                            <input type="text" name="id" value="{{$value->id}}" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Konten</label>
+                            <textarea class="form-control" name="content" id="" cols="30" rows="5">{{$value->content}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail13">Gambar</label><br>
+                            <img class="img-fluid mb-3" src="{{ $value->image }}" alt="">
+                            <input type="file" class="form-control file-input-custom" id="exampleInputEmail13" aria-describedby="emailHelp" name="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal">Tutup</button>
+                <button type="submit"
+                class="btn btn-primary">Kirim</button>
+            </div>
+        </form>
     </div>
+</div>
+</div>
+</div>
+<div class="row d-flex align-items-center">
+    <div class="col-lg-6">
+        <p>{{$value->content}}</p>
+    </div>
+    <div class="col-lg-6">
+        <img src="{{ $value->image }}" class="img-fluid">
+    </div>
+</div>
 </div>
 @endforeach
 </div>

@@ -135,7 +135,7 @@
             href="" data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
             @endforeach
         </div> -->
-        <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+        <div class="d-flex justify-content-between align-items-center mt-5 mb-3 pt-2">
             <h3 class="">Hasil Pencarian <span class="fw-bold fs-4">Referensi @if ($reference_book_types->id == '5cbb48f9-aed4-44a9-90c2-71cbcef71264')
                 Buku
                 @else

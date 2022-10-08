@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleWriterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
@@ -98,6 +99,7 @@ Route::middleware('visitor', 'analytics')->group(function () {
 
         // Blog
         Route::get('/blog/detail/{id}', [WebController::class, 'blog_detail']);
+        Route::post('/blog/detail/{id}', [WebController::class, 'blog_liked']);
 
         Route::get('/send_creation', [WebController::class, 'send_creation']);
 
@@ -187,10 +189,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/homepage/audio_book_homepage', [HomepageController::class, 'audio_book_homepage']);
         Route::post('/homepage/audio_book_homepage', [HomepageController::class, 'add_audio_book_homepage']);
         Route::patch('/homepage/send_creation', [HomepageController::class, 'send_creation']);
+        Route::post('/homepage/section_six', [HomepageController::class, 'section_six_add']);
         Route::patch('/homepage/section_six', [HomepageController::class, 'section_six']);
+        Route::delete('/homepage/section_six', [HomepageController::class, 'section_six_delete']);
 
+        // Footer
         Route::get('/footer', [FooterController::class, 'index']);
         Route::patch('/footer', [FooterController::class, 'update']);
+
+        // About Budi
+        Route::get('about/{id}',[AboutController::class,'about']);
+        Route::patch('about/{id}',[AboutController::class,'update']);
+        Route::patch('about_content/{id}',[AboutController::class,'update_content']);
+        Route::get('information/{id}',[AboutController::class,'about']);
 
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);

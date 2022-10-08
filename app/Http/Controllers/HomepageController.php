@@ -23,7 +23,7 @@ class HomepageController extends Controller
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors')->get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->get();
-        $data['section_sixs']=SectionSix::get();
+        $data['section_sixs']=SectionSix::orderBy('created_at','ASC')->get();
         return view('dashboard.homepage', $data);
     }
 
@@ -38,6 +38,25 @@ class HomepageController extends Controller
         return back();
     }
 
+    public function section_six_add()
+    {
+        $data = [
+            'title' => request('title'),
+            'content' => request('content'),
+        ];
+
+        $id=SectionSix::create($data);
+
+        if($_FILES['image']['name'] !==""){
+           $data_image=[
+                'image' => $this->storage() . $this->upload(request(),'image')
+            ];
+            SectionSix::where('id',$id->id)->update($data_image);
+        }
+
+        return back();
+    }
+
     public function section_six()
     {
         $id = request('id');
@@ -48,7 +67,7 @@ class HomepageController extends Controller
 
         SectionSix::where('id', $id)->update($data);
 
-        if($_FILES['image'] !==""){
+        if($_FILES['image']['name'] !==""){
            $data=[
                 'image' => $this->storage() . $this->upload(request(),'image')
             ];
@@ -56,6 +75,14 @@ class HomepageController extends Controller
         }
 
 
+        return back();
+    }
+
+    public function section_six_delete()
+    {
+        $id = request('id');
+
+        SectionSix::where('id',$id)->delete();
         return back();
     }
 

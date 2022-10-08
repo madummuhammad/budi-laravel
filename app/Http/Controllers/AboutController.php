@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book_type;
-use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Request;
+use App\Models\About;
+use Image;
 use Storage;
 
-class BooktypeController extends Controller
+class AboutController extends Controller
 {
-    public function index($id)
+    public function about($id)
     {
-        $data['book_types'] = Book_type::where('id', $id)->first();
-        return view('dashboard.booktype', $data);
+        $data['about']=About::where('id',$id)->first();
+        return view('dashboard.about',$data);
     }
 
     public function update($id)
@@ -19,34 +20,25 @@ class BooktypeController extends Controller
         $data = [
             'tagline' => request('tagline'),
         ];
-        Book_type::where('id', $id)->update($data);
+        About::where('id', $id)->update($data);
 
         if ($_FILES['image']['name'] !== "") {
             $data = [
                 'banner' => $this->storage() . $this->upload(request()),
             ];
 
-            Book_type::where('id', $id)->update($data);
+            About::where('id', $id)->update($data);
         }
 
         return back();
-
     }
 
-    public function update_mobile($id)
+    public function update_content($id)
     {
         $data = [
-            'tagline' => request('tagline'),
-            
+            'content' => request('content'),
         ];
-        Book_type::where('id', $id)->update($data);
-        if ($_FILES['image']['name'] !== "") {
-            $data = [
-                'banner_mobile' => $this->storage() . $this->upload(request(), 393, 250),
-            ];
-
-            Book_type::where('id', $id)->update($data);
-        }
+        About::where('id', $id)->update($data);
 
         return back();
     }
@@ -69,5 +61,4 @@ class BooktypeController extends Controller
     {
         return env('STORAGE_PATH', base_path('storage/app')) . ($path ? '/' . $path : $path);
     }
-
 }

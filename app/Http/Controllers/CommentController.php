@@ -17,8 +17,8 @@ class CommentController extends Controller
 
     public function allcomment()
     {
-        $data['books']=Comment::with('visitors','books')->get();
-        $data['reference_books']=ReferenceComment::with('visitors','reference_books')->get();
+        $data['books']=Comment::with('visitors','books')->orderBy('created_at','DESC')->get();
+        $data['reference_books']=ReferenceComment::with('visitors','reference_books')->orderBy('created_at','DESC')->get();
         return view('dashboard.allcomment',$data);
     }
 
