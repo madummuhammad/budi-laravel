@@ -72,7 +72,7 @@ class MedaliController extends Controller
 
     public function gold($read=0, $downloaded=0,$share=0)
     {
-        if ($read>=3 AND $downloaded>=3 AND $share>=3) {
+        if ($read>=100 AND $downloaded>=150 AND $share>=20) {
             return true;
         } else {
             return false;
@@ -81,14 +81,14 @@ class MedaliController extends Controller
 
     public function silver($read=0, $downloaded=0,$share=0)
     {
-        if ($read>=2 AND $downloaded>=2 AND $share>=2) {
+        if ($read>=80 AND $downloaded>=100 AND $share>=10) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function bronze($read=0, $downloaded=0,$share=0)
+    public function bronze($read=50, $downloaded=70,$share=10)
     {
         if ($read>=1 AND $downloaded>=1 AND $share>=1) {
             return true;
