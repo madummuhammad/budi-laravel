@@ -52,7 +52,7 @@
     </div>
     <div class="d-flex justify-content-center home">
         <div class="home-tab">
-            <h2 class="text-center title fw-bold fs-4 mb-4 fs-m-14px">Temukan buku sesuai minat dan kebutuhanmu</h2>
+            <h2 class="text-center title fw-bold fs-4 mb-4 fs-m-14px">Temukan buku sesuai minat dan kebutuhanmu !</h2>
             <div class="home-tab-body w-100" id="home-tab-body">
                 <div class="container">
                     <div class="row">
