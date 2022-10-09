@@ -186,6 +186,7 @@
             <div class="col-12">
                 <div class="owl-carousel owl-theme px-5" id="owl-carousel-3">
                     @foreach ($nexts as $next)
+                    @if($next->books !==null)
                     <div class="item">
                         <div class="img-container-for-icon">
                             <img class="img-fluid" src="{{ $next->books->cover }}" alt="">
@@ -203,6 +204,7 @@
                             @endif
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
             </div>
