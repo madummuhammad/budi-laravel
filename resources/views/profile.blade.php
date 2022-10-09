@@ -330,10 +330,34 @@ SMA</option>
     <div class="row my-5">
         <div class="col-12">
             <div class="px-5 profile-achive-container">
-                <img src="{{ asset('web/assets/img/platinum.svg') }}" class="img-top">
+                <div class="img-top">           
+                    <!-- <img src="{{ asset('web/assets/img/platinum.svg') }}" class="img-top"> -->
+                    @if($medal=='gold')
+                    <img class="frame-left" src="{{asset('web/assets/icon/left_frame_medal.svg')}}" alt="">
+                    <img class="medal" src="{{ asset('web/assets/icon/gold_medal.svg') }}">
+                    <img class="frame-right" src="{{asset('web/assets/icon/right_frame_medal.svg')}}" alt="">
+                    @elseif($medal=='silver')
+                    <img class="frame-left" src="{{asset('web/assets/icon/left_frame_medal.svg')}}" alt="">
+                    <img class="medal" src="{{ asset('web/assets/icon/silver_medal.svg') }}">
+                    <img class="frame-right" src="{{asset('web/assets/icon/right_frame_medal.svg')}}" alt="">
+                    @elseif($medal=='bronze')
+                    <img class="frame-left" src="{{asset('web/assets/icon/left_frame_medal.svg')}}" alt="">
+                    <img class="medal" src="{{ asset('web/assets/icon/bronze_medal.svg') }}">
+                    <img class="frame-right" src="{{asset('web/assets/icon/right_frame_medal.svg')}}" alt="">
+                    @endif
+                </div>
                 <div class="profile-achive-text">
+                    @if($medal=='gold')
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Emas !</h4>
+                    @elseif($medal=='silver')
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perak !</h4>
+                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p>
+                    @elseif($medal=='bronze')
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perunggu !</h4>
+                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p>
+                    @else
                     <h4>Halo {{ auth()->guard('visitor')->user()->name }}, Budi punya medali untukmu !</h4>
-                    {{-- <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p> --}}
+                    @endif
                 </div>
 
                 <img src="{{ asset('web/assets/img/daun.svg') }}" class="img-bottom">

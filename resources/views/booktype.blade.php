@@ -19,9 +19,9 @@
                                         <a class="nav-link active d-flex flex-column align-items-center"
                                             href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}">
                                             @if ($book_types->id == '2fd97285-08d0-4d81-83f2-582f0e8b0f36')
-                                                <img src="{{ asset('web') }}/assets/icon/book_active.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/book_active.png" alt="">
                                             @else
-                                                <img src="{{ asset('web') }}/assets/icon/book.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/book.png" alt="">
                                             @endif
                                             <span style="font-size: 14px" class="fw-bold text-blue">Buku Bacaan</span>
                                         </a>
@@ -32,9 +32,9 @@
                                         <a class="nav-link d-flex flex-column align-items-center"
                                             href="{{ url('book_type/31ba455c-c9c7-4a3c-a2b1-62915546eaba') }}">
                                             @if ($book_types->id == '31ba455c-c9c7-4a3c-a2b1-62915546eaba')
-                                                <img src="{{ asset('web') }}/assets/icon/komik_active.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/komik_active.png" alt="">
                                             @else
-                                                <img src="{{ asset('web') }}/assets/icon/komik.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/komik.png" alt="">
                                             @endif
                                             <span style="font-size: 14px">Buku Komik</span>
                                         </a>
@@ -45,9 +45,9 @@
                                         <a class="nav-link d-flex flex-column align-items-center"
                                             href="{{ url('book_type/9e30a937-0d60-49ad-9775-c19b97cfe864') }}">
                                             @if ($book_types->id == '9e30a937-0d60-49ad-9775-c19b97cfe864')
-                                                <img src="{{ asset('web') }}/assets/icon/audio_active.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/audio_active.png" alt="">
                                             @else
-                                                <img src="{{ asset('web') }}/assets/icon/audio.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/audio.png" alt="">
                                             @endif
                                             <span style="font-size: 14px">Buku Audio</span>
                                         </a>
@@ -58,9 +58,9 @@
                                         <a class="nav-link d-flex flex-column align-items-center"
                                             href="{{ url('book_type/bfe3060d-5f2e-4a1b-9615-40a9f936c6cc') }}">
                                             @if ($book_types->id == 'bfe3060d-5f2e-4a1b-9615-40a9f936c6cc')
-                                                <img src="{{ asset('web') }}/assets/icon/video_active.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/video_active.png" alt="">
                                             @else
-                                                <img src="{{ asset('web') }}/assets/icon/video.svg" alt="">
+                                                <img src="{{ asset('web') }}/assets/icon/video.png" alt="">
                                             @endif
                                             <span style="font-size: 14px">Buku Video</span>
                                         </a>

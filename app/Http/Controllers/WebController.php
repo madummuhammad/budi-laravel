@@ -38,6 +38,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Http\Controllers\MedaliController;
 use setasign\Fpdi\Fpdi;
 use Storage;
 use Validator;
@@ -46,6 +47,10 @@ class WebController extends Controller
 {
     public function index()
     {
+        $medal=New MedaliController;
+
+        $data['medalC']=$medal;
+        $data['medal']=$medal->homepage();
         $data['levels'] = Level::all();
         $data['books'] = Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
         $data['themes'] = Theme::all();

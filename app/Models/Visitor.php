@@ -70,6 +70,16 @@ class Visitor extends Authenticatable
         return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
     }
 
+    public function read()
+    {
+        return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
+    }
+
+    public function downloaded()
+    {
+        return $this->hasMany(Mylibrary::class, 'visitor_id', 'id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'visitor_id', 'id');

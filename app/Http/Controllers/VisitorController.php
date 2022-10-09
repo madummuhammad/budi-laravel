@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Http\Controllers\MedaliController;
 use Intervention\Image\ImageManagerStatic as Image;
 use Validator;
 
@@ -18,10 +19,12 @@ class VisitorController extends Controller
 {
     public function index()
     {
+        $medali=New MedaliController;
         if (auth()->guard('visitor')->check() == false) {
             return redirect('login');
         }
-        return view('profile');
+        $data['medal']=$medali->medal();
+        return view('profile',$data);
     }
     public function login()
     {

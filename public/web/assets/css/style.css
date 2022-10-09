@@ -2,9 +2,9 @@
 @font-face {
     font-family: "Bubblewump";
     src: url("../vendor/font/Bubblewump.eot?") format("eot"),
-        url("../vendor/font/Bubblewump.woff") format("woff"),
-        url("../vendor/font/Bubblewump.ttf") format("truetype"),
-        url("../vendor/font/Bubblewump.svg#Bubblewump") format("svg");
+    url("../vendor/font/Bubblewump.woff") format("woff"),
+    url("../vendor/font/Bubblewump.ttf") format("truetype"),
+    url("../vendor/font/Bubblewump.svg#Bubblewump") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -14,28 +14,28 @@
     font-style: normal;
     font-weight: normal;
     src: local("Andika New Basic Regular"),
-        url("../vendor/font/AndikaNewBasic-R.woff") format("woff");
+    url("../vendor/font/AndikaNewBasic-R.woff") format("woff");
 }
 @font-face {
     font-family: "Andika New Basic Italic";
     font-style: normal;
     font-weight: normal;
     src: local("Andika New Basic Italic"),
-        url("../vendor/font/AndikaNewBasic-I.woff") format("woff");
+    url("../vendor/font/AndikaNewBasic-I.woff") format("woff");
 }
 @font-face {
     font-family: "Andika New Basic Bold";
     font-style: normal;
     font-weight: normal;
     src: local("Andika New Basic Bold"),
-        url("../vendor/font/AndikaNewBasic-B.woff") format("woff");
+    url("../vendor/font/AndikaNewBasic-B.woff") format("woff");
 }
 @font-face {
     font-family: "Andika New Basic Bold Italic";
     font-style: normal;
     font-weight: normal;
     src: local("Andika New Basic Bold Italic"),
-        url("../vendor/font/AndikaNewBasic-BI.woff") format("woff");
+    url("../vendor/font/AndikaNewBasic-BI.woff") format("woff");
 }
 @font-face {
     font-family: "KidZone";
@@ -1173,7 +1173,22 @@ footer .dash {
     position: absolute;
     top: -35px;
     right: -20px;
+    
+}
+
+.profile-achive-container .img-top .medal{
     height: 300px;
+}
+
+.profile-achive-container .img-top .frame-left{
+    position: absolute;
+    left: -35px;
+}
+
+.profile-achive-container .img-top .frame-right{
+    position: absolute;
+    top: 20px;
+    right: 30px;
 }
 
 .profile-achive-container .img-bottom {
