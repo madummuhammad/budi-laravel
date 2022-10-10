@@ -71,5 +71,5 @@
                     class="btn bg-blue text-white rounded-5">Akses Gratis ! <span><i
                             class="fa-solid fa-chevron-right"></i></span></a>
             </div>
-            <p class="text-center mt-2">Kapan pun & Di mana pun</p>
+            <p class="text-center mt-2">Kapan pun dan Di mana pun</p>
         </div>

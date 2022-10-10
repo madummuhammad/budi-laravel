@@ -34,7 +34,7 @@
                                         @method('patch')
                                         <div class="form-group">
                                             <label for="">Heading</label>
-                                            <textarea id="" cols="30" rows="5" name="heading" class="form-control">{{$contact->heading}}</textarea>
+                                            <textarea id="" cols="30" rows="5" name="heading" class="sinopsis">{{$contact->heading}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Sub Heading</label>

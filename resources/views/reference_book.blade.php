@@ -3,7 +3,7 @@
 @section('content')
 <div id="hero">
     <img class="w-100" src="{{ $reference_book_types->banner }}" alt="">
-    <h2 class="ff-kidzone tagline text-white">{{ $reference_book_types->tagline }}</h2>
+    <h2 class="ff-kidzone tagline text-white ps-4">{{ $reference_book_types->tagline }}</h2>
 </div>
 <img src="" alt="">
 <div class="container">

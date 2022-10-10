@@ -145,7 +145,10 @@
                                 class="img-fluid col-4 col-md-12">
                         </div>
                         <div class="col-12 col-md-10">
-                            <p class="text-dark fw-bold fs-m-14px">{{$footer->heading}}</p>
+                            
+
+                            <div class="text-dark fw-bold fs-m-14px">@php echo $footer->heading @endphp</div>
+                            
                             <p>{{$footer->sub_heading}}</p>
                         </div>
                     </div>
