@@ -35,7 +35,7 @@
                                 style="max-height: 20px">
                             <div>
                                 <span>Jam Operasional:</span>
-                                <p class="m-0"><b>Senin - Jumat : </b>09.00 - 16.00 WIB</p>
+                                <p class="m-0"><b>Senin <i class="fa-solid fa-minus"></i> Jumat : </b>09.00 - 16.00 WIB</p>
                             </div>
                         </div>
                     </div>

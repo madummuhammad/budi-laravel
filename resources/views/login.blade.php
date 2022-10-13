@@ -110,7 +110,7 @@
                         <div class="card-body">
                             <img class="logo mb-2" src="{{ asset('web') }}/assets/img/logo.png" alt="">
                             <h5 class="card-title fw-bold">Selamat Datang</h5>
-                            <p class="card-text">Silakan masukan Nama Pengguna dan Kata Sandi</p>
+                            <p class="card-text">Silakan masukkan Nama Pengguna dan Kata Sandi</p>
                             @if (session()->has('loginError'))
                                 <div class="alert alert-danger" role="alert">
                                     {{ session('loginError') }}

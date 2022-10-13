@@ -68,8 +68,8 @@
             @endforeach
             <div class="d-flex justify-content-center">
                 <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
-                    class="btn bg-blue text-white rounded-5">Akses Gratis ! <span><i
+                    class="btn bg-blue text-white rounded-5">Akses gratis <span><i
                             class="fa-solid fa-chevron-right"></i></span></a>
             </div>
-            <p class="text-center mt-2">Kapan pun dan Di mana pun</p>
+            <p class="text-center mt-2">kapan pun dan di mana pun!</p>
         </div>

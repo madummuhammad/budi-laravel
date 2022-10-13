@@ -212,7 +212,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-8">
-                    <p class="text-md-end text-center">Jam Operasional : (Senin - Jumat : 09.00 - 16.00 WIB)</p>
+                    <p class="text-md-end text-center">Jam Operasional : (Senin <i class="fa-solid fa-minus"></i> Jumat : 09.00 - 16.00 WIB)</p>
                 </div>
             </div>
             <div class="dash"></div>

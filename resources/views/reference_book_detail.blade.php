@@ -72,7 +72,7 @@
                     </div>
                     <span class="d-flex">
                         <img src="{{ url('web') }}/assets/icon/star.svg" alt="">
-                        {{ number_format($ratting_number, 1) }}
+                        {{ str_replace(".",",",number_format($ratting_number, 1)) }}
                     </span>
                 </div>
                 <div class="row">

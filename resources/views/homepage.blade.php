@@ -52,7 +52,7 @@
     </div>
     <div class="d-flex justify-content-center home">
         <div class="home-tab">
-            <h2 class="text-center title fw-bold fs-4 mb-4 fs-m-14px">Temukan buku sesuai minat dan kebutuhanmu !</h2>
+            <h2 class="text-center title fw-bold fs-4 mb-4 fs-m-14px">Temukan buku sesuai minat dan kebutuhanmu!</h2>
             <div class="home-tab-body w-100" id="home-tab-body">
                 <div class="container">
                     <div class="row">
@@ -164,7 +164,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <h3 class="text-center fw-bold">Jelajahi Lebih Dari 700 Buku Bacaan, Buku Komik, Buku Audio, dan
+        <h3 class="text-center fw-bold">Jelajahi Lebih dari 700 Buku Bacaan, Buku Komik, Buku Audio, dan
             Buku Video
         </h3>
     </div>
@@ -268,16 +268,16 @@
                             <div class="mt-5">
                                 @foreach ($book->authors as $author)
                                 <p class="text-center text-md-start"><span
-                                    class="fw-bold text-center text-md-start">Penulis :
+                                    class="fw-bold text-center text-md-start">Penulis:
                                 </span>{{ $author->name }}
                             </p>
                             @endforeach
-                            <p class="text-center text-md-start"><span class="fw-bold">Rating : </span><img
+                            <p class="text-center text-md-start"><span class="fw-bold">Rating: </span><img
                                 src="{{ asset('web') }}/assets/icon/star.svg" alt="">
                                 @if ($book->comments->where('book_id', $book->id)->count() == 0)
-                                0.0
+                                0,0
                                 @else
-                                {{ number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1) }}
+                                {{ str_replace(".",",",number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1)) }}
                                 @endif
                             </p>
                         </div>
@@ -371,13 +371,13 @@
             echo $book->sinopsis;
             @endphp
             @foreach ($book->authors as $author)
-            <p class="fw-bold">Penulis : {{ $author->name }}</p>
+            <p class="fw-bold">Penulis: {{ $author->name }}</p>
             @endforeach
-            <p><span class="fw-bold">Rating : </span>
+            <p><span class="fw-bold">Rating: </span>
                 @if ($book->comments->where('book_id', $book->id)->count() == 0)
-                0.0
+                0,0
                 @else
-                {{ number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1) }}
+                {{ str_replace(".",",",number_format($book->comments->where('book_id', $book->id)->sum('star') / $book->comments->where('book_id', $book->id)->count(), 1)) }}
                 @endif
             </p>
             <div class="audio-player audio-player-2"
@@ -451,7 +451,7 @@
             <div class="col-lg-6 d-flex align-items-center text-white text-center text-md-start">
                 <div class="">
                     <h2 class="ff-kidzone fs-50px text-white fs-m-40px">{{ $send_creation->heading }}</h2>
-                    <h4>{{ $send_creation->sub_heading }}</h4>
+                    <h4 class="ff-kidzone">{{ $send_creation->sub_heading }}</h4>
                     <p class="mt-5">{{ $send_creation->content }}</p>
                     <a href="{{ url('send_creation') }}" class="btn bg-oldblue text-white btn-section-8">Lebih
                     Lanjut</a>
