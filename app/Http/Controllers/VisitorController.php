@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LocationController;
 use App\Mail\VerificationEmail;
+use App\Mail\ForgotPassword;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +45,85 @@ class VisitorController extends Controller
         }
     }
 
+    public function forgot_password()
+    {
+        if (auth()->guard('visitor')->check() == false) {
+            return view('forgotpassword');
+        } else {
+            return back();
+        }
+    }
+
+    public function auth_forgot_password(Request $request)
+    {
+        $str_random = Str::random(60) . time();
+        $email=$request->email;
+        $emailexists=Visitor::where('email',$email)->where('status','Active');
+
+        if($emailexists->exists())
+        {
+            $emailexists->update(['token'=>$str_random]);
+            Mail::to(request('email'))->send(new ForgotPassword());
+            return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
+        } else {
+            return back()->with(['message' => 'Anda tidak memiliki Pos-el terdaftar']);
+        }
+
+    }
+
+    public function confirm_forgot($token)
+    {
+        $tokenexists=Visitor::where('token',$token);
+
+        $data['token']=$token;
+
+        if($tokenexists->exists()){
+            return view('forgotpasswordconfirm',$data);
+        } else {
+            return redirect('login');
+        }
+    }
+
+    public function update_password(Request $request,$token)
+    {
+        $password=$request->password;
+        $confirm_password=$request->confirm_password;
+
+        $data=[
+            'password'=>$password,
+            'confirm_password'=>$confirm_password
+        ];
+
+        $validationMessage=[
+            'password.required'=>'Sandi harus diisi',
+            'confirm_password.required'=>'Konfirmasi sandi harus diisi',
+            'confirm_password.same'=>'Sandi dan konfirmasi sandi harus sama'
+        ];
+
+        $validation=Validator::make($data,[
+            'password'=>'required',
+            'confirm_password'=>'required|same:password'
+        ],$validationMessage);
+
+        if($validation->fails()){
+            return back()->withErrors($validation);
+        }
+
+        $hash=Hash::make($password);
+
+        $emailexists=Visitor::where('token',$token)->update(['password'=>$hash,'token'=>'']);
+
+
+        return redirect('login')->with(['success'=>'Sandi berhasil diubah. Silakan login!']);
+    }
+
+
+
     public function confirm($id)
     {
         $token = Visitor::where('token', $id)->where('status', 'Pending')->first();
         if ($token) {
-            Visitor::where('token', $id)->update(['status' => 'Active']);
+            Visitor::where('token', $id)->update(['status' => 'Active','token'=>'']);
             return redirect('login')->with(['success' => 'Kredensial berhasil dikonfirmasi! Silakan Login']);
         } else {
             return abort(404);
@@ -113,7 +188,7 @@ class VisitorController extends Controller
         ];
         Visitor::create($data);
 
-            Mail::to(request('pos-el'))->send(new VerificationEmail());
+        Mail::to(request('pos-el'))->send(new VerificationEmail());
 
         return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
     }

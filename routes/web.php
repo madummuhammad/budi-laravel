@@ -46,6 +46,10 @@ Route::middleware('visitor', 'analytics')->group(function () {
         Route::get('/register', [VisitorController::class, 'register']);
         Route::post('/register', [VisitorController::class, 'auth_register']);
         Route::get('/confirm/{id}', [VisitorController::class, 'confirm']);
+        Route::get('forgot_password',[VisitorController::class,'forgot_password']);
+        Route::post('forgot_password',[VisitorController::class,'auth_forgot_password']);
+        Route::get('confirm_forgot/{id}',[VisitorController::class,'confirm_forgot']);
+        Route::post('confirm_forgot/{id}',[VisitorController::class,'update_password']);
 
         Route::post('/email', [WebController::class, 'message']);
 

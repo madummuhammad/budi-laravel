@@ -147,7 +147,7 @@
                                     @enderror
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <a href="" class="text-decoration-none text-blue">Lupa Kata Sandi?</a>
+                                    <a href="{{url('forgot_password')}}" class="text-decoration-none text-blue">Lupa Kata Sandi?</a>
                                 </div>
                                 <button id="btn-login" type="submit"
                                     class="btn bg-blue text-white w-100 mt-4">Masuk</button>
