@@ -296,6 +296,7 @@ class BookController extends Controller
     {
         $file = public_path() . '/storage' . '/' . request('file');
         if (request('book_type') == '9e30a937-0d60-49ad-9775-c19b97cfe864') {
+            // Audio
             if (file_exists($file) == false) {
                 return back();
             }

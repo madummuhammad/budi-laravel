@@ -163,7 +163,9 @@
                 <div class="owl-carousel owl-theme px-5" id="owl-carousel-2">
                     @foreach ($most_downloaded as $most_download)
                     <div class="item">
-                        <img class="img-fluid" src="{{ $most_download->cover }}" alt="">
+                        <a href="{{url('reference_book_detail/')}}/{{$most_download->id}}">
+                            <img class="img-fluid" src="{{ $most_download->cover }}" alt="">
+                        </a>
                     </div>
                     @endforeach
                 </div>

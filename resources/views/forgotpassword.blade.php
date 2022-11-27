@@ -134,10 +134,10 @@
                             </div>
                             @enderror
                             <button id="btn-login" type="submit"
-                            class="btn bg-blue text-white w-100">Kirim Email</button>
+                            class="btn bg-blue text-white w-100">Kirim</button>
                         </form>
                         <p class="mt-2 text-center">Sudah ingat sandi Anda? <a href="{{ url('login') }}"
-                            class="text-decoration-none text-blue fw-bold">Login</a></p>
+                            class="text-decoration-none text-blue fw-bold">Masuk</a></p>
                         </div>
                     </div>
                 </div>

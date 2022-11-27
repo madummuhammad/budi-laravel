@@ -64,7 +64,7 @@ class VisitorController extends Controller
         {
             $emailexists->update(['token'=>$str_random]);
             Mail::to(request('email'))->send(new ForgotPassword());
-            return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
+            return back()->with(['message' => 'Silakan periksa Pos-el  Untuk Konfirmasi']);
         } else {
             return back()->with(['message' => 'Anda tidak memiliki Pos-el terdaftar']);
         }
@@ -190,7 +190,7 @@ class VisitorController extends Controller
 
         Mail::to(request('pos-el'))->send(new VerificationEmail());
 
-        return back()->with(['message' => 'Silakan periksa Pos-el atau No Ponsel Untuk Konfirmasi']);
+        return back()->with(['message' => 'Silakan periksa Pos-el atau Untuk Konfirmasi']);
     }
 
     public function auth_login(Request $request)
