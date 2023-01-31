@@ -154,17 +154,17 @@
                         <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
                         style="display: none">
                         @method('POST')
-                        @if (auth()->guard('visitor')->check() == false)
+<!--                         @if (auth()->guard('visitor')->check() == false)
                         <a href="#mengunduh" data-bs-toggle="modal"
                         class="w-100 my-2 fs-14px btn bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4 w-100"><i
                         class="bi bi-download fs-5 me-3"></i> Unduh</a>
-                        @else
+                        @else -->
+                        <!-- @endif -->
                         <button
                         class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                         py-2 me-4 w-100 download"><i
                         class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                        @endif
                     </form>
                 </div>
                 <div class="col-md-3 col-6">
@@ -227,17 +227,17 @@
                     <input type="text" name="book_type" value="{{ $book_detail->book_type }}"
                     style="display: none">
                     @method('POST')
-                    @if (auth()->guard('visitor')->check() == false)
+      <!--               @if (auth()->guard('visitor')->check() == false)
                     <a href="" data-bs-toggle="modal" data-bs-target="#mengunduh"
                     class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                     py-2 me-4 w-100 download"><i
                     class="bi bi-download fs-5 me-3"></i> Unduh</a>
-                    @else
+                    @else -->
+                    <!-- @endif -->
                     <button type="submit" 
                     class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
                     py-2 me-4 w-100 download"><i
                     class="bi bi-download fs-5 me-3"></i> Unduh</button>
-                    @endif
                 </form>
             </div>
             <div class="col-6 col-md-3">
@@ -314,17 +314,17 @@
             <input type="text" name="name" value="{{ $book_detail->name }}"
             style="display: none">
             @method('POST')
-            @if (auth()->guard('visitor')->check() == false)
+<!--             @if (auth()->guard('visitor')->check() == false)
             <a href="#mengunduh" data-bs-toggle="modal"
             class="w-100 my-2 btn fs-14px bg-blue d-flex justify-content-center align-items-center
             py-2 me-4 download"><i
             class="bi bi-download fs-5 me-3"></i> Unduh</a>
-            @else
+            @else -->
+            <!-- @endif -->
             <button
             class="w-100 my-2 btn bg-blue fs-14px d-flex justify-content-center align-items-center
             py-2 me-4 download"><i
             class="bi bi-download fs-5 me-3"></i> Unduh</button>
-            @endif
         </form>
     </div>
     <div class="col-6 col-md-4 pe-1">

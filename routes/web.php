@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleWriterController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
@@ -10,21 +10,21 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BooktypeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MedaliController;
 use App\Http\Controllers\MylibraryController;
 use App\Http\Controllers\ReferencebookController;
 use App\Http\Controllers\ReferencebooktypeController;
 use App\Http\Controllers\ReferencethemeController;
 use App\Http\Controllers\SendcreationController;
-use App\Http\Controllers\FooterController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WebController;
-use App\Http\Controllers\MedaliController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,14 +46,14 @@ Route::middleware('visitor', 'analytics')->group(function () {
         Route::get('/register', [VisitorController::class, 'register']);
         Route::post('/register', [VisitorController::class, 'auth_register']);
         Route::get('/confirm/{id}', [VisitorController::class, 'confirm']);
-        Route::get('forgot_password',[VisitorController::class,'forgot_password']);
-        Route::post('forgot_password',[VisitorController::class,'auth_forgot_password']);
-        Route::get('confirm_forgot/{id}',[VisitorController::class,'confirm_forgot']);
-        Route::post('confirm_forgot/{id}',[VisitorController::class,'update_password']);
+        Route::get('forgot_password', [VisitorController::class, 'forgot_password']);
+        Route::post('forgot_password', [VisitorController::class, 'auth_forgot_password']);
+        Route::get('confirm_forgot/{id}', [VisitorController::class, 'confirm_forgot']);
+        Route::post('confirm_forgot/{id}', [VisitorController::class, 'update_password']);
 
         Route::post('/email', [WebController::class, 'message']);
 
-        Route::get('/check',[MedaliController::class,'index']);
+        Route::get('/check', [MedaliController::class, 'index']);
 
         // Route::get('/pdf', [WebController::class, 'pdf']);
 
@@ -92,6 +92,7 @@ Route::middleware('visitor', 'analytics')->group(function () {
         // Book Type
         Route::get('/book_type/{id}', [WebController::class, 'book_type']);
         Route::post('/book_type/{id}', [WebController::class, 'book_type_filter']);
+        Route::patch('/book_type/{id}', [WebController::class, 'pagination']);
 
         // Reference Book
         Route::get('/reference_book/{id}', [WebController::class, 'reference_book']);
@@ -205,10 +206,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/footer', [FooterController::class, 'update']);
 
         // About Budi
-        Route::get('about/{id}',[AboutController::class,'about']);
-        Route::patch('about/{id}',[AboutController::class,'update']);
-        Route::patch('about_content/{id}',[AboutController::class,'update_content']);
-        Route::get('information/{id}',[AboutController::class,'about']);
+        Route::get('about/{id}', [AboutController::class, 'about']);
+        Route::patch('about/{id}', [AboutController::class, 'update']);
+        Route::patch('about_content/{id}', [AboutController::class, 'update_content']);
+        Route::get('information/{id}', [AboutController::class, 'about']);
 
         // Book Type
         Route::get('/book_type/{id}', [BooktypeController::class, 'index']);

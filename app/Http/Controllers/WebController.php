@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\MedaliController;
 use App\Mail\MessageEmail;
+use App\Models\About;
 use App\Models\AudioBookHomepage;
 use App\Models\Author;
-use App\Models\About;
 use App\Models\AuthorOfTheMonth;
 use App\Models\Banner;
-use App\Models\ReadArticleAuthor;
 use App\Models\BannerMobile;
 use App\Models\Blog;
-use App\Models\SectionSix;
 use App\Models\Book;
 use App\Models\BookOfTheMonth;
 use App\Models\BookReadStatistic;
@@ -20,25 +19,26 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Language;
 use App\Models\Level;
+use App\Models\LikedArticleAuthor;
+use App\Models\LikedBlog;
 use App\Models\Mylibrary;
+use App\Models\ReadArticleAuthor;
+use App\Models\ReadBlog;
 use App\Models\ReferenceBook;
 use App\Models\ReferenceBookDownload;
 use App\Models\ReferenceBookLiked;
 use App\Models\ReferenceBookType;
 use App\Models\ReferenceComment;
 use App\Models\ReferenceTheme;
+use App\Models\SectionSix;
 use App\Models\SendCreation;
-use App\Models\LikedArticleAuthor;
 use App\Models\Tag;
-use App\Models\ReadBlog;
-use App\Models\LikedBlog;
 use App\Models\Theme;
 use App\Models\VisitorVisit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Http\Controllers\MedaliController;
 use setasign\Fpdi\Fpdi;
 use Storage;
 use Validator;
@@ -47,10 +47,10 @@ class WebController extends Controller
 {
     public function index()
     {
-        $medal=New MedaliController;
+        $medal = new MedaliController;
 
-        $data['medalC']=$medal;
-        $data['medal']=$medal->homepage();
+        $data['medalC'] = $medal;
+        $data['medal'] = $medal->homepage();
         $data['levels'] = Level::all();
         $data['books'] = Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
         $data['themes'] = Theme::all();
@@ -60,7 +60,7 @@ class WebController extends Controller
         $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
         $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
-        $data['section_sixs']=SectionSix::get();
+        $data['section_sixs'] = SectionSix::get();
         $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
 
         if (auth()->guard('visitor')->check() == true) {
@@ -109,8 +109,8 @@ class WebController extends Controller
 
     public function contact()
     {
-        $data['contact']=Contact::where('id','f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->first();
-        return view('contact',$data);
+        $data['contact'] = Contact::where('id', 'f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->first();
+        return view('contact', $data);
     }
 
     public function book($id)
@@ -132,7 +132,7 @@ class WebController extends Controller
             $data['reads'] = Mylibrary::where('book_id', $id)->where('visitor_id', auth()->guard('visitor')->user()->id)->first();
         }
         // $data['related_books'] = Book::where('theme', $data['book_detail']->theme)->orWhere('level', $data['book_detail']->level)->limit(6)->get();
-        $data['related_books'] = Book::where('book_type', $data['book_detail']->book_type)->whereNotIn('id',[$data['book_detail']->id])->limit(6)->get();
+        $data['related_books'] = Book::where('book_type', $data['book_detail']->book_type)->whereNotIn('id', [$data['book_detail']->id])->limit(6)->get();
         return view('book', $data);
     }
 
@@ -150,12 +150,12 @@ class WebController extends Controller
         return view('booktype', $data);
     }
 
-    public function book_type_filter($id)
+    public function book_type_filter(Request $request,$id)
     {
         $data['liked_number'] = Mylibrary::where('liked', 1)->get();
         $data['read_number'] = BookReadStatistic::get();
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
-            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->get();
+            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
         } else {
             $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id);
             if (request('jenjang') !== null) {
@@ -172,12 +172,47 @@ class WebController extends Controller
             if (request('search') !== null) {
                 $query = $queryData->where('name', 'LIKE', '%' . request('search') . '%');
             }
-            $data['books'] = $query->get();
+            $data['books'] = $query->paginate(10);
         }
         $data['themes'] = Theme::orderBy('name', 'ASC')->get();
 
         $data['book_types'] = Book_type::where('id', $id)->first();
         return view('booktypefilter', $data);
+        // return $data['books']->links();
+    }
+
+    public function pagination($id)
+    {
+        $data['liked_number'] = Mylibrary::where('liked', 1)->get();
+        $data['read_number'] = BookReadStatistic::get();
+        if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
+            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
+            $ceil=Book::count();
+        } else {
+            $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id);
+            if (request('jenjang') !== null) {
+                $query = $queryData->where('level', request('jenjang'));
+            }
+            if (request('tema') !== null) {
+                $query = $queryData->where('theme', request('tema'));
+            }
+
+            if (request('bahasa') !== null) {
+                $query = $queryData->where('language', request('bahasa'));
+            }
+
+            if (request('search') !== null) {
+                $query = $queryData->where('name', 'LIKE', '%' . request('search') . '%');
+            }
+            $data['books'] = $query->paginate(10);
+            $ceil=$query->count();
+        }
+        $data['themes'] = Theme::orderBy('name', 'ASC')->get();
+
+        $data['book_types'] = Book_type::where('id', $id)->first();
+        // return view('booktypefilter', $data);
+        // return $data['books'];
+        return $data['books'];
     }
 
     public function reference_book($id)
@@ -245,15 +280,15 @@ class WebController extends Controller
         $data['blog'] = Blog::with('tags', 'writers')->where('id', $id)->first();
 
         $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
-        if (auth()->guard('visitor')->check()==true) {
-            $visitor_id=auth()->guard('visitor')->user()->id;
+        if (auth()->guard('visitor')->check() == true) {
+            $visitor_id = auth()->guard('visitor')->user()->id;
         } else {
-            $visitor_id=null;
+            $visitor_id = null;
         }
-        $read=[
-            'blog_id'=>$id,
-            'visitor_id'=>$visitor_id,
-            'visitor_visit_id'=>$visitor_visit_id
+        $read = [
+            'blog_id' => $id,
+            'visitor_id' => $visitor_id,
+            'visitor_visit_id' => $visitor_visit_id,
         ];
         ReadBlog::create($read);
 
@@ -265,9 +300,9 @@ class WebController extends Controller
                 $query = $queryData->orWhere('tag', 'LIKE', '%' . $value['tag'] . '%');
             }
         }
-        $data['number_reads']=ReadBlog::where('blog_id',$id)->get();
-        $data['number_liked']=LikedBlog::where('blog_id',$id)->count();
-        $data['liked']=LikedBlog::where('blog_id',$id)->Where('visitor_id',$visitor_id)->orWhere('visitor_visit_id',$visitor_visit_id)->count();
+        $data['number_reads'] = ReadBlog::where('blog_id', $id)->get();
+        $data['number_liked'] = LikedBlog::where('blog_id', $id)->count();
+        $data['liked'] = LikedBlog::where('blog_id', $id)->Where('visitor_id', $visitor_id)->orWhere('visitor_visit_id', $visitor_visit_id)->count();
         $data['related_news'] = $query->get();
 
         return view('blog_detail', $data);
@@ -275,24 +310,24 @@ class WebController extends Controller
 
     public function blog_liked(Request $request)
     {
-        $blog_id=$request->blog_id;
+        $blog_id = $request->blog_id;
         $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
-        $status=request('status');
-        if (auth()->guard('visitor')->check()==true) {
-            $visitor_id=auth()->guard('visitor')->user()->id;
+        $status = request('status');
+        if (auth()->guard('visitor')->check() == true) {
+            $visitor_id = auth()->guard('visitor')->user()->id;
         } else {
-            $visitor_id=null;
+            $visitor_id = null;
         }
-        $read=[
-            'blog_id'=>$blog_id,
-            'visitor_id'=>$visitor_id,
-            'visitor_visit_id'=>$visitor_visit_id
+        $read = [
+            'blog_id' => $blog_id,
+            'visitor_id' => $visitor_id,
+            'visitor_visit_id' => $visitor_visit_id,
         ];
 
-        if($status=='unliked'){
+        if ($status == 'unliked') {
             LikedBlog::create($read);
         } else {
-            LikedBlog::where('blog_id',$blog_id)->where('visitor_visit_id',$visitor_visit_id)->orWhere('visitor_id',$visitor_id)->delete();
+            LikedBlog::where('blog_id', $blog_id)->where('visitor_visit_id', $visitor_visit_id)->orWhere('visitor_id', $visitor_id)->delete();
         }
     }
 
@@ -563,45 +598,45 @@ class WebController extends Controller
     public function author_profile(Request $request)
     {
         $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->first();
-        $author_id=$data['aotm']->author_id;
+        $author_id = $data['aotm']->author_id;
         $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
-        if (auth()->guard('visitor')->check()==true) {
-            $visitor_id=auth()->guard('visitor')->user()->id;
+        if (auth()->guard('visitor')->check() == true) {
+            $visitor_id = auth()->guard('visitor')->user()->id;
         } else {
-            $visitor_id=null;
+            $visitor_id = null;
         }
-        $read=[
-            'author_id'=>$author_id,
-            'visitor_id'=>$visitor_id,
-            'visitor_visit_id'=>$visitor_visit_id
+        $read = [
+            'author_id' => $author_id,
+            'visitor_id' => $visitor_id,
+            'visitor_visit_id' => $visitor_visit_id,
         ];
         ReadArticleAuthor::create($read);
-        $data['number_reads']=ReadArticleAuthor::where('author_id',$author_id)->get();
-        $data['number_liked']=LikedArticleAuthor::where('author_id',$author_id)->count();
-        $data['liked']=LikedArticleAuthor::where('author_id',$author_id)->Where('visitor_id',$visitor_id)->orWhere('visitor_visit_id',$visitor_visit_id)->count();
+        $data['number_reads'] = ReadArticleAuthor::where('author_id', $author_id)->get();
+        $data['number_liked'] = LikedArticleAuthor::where('author_id', $author_id)->count();
+        $data['liked'] = LikedArticleAuthor::where('author_id', $author_id)->Where('visitor_id', $visitor_id)->orWhere('visitor_visit_id', $visitor_visit_id)->count();
         return view('author', $data);
     }
 
     public function author_profile_liked(Request $request)
     {
-        $author_id=$request->author_id;
+        $author_id = $request->author_id;
         $visitor_visit_id = json_decode($request->cookie('visitor_session'))->id;
-        $status=request('status');
-        if (auth()->guard('visitor')->check()==true) {
-            $visitor_id=auth()->guard('visitor')->user()->id;
+        $status = request('status');
+        if (auth()->guard('visitor')->check() == true) {
+            $visitor_id = auth()->guard('visitor')->user()->id;
         } else {
-            $visitor_id=null;
+            $visitor_id = null;
         }
-        $read=[
-            'author_id'=>$author_id,
-            'visitor_id'=>$visitor_id,
-            'visitor_visit_id'=>$visitor_visit_id
+        $read = [
+            'author_id' => $author_id,
+            'visitor_id' => $visitor_id,
+            'visitor_visit_id' => $visitor_visit_id,
         ];
 
-        if($status=='unliked'){
+        if ($status == 'unliked') {
             LikedArticleAuthor::create($read);
         } else {
-            LikedArticleAuthor::where('author_id',$author_id)->where('visitor_visit_id',$visitor_visit_id)->orWhere('visitor_id',$visitor_id)->delete();
+            LikedArticleAuthor::where('author_id', $author_id)->where('visitor_visit_id', $visitor_visit_id)->orWhere('visitor_id', $visitor_id)->delete();
         }
     }
 
@@ -638,18 +673,18 @@ class WebController extends Controller
         $author_id = request('author');
         $content = request('content');
         $content_homepage = request('content_homepage');
-        if (request('date')==null) {
-            $date=date('Y-m-d');
+        if (request('date') == null) {
+            $date = date('Y-m-d');
         } else {
-            $date=request('date');
+            $date = request('date');
         }
 
         $data = [
             'author_id' => $author_id,
             'content' => $content,
             'content_homepage' => $content_homepage,
-            'user_id'=>auth()->user()->name,
-            'uploaded_at'=>$this->ind_date($date)
+            'user_id' => auth()->user()->name,
+            'uploaded_at' => $this->ind_date($date),
         ];
         $validation = Validator::make($data, [
             'author_id' => 'required',
@@ -733,14 +768,14 @@ class WebController extends Controller
 
     public function about()
     {
-        $data['about']=About::where('id','ad337ac3-9bb6-4601-abda-6aed09a3cae7')->first();
-        return view('about',$data);
+        $data['about'] = About::where('id', 'ad337ac3-9bb6-4601-abda-6aed09a3cae7')->first();
+        return view('about', $data);
     }
 
     public function policy()
     {
-        $data['about']=About::where('id','52141ed1-eaed-42ef-9978-94561d0b77ca')->first();
-        return view('about',$data);
+        $data['about'] = About::where('id', '52141ed1-eaed-42ef-9978-94561d0b77ca')->first();
+        return view('about', $data);
     }
 
     public function search()

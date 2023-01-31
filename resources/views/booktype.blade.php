@@ -174,12 +174,32 @@
             data-id="{{ $theme->id }}">{{ $theme->name }}</a></div>
             @endforeach
         </div>
-        <div class="row" id="book_type">
-
+        <div class="row loading d-none">
+            <div class="d-flex justify-content-center"><img class="w-25"
+                src="{{ asset('web/assets/loading.gif') }}" alt=""></div>
+            </div>
+            <div class="row" id="book_type">
+            </div>
+            <div class="d-flex justify-content-center pagination-container light-theme simple-pagination">
+                <ul id="pagination">
+<!--                     <li class="disabled">
+                        <span class="current prev">g</span>
+                    </li>
+                    <li class="active">
+                        <span class="current">1</span>
+                    </li>
+                    <li>
+                        <a href="?page=1"  class="page-link">2</a>
+                    </li>
+                    <li>
+                        <a href="?page=2"  class="page-link next">g</a>
+                    </li> -->
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 <div id="section-5" style="margin-top:80px">
     <h2 class="text-center mb-4 fw-bold">Paling Banyak @if ($book_types->id == '9e30a937-0d60-49ad-9775-c19b97cfe864')
         Didengar
@@ -195,7 +215,7 @@
                 <div class="owl-carousel owl-theme px-5" id="owl-carousel-2">
                     @foreach ($most_reads as $book_read)
                     <div class="item">
-                        <a href="{{url('book/')}}/{{$book_read->id}}">
+                        <a href="{{ url('book/') }}/{{ $book_read->id }}">
                             <img class="img-fluid" src="{{ $book_read->cover }}" alt="">
                         </a>
                     </div>
@@ -259,64 +279,184 @@
         var pagination_link = $(".pagination-link").length;
         var token = $("input[name=_token]").val();
         $(document).ready(function() {
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('book_type/') }}/{{ $book_types->id }}",
-                data: {
-                    _method: "POST",
-                    _token: token,
-                },
-                success: function(hasil) {
-                    $("#book_type").html(hasil);
-                    $("#search-button").on('click', function() {
-                        var jenjang = $("[name=jenjang]").val();
-                        var tema = $("[name=tema]").val();
-                        var bahasa = $("[name=bahasa]").val();
-                        var search = $("#search").val();
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ url('book_type/') }}/{{ $book_types->id }}",
-                            data: {
-                                _method: "POST",
-                                _token: token,
-                                jenjang: jenjang,
-                                tema: tema,
-                                bahasa: bahasa,
-                                search: search
-                            },
-                            success: function(hasil) {
-                                $("#book_type").html(hasil);
-                            }
-                        });
-                    })
-                    var filter_theme = $(".filter-theme .nav-item a");
+            get();
+            button_pagination();
 
-                    for (let i = 0; i < filter_theme.length; i++) {
-                        $(filter_theme[i]).on('click', function() {
-                            var tema = $(this).data('id');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ url('book_type/') }}/{{ $book_types->id }}",
-                                data: {
-                                    _method: "POST",
-                                    _token: token,
-                                    tema: tema,
-                                },
-                                success: function(hasil) {
-                                    $("#book_type").html(hasil);
-                                }
-                            });
-                            if ($(this).data('semua') == 0) {
-                                $("#tema button").html("<p class='overflow-hidden'>Tema</p>");
-                            } else {
-                                $("#tema button").html("<p class='overflow-hidden'>" + $(this)
-                                    .html() + "</p>");
-                            }
-                            $("[name=tema]").val(tema);
-                        })
+            function button_pagination()
+            {                
+                $("#pagination a").on('click',function(event){
+                    // alert('asdf')
+                $("#book_type").addClass('d-none');
+                    event.preventDefault();
+                    var newUrl = $(this).attr("href");
+                    history.pushState(null, null, newUrl);
+                    var jenjang = $("[name=jenjang]").val();
+                    var tema = $("[name=tema]").val();
+                    var bahasa = $("[name=bahasa]").val();
+                    var search = $("#search").val();
+                    search_function();
+                    pagination(token,jenjang,tema,bahasa,search);
+                })
+            }
+
+            function search_function()
+            {
+                $(".loading").removeClass('d-none');
+                $(".loading").addClass('d-flex');
+                $("#book_type").addClass('d-none');
+                var jenjang = $("[name=jenjang]").val();
+                var tema = $("[name=tema]").val();
+                var bahasa = $("[name=bahasa]").val();
+                var search = $("#search").val();
+                pagination(token,jenjang,tema,bahasa,search);
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: {
+                        _method: "POST",
+                        _token: token,
+                        jenjang: jenjang,
+                        tema: tema,
+                        bahasa: bahasa,
+                        search: search
+                    },
+                    success: function(hasil) {
+                        $(".loading").removeClass('d-flex');
+                        $(".loading").addClass('d-none');
+                        $("#book_type").removeClass('d-none');
+                        $("#book_type").html(hasil);
                     }
-                }
-            });
+                });
+            }
+
+            function pagination(token,jenjang,tema,bahasa,search)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: {
+                        _method: "PATCH",
+                        _token: token,
+                        jenjang: jenjang,
+                        tema: tema,
+                        bahasa: bahasa,
+                        search: search
+                    },
+                    success: function(hasil) {
+                        if(hasil.current_page>hasil.last_page){
+                            var url = '?page=1';
+                            console.log('asdf',url)
+                            history.pushState({}, '', url);
+
+                            var event = new Event('popstate');
+                            window.dispatchEvent(event);
+                            search_function(token,jenjang,tema,bahasa,search);
+                        }
+                        $("#pagination").html('');
+                        for (var i = hasil.links.length-1; i >= 0; i--) {
+                            if(i==0){
+                                if(hasil.links[i].url==null){
+                                    $("#pagination").prepend(`<li class="disabled">
+                                        <span class="current prev">g</span>
+                                        </li>`) 
+                                } else {
+                                   $("#pagination").prepend(`<li>
+                                    <a href="`+hasil.links[i].url+`"  class="page-link prev">g</a>
+                                    </li>`) 
+                               }
+                           }
+                           if(i!==0 && i!== hasil.links.length-1){
+                            if(hasil.links[i].active==true){
+                               $("#pagination").prepend(`<li class="active"><span class="current">`+hasil.links[i].label+`</span></li>`)
+                           } else {
+                            if(hasil.links[i].url!==null){
+                                $("#pagination").prepend(`<li>
+                                    <a href="`+hasil.links[i].url+`"  class="page-link">`+hasil.links[i].label+`</a>
+                                    </li>`)
+                            } else {
+                             $("#pagination").prepend(`<li>
+                                <a href=""  class="page-link">`+hasil.links[i].label+`</a>
+                                </li>`)
+                         }
+                     }
+                 }
+
+                 if(i==hasil.links.length-1){
+                   if(hasil.links[i].url==null){
+                    $("#pagination").prepend(`<li class="disabled">
+                        <span class="current next">g</span>
+                        </li>`) 
+                } else {
+                   $("#pagination").prepend(`<li>
+                    <a href="`+hasil.links[i].url+`"  class="page-link next">g</a>
+                    </li>`) 
+               }
+           }
+       }
+       $("#book_type").removeClass('d-flex');
+       button_pagination();
+   }
+})
+            }
+
+
+            function get()
+            {
+                $("#book_type").addClass('d-none');
+                $(".loading").removeClass('d-none');
+                $(".loading").addClass('d-flex');
+                pagination(token,null,null,null,null);
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: {
+                        _method: "POST",
+                        _token: token,
+                    },
+                    success: function(hasil) {
+                        $(".loading").removeClass('d-flex');
+                        $(".loading").addClass('d-none');
+                        $("#book_type").removeClass('d-none');
+                        $("#book_type").html(hasil);
+                        $("#search-button").on('click', function() {
+                            search_function();
+                        })
+                        var filter_theme = $(".filter-theme .nav-item a");
+
+                        for (let i = 0; i < filter_theme.length; i++) {
+                            $(filter_theme[i]).on('click', function() {
+                                $(".loading").removeClass('d-none');
+                                $(".loading").addClass('d-flex');
+                                $("#book_type").addClass('d-none');
+                                var tema = $(this).data('id');
+                                pagination(token,null,tema,null,null)
+                                $.ajax({
+                                    type: 'POST',
+                                    url: window.location.href,
+                                    data: {
+                                        _method: "POST",
+                                        _token: token,
+                                        tema: tema,
+                                    },
+                                    success: function(hasil) {
+                                        $(".loading").removeClass('d-flex');
+                                        $(".loading").addClass('d-none');
+                                        $("#book_type").removeClass('d-none');
+                                        $("#book_type").html(hasil);
+                                    }
+                                });
+                                if ($(this).data('semua') == 0) {
+                                    $("#tema button").html("<p class='overflow-hidden'>Tema</p>");
+                                } else {
+                                    $("#tema button").html("<p class='overflow-hidden'>" + $(this)
+                                        .html() + "</p>");
+                                }
+                                $("[name=tema]").val(tema);
+                            })
+                        }
+                    }
+                });
+            }
         });
     </script>
     @endsection

@@ -20,9 +20,9 @@ class DashboardController extends Controller
         $users = Active::users()->count();
         $guests = Active::guests()->count();
         $totalActiveUser = $users+$guests;
-        $pengunjung = AnalyticsUser::get();
+        // $pengunjung = AnalyticsUser::get();
         $kunjungan = PageView::whereDate('created_at', Carbon::today())->get();
-        $kunjunganAll = PageView::get();
+        // $kunjunganAll = PageView::get();
 
         $from = date('Y-m-d 00:00:00', strtotime('-1 month'));
         $from = new DateTime($from);
@@ -70,14 +70,14 @@ class DashboardController extends Controller
         $query->withCount('mylibraries');
        }])->get();
 
-        $datapengunjung = PageView::whereBetween('created_at', [$from, $to])->get();
+        // $datapengunjung = PageView::whereBetween('created_at', [$from, $to])->get();
 
         return view('dashboard.dashboard', compact(
             'totalActiveUser', 
-            'pengunjung', 
-            'kunjunganAll', 
+            // 'pengunjung', 
+            // 'kunjunganAll', 
             'kunjungan', 
-            'datapengunjung', 
+            // 'datapengunjung', 
             'to', 
             'from', 
             'tema', 

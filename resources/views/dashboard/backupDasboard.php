@@ -256,6 +256,26 @@
     @endforeach
     ];
 
+    const data_chart_pengunjung = {
+        labels: labels_chart_pengunjung,
+        datasets: [
+        {
+            label: 'Data Pengunjung',
+            data: [
+            @foreach ($period as $key => $value)
+            @if($to < date('Y-m-d 00:00:00', strtotime('+1 month', strtotime($from))))
+            '{{count($datapengunjung->where("created_at" , ">=", $value->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", $value->format("Y-m-d")." 23:59:59")->groupBy("session"))}}',
+            @else
+            @php 
+            $time = strtotime($value->format("Y-m-d"));
+            @endphp
+            '{{count($datapengunjung->where("created_at" , ">=", $value->format("Y-m-d")." 00:00:00")->where("created_at" , "<=", date("Y-m-d", strtotime("+1 month", $time))." 23:59:59")->groupBy("session"))}}',
+            @endif
+            @endforeach
+            ],
+        }
+        ]
+    };
 
     const config_chart_pengunjung = {
         type: '{{iterator_count($period) > 1 ? "line" : "bar"}}',
@@ -362,8 +382,28 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content text-left">
+                            <div class="stat-text">Pengunjung sepanjang waktu</div>
+                            <div class="stat-digit"> <i class="fa fa-users mr-4"></i> {{count($pengunjung)}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content text-left">
+                            <div class="stat-text">Kunjungan sepanjang waktu</div>
+                            <div class="stat-digit"> <i class="fa fa-users mr-4"></i> {{count($kunjunganAll)}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-<!--         <div class="row">
+        <div class="row">
             <div class="col-xl-12 col-lg-8 col-md-8">
                 <div class="accordion" id="accordionExample">
                     <div class="card">
@@ -385,7 +425,72 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-8">
+                                <canvas id="Chart-pengunjung" height="80"></canvas>
+                            </div>
+                            <div class="col-xl-12 col-lg-8">
+                                <div class="table-responsive">
+                                    <h3 class="mt-5">Data Pengunjung</h3>
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nama</th>
+                                                <th>Lokasi</th>
+                                                <th>Device</th>
+                                                <th>Browser</th>
+                                                <th>Ip</th>
+                                                <th>Tanggal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $i=1; @endphp
+                                            @foreach($datapengunjung->groupBy('session') as $itemDatapengunjung)
+                                            <tr>
+                                                <td>{{$i++}}</td>
+                                                <td>{{$itemDatapengunjung->first()->session_data->user ? $itemDatapengunjung->first()->session_data->user->name : 'Unknow'}}</td>
+                                                <td>
+                                                    <span>
+                                                        @php
+                                                        if($itemDatapengunjung->first()->session_data->user){
+                                                            $local = $itemDatapengunjung->first()->session_data->user;
+                                                            $location = new \App\Http\Controllers\LocationController;
+                                                            $province = $location->detail_province($local->province)->original->nama;
+                                                            $city = $location->detail_city($local->city)->original->nama;
+                                                            $district = $location->detail_district($local->district)->original->nama;
+                                                            $sub_district = $location->detail_sub_district($local->sub_district)->original->nama;
+
+                                                            $localData = $sub_district.', '.$district.', '.$city.', '.$province;
+
+                                                            echo $localData;
+                                                        }else{
+                                                            echo 'Unknow';
+                                                        }
+                                                        @endphp
+                                                    </span>
+                                                </td>
+                                                <td><span>{{$itemDatapengunjung->first()->device}}</span></td>
+                                                <td><span>{{$itemDatapengunjung->first()->browser}}</span></td>
+                                                <td><span>{{$itemDatapengunjung->first()->ip}}</span></td>
+                                                <td><span>{{$itemDatapengunjung->first()->created_at}}</span></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -600,6 +705,116 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <h4 class="card-title mt-4 mb-4">Analisis Website</h4>
+
+        <div class="row" style="margin-top:30px">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Perangkat</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="current-progress">
+                            @foreach($kunjunganAll->groupBy('device') as $item)
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="progress-text">{{$item->first()->device}}</div>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        {{count($item)}}
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Browser</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="current-progress">
+                            @foreach($kunjunganAll->groupBy('country') as $item)
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="progress-text">{{$item->first()->browser}}</div>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        {{count($item)}}
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Asal Kunjungan</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="current-progress">
+                            @foreach($kunjunganAll->groupBy('source') as $item)
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="progress-text">{{$item->first()->source}}</div>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        {{count($item)}}
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Halaman Yang Dilihat</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Url</th>
+                                        <th>Perangkat</th>
+                                        <th>Browser</th>
+                                        <th>Ip</th>
+                                        <th>Tanggal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $i=1; @endphp
+                                    @foreach($kunjunganAll as $item)
+                                    <tr>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$item->uri}}</td>
+                                        <td>{{$item->device}}</td>
+                                        <td>{{$item->browser}}</td>
+                                        <td>{{$item->ip}}</td>
+                                        <td>{{$item->created_at}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </div>

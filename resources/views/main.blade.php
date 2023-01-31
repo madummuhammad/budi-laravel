@@ -56,16 +56,18 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('mylibrary') }}">Pustakaku</a>
                     </li>
                     <li class="nav-item px-0 px-md-3 dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Referensi
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item"
-                                    href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi Buku</a>
+                                    href="{{ url('reference_book/5cbb48f9-aed4-44a9-90c2-71cbcef71264') }}">Referensi
+                                    Buku</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="{{ url('reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">Referensi Video</a>
+                                    href="{{ url('reference_book/220843b8-4f60-4e47-9aca-cf6ea0d54afe') }}">Referensi
+                                    Video</a>
                             </li>
                         </ul>
                     </li>
@@ -92,7 +94,8 @@
                                     <form method="POST" action="{{ url('logout') }}">
                                         @csrf
                                         @method('POST')
-                                        <li><button type="submit" class="dropdown-item text-blue">Keluar</button></li>
+                                        <li><button type="submit" class="dropdown-item text-blue">Keluar</button>
+                                        </li>
                                     </form>
                                 </ul>
                             </div>
@@ -131,8 +134,8 @@
     @yield('content')
 
     @php
-    use App\Models\Contact;
-    $footer=Contact::where('id','f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->first();
+        use App\Models\Contact;
+        $footer = Contact::where('id', 'f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->first();
     @endphp
 
     <footer>
@@ -145,11 +148,11 @@
                                 class="img-fluid col-4 col-md-12">
                         </div>
                         <div class="col-12 col-md-10">
-                            
+
 
                             <div class="text-dark fw-bold fs-m-14px">@php echo $footer->heading @endphp</div>
-                            
-                            <p>{{$footer->sub_heading}}</p>
+
+                            <p>{{ $footer->sub_heading }}</p>
                         </div>
                     </div>
                 </div>
@@ -179,18 +182,19 @@
                     </div>
                     <p class="p-0 text-center text-md-start"><img class="d-none d-md-inline"
                             src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
-                        {{$footer->email}}</p>
+                        {{ $footer->email }}</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
                     </div>
                     <p class="text-md-start text-center"><img class="d-none d-md-inline"
-                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> {{$footer->phone}}</p>
+                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> {{ $footer->phone }}
+                    </p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
                     </div>
                     <p class="text-center text-md-start"><img class="d-none d-md-inline"
                             src="{{ url('web') }}/assets/icon/pin.svg" alt="">
-                        {{$footer->address}}</p>
+                        {{ $footer->address }}</p>
                 </div>
             </div>
             <div class="row sosmed-icon">
@@ -198,21 +202,27 @@
                     <div class="row">
                         <div class="col-12 col-md-2"></div>
                         <div class="col-12 col-md-10 d-flex d-md-block justify-content-center">
-                        <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/" target="_blank"><img
-                            class="mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg" alt=""></a>
-                    <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/" target="_blank"><img
-                            class="mx-2" src="{{ asset('web') }}/assets/icon/facebook.svg" alt=""></a>
-                    <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img class="mx-2"
-                            src="{{ asset('web') }}/assets/icon/twitter.svg" alt=""></a>
-                    <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img class="mx-2"
-                            src="{{ asset('web') }}/assets/icon/youtube.svg" alt=""></a>
-                    <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img class="mx-2"
-                            src="{{ asset('web') }}/assets/icon/tiktok.svg" alt=""></a>
+                            <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/"
+                                target="_blank"><img class="mx-2"
+                                    src="{{ asset('web') }}/assets/icon/instagram.svg" alt=""></a>
+                            <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/"
+                                target="_blank"><img class="mx-2"
+                                    src="{{ asset('web') }}/assets/icon/facebook.svg" alt=""></a>
+                            <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img
+                                    class="mx-2" src="{{ asset('web') }}/assets/icon/twitter.svg"
+                                    alt=""></a>
+                            <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img
+                                    class="mx-2" src="{{ asset('web') }}/assets/icon/youtube.svg"
+                                    alt=""></a>
+                            <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img
+                                    class="mx-2" src="{{ asset('web') }}/assets/icon/tiktok.svg"
+                                    alt=""></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-8">
-                    <p class="text-md-end text-center">Jam Operasional : (Senin <i class="fa-solid fa-minus"></i> Jumat : 09.00 - 16.00 WIB)</p>
+                    <p class="text-md-end text-center">Jam Operasional : (Senin <i class="fa-solid fa-minus"></i>
+                        Jumat : 09.00 - 16.00 WIB)</p>
                 </div>
             </div>
             <div class="dash"></div>
@@ -261,7 +271,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
 
                             <h5>Kamu belum selesai @if ($reads->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     mendengar
