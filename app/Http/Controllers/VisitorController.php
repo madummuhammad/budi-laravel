@@ -155,7 +155,7 @@ class VisitorController extends Controller
             'status' => 'required',
             'date_of_birth'=>'required',
             'pos-el'=>'required',
-            'username' => 'required|unique:visitors,username',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
@@ -186,11 +186,28 @@ class VisitorController extends Controller
             'username' => request('username'),
             'password' => Hash::make(request('password')),
         ];
-        Visitor::create($data);
 
-        Mail::to(request('pos-el'))->send(new VerificationEmail());
+        $active=Visitor::where('email',request('pos-el'))->where('status','Active')->exists();
+        $username_active=Visitor::where('username',request('username'))->where('status','Active')->exists();
+        if($username_active){
+            return back()->with(['message' => 'Pengguna telah terdaftar']);
+        }
+        
+        if($active){
+            return back()->with(['message' => 'Pos-el anda telah terdaftar']);
+        } else {
+            $pending=Visitor::where('username', request('username'))->where('email',request('pos-el'))->where('status','Pending')->exists();
+            if($pending){
+                Visitor::where('username', request('username'))->where('email',request('pos-el'))->update($data);
+                Mail::to(request('pos-el'))->send(new VerificationEmail());
+            } else {
+                Visitor::create($data);
+                Mail::to(request('pos-el'))->send(new VerificationEmail());
+            }
+            return back()->with(['message' => 'Silakan periksa Pos-el atau Untuk Konfirmasi']);
+        }
 
-        return back()->with(['message' => 'Silakan periksa Pos-el atau Untuk Konfirmasi']);
+
     }
 
     public function auth_login(Request $request)

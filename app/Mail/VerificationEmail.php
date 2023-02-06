@@ -28,7 +28,7 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        $visitor = Visitor::where('email', request('pos-el'))->first();
+        $visitor = Visitor::where('username', request('username'))->where('email',request('pos-el'))->first();
         return $this->from('support@budi.ansol.id')
             ->view('verification')
             ->with(

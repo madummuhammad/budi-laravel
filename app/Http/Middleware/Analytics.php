@@ -73,15 +73,15 @@ class Analytics
             }
         }
 
-        PageView::create([
-            'session' => Session::getId(),
-            'ip'     => $request->ip(),
-            'uri'     => $uri,
-            'source'  => $request->headers->get('referer'),
-            'country' => $agent->languages()[0] ?? 'en-en',
-            'browser' => $agent->browser() ?? null,
-            'device'  => $agent->deviceType(),
-        ]);
+        // PageView::create([
+        //     'session' => Session::getId(),
+        //     'ip'     => $request->ip(),
+        //     'uri'     => $uri,
+        //     'source'  => $request->headers->get('referer'),
+        //     'country' => $agent->languages()[0] ?? 'en-en',
+        //     'browser' => $agent->browser() ?? null,
+        //     'device'  => $agent->deviceType(),
+        // ]);
         
 
 
