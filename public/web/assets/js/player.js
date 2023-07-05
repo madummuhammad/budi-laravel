@@ -1,19 +1,21 @@
-var src = $(".audio-player").data('audio');
-const audioPlayer = document.querySelector(".audio-player");
-const audio = new Audio(
-    src
-);
+$(document).ready(function(){
 
-audio.addEventListener(
-    "loadeddata",
-    () => {
-        audioPlayer.querySelector(".time .length").textContent = getTimeCodeFromNum(
-            audio.duration
+    var src = $(".audio-player").data('audio');
+    const audioPlayer = document.querySelector(".audio-player");
+    const audio = new Audio(
+        src
         );
-        audio.volume = .75;
-    },
-    false
-);
+
+    audio.addEventListener(
+        "loadeddata",
+        () => {
+            audioPlayer.querySelector(".time .length").textContent = getTimeCodeFromNum(
+                audio.duration
+                );
+            audio.volume = .75;
+        },
+        false
+        );
 
 //click on timeline to skip around
 const timeline = audioPlayer.querySelector(".timeline");
@@ -38,7 +40,7 @@ setInterval(() => {
     progressBar.style.width = audio.currentTime / audio.duration * 100 + "%";
     audioPlayer.querySelector(".time .current").textContent = getTimeCodeFromNum(
         audio.currentTime
-    );
+        );
 }, 500);
 
 //toggle between playing and pausing on button click
@@ -57,7 +59,7 @@ playBtn.addEventListener(
         }
     },
     false
-);
+    );
 
 audioPlayer.querySelector(".volume-button").addEventListener("click", () => {
     const volumeEl = audioPlayer.querySelector(".volume-container .volume");
@@ -82,7 +84,7 @@ function getTimeCodeFromNum(num) {
     if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
     return `${String(hours).padStart(2, 0)}:${minutes}:${String(
         seconds % 60
-    ).padStart(2, 0)}`;
+        ).padStart(2, 0)}`;
 }
 
 // sadsafdadf
@@ -92,18 +94,18 @@ var src = $(".audio-player-2").data('audio');
 const audioPlayer2 = document.querySelector(".audio-player-2");
 const audio2 = new Audio(
     src
-);
+    );
 
 audio.addEventListener(
     "loadeddata",
     () => {
         audioPlayer2.querySelector(".time-2 .length-2").textContent = getTimeCodeFromNum(
             audio2.duration
-        );
+            );
         audio2.volume = .75;
     },
     false
-);
+    );
 
 //click on timeline to skip around
 const timeline2 = audioPlayer2.querySelector(".timeline-2");
@@ -128,7 +130,7 @@ setInterval(() => {
     progressBar2.style.width = audio2.currentTime / audio2.duration * 100 + "%";
     audioPlayer2.querySelector(".time-2 .current-2").textContent = getTimeCodeFromNum(
         audio2.currentTime
-    );
+        );
 }, 500);
 
 //toggle between playing and pausing on button click
@@ -147,7 +149,7 @@ playBtn2.addEventListener(
         }
     },
     false
-);
+    );
 
 audioPlayer2.querySelector(".volume-button").addEventListener("click", () => {
     const volumeEl2 = audioPlayer2.querySelector(".volume-container .volume");
@@ -172,7 +174,9 @@ function getTimeCodeFromNum(num) {
     if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
     return `${String(hours).padStart(2, 0)}:${minutes}:${String(
         seconds % 60
-    ).padStart(2, 0)}`;
+        ).padStart(2, 0)}`;
 }
 
 // sadsafdadf
+
+})

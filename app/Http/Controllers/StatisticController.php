@@ -22,7 +22,12 @@ class StatisticController extends Controller
 {
     public function visitor()
     {
-        $data['visitors'] = VisitorVisit::with('visitors')->orderBy('created_at', 'DESC')->get();
+        $data['visitors'] = VisitorVisit::with('visitors')->orderBy('created_at', 'DESC')->paginate(10);
+        $data['today'] = VisitorVisit::with('visitors')->whereDay('created_at', '=', date('d'))->whereMonth('created_at', '=', date('m'))->whereYear('created_at', '=', date('Y'))->orderBy('created_at', 'DESC')->get();
+
+
+        // return $data['visitors'];
+
         return view('dashboard.visitorstatistic', $data);
     }
 

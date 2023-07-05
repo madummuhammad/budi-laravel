@@ -356,12 +356,12 @@
 </body>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>
-{{-- <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script> --}}
+<!-- <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script> -->
 <script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
 <script src="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/js/owl.carousel.js"></script>
 <script type="text/javascript" src="{{ asset('web') }}/assets/vendor/pdf/wow_book/pdf.combined.min.js"></script>
 <script src="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.min.js"></script>
-{{-- <script src="js/main.js"></script> --}}
+<!-- <script src="js/main.js"></script> -->
 <script src="{{ asset('web') }}/assets/js/script.js"></script>
 <script src="{{ asset('web') }}/assets/js/player.js"></script>
 

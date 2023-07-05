@@ -335,12 +335,13 @@
                         <img class="img" src="{{ $book->cover }}" alt="">
                     </a>
                 </div>   
-                <div class="audio-player" id="audio-player-home"
-                data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px">
+                <div class="audio-player" id="audio-player-home" style="margin-top: 10px">
+<!--                 <div class="audio-player" id="audio-player-home"
+                data-audio="{{ asset('storage') }}/{{ $book->content }}" style="margin-top: 10px"> -->
                 <div class="controls">
                     <div class="play-container">
-                        <div class="toggle-play toggle-play-2 play">
-                        </div>
+                        <a href="{{url('book')}}/{{$book->id}}" class="toggle-play toggle-play-2 play">
+                        </a>
                     </div>
                     <div class="timeline d-flex justify-content-start border-0">
                         <div class="progress" style="background-color: #2B388B;"></div>
@@ -381,8 +382,10 @@
                 @endif
             </p>
             <div class="audio-player audio-player-2"
-            data-audio="{{ asset('storage') }}/{{ $book->content }}"
             style="margin-top: 10px; visibility:hidden">
+<!--                         <div class="audio-player audio-player-2"
+            data-audio="{{ asset('storage') }}/{{ $book->content }}"
+            style="margin-top: 10px; visibility:hidden"> -->
             <div class="controls controls-2">
                 <div class="play-container">
                     <div class="toggle-play toggle-play-2 play">
@@ -860,22 +863,6 @@
                 window.location.href =
                 "{{ url('search?') }}level=" + jenjang + "&theme=" + tema +
                 "&language=" + bahasa + "&format=" + format + "&keyword=" + search
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: "{{ url('homebookfilter') }}",
-                    //     data: {
-                    //         _method: "POST",
-                    //         _token: token,
-                    //         jenjang: jenjang,
-                    //         tema: tema,
-                    //         bahasa: bahasa,
-                    //         format: format,
-                    //         search: search
-                    //     },
-                    //     success: function(hasil) {
-                    //         $("#tab-book").html(hasil);
-                    //     }
-                    // });
                 });
             $("#tab-book").html(hasil);
         }

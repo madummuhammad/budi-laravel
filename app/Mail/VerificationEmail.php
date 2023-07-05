@@ -29,7 +29,7 @@ class VerificationEmail extends Mailable
     public function build()
     {
         $visitor = Visitor::where('username', request('username'))->where('email',request('pos-el'))->first();
-        return $this->from('support@budi.ansol.id')
+        return $this->from('no-reply.budi@ansol.id')
             ->view('verification')
             ->with(
                 [

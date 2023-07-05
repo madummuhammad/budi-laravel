@@ -42,6 +42,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use setasign\Fpdi\Fpdi;
 use Storage;
 use Validator;
+use Cache;
 
 class WebController extends Controller
 {
@@ -52,19 +53,50 @@ class WebController extends Controller
         $data['medalC'] = $medal;
         $data['medal'] = $medal->homepage();
         $data['levels'] = Level::all();
-        $data['books'] = Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
-        $data['themes'] = Theme::all();
-        $data['blogs'] = Blog::where('display_homepage', 1)->limit(4)->get();
-        $data['banners'] = Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
-        $data['banner_mobiles'] = BannerMobile::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
-        $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
-        $data['audio_book_homepages'] = AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
-        $data['aotm'] = AuthorOfTheMonth::with('authors', 'authors.books')->get();
-        $data['section_sixs'] = SectionSix::get();
-        $data['send_creations'] = SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
+        $data['books'] = Cache::rememberForever ('books', function () {
+            return Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
+        });
+
+        $data['themes'] = Cache::rememberForever ('themes', function () {
+            return Theme::get();
+        });
+
+        $data['blogs'] = Cache::rememberForever ('blogs', function () {
+            return Blog::where('display_homepage', 1)->limit(4)->get();
+        });
+
+        $data['banners'] = Cache::rememberForever ('banners', function () {
+            return Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
+        });
+
+        $data['banner_mobiles'] = Cache::rememberForever ('banner_mobiles', function () {
+            return BannerMobile::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
+        });
+
+        $data['book_of_the_months'] = Cache::rememberForever ('book_of_the_months', function () {
+            return BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
+        });
+
+        $data['audio_book_homepages'] = Cache::rememberForever ('audio_book_homepages', function () {
+            return AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
+        });
+
+        $data['aotm'] = Cache::rememberForever ('aotm', function () {
+            return AuthorOfTheMonth::with('authors', 'authors.books')->get();
+        });
+
+        $data['section_sixs'] = Cache::rememberForever ('section_sixs', function () {
+            return SectionSix::get();
+        });
+
+        $data['send_creations'] = Cache::rememberForever ('send_creations', function () {
+            return SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
+        });
 
         if (auth()->guard('visitor')->check() == true) {
-            $data['nexts'] = Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
+            $data['nexts'] = Cache::rememberForever ('nexts', function () {
+                return Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
+            });
         }
         return view('homepage', $data);
     }
@@ -155,9 +187,9 @@ class WebController extends Controller
         $data['liked_number'] = Mylibrary::where('liked', 1)->get();
         $data['read_number'] = BookReadStatistic::get();
         if (request('jenjang') == null and request('tema') == null and request('bahasa') == null and request('search') == null) {
-            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->paginate(10);
+            $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->orderBy('created_at','DESC')->paginate(10);
         } else {
-            $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id);
+            $queryData = $data['books'] = Book::with('authors', 'themes', 'mylibraries')->where('book_type', $id)->orderBy('created_at','DESC');
             if (request('jenjang') !== null) {
                 $query = $queryData->where('level', request('jenjang'));
             }
@@ -178,7 +210,6 @@ class WebController extends Controller
 
         $data['book_types'] = Book_type::where('id', $id)->first();
         return view('booktypefilter', $data);
-        // return $data['books']->links();
     }
 
     public function pagination($id)
