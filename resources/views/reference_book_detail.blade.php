@@ -76,28 +76,19 @@
                     </span>
                 </div>
                 <div class="row">
-                    <div class="col-4 mb-2">
-                        <span>Penulis</span>
-                    </div>
-                    <div class="col-8 mb-2">
+                    <div class="col-12 mb-2">
                         @foreach ($reference_book->authors as $author)
-                            <span>: {{ $author->name }}</span>
+                            <span>Penulis: {{ $author->name }}</span>
                         @endforeach
                     </div>
-                    <div class="col-4 mb-2">
-                        <span>Tema</span>
-                    </div>
-                    <div class="col-8 mb-2">
+                    <div class="col-12 mb-2">
                         @foreach ($reference_book->reference_themes as $theme)
-                            <span>: {{ $theme->name }}</span>
+                            <span>Tema: {{ $theme->name }}</span>
                         @endforeach
                     </div>
-                    <div class="col-4 mb-2">
-                        <span>Halaman</span>
-                    </div>
-                    <div class="col-8 mb-2">
+                    <div class="col-12 mb-2">
                     @foreach ($reference_book->levels as $level)
-                        <span>: {{ $level->name }}</span>
+                        <span>Halaman: {{ $level->name }}</span>
                         @endforeach
                     </div>
                 </div>
@@ -186,7 +177,7 @@
                 @csrf
                 @method('POST')
                 <input type="text" name="id" value="{{ $reference_book->id }}" hidden>
-                <h3 class="fw-bold">Berikan Komentarmu: </h3>
+                <h3 class="fw-bold">Berikan Komentarmu! </h3>
                 <div class="comment-profile mb-3 mt-4">
                     @if (auth()->guard('visitor')->check() == true)
                         <img src="{{ auth()->guard('visitor')->user()->image }}" alt="">

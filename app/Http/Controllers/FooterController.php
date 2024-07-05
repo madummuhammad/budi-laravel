@@ -24,19 +24,18 @@ class FooterController extends Controller
             'address'=>request('address')
         ];
 
-        $validation=Validator::make($data,[
-            'heading'=>'required',
-            'sub_heading'=>'required',
-            'phone'=>'required',
-            'email'=>'required',
-            'address'=>'required',
-        ]);
+        // $validation=Validator::make($data,[
+        //     'heading'=>'required',
+        //     'sub_heading'=>'required',
+        //     'phone'=>'required',
+        //     'email'=>'required',
+        //     'address'=>'required',
+        // ]);
 
-        if($validation->fails())
-        {
-            return 'adf';
-            return back();
-        }
+        // if($validation->fails())
+        // {
+        //     return back();
+        // }
 
         Contact::where('id','f1c3ae2b-7111-4b2f-9d48-3a2bebb66f8b')->update($data);
         return back();

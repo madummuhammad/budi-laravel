@@ -22,18 +22,18 @@ class CommentController extends Controller
         return view('dashboard.allcomment',$data);
     }
 
-    public function add()
+    public function add($id)
     {
         $data = [
             'visitor_id' => auth()->guard('visitor')->user()->id,
-            'book_id' => request('id'),
+            'book_id' => $id,
             'star' => request('star'),
             'comment' => request('comment'),
         ];
 
         $validation = Validator::make($data, [
             'visitor_id' => 'required',
-            'book_id' => 'required',
+            'book_id' => 'required|exists:books,id',
             'star' => 'required',
             'comment' => 'required',
         ]);

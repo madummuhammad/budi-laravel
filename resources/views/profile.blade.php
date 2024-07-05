@@ -4,12 +4,20 @@
 <div class="dash"></div>
 <div class="container page-profile">
     <div class="row mt-5">
-        <h2 class="text-dark fw-bold mb-5 text-center text-md-start" style="font-size: 38px;">Profile</h2>
+        <h2 class="text-dark fw-bold mb-5 text-center text-md-start" style="font-size: 38px;">Profil</h2>
         <div class="col-12 col-md-4">
             <div class="profile-container">
                 <img class="img-fluid profile" src="{{ auth()->guard('visitor')->user()->image }}" alt="">
                 <div class="profile-medal-container">
-                    <img class="profile-medal" src="{{ asset('web') }}/assets/icon/medali.png" alt="">
+                    @if($medal=="gold")
+                    <img class="profile-medal" src="{{ asset('web/assets/icon/gold_medal.svg') }}" alt="">
+                    @elseif($medal=="silver")
+                    <img class="profile-medal" src="{{ asset('web/assets/icon/silver_medal.svg') }}" alt="">
+                    @elseif($medal=="bronze")
+                    <img class="profile-medal" src="{{ asset('web/assets/icon/bronze_medal.svg') }}" alt="">
+                    @else
+                    -
+                    @endif
                 </div>
             </div>
             <div class="input-file d-flex justify-content-center">
@@ -21,7 +29,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                     </div>
@@ -67,7 +75,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                         </div>
@@ -86,7 +94,7 @@
                                                 value="{{ auth()->guard('visitor')->user()->name }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email
+                                                <label for="exampleInputEmail1">Pos-el
                                                 </label>
                                                 <input type="email" class="form-control" id="exampleInputEmail1"
                                                 aria-describedby="emailHelp" name="email"
@@ -156,8 +164,8 @@
                                     <option value="Siswa"
                                     @if (auth()->guard('visitor')->user()->profession == 'Siswa') selected @endif>Siswa
                                 </option>
-                                <option value="Guru / Tenaga Pendidik"
-                                @if (auth()->guard('visitor')->user()->profession == 'Guru / Tenaga Pendidik') selected @endif>Guru/
+                                <option value="Guru/ Tenaga Pendidik"
+                                @if (auth()->guard('visitor')->user()->profession == 'Guru/ Tenaga Pendidik') selected @endif>Guru/
                                 Tenaga Pendidik
                             </option>
                             <option value="Orang Tua Siswa"
@@ -192,7 +200,7 @@
 </div>
 @endif
 @if (auth()->guard('visitor')->user()->profession ==
-'Guru / Tenaga Pendidik' or
+'Guru/ Tenaga Pendidik' or
 auth()->guard('visitor')->user()->profession ==
 'Orang Tua Siswa')
 <div class="form-group" id="sub-status">
@@ -238,7 +246,7 @@ SMA</option>
             <div class="me-2"> <img style="max-widht: 20px;"
                 src="{{ asset('web') }}/assets/icon/email.svg" alt="">
             </div>
-            <div class="me-3 fw-bold">Email</div>
+            <div class="me-3 fw-bold">Pos-el</div>
         </div>
         <div class="col d-flex">
             <div class="me-1">:</div>
@@ -348,15 +356,15 @@ SMA</option>
                 </div>
                 <div class="profile-achive-text">
                     @if($medal=='gold')
-                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Emas !</h4>
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Emas!</h4>
                     @elseif($medal=='silver')
-                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perak !</h4>
-                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p>
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perak!</h4>
+                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya!</p>
                     @elseif($medal=='bronze')
-                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perunggu !</h4>
-                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya !</p>
+                    <h4>Selamat {{ auth()->guard('visitor')->user()->name }} sudah mencapai Medali Perunggu!</h4>
+                    <p class="m-0">Terus tingkatkan prestasi membacamu dan capai medali Emasnya!</p>
                     @else
-                    <h4>Halo {{ auth()->guard('visitor')->user()->name }}, Budi punya medali untukmu !</h4>
+                    <h4>Halo, {{ auth()->guard('visitor')->user()->name }} Budi punya medali untukmu!</h4>
                     @endif
                 </div>
 
@@ -377,9 +385,9 @@ SMA</option>
                     </div>
                     <div class="profile-list-content ms-4 ms-md-5">
                         <h5 class="fw-bold mb-4">Medali Emas</h5>
-                        <p>Membaca minimal 100 buku (hingga selesai)</p>
-                        <p>Mengunduh minimal 150 buku</p>
-                        <p>Membagikan buku kepada teman minimal 20 buku</p>
+                        <p>Membaca minimal 50 buku (hingga selesai)</p>
+                        <p>Mengunduh minimal 50 buku</p>
+                        <p>Membagikan buku kepada teman minimal 10 buku</p>
                     </div>
                 </div>
                 <div class="profile-list-item">
@@ -388,9 +396,9 @@ SMA</option>
                     </div>
                     <div class="profile-list-content ms-4 ms-md-5">
                         <h5 class="fw-bold mb-4">Medali Perak</h5>
-                        <p>Membaca minimal 80 buku (hingga selesai)</p>
-                        <p>Mengunduh minimal 100 buku</p>
-                        <p>Membagikan buku kepada teman minimal 10 buku</p>
+                        <p>Membaca minimal 30 buku (hingga selesai)</p>
+                        <p>Mengunduh minimal 25 buku</p>
+                        <p>Membagikan buku kepada teman minimal 5 buku</p>
                     </div>
                 </div>
                 <div class="profile-list-item">
@@ -399,9 +407,9 @@ SMA</option>
                     </div>
                     <div class="profile-list-content ms-4 ms-md-5">
                         <h5 class="fw-bold mb-4">Medali Perunggu</h5>
-                        <p>Membaca minimal 50 buku (hingga selesai)</p>
-                        <p>Mengunduh minimal 70 buku</p>
-                        <p>Membagikan buku kepada teman minimal 10 buku</p>
+                        <p>Membaca minimal 1 buku (hingga selesai)</p>
+                        <p>Mengunduh minimal 1 buku</p>
+                        <p>Membagikan buku kepada teman minimal 1 buku</p>
                     </div>
                 </div>
             </div>
@@ -425,7 +433,7 @@ SMA</option>
                 </select>
                 </div>
                 `);
-        } else if ($(this).val() == 'Guru / Tenaga Pendidik' ||
+        } else if ($(this).val() == 'Guru/ Tenaga Pendidik' ||
             $(this).val() == 'Orang Tua Siswa') {
             $("#sub-status").html(`
                 <div class="form-group" id="sub-status">

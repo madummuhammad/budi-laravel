@@ -20,14 +20,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center budi-navbar">
         <div class="container px-md-5">
+            <div class="d-flex">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('web') }}/assets/img/logo.png" alt="">
             </a>
+            <p class="text-center d-block d-md-none">
+            Badan Pengembangan dan Pembinaan Bahasa, Kemendikbudristek
+            </p>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item px-0 px-md-3">
@@ -148,10 +154,7 @@
                                 class="img-fluid col-4 col-md-12">
                         </div>
                         <div class="col-12 col-md-10">
-
-
-                            <div class="text-dark fw-bold fs-m-14px">@php echo $footer->heading @endphp</div>
-
+                            <div class="text-dark fw-bold fs-m-14px" style="font-size:2px;">@php echo $footer->heading @endphp</div>
                             <p>{{ $footer->sub_heading }}</p>
                         </div>
                     </div>
@@ -175,68 +178,128 @@
                     <a href="{{ url('policy') }}" class="d-block text-decoration-none mb-3">Informasi</a>
                     <a href="{{ url('contact') }}" class="d-block text-decoration-none mb-3">Kontak Kami</a>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 d-md-inline d-none">
                     <p class="fw-bold fs-5 text-dark text-center text-md-start">Kontak Kami</p>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
                     </div>
-                    <p class="p-0 text-center text-md-start"><img class="d-none d-md-inline"
-                            src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
-                        {{ $footer->email }}</p>
+                    <div class="row">
+                        <div class="col-1">
+                            <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                    src="{{ url('web') }}/assets/icon/evelope.svg" alt=""></p>
+                        </div>
+                        <div class="col-11">
+                            <p class="text-center text-md-start">
+                                {{ $footer->email }}</p>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
                     </div>
-                    <p class="text-md-start text-center"><img class="d-none d-md-inline"
-                            src="{{ url('web') }}/assets/icon/telephone.svg" alt=""> {{ $footer->phone }}
-                    </p>
+                    <div class="row">
+                        <div class="col-1">
+                            <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                    src="{{ url('web') }}/assets/icon/telephone.svg" alt=""></p>
+                        </div>
+                        <div class="col-11">
+                            <p class="text-center text-md-start">
+                                {{ $footer->phone }}</p>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-center d-md-none">
                         <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
                     </div>
-                    <p class="text-center text-md-start"><img class="d-none d-md-inline"
-                            src="{{ url('web') }}/assets/icon/pin.svg" alt="">
-                        {{ $footer->address }}</p>
-                </div>
-            </div>
-            <div class="row sosmed-icon">
-                <div class="col-12 col-md-4">
                     <div class="row">
-                        <div class="col-12 col-md-2"></div>
-                        <div class="col-12 col-md-10 d-flex d-md-block justify-content-center">
-                            <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/"
-                                target="_blank"><img class="mx-2"
-                                    src="{{ asset('web') }}/assets/icon/instagram.svg" alt=""></a>
-                            <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/"
-                                target="_blank"><img class="mx-2"
-                                    src="{{ asset('web') }}/assets/icon/facebook.svg" alt=""></a>
-                            <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img
-                                    class="mx-2" src="{{ asset('web') }}/assets/icon/twitter.svg"
-                                    alt=""></a>
-                            <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img
-                                    class="mx-2" src="{{ asset('web') }}/assets/icon/youtube.svg"
-                                    alt=""></a>
-                            <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img
-                                    class="mx-2" src="{{ asset('web') }}/assets/icon/tiktok.svg"
-                                    alt=""></a>
+                        <div class="col-1">
+                            <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                    src="{{ url('web') }}/assets/icon/pin.svg" alt=""></p>
+                        </div>
+                        <div class="col-11">
+                            <p class="text-center text-md-start">
+                                {{ $footer->address }}</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-8">
-                    <p class="text-md-end text-center">Jam Operasional : (Senin <i class="fa-solid fa-minus"></i>
-                        Jumat : 09.00 - 16.00 WIB)</p>
+
                 </div>
             </div>
-            <div class="dash"></div>
-            <div class="copyright py-4 px-5 text-dark">
+        </div>
+        <div class="row d-md-none d-block">
+            <div class="col-12 col-md-4">
+                <p class="fw-bold fs-5 text-dark text-center text-md-start">Kontak Kami</p>
+                <div class="d-flex justify-content-center d-md-none">
+                    <img src="{{ url('web') }}/assets/icon/evelope.svg" alt="">
+                </div>
                 <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="text-center text-md-start">
-                            Copyright &copy 2022
-                        </div>
+                    <div class="col-1 d-none d-md-inline">
+                        <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                src="{{ url('web') }}/assets/icon/evelope.svg" alt=""></p>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <div class="text-center text-md-end">
-                            All right reserved
-                        </div>
+                    <div class="col-12 col-md-11">
+                        <p class="text-center text-md-start">
+                            {{ $footer->email }}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center d-md-none">
+                    <img src="{{ url('web') }}/assets/icon/telephone.svg" alt="">
+                </div>
+                <div class="row">
+                    <div class="col-1 col-1 d-none d-md-inline">
+                        <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                src="{{ url('web') }}/assets/icon/telephone.svg" alt=""></p>
+                    </div>
+                    <div class="col-12 col-md-11">
+                        <p class="text-center text-md-start">
+                            {{ $footer->phone }}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center d-md-none">
+                    <img src="{{ url('web') }}/assets/icon/pin.svg" alt="">
+                </div>
+                <div class="row">
+                    <div class="col-1 col-1 d-none d-md-inline">
+                        <p class="text-center text-md-start"><img class="d-none d-md-inline"
+                                src="{{ url('web') }}/assets/icon/pin.svg" alt=""></p>
+                    </div>
+                    <div class="col-12 col-md-11">
+                        <p class="text-center text-md-start">
+                            {{ $footer->address }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row sosmed-icon">
+            <div class="col-12 col-md-4">
+                <div class="row">
+                    <div class="col-12 col-md-2"></div>
+                    <div class="col-12 col-md-10 d-flex d-md-block justify-content-center">
+                        <a class="d-inline-block" href="https://www.instagram.com/badanbahasakemendikbud/"
+                            target="_blank"><img class="mx-2" src="{{ asset('web') }}/assets/icon/instagram.svg"
+                                alt=""></a>
+                        <a class="d-inline-block" href="https://www.facebook.com/Badan.Bahasa/" target="_blank"><img
+                                class="mx-2" src="{{ asset('web') }}/assets/icon/facebook.svg"
+                                alt=""></a>
+                        <a class="d-inline-block" href="https://twitter.com/badanbahasa" target="_blank"><img
+                                class="mx-2" src="{{ asset('web') }}/assets/icon/twitter.svg" alt=""></a>
+                        <a class="d-inline-block" href="https://www.youtube.com/BadanBahasa" target="_blank"><img
+                                class="mx-2" src="{{ asset('web') }}/assets/icon/youtube.svg" alt=""></a>
+                        <a class="d-inline-block" href="https://www.tiktok.com/@badanbahasa" target="_blank"><img
+                                class="mx-2" src="{{ asset('web') }}/assets/icon/tiktok.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-8">
+                <p class="text-md-end text-center">Jam Operasional: (Senin<i class="fa-solid fa-minus"></i>Jumat:
+                    09.00<i class="fa-solid fa-minus"></i>16.00 WIB)</p>
+            </div>
+        </div>
+        <div class="dash"></div>
+        <div class="copyright py-4 px-5 text-dark">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="text-center text-md-center">
+                        &copy 2022 Badan Pengembangan dan Pembinaan Bahasa - Kementerian Pendidikan, Kebudayaan,
+                        Riset, dan Teknologi
                     </div>
                 </div>
             </div>
@@ -271,7 +334,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
 
                             <h5>Kamu belum selesai @if ($reads->books->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                     mendengar
@@ -279,7 +342,7 @@
                                     menonton
                                 @else
                                     membaca
-                                @endif !</h5>
+                                @endif .</h5>
                         </div>
                         <div class="modal-body">
                             <div class="row d-flex justify-content-center">
@@ -303,7 +366,7 @@
                                 @else
                                     Membaca
                                 @endif
-                                nanti</button>
+                                Nanti</button>
                         </div>
                     </div>
                 </div>
@@ -356,12 +419,12 @@
 </body>
 <script src="{{ asset('web') }}/assets/js/jquery.js"></script>
 <script src="{{ asset('web') }}/assets/js/bootstrap.bundle.js"></script>
-<!-- <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script> -->
+{{-- <script src="{{ asset('web') }}/assets/js/bootstrap.js"></script> --}}
 <script src="{{ asset('web') }}/assets/vendor/fontawesome/js/all.js"></script>
 <script src="{{ asset('web') }}/assets/vendor/OwlCarousel2-2.3.4/js/owl.carousel.js"></script>
 <script type="text/javascript" src="{{ asset('web') }}/assets/vendor/pdf/wow_book/pdf.combined.min.js"></script>
 <script src="{{ asset('web') }}/assets/vendor/pdf/wow_book/wow_book.min.js"></script>
-<!-- <script src="js/main.js"></script> -->
+{{-- <script src="js/main.js"></script> --}}
 <script src="{{ asset('web') }}/assets/js/script.js"></script>
 <script src="{{ asset('web') }}/assets/js/player.js"></script>
 

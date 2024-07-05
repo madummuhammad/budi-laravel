@@ -99,8 +99,8 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-12 col-md-6 bg-white">
                     <h5 class="fw-bold">Selamat Datang</h5>
-                    <p class="card-text"> Silahkan isi data diri anda untuk menjadi bagian
-                        dari keluarga Budi</p>
+                    <p class="card-text"> Silakan isi data diri Anda untuk menjadi bagian
+                        dari keluarga Budi!</p>
                     @if (session()->has('message'))
                         <div class="alert alert-warning" role="alert">
                             {{ session('message') }}
@@ -180,7 +180,7 @@
                         </div>
                         <div class="col-12 col-md-12">
                                 <!-- <input type="date" class="form-control py-3 mt-3" name="date"> -->
-                                <input type="text" name="date_of_birth" placeholder="Tanggal, Bulan dan Tahun Lahir" class="form-control py-3 mt-3 @error('date_of_birth') is-invalid  @enderror" onfocus="this.type='date'" onblur="(this.type='text')">
+                                <input type="text" name="date_of_birth" placeholder="Tanggal, Bulan, dan Tahun Lahir" class="form-control py-3 mt-3 @error('date_of_birth') is-invalid  @enderror" onfocus="this.type='date'" onblur="(this.type='text')">
                                 @error('date_of_birth')
                                 <div class="invalid-feedback">
                                     Kolom ini wajib diisi!
@@ -205,7 +205,7 @@
                             class="form-control mt-3 py-3 @error('username')
                             is-invalid
                         @enderror"
-                            id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh : Budiberbudi)"
+                            id="exampleFormControlInput1" placeholder="Nama Akun Pengguna  (Contoh: Budiberbudi)"
                             name="username" value="{{ old('username') }}">
                         @error('username')
                             <div class="invalid-feedback">Kolom ini wajib diisi!</div>
@@ -215,7 +215,7 @@
                                 class="form-control py-3 @error('password')
                                 is-invalid
                             @enderror"
-                                id="exampleFormControlInput2" placeholder="Kata sandi" name="password">
+                                id="exampleFormControlInput2" placeholder="Kata Sandi" name="password">
                             <button id="btn-eye" type="button" class="input-group-text bg-white"><i
                                     class="bi bi-eye"></i></button>
                             @error('password')

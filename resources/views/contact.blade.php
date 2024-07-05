@@ -35,7 +35,7 @@
                                 style="max-height: 20px">
                             <div>
                                 <span>Jam Operasional:</span>
-                                <p class="m-0"><b>Senin <i class="fa-solid fa-minus"></i> Jumat : </b>09.00 - 16.00 WIB</p>
+                                <p class="m-0"><b>Senin<i class="fa-solid fa-minus"></i>Jumat: </b>09.00<i class="fa-solid fa-minus"></i>16.00 WIB</p>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                                 class="form-control py-3 @error('email')
                                 is-invalid
                             @enderror "
-                                id="exampleFormControlInput1" placeholder="Alamat Email" value="{{ old('email') }}">
+                                id="exampleFormControlInput1" placeholder="Alamat Pos-el" value="{{ old('email') }}">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

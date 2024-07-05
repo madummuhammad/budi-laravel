@@ -44,7 +44,7 @@
                                     <a href="{{ url('/book') }}/{{ $book->id }}">
                                         <div class="col mb-4">
                                             <div class="img-container-for-icon">
-                                                <img src="{{ $book->cover }}" alt="" class="img-fluid w-100">
+                                                <img src="{{ $book->cover }}" alt="{{$book->name}}" class="img-fluid w-100">
                                                 @if ($book->book_type == '9e30a937-0d60-49ad-9775-c19b97cfe864')
                                                     <div class="icon">
                                                         <img src="{{ asset('web') }}/assets/icon/mic.svg"
@@ -68,8 +68,7 @@
             @endforeach
             <div class="d-flex justify-content-center">
                 <a href="{{ url('book_type/2fd97285-08d0-4d81-83f2-582f0e8b0f36') }}"
-                    class="btn bg-blue text-white rounded-5">Akses gratis <span><i
-                            class="fa-solid fa-chevron-right"></i></span></a>
+                    class="btn bg-blue text-white rounded-5">Akses Gratis</a>
             </div>
-            <p class="text-center mt-2">kapan pun dan di mana pun!</p>
+            <p class="text-center mt-2">Kapan pun dan di mana pun!</p>
         </div>

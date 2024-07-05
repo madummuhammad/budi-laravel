@@ -59,7 +59,7 @@ class ThemeController extends Controller
 
         $validation = Validator::make($validationData, [
             'name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg',
+            // 'image' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         $data = [
@@ -67,6 +67,7 @@ class ThemeController extends Controller
         ];
 
         if ($validation->fails()) {
+            return $validation->errors();
             return back()->with(['message' => $validation->errors()]);
         }
         Theme::where('id', $request->id)->update($data);

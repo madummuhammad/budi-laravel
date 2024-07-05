@@ -72,7 +72,7 @@ class MedaliController extends Controller
 
     public function gold($read=0, $downloaded=0,$share=0)
     {
-        if ($read>=100 AND $downloaded>=150 AND $share>=20) {
+        if ($read>=50 AND $downloaded>=50 AND $share>=10) {
             return true;
         } else {
             return false;
@@ -81,14 +81,14 @@ class MedaliController extends Controller
 
     public function silver($read=0, $downloaded=0,$share=0)
     {
-        if ($read>=80 AND $downloaded>=100 AND $share>=10) {
+        if ($read>=30 AND $downloaded>=25 AND $share>=5) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function bronze($read=50, $downloaded=70,$share=10)
+    public function bronze($read=1, $downloaded=1,$share=1)
     {
         if ($read>=1 AND $downloaded>=1 AND $share>=1) {
             return true;
@@ -99,13 +99,17 @@ class MedaliController extends Controller
 
     public function homepage()
     {
-       $result= Visitor::withCount(['read'=>function($query){
-        $query->where('read',2);
-       },'downloaded'=>function($query2){
-        $query2->where('downloaded',1);
-       },'shares'=>function($query3){
-        $query3;
-       }])->orderByRaw('read_count DESC, downloaded_count DESC, shares_count DESC')->get();
-       return $result;
-   }
+        $medal = new MedaliController;
+        $data['medalC'] = $medal;
+        $result= Visitor::withCount(['read'=>function($query){
+            $query->where('read',2);
+        },'downloaded'=>function($query2){
+            $query2->where('downloaded',1);
+        },'shares'=>function($query3){
+            $query3;
+        }])->orderByRaw('read_count DESC, downloaded_count DESC, shares_count DESC')->get();
+       // return $result;
+        $data['medal'] = $result;
+        return view('medali',$data);
+    }
 }

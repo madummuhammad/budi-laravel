@@ -13,7 +13,7 @@ return [
     |
      */
 
-    'default' => env('FILESYSTEM_DRIVER', 'gcs'),
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
 
         'gcs' => [
             'driver' => 'gcs',
-            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'budi-kemdikbud'),
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'budi-kedua'),
             'key_file' => env('GOOGLE_CLOUD_KEY_FILE', base_path() . '/budi-kemdikbud-firebase-adminsdk-bn7z8-e4e8722ffa.json'), // optional: /path/to/service-account.json
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'budi-kedua.appspot.com'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null), // optional: /default/path/to/apply/in/bucket

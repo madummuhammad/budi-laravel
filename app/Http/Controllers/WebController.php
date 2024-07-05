@@ -43,60 +43,33 @@ use setasign\Fpdi\Fpdi;
 use Storage;
 use Validator;
 use Cache;
-
+use Illuminate\Support\Facades\DB;
 class WebController extends Controller
 {
     public function index()
     {
-        $medal = new MedaliController;
-
-        $data['medalC'] = $medal;
-        $data['medal'] = $medal->homepage();
-        $data['levels'] = Level::all();
-        $data['books'] = Cache::rememberForever ('books', function () {
-            return Book::where('display_homepage', 1)->orderBy('name', 'ASC')->get();
-        });
-
-        $data['themes'] = Cache::rememberForever ('themes', function () {
-            return Theme::get();
-        });
-
-        $data['blogs'] = Cache::rememberForever ('blogs', function () {
-            return Blog::where('display_homepage', 1)->limit(4)->get();
-        });
-
-        $data['banners'] = Cache::rememberForever ('banners', function () {
-            return Banner::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
-        });
-
-        $data['banner_mobiles'] = Cache::rememberForever ('banner_mobiles', function () {
-            return BannerMobile::where('page_id', "b732f255-2544-4966-933c-263fdaa27bd0")->get();
-        });
-
-        $data['book_of_the_months'] = Cache::rememberForever ('book_of_the_months', function () {
-            return BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
-        });
-
-        $data['audio_book_homepages'] = Cache::rememberForever ('audio_book_homepages', function () {
-            return AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
-        });
-
-        $data['aotm'] = Cache::rememberForever ('aotm', function () {
-            return AuthorOfTheMonth::with('authors', 'authors.books')->get();
-        });
-
-        $data['section_sixs'] = Cache::rememberForever ('section_sixs', function () {
-            return SectionSix::get();
-        });
-
-        $data['send_creations'] = Cache::rememberForever ('send_creations', function () {
-            return SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
-        });
-
+        $data['levels'] = DB::table('levels')->select('name')->get();
+        $data['themes'] = DB::table('themes')->select('image', 'name','id')->get();
+        $data['blogs'] = DB::table('blogs')
+        ->select('id', 'cover', 'name', 'content')
+        ->where('display_homepage', 1)
+        ->limit(4)
+        ->get();
+        $data['banners'] = DB::table('banners')
+        ->select('image', 'top', 'left', 'color', 'tagline')
+        ->where('page_id', 'b732f255-2544-4966-933c-263fdaa27bd0')
+        ->get();
+        $data['banner_mobiles'] = DB::table('banner_mobiles')
+        ->select('image','color', 'tagline')
+        ->where('page_id', 'b732f255-2544-4966-933c-263fdaa27bd0')
+        ->get();
+        $data['book_of_the_months'] = BookOfTheMonth::with('books', 'books.authors', 'books.comments')->get();
+        $data['audio_book_homepages'] =AudioBookHomepage::with('books', 'books.authors', 'books.comments')->get();
+        $data['aotm'] =AuthorOfTheMonth::with('authors', 'authors.books')->get();
+        $data['section_sixs'] =SectionSix::get();
+        $data['send_creations'] =SendCreation::with('send_creation_images')->where('id', '058015aa-510f-42fe-8dd7-82ba10ae9782')->get();
         if (auth()->guard('visitor')->check() == true) {
-            $data['nexts'] = Cache::rememberForever ('nexts', function () {
-                return Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
-            });
+            $data['nexts'] =Mylibrary::with('books')->where('visitor_id', auth()->guard('visitor')->user()->id)->where('read', 3)->get();
         }
         return view('homepage', $data);
     }

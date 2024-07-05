@@ -30,7 +30,7 @@ class ForgotPassword extends Mailable
     public function build()
     {
         $visitor = Visitor::where('email', request('email'))->first();
-        return $this->from('support@budi.ansol.id')
+        return $this->from('no-reply.budi@ansol.id')
         ->view('forgotpasswordemail')
         ->with(
             [

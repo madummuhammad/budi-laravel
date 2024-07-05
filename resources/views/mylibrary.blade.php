@@ -46,12 +46,11 @@
                             </div>
                         </div>
                         <div class="home-tab-body p-0">
-                            <div class="input-group input-search w-100 p-0">
+                            <div class="input-group input-search mylibrary-search w-100 p-0">
                                 <input type="text" class="form-control " id="search" placeholder="Cari">
                                 <input type="text" name="filter" value="1" hidden>
-                                <button class="btn btn-outline-secondary dropdown-toggle filter text-dark"
-                                    style="border-radius: 0px" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Lanjutkan
+                                <button class="btn btn-outline-secondary dropdown-toggle filter text-dark" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Lanjutkan
                                     Membaca</button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item filter-item" style="cursor: pointer"

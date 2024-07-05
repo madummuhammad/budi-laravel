@@ -85,7 +85,7 @@ Route::middleware('visitor', 'analytics')->group(function () {
         Route::post('/download', [BookController::class, 'download']);
 
         // Comment
-        Route::post('/comment', [CommentController::class, 'add']);
+        Route::post('/comment/{id}', [CommentController::class, 'add']);
 
         Route::get('/contact', [WebController::class, 'contact']);
 
@@ -113,6 +113,10 @@ Route::middleware('visitor', 'analytics')->group(function () {
 
         // Homebook
         Route::post('/homebookfilter', [WebController::class, 'homebookfilter']);
+
+        // Medali
+
+        Route::post('/medali',[MedaliController::class,'homepage']);
 
         // Author
         Route::get('/author_profile', [WebController::class, 'author_profile']);

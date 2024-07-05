@@ -30,7 +30,7 @@ class MessageEmail extends Mailable
         $email = request('email');
         $name = request('name');
         $pesan = request('pesan');
-        return $this->from('support@budi.ansol.id')
+        return $this->from('no-reply.budi@ansol.id')
             ->subject('Pesan Dari ' . request('name'))
             ->view('message')
             ->with(

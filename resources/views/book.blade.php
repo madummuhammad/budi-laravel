@@ -350,10 +350,10 @@
 </div>
 </div>
 <div class="row mt-5 row-comment">
-    <form action="{{ url('comment') }}" method="POST">
+    <form action="{{ url('comment') }}/{{ $book_detail->id }}" method="POST">
         @csrf
         @method('POST')
-        <input type="text" name="id" value="{{ $book_detail->id }}" hidden>
+        <input type="text" name="id" value="" hidden>
         <h3 class="fw-bold">Berikan Komentarmu: </h3>
         <div class="comment-profile mb-3 mt-4">
             @if (auth()->guard('visitor')->check() == true)

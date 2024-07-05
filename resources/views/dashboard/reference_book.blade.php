@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Referensi {{ $reference_book_types->name }}</h4>
+                            <h4 class="card-title">{{ $reference_book_types->name }}</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
